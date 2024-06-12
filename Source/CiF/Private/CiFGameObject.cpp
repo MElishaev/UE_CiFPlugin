@@ -13,6 +13,16 @@ UCiFGameObject::UCiFGameObject()
 	// ...
 }
 
+void UCiFGameObject::addTrait(const ETrait trait)
+{
+	mTraits.Add(trait);
+}
+
+bool UCiFGameObject::hasTrait(const ETrait trait)
+{
+	return mTraits.Contains(trait);
+}
+
 
 // Called when the game starts
 void UCiFGameObject::BeginPlay()
