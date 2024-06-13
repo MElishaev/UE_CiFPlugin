@@ -13,6 +13,12 @@ class UCiFGameObject;
 UENUM(BlueprintType)
 enum class EStatus : uint8
 {
+	// TODO-	the category statuses can be used when we want to remove or
+	//			maybe add all the statuses of the same category to a character.
+	//			to add support for this the add/remove statuses in gameObject
+	//			should be modified to accomodate it
+
+	
 	// positive category statuses
 	CAT_FEELING_GOOD = 0,
 	CAT_FEELING_GOOD_ABOUT_SOMEONE,
@@ -85,8 +91,22 @@ class CIF_API UCiFGameObjectStatus : public UObject
 	GENERATED_BODY()
 
 public:
+	/**
+	 * Sets duration to the status only if @mHasDuration set to true
+	 */
+	UFUNCTION(BlueprintCallable)
+	void setDuration(const int32 newDuration);
+
+	/**
+	 * Remove @timeElapsed from the remaining time
+	 * @param timeElapsed The amount of time to update by
+	 * @returns The remaining duration
+	 */
+	UFUNCTION(BlueprintCallable)
+	int32 updateRemainingDuration(const int32 timeElapsed);
 	
-	
+	UFUNCTION(BlueprintCallable)
+	void init(const EStatus type, const int32 initialDuration=0, UCiFGameObject* towards=nullptr);
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

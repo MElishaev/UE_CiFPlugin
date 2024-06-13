@@ -50,6 +50,14 @@ enum class ECiFGameObjectType : uint8
 	KNOWLEDGE		UMETA(DisplayName="KNOWLEDGE")
 };
 
+USTRUCT(BlueprintType)
+struct FStatusArrayWrapper
+{
+	GENERATED_BODY()
+
+	TArray<UCiFGameObjectStatus*> statusArray;	
+};
+
 /**
  * This is an abstract base class for a CiF game object.
  * cif game object can be characters, in world objects, knowledge (as in Mismanor)
@@ -71,6 +79,50 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool hasTrait(const ETrait trait);	
 
+	/**
+	 * Determines if the game object has a status of given type or if @towards
+	 * param given, checks if the status is towards the specified game object
+	 * @param	statusType		The type of the status.
+	 * @param	towards			The character the status is directed to. null if not looking for directed status
+	 * @return	True if the character has the status, false if he does not.
+	 */
+	UFUNCTION(BlueprintCallable)
+	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr);
+
+	/**
+	 * Give the character a status with a type and a character status target if the status is directed.
+	 * @param statusType		The type of the status.
+	 * @param duration			Initial duration of the status
+	 * @param towards			The character the status is directed to.
+	 */
+	UFUNCTION(BlueprintCallable)
+	void addStatus(const EStatus statusType, const int32 duration=0, UCiFGameObject* towards=nullptr);
+
+	/**
+	 * Removes a status from the character according to status type.
+	 * Currently removes only 1 status and doesn't support removal of all statuses
+	 * of a specific category (maybe add support later TODO)
+	 * @param statusType	The type of status to remove.
+	 * @param towards		Optional parameter for directed statuses
+	 */
+	UFUNCTION(BlueprintCallable)
+	void removeStatus(const EStatus statusType, UCiFGameObject* towards=nullptr);
+
+	/**
+	 * Updates the duration of all statuses held by the character. Removes
+	 * statuses that have 0 or less remaining duration.
+	 * TODO: add the status removal to the SFDB.
+	 * @param	timeElapsed	The amount of time to remove from the statuses.
+	 */
+	UFUNCTION(BlueprintCallable)
+	void updateStatusDurations(const int32 timeElapsed=1); 
+	
+	/**
+	 * @return The status or null if doesn't exists 
+	 */
+	UFUNCTION(BlueprintCallable)
+	UCiFGameObjectStatus* getStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr);
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -87,7 +139,7 @@ public:
 
 	// TODO-- not sure this works - can you forward declare status?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TMap<EStatus, UCiFGameObjectStatus*> mStatuses; // Map of statuses that currently the object has
+	TMap<EStatus, FStatusArrayWrapper> mStatuses; // Map of statuses that currently the object has
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	ECiFGameObjectType mGameObjectType; // This game object's type 
