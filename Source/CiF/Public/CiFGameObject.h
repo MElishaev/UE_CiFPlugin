@@ -132,7 +132,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly) // TODO-- this and more members can be exposed on spawn or something
-	FString mObjectName;
+	FText mObjectName;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSet<ETrait> mTraits; // Set of traits of this game object
