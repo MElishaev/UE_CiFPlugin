@@ -31,7 +31,7 @@ public:
 	 * parameter. Reciprocal and directional relationships are treated
 	 * identically.
 	 *  
-	 * @param	relationship The relationship value for the relationship to be checked.
+	 * @param	relationship The relationship type for the relationship to be checked.
 	 * @param	a The Character for which the relationship is checked.
 	 * @param	b The Character that is the object of the relationship check.
 	 * @return True if the relationship is present from a to b. False if it is

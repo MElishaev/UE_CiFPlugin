@@ -5,6 +5,7 @@
 
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
+#include "CiFProspectiveMemory.h"
 
 void UCiFCharacter::init()
 {
@@ -56,4 +57,9 @@ void UCiFCharacter::addItem(const ECiFItemType itemType, UCiFGameObject* recieve
 void UCiFCharacter::removeItem(const ECiFItemType itemType)
 {
 	mItemMap.Remove(itemType);
+}
+
+void UCiFCharacter::resetProspectiveMemory()
+{
+	mProspectiveMemory = NewObject<UCiFProspectiveMemory>();
 }

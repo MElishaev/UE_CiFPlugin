@@ -20,14 +20,6 @@ enum class EGender : uint8
 	FEMALE	UMETA(DisplayName="Female")
 };
 
-UENUM(BlueprintType)
-enum class ETraits : uint8
-{
-	BRAVE		UMETA(DisplayName="Brave"),
-	SMART		UMETA(DisplayName="Smart"),
-	SIZE
-};
-
 UENUM()
 enum class ELocutionType
 {
@@ -74,6 +66,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void removeItem(const ECiFItemType itemType);
+
+	void resetProspectiveMemory();
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EKnowledgeType, UCiFKnowledge*> mKnowledgeMap; // the knowledge known by the character

@@ -20,12 +20,12 @@ void UCiFGameObject::addTrait(const ETrait trait)
 	mTraits.Add(trait);
 }
 
-bool UCiFGameObject::hasTrait(const ETrait trait)
+bool UCiFGameObject::hasTrait(const ETrait trait) const
 {
 	return mTraits.Contains(trait);
 }
 
-bool UCiFGameObject::hasStatus(const EStatus statusType, const UCiFGameObject* towards)
+bool UCiFGameObject::hasStatus(const EStatus statusType, const UCiFGameObject* towards) const
 {
 	const auto statusesWrapper = mStatuses.Find(statusType);
 	if (statusesWrapper)

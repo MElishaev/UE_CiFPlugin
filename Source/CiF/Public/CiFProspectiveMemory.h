@@ -23,6 +23,9 @@ public:
 	
 	void initializeIntentScoreCache();
 
+	void cacheIntentScore(const UCiFCharacter* responder, const EIntentType intentType, const int8 score);
+	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const int8 score);
+
 	int8 getIntentScore(const UCiFCharacter* responder, EIntentType intentType);
 
 	/**
@@ -50,6 +53,8 @@ public:
 	 * @return True if found a game score matches the input params, false otherwise
 	 */
 	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore);
+
+	int8 getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
 	
 	/* Resets the object to its default state */
 	void clear();
@@ -64,5 +69,5 @@ public:
 	TArray<TArray<int8>> mIntentPosScoreCache;
 	TArray<TArray<int8>> mIntentNegScoreCache;
 	
-	int32 DEFAULT_INTENT_SCORE = -100;
+	int8 DEFAULT_INTENT_SCORE = -100;
 };

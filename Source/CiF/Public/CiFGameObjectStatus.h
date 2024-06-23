@@ -18,9 +18,10 @@ enum class EStatus : uint8
 	//			to add support for this the add/remove statuses in gameObject
 	//			should be modified to accomodate it
 
+	INVALID,
 	
 	// positive category statuses
-	CAT_FEELING_GOOD = 0,
+	CAT_FEELING_GOOD,
 	CAT_FEELING_GOOD_ABOUT_SOMEONE,
 	LAST_POSITIVE_CATEGORY_STATUS,
 

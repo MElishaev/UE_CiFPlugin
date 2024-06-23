@@ -19,11 +19,11 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	const auto numCharacters = cifManager->mCast->mCharacters.Num();
-	
+
 	mIntentScoreCache.SetNum(numCharacters);
 	mIntentNegScoreCache.SetNum(numCharacters);
 	mIntentPosScoreCache.SetNum(numCharacters);
-	
+
 	for (int i = 0; i < numCharacters; i++) {
 		mIntentScoreCache[i].SetNum(static_cast<uint8>(EPredicateType::SIZE));
 		mIntentNegScoreCache[i].SetNum(static_cast<uint8>(EPredicateType::SIZE));
@@ -37,6 +37,20 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 	}
 }
 
+void UCiFProspectiveMemory::cacheIntentScore(const UCiFCharacter* responder, const EIntentType intentType, const int8 score)
+{
+	mIntentScoreCache[responder->mNetworkId][static_cast<uint8>(intentType)] = score;
+}
+
+void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
+                                                   const FName initator,
+                                                   const FName responder,
+                                                   const FName other,
+                                                   const int8 score)
+{
+	mScores.Emplace(seName, initator, responder, other, score);
+}
+
 int8 UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, EIntentType intentType)
 {
 	return mIntentScoreCache[responder->mNetworkId][static_cast<uint8>(intentType)];
@@ -46,8 +60,8 @@ TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
 {
 	mScores.Sort();
 	TArray<FGameScore> topNScores;
-	count = mScores.Num() < count ? mScores.Num() : count; 
-	
+	count = mScores.Num() < count ? mScores.Num() : count;
+
 	for (int i = 0; i < count; i++) {
 		topNScores.Add(mScores[i]);
 	}
@@ -66,11 +80,11 @@ TArray<FGameScore> UCiFProspectiveMemory::getHighestGameScoresTo(const FName res
 		}
 	}
 	outputScores.Sort();
-	
-	while(outputScores.Num() > count) {
+
+	while (outputScores.Num() > count) {
 		outputScores.Remove(outputScores.Last());
 	}
-	
+
 	return outputScores;
 }
 

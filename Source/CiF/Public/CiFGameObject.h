@@ -77,7 +77,7 @@ public:
 	void addTrait(const ETrait trait);
 
 	UFUNCTION(BlueprintCallable)
-	bool hasTrait(const ETrait trait);	
+	bool hasTrait(const ETrait trait) const;	
 
 	/**
 	 * Determines if the game object has a status of given type or if @towards
@@ -87,7 +87,7 @@ public:
 	 * @return	True if the character has the status, false if he does not.
 	 */
 	UFUNCTION(BlueprintCallable)
-	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr);
+	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr) const;
 
 	/**
 	 * Give the character a status with a type and a character status target if the status is directed.
@@ -132,7 +132,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly) // TODO-- this and more members can be exposed on spawn or something
-	FText mObjectName;
+	FName mObjectName;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSet<ETrait> mTraits; // Set of traits of this game object
