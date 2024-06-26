@@ -6,11 +6,13 @@
 #include "UObject/Object.h"
 #include "CiFSFDBContext.generated.h"
 
+class UCiFGameObject;
 class UCiFPredicate;
 
 UENUM()
 enum class ESFDBContextType : uint8
 {
+	INVALID,
 	SOCIAL_GAME,
 	TRIGGER,
 	STATUS,
@@ -19,23 +21,21 @@ enum class ESFDBContextType : uint8
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class CIF_API UCiFSFDBContext : public UObject
 {
 	GENERATED_BODY()
 
 public:
-
 	/* return the type of the context */
-	ESFDBContextType getType() const;
+	virtual ESFDBContextType getType() const;
 
-	bool isPredicateInChange(const UCiFPredicate* pred,
-							 const UCiFGameObject* c1,
-							 const UCiFGameObject* c2,
-							 const UCiFGameObject* c3);
-	
+	virtual bool isPredicateInChange(const UCiFPredicate* pred,
+	                                 const UCiFGameObject* x,
+	                                 const UCiFGameObject* y,
+	                                 const UCiFGameObject* z);
+
 public:
-
 	UPROPERTY()
 	int32 mTime; // the time in game in which the event related to the SFDB entry occured 
 };

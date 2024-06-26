@@ -17,8 +17,8 @@ class CIF_API UCiFInstantiation : public UObject
 public:
 	UCiFInstantiation();
 public:
-	uint32 mId;
+	IdType mId;
 
 private:
-	static UniqueIDGenerator mIdGenerator;
+	static UniqueIDGenerator mIDGenerator;
 };

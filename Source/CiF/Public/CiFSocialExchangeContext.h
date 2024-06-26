@@ -31,6 +31,9 @@ class CIF_API UCiFSocialExchangeContext : public UCiFSFDBContext
 	GENERATED_BODY()
 
 public:
+
+	virtual ESFDBContextType getType() const override;
+	
 	/**
 	 * This one is used with numTimesUniquelyTrue sfdb label predicates
 	 * 

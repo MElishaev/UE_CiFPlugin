@@ -21,7 +21,7 @@ public:
 
 	
 public:
-	uint32 mId;
+	IdType mId;
 	UCiFRule* mCondition; // condition for if this effect can be happen
 	UCiFRule* mChange; // the rule containing the social change associated with the effect
 

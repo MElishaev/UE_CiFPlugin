@@ -244,7 +244,7 @@ TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFCharacter* ini
 
 	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 
-	for (auto c : cifManager->mCast) { possibleOthers.Add(c); }
+	for (auto c : cifManager->mCast->mCharacters) { possibleOthers.Add(c); }
 	for (auto i : cifManager->mItemArray) { possibleOthers.Add(i); }
 	for (auto k : cifManager->mKnowledgeArray) { possibleOthers.Add(k); }
 

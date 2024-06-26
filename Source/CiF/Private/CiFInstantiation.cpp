@@ -3,7 +3,9 @@
 
 #include "CiFInstantiation.h"
 
+UniqueIDGenerator UCiFInstantiation::mIDGenerator = UniqueIDGenerator(); 
+
 UCiFInstantiation::UCiFInstantiation()
 {
-	mId = mIdGenerator.getId();
+	mId = mIDGenerator.getId();
 }

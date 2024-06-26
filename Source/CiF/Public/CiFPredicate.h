@@ -10,7 +10,7 @@
 enum class ETrait : uint8;
 enum class ERelationshipType : uint8;
 enum class ESocialNetworkType : uint8;
-enum class EStatus;
+enum class EStatus : uint8;
 class UCiFGameObject;
 class UCiFSocialExchange;
 
@@ -178,8 +178,30 @@ public:
 	 */
 	bool evalSFDBLabel(const UCiFGameObject* first, const UCiFGameObject* second, const UCiFGameObject* third) const;
 
+	/**
+     * Determines if the structures of two Predicates are equal where
+     * structure is every Predicate parameter other than the character 
+     * variables (primary, secondary, and tertiary) and isSFDB.
+     * 
+     * This function is for comparing ordered rules (which represent change) 
+     * with effect change rules in SGs played in the past.
+     * 
+     * @return	True if the structures of the Predicate match or false if they do not.
+     */ 
+	static bool equalsValuationStructure(const UCiFPredicate* p1, const UCiFPredicate* p2);
+	
 	/* if it is an intent, return the intent ID, other wise returns -1 // TODO-modify it because we wont with ENUMS */
 	EIntentType getIntentType();
+
+	/**
+	 * Determines the value class of the primary property and returns a
+	 * value based on that class. If it is a role class, "initiator", 
+	 * "responder" or "other" will be returned. If it is a variable class,
+	 * "x","y" or "z" will be returned. If it is anything else (character
+	 * name or a mispelling), the raw value will be returned.
+	 * @return The value based on the value class of the primary property.
+	 */
+	FName getRoleValue(const FName val) const;
 	
 private:
 	FName getValueOfPredicateVariable(const FName var) const;

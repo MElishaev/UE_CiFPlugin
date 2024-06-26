@@ -1,13 +1,14 @@
 ﻿#pragma once
-#include "Utilities.generated.h"
+
+typedef uint32_t IdType;
 
 class UniqueIDGenerator
 {
 public:
-	uint32 getId()
+	IdType getId()
 	{
 		return id++;
 	}
 private:
-	uint32 id = 0;
+	IdType id = 0;
 };

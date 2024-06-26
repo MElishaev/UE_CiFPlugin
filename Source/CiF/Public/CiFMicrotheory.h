@@ -26,7 +26,7 @@ class CIF_API UCiFMicrotheory : public UObject
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	/**
 	 * This function will score an influence rule set for all others that fit the definition or no others 
 	 * if the definition doesn't require it.

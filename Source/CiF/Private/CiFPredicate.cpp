@@ -219,20 +219,24 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 	if (mNumTimesRoleSlot == ENumTimesRoleSlot::BOTH) {
 		switch (mType) {
 			case EPredicateType::CKBENTRY:
-				TArray<FName> outArray;
-				evalCKBEntryForObjects(primaryCharacterOfConsideration, secondaryCharacterOfConsideration, outArray);
-				numTriesTrue = outArray.Num();
-				break;
+				{
+					TArray<FName> outArray;
+					evalCKBEntryForObjects(primaryCharacterOfConsideration, secondaryCharacterOfConsideration, outArray);
+					numTriesTrue = outArray.Num();
+					break;	
+				}
 			case EPredicateType::SFDBLABEL:
-				TArray<int> Out;
-				cifManager->mSFDB->findLabelFromValues(Out,
-				                                       mSFDBLabel.type,
-				                                       primaryCharacterOfConsideration,
-				                                       secondaryCharacterOfConsideration,
-				                                       c3,
-				                                       mWindowSize,
-				                                       this);
-				numTriesTrue = outArray.Num();
+				{
+					TArray<int> out{};
+					cifManager->mSFDB->findLabelFromValues(out,
+														   mSFDBLabel.type,
+														   primaryCharacterOfConsideration,
+														   secondaryCharacterOfConsideration,
+														   c3,
+														   mWindowSize,
+														   this);
+					numTriesTrue = out.Num();	
+				}
 				break;
 			default:
 				UE_LOG(LogTemp, Warning, TEXT("Doesn't make sense consider 'both' role type for pred types not CKB or SFDB %d"), mType);
@@ -472,7 +476,7 @@ bool UCiFPredicate::evalSFDBLabel(const UCiFGameObject* first, const UCiFGameObj
 	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	if (isSFDBLabelCategory()) {
-		for (const auto sfdbLabel : UCiFSocialFactsDataBase::mSFDBLabelCategories[mSFDBLabel.type]) {
+		for (const auto sfdbLabel : UCiFSocialFactsDataBase::mSFDBLabelCategories[mSFDBLabel.type].mCategoryLabels) {
 			TArray<int> outIndices;
 			cifManager->mSFDB->findLabelFromValues(outIndices, sfdbLabel, first, second, nullptr, mWindowSize, this);
 			if (!outIndices.IsEmpty()) {
@@ -488,6 +492,45 @@ bool UCiFPredicate::evalSFDBLabel(const UCiFGameObject* first, const UCiFGameObj
 		}
 	}
 	return !mIsNegated;
+}
+
+bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiFPredicate* p2)
+{
+	if ((p1->mType != p2->mType) || (p1->mIsIntent != p2->mIsIntent) ||
+		(p1->mIsNegated != p2->mIsNegated) || (p1->mIsNumTimesUniquelyTruePred != p2->mIsNumTimesUniquelyTruePred) ||
+		(p1->mNumTimesUniquelyTrue != p2->mNumTimesUniquelyTrue) || (p1->mNumTimesRoleSlot != p2->mNumTimesRoleSlot)) {
+		return false;
+	}
+
+	switch (p1->mType) {
+		case EPredicateType::INVALID: return false;
+		case EPredicateType::TRAIT:
+			if (p1->mTrait != p2->mTrait) return false;
+			break;
+		case EPredicateType::NETWORK:
+			if ((p1->mNetworkType != p2->mNetworkType) ||
+				(p1->mOperatorType != p2->mOperatorType)) return false;
+			break;
+		case EPredicateType::RELATIONSHIP:
+			if (p1->mRelationshipType != p2->mRelationshipType) return false;
+			break;
+		case EPredicateType::STATUS:
+			if (p1->mStatusType != p2->mStatusType) return false;
+			break;
+		case EPredicateType::CKBENTRY:
+			if ((p1->mFirstSubjectiveLink != p2->mFirstSubjectiveLink) ||
+				(p1->mSecondSubjectiveLink != p2->mSecondSubjectiveLink) ||
+				(p1->mTruthLabel != p2->mTruthLabel)) return false;
+			break;
+		case EPredicateType::SFDBLABEL:
+			if ((p1->mSFDBLabel != p2->mSFDBLabel) ||
+				(p1->mIsNegated != p2->mIsNegated)) return false;
+			break;
+		default:
+			UE_LOG(LogTemp, Warning, TEXT("Unknown predicate type %d"), p1->mType);
+			return false;
+	}
+	return true;
 }
 
 EIntentType UCiFPredicate::getIntentType()
@@ -525,6 +568,34 @@ EIntentType UCiFPredicate::getIntentType()
 	return EIntentType::INVALID;
 }
 
+FName UCiFPredicate::getRoleValue(const FName val) const
+{
+	const auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+
+	if (val == "init" || val == "initiator" || val == "i") {
+		return "initiator";
+	}
+	if (val == "res" || val == "responder" || val == "r") {
+		return "responder";
+	}
+	if (val == "o" || val == "oth" || val == "other") {
+		return "other";
+	}
+	if (val == "x" || val == "y" || val == "z") {
+		return val;
+	}
+	if (val == "") {
+		UE_LOG(LogTemp, Warning, TEXT("Primary value of predicated is empty \"\""));
+		return "";
+	}
+	if (cifManager->getGameObjectByName(val)) {
+		return val;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Primary value of predicated is %s"), *val.ToString());
+	
+	return "";
+}
+
 FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const
 {
 	if (var == "i" || var == "initiator") return "initiator";
@@ -541,7 +612,6 @@ ERelationshipType UCiFPredicate::comparatorTypeToRelationshipType(const ECompara
 		case EComparatorType::FRIENDS_OPINION: return ERelationshipType::FRIENDS;
 		case EComparatorType::DATING_OPINION: return ERelationshipType::DATING;
 		case EComparatorType::ENEMIES_OPINION: return ERelationshipType::ENEMIES;
-		case
 		default:
 			UE_LOG(LogTemp, Warning, TEXT("Compartor type %d is not of a relationship networks"), comparatorType);
 			return ERelationshipType::FRIENDS; // return this value as a default

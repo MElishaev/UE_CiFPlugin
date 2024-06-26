@@ -6,6 +6,7 @@
 #include "CiFCharacter.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
+#include "CiFMicrotheory.h"
 #include "CiFPredicate.h"
 #include "CiFProspectiveMemory.h"
 #include "CiFRule.h"
@@ -95,7 +96,7 @@ int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
 	int8 totalScore = 0;
 
 	for (const auto microTheory : mMicrotheories) {
-		totalScore += microTheory->scoreMicrotheoryByType(initiator, responder, se, others);
+		totalScore += microTheory->score(initiator, responder, se, others);
 	}
 
 	return totalScore;

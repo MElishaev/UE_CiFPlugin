@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CiFSocialFactsDataBase.generated.h"
 
+class UCiFTrigger;
 class UCiFPredicate;
 class UCiFGameObject;
 class UCiFSFDBContext;
@@ -97,30 +98,30 @@ public:
 	 * Returns the most recent time a predicate was true in social exchange associated with a SFDBContext.
 	 * 
 	 * @param	pred	Predicate to check for.
-	 * @param	c1			Primary character.
-	 * @param	c2			Secondary character.
-	 * @param	c3			Tertiary character.
+	 * @param	x			Primary character.
+	 * @param	y			Secondary character.
+	 * @param	z			Tertiary character.
 	 * @return	The time when the predicate was true if found. SocialFactsDB.PREDICATE_NOT_FOUND if not found.
 	 */
 	int timeOfPredicateInHistory(const UCiFPredicate* pred,
-	                             const UCiFGameObject* c1,
-	                             const UCiFGameObject* c2,
-	                             const UCiFGameObject* c3) const;
+	                             const UCiFGameObject* x,
+	                             const UCiFGameObject* y,
+	                             const UCiFGameObject* z) const;
 
 	/**
 	 * Determines the predicate was true in any social exchange in any SFDBContext within
 	 * the time window specified in the predicate p.
 	 * 
 	 * @param	pred	Predicate to check for.
-	 * @param	c1	Primary character.
-	 * @param	c2	Secondary character.
-	 * @param	c3	Tertiary character.
+	 * @param	x	Primary character.
+	 * @param	y	Secondary character.
+	 * @param	z	Tertiary character.
 	 * @return	True if the predicate was found, false if not.
 	 */
 	bool isPredicateInHistory(const UCiFPredicate* pred,
-	                          const UCiFGameObject* c1,
-	                          const UCiFGameObject* c2,
-	                          const UCiFGameObject* c3) const;
+	                          const UCiFGameObject* x,
+	                          const UCiFGameObject* y,
+	                          const UCiFGameObject* z) const;
 
 	/**
 	 * Returns an array of indices by looking at all the social exchanges
@@ -141,6 +142,8 @@ public:
 	                         int window = 0,
 	                         const UCiFPredicate* pred = nullptr) const;
 
+	UCiFTrigger* getTriggerByID(uint64_t id) const;
+	
 	/**
 	 * This function is used to deal with when we are seeing is a label is in a category.
 	 * If predicateLabel is not a category, returns false if it doesn't match contextLabel: true otherwise.
@@ -154,6 +157,7 @@ public:
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> initializeCategoriesMap();
 public:
 	TArray<UCiFSFDBContext*> mContexts; // contexts in ascending order - the latest is the last in the array
-
+	TArray<UCiFTrigger*> mTriggers;
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> mSFDBLabelCategories;
+	inline static int32 INVALID_TIME = -999;
 };

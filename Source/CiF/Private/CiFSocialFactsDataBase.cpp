@@ -5,6 +5,7 @@
 #include "CiFPredicate.h"
 #include "CiFSFDBContext.h"
 #include "CiFSocialExchangeContext.h"
+#include "CiFTrigger.h"
 #include "CiFTriggerContext.h"
 
 TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::mSFDBLabelCategories = UCiFSocialFactsDataBase::initializeCategoriesMap(); 
@@ -20,9 +21,9 @@ int32 UCiFSocialFactsDataBase::getLatestContextTime() const
 }
 
 int UCiFSocialFactsDataBase::timeOfPredicateInHistory(const UCiFPredicate* pred,
-                                                      const UCiFGameObject* c1,
-                                                      const UCiFGameObject* c2,
-                                                      const UCiFGameObject* c3) const
+                                                      const UCiFGameObject* x,
+                                                      const UCiFGameObject* y,
+                                                      const UCiFGameObject* z) const
 {
 	int latestTimeInSFDB = getLatestContextTime();
 	const int window = (pred->mIsSFDB && pred->mWindowSize > 0 && pred->mSFDBOrder < 1)
@@ -31,21 +32,21 @@ int UCiFSocialFactsDataBase::timeOfPredicateInHistory(const UCiFPredicate* pred,
 
 	int32 i = mContexts.Num() - 1;
 	while ((i >= 0) && mContexts[i]->mTime > latestTimeInSFDB - window) {
-		if (mContexts[i]->isPredicateInChange(pred, c1, c2, c3)) {
+		if (mContexts[i]->isPredicateInChange(pred, x, y, z)) {
 			return mContexts[i]->mTime;
 		}
 		i--;
 	}
 
-	return MIN_int32;
+	return INVALID_TIME;
 }
 
 bool UCiFSocialFactsDataBase::isPredicateInHistory(const UCiFPredicate* pred,
-                                                   const UCiFGameObject* c1,
-                                                   const UCiFGameObject* c2,
-                                                   const UCiFGameObject* c3) const
+                                                   const UCiFGameObject* x,
+                                                   const UCiFGameObject* y,
+                                                   const UCiFGameObject* z) const
 {
-	return timeOfPredicateInHistory(pred, c1, c2, c3) != MIN_int32;
+	return timeOfPredicateInHistory(pred, x, y, z) != INVALID_TIME;
 }
 
 void UCiFSocialFactsDataBase::findLabelFromValues(TArray<int32>& outMatchingIndices,
@@ -99,11 +100,20 @@ void UCiFSocialFactsDataBase::findLabelFromValues(TArray<int32>& outMatchingIndi
 	}
 }
 
+UCiFTrigger* UCiFSocialFactsDataBase::getTriggerByID(uint64_t id) const
+{
+	auto trigger = mTriggers.FindByPredicate([=](const UCiFTrigger* t) { return t->mId == id; });
+	if (trigger) {
+		return *trigger;
+	}
+	return nullptr;
+}
+
 bool UCiFSocialFactsDataBase::doesMatchLabelOrCategory(const ESFDBLabelType contextLabel, const ESFDBLabelType predicateLabel) noexcept
 {
 	if (predicateLabel <= ESFDBLabelType::CAT_LAST) {
 		// the predicate label is category, see if any of the labels in the category matches @contextLabel
-		for (const auto catLabel : mSFDBLabelCategories[predicateLabel]) {
+		for (const auto catLabel : mSFDBLabelCategories[predicateLabel].mCategoryLabels) {
 			if (catLabel == contextLabel) {
 				return true;
 			}

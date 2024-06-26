@@ -71,21 +71,28 @@ TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
 
 TArray<FGameScore> UCiFProspectiveMemory::getHighestGameScoresTo(const FName responderName, uint8 count, const int8 minVolition)
 {
-	TArray<FGameScore> outputScores;
+	TArray<FGameScore> allMatchingScoresAboveMinVolition;
 	uint8 amountAdded = 0;
 	for (const auto& score : mScores) {
 		if (score.mResponder == responderName && score.mScore > minVolition) {
-			outputScores.Add(score);
+			allMatchingScoresAboveMinVolition.Add(score);
 			amountAdded++;
 		}
 	}
-	outputScores.Sort();
+	allMatchingScoresAboveMinVolition.Sort();
 
-	while (outputScores.Num() > count) {
-		outputScores.Remove(outputScores.Last());
+	// if we have less the requested passing scores, return the array
+	if (allMatchingScoresAboveMinVolition.Num() <= count) {
+		return allMatchingScoresAboveMinVolition;
 	}
 
-	return outputScores;
+	// if we have more than the requested scores, filter the requested amount of scores
+	TArray<FGameScore> highestNScores;
+	for (size_t i = 0; i < count; i++) {
+		highestNScores.Add(allMatchingScoresAboveMinVolition[i]);
+	}
+
+	return highestNScores;
 }
 
 bool UCiFProspectiveMemory::getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore)

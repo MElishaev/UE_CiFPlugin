@@ -5,6 +5,11 @@
 #include "CiFGameObject.h"
 #include "CiFPredicate.h"
 
+ESFDBContextType UCiFSocialExchangeContext::getType() const
+{
+	return ESFDBContextType::SOCIAL_GAME;
+}
+
 bool UCiFSocialExchangeContext::doesSFDBLabelMatchStrict(const ESFDBLabelType labelType,
                                                          const UCiFGameObject* first,
                                                          const UCiFGameObject* second,

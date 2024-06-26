@@ -3,6 +3,8 @@
 
 #include "CiFEffect.h"
 
+UniqueIDGenerator UCiFEffect::mIDGenerator = UniqueIDGenerator(); 
+
 UCiFEffect::UCiFEffect()
 {
 	mId = mIDGenerator.getId();
