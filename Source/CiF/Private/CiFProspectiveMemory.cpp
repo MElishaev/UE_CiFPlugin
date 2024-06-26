@@ -9,7 +9,7 @@
 #include "CiFPredicate.h"
 #include "Kismet/GameplayStatics.h"
 
-UCiFProspectiveMemory::UCiFProspectiveMemory()
+void UCiFProspectiveMemory::init()
 {
 	initializeIntentScoreCache();
 }
@@ -20,6 +20,11 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 
 	const auto numCharacters = cifManager->mCast->mCharacters.Num();
 
+	if (numCharacters <= 0) {
+		UE_LOG(LogTemp, Warning, TEXT("Number of characters is %d"), numCharacters);
+		return;
+	}
+	
 	mIntentScoreCache.SetNum(numCharacters);
 	mIntentNegScoreCache.SetNum(numCharacters);
 	mIntentPosScoreCache.SetNum(numCharacters);

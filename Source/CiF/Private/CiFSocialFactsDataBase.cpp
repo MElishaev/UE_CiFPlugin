@@ -128,21 +128,23 @@ TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::initia
 {
 	TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> outMap;
 
-	outMap[ESFDBLabelType::CAT_NEGATIVE] = FLabelCategoryArrayWrapper{
+	// TODO: note to use add() to add elements instead of operator []. maybe in static method there is a problem with that
+	
+	outMap.Add(ESFDBLabelType::CAT_NEGATIVE, FLabelCategoryArrayWrapper{
 		.mCategoryLabels = {
 			ESFDBLabelType::LABEL_MEAN, ESFDBLabelType::LABEL_TABOO, ESFDBLabelType::LABEL_RUDE
 		}
-	};
-	
-	outMap[ESFDBLabelType::CAT_POSITIVE] = FLabelCategoryArrayWrapper{
+	});
+
+	outMap.Add(ESFDBLabelType::CAT_POSITIVE, FLabelCategoryArrayWrapper{
 		.mCategoryLabels = {
 			ESFDBLabelType::LABEL_COOL, ESFDBLabelType::LABEL_FUNNY
 		}
-	};
-	
-	outMap[ESFDBLabelType::CAT_FLIRT] = FLabelCategoryArrayWrapper{
-		.mCategoryLabels = {ESFDBLabelType::LABEL_ROMANTIC, ESFDBLabelType::LABEL_FAILED_ROMANCE}
-	};
+	});
 
+	outMap.Add(ESFDBLabelType::CAT_FLIRT, FLabelCategoryArrayWrapper{
+		.mCategoryLabels = {ESFDBLabelType::LABEL_ROMANTIC, ESFDBLabelType::LABEL_FAILED_ROMANCE}
+	});
+	
 	return outMap;
 }

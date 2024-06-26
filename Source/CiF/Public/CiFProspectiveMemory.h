@@ -19,8 +19,7 @@ class CIF_API UCiFProspectiveMemory : public UObject
 	GENERATED_BODY()
 public:
 
-	UCiFProspectiveMemory();
-	
+	void init();
 	void initializeIntentScoreCache();
 
 	void cacheIntentScore(const UCiFCharacter* responder, const EIntentType intentType, const int8 score);
