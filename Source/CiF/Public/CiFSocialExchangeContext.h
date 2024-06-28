@@ -75,8 +75,13 @@ public:
 	                        const UCiFPredicate* pred = nullptr) const;
 
 public:
+	FName mGameName; // the social game name
+	FName mChosenItemCKB; // the name of the item brought up in the performance realization that involves a CKB entry
 	FName mInitiatorName; // name of the initiator of this social exchange
 	FName mResponderName; // name of the responder of this social exchange
+	FName mOtherName; // name of the other of this social exchange (if any)
+	int8 mInitiatorScore; // score of initiator IRS
+	int8 mResponderScore; // score of responder IRS
 	bool mIsBackstory;
 	FSFDBLabel mSFDBLabel; // the SFDB label for this context entry
 

@@ -223,19 +223,19 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 					TArray<FName> outArray;
 					evalCKBEntryForObjects(primaryCharacterOfConsideration, secondaryCharacterOfConsideration, outArray);
 					numTriesTrue = outArray.Num();
-					break;	
+					break;
 				}
 			case EPredicateType::SFDBLABEL:
 				{
 					TArray<int> out{};
 					cifManager->mSFDB->findLabelFromValues(out,
-														   mSFDBLabel.type,
-														   primaryCharacterOfConsideration,
-														   secondaryCharacterOfConsideration,
-														   c3,
-														   mWindowSize,
-														   this);
-					numTriesTrue = out.Num();	
+					                                       mSFDBLabel.type,
+					                                       primaryCharacterOfConsideration,
+					                                       secondaryCharacterOfConsideration,
+					                                       c3,
+					                                       mWindowSize,
+					                                       this);
+					numTriesTrue = out.Num();
 				}
 				break;
 			default:
@@ -509,7 +509,8 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 			break;
 		case EPredicateType::NETWORK:
 			if ((p1->mNetworkType != p2->mNetworkType) ||
-				(p1->mOperatorType != p2->mOperatorType)) return false;
+				(p1->mOperatorType != p2->mOperatorType))
+				return false;
 			break;
 		case EPredicateType::RELATIONSHIP:
 			if (p1->mRelationshipType != p2->mRelationshipType) return false;
@@ -520,11 +521,13 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 		case EPredicateType::CKBENTRY:
 			if ((p1->mFirstSubjectiveLink != p2->mFirstSubjectiveLink) ||
 				(p1->mSecondSubjectiveLink != p2->mSecondSubjectiveLink) ||
-				(p1->mTruthLabel != p2->mTruthLabel)) return false;
+				(p1->mTruthLabel != p2->mTruthLabel))
+				return false;
 			break;
 		case EPredicateType::SFDBLABEL:
 			if ((p1->mSFDBLabel != p2->mSFDBLabel) ||
-				(p1->mIsNegated != p2->mIsNegated)) return false;
+				(p1->mIsNegated != p2->mIsNegated))
+				return false;
 			break;
 		default:
 			UE_LOG(LogTemp, Warning, TEXT("Unknown predicate type %d"), p1->mType);
@@ -592,8 +595,36 @@ FName UCiFPredicate::getRoleValue(const FName val) const
 		return val;
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Primary value of predicated is %s"), *val.ToString());
-	
+
 	return "";
+}
+
+FName UCiFPredicate::getSecondaryCharacterNameFromVariables(const UCiFGameObject* initiator,
+                                                            const UCiFGameObject* responder,
+                                                            const UCiFGameObject* other) const
+{
+	const auto roleVal = getRoleValue(mSecondary);
+
+	if (roleVal == "initiator") return initiator->mObjectName;
+	if (roleVal == "responder") return responder->mObjectName;
+	if (roleVal == "other") return other->mObjectName;
+	if (roleVal == "") return "";
+
+	return mSecondary;
+}
+
+FName UCiFPredicate::getPrimaryCharacterNameFromVariables(const UCiFGameObject* initiator,
+                                                          const UCiFGameObject* responder,
+                                                          const UCiFGameObject* other) const
+{
+	const auto roleVal = getRoleValue(mPrimary);
+
+	if (roleVal == "initiator") return initiator->mObjectName;
+	if (roleVal == "responder") return responder->mObjectName;
+	if (roleVal == "other") return other->mObjectName;
+	if (roleVal == "") return "";
+
+	return mPrimary;
 }
 
 FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const

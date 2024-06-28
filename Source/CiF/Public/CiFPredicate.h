@@ -64,7 +64,8 @@ enum class EComparatorType : uint8
 UENUM(BlueprintType)
 enum class EOperatorType : uint8
 {
-	INCREASE, ///< for increasing network value
+	INCREASE,
+	///< for increasing network value
 };
 
 // todo what is that?
@@ -137,7 +138,7 @@ public:
 	 * @param second same
 	 * @param outArray Output array
 	 */ // TODO-- all of this idea of a method is weird how you match 2 characters and how the ckbentry includes
-		//			opinion of 2 characters on 1 item, and what the truth label of that item, WTF?
+	//			opinion of 2 characters on 1 item, and what the truth label of that item, WTF?
 	void evalCKBEntryForObjects(const UCiFGameObject* first, const UCiFGameObject* second, TArray<FName>& outArray) const;
 
 	/**
@@ -187,9 +188,9 @@ public:
      * with effect change rules in SGs played in the past.
      * 
      * @return	True if the structures of the Predicate match or false if they do not.
-     */ 
+     */
 	static bool equalsValuationStructure(const UCiFPredicate* p1, const UCiFPredicate* p2);
-	
+
 	/* if it is an intent, return the intent ID, other wise returns -1 // TODO-modify it because we wont with ENUMS */
 	EIntentType getIntentType();
 
@@ -202,7 +203,22 @@ public:
 	 * @return The value based on the value class of the primary property.
 	 */
 	FName getRoleValue(const FName val) const;
-	
+
+	/**
+	 * Determines the character name bound to the second (secondary) character variable role in this predicate given
+	 * a context of characters in roles.
+	 * @param	initiator
+	 * @param	responder
+	 * @param	other
+	 * @return The name of the secondary character associated with the predicate character variable and role context.
+	 */
+	FName getSecondaryCharacterNameFromVariables(const UCiFGameObject* initiator,
+	                                             const UCiFGameObject* responder,
+	                                             const UCiFGameObject* other) const;
+	FName getPrimaryCharacterNameFromVariables(const UCiFGameObject* initiator,
+	                                           const UCiFGameObject* responder,
+	                                           const UCiFGameObject* other) const;
+
 private:
 	FName getValueOfPredicateVariable(const FName var) const;
 
@@ -210,7 +226,7 @@ private:
 
 	/* returns true if this predicate represent a SFDB predicate with a category label */
 	bool isSFDBLabelCategory() const;
-	
+
 	/* clears the member variables to default state */
 	void clear();
 
@@ -259,10 +275,11 @@ public:
 	uint8 mNetworkValue; // network value for comparisons if this is a network predicate TODO - this is relevant only for network predicates
 
 	bool mIsNumTimesUniquelyTruePred; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
-	uint16 mNumTimesUniquelyTrue; // the number of times this predicate needs to be uniquely true
-	ENumTimesRoleSlot mNumTimesRoleSlot; // todo - what is this shit? my assumption for now is that it indicates which role the predicate goes towards? or from?
+	uint16 mNumTimesUniquelyTrue;     // the number of times this predicate needs to be uniquely true
+	ENumTimesRoleSlot mNumTimesRoleSlot;
+	// todo - what is this shit? my assumption for now is that it indicates which role the predicate goes towards? or from?
 
 	FName mFirstSubjectiveLink;  // todo - what is the purpose of this?
-	FName mSecondSubjectiveLink;  // todo - what is the purpose of this?
-	FName mTruthLabel;  // todo - what is the purpose of this?
+	FName mSecondSubjectiveLink; // todo - what is the purpose of this?
+	FName mTruthLabel;           // todo - what is the purpose of this?
 };

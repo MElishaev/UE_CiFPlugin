@@ -4,9 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "CiFCharacter.h"
+#include "CiFEffect.h"
+#include "CiFSocialExchange.h"
 #include "UObject/Object.h"
 #include "CiFManager.generated.h"
 
+class UCiFPredicate;
+class UCiFEffect;
+class UCiFSocialExchangeContext;
 class UCiFRelationshipNetwork;
 class UCiFSocialNetwork;
 enum class ESocialNetworkType : uint8;
@@ -77,6 +82,48 @@ public:
 	                                  UCiFCharacter* responder,
 	                                  const TArray<UCiFCharacter*>& possibleOthers = {});
 
+	UCiFSocialExchangeContext* playGame(UCiFSocialExchange* sg,
+	                                    UCiFGameObject* initiator,
+	                                    UCiFGameObject* responder,
+	                                    UCiFGameObject* other = nullptr,
+	                                    TArray<UCiFGameObject*> otherCast = {},
+	                                    TArray<UCiFGameObject*> levelCast = {},
+	                                    UCiFEffect* chosenEffect = nullptr);
+
+	float getResponderScore(UCiFSocialExchange* sg,
+	                        UCiFGameObject* initiator,
+	                        UCiFGameObject* responder,
+	                        const TArray<UCiFGameObject*>& activeOtherCast = {});
+
+	/**
+	 * Returns a third character that makes the highest number of effect
+	 * condition predicates evaluate true.
+	 * @param	outOther	The output param for the third character
+	 * @param	outEffect	The output param for the chosen effect
+	 * @param	sg			The social game to reason over.
+	 * @param 	isSgAccepted	Whether the game was accepted or rejected
+	 * @param	initiator	The character in the initiator role.
+	 * @param	responder	The character in the responder role.
+	 * @return	The most salient other.
+	 */
+	void getSalientOtherAndEffect(UCiFGameObject* outOther,
+	                              UCiFEffect* outEffect,
+	                              UCiFSocialExchange* sg,
+	                              const bool isSgAccepted,
+	                              UCiFGameObject* initiator,
+	                              UCiFGameObject* responder,
+	                              const TArray<UCiFGameObject*>& otherCast = {},
+	                              TArray<UCiFGameObject*> levelCast = {});
+
+	/**
+	 * Chooses a CKB object from those specified by the parameterized characters and CKBEntry predicate
+	 * @param initiator the character in the initiator role
+	 * @param responder the character in the responder role
+	 * @param ckbPredicate the CKB entry type predicate holding the constraints on sought-after CKB objects
+	 * @return The name of the chosen CKB object
+	 */
+	FName pickAGoodCKBObject(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFPredicate* ckbPredicate) const;
+	
 	/* Getters */
 	UCiFGameObject* getGameObjectByName(const FName name) const;
 	UCiFItem* getItemByName(const FName name) const;
@@ -88,6 +135,9 @@ private:
 	void clearProspectiveMemory();
 
 public:
+
+	int32 mTime;
+	
 	UPROPERTY()
 	UCiFCast* mCast;
 
@@ -109,4 +159,10 @@ public:
 
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
 	UCiFRelationshipNetwork* mRelationshipNetworks;
+
+	/**
+	 * this will always hold the last other that the last responder used while deciding accept/reject
+	 * it should only be referenced immediately after play game
+	 */
+	UCiFGameObject* mLastResponderOther;
 };

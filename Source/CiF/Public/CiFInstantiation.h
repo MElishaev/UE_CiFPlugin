@@ -16,6 +16,8 @@ class CIF_API UCiFInstantiation : public UObject
 	GENERATED_BODY()
 public:
 	UCiFInstantiation();
+	
+	bool requiresOtherToPerform() const;
 public:
 	IdType mId;
 

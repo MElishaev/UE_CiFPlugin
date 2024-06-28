@@ -4,6 +4,7 @@
 #include "CiFManager.h"
 #include "CiFCast.h"
 #include "CiFCharacter.h"
+#include "CiFInstantiation.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
 #include "CiFMicrotheory.h"
@@ -11,6 +12,7 @@
 #include "CiFProspectiveMemory.h"
 #include "CiFRule.h"
 #include "CiFSocialExchange.h"
+#include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
 
 void UCiFManager::formIntentForAll()
@@ -100,6 +102,224 @@ int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
 	}
 
 	return totalScore;
+}
+
+UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
+                                                 UCiFGameObject* initiator,
+                                                 UCiFGameObject* responder,
+                                                 UCiFGameObject* other,
+                                                 TArray<UCiFGameObject*> otherCast,
+                                                 TArray<UCiFGameObject*> levelCast,
+                                                 UCiFEffect* chosenEffect)
+{
+	//The fact that other was ever passed in at all is an artifact of cif from days long gone.  
+	//NOW we figure out who the other is in THIS function, when we call 'getSalientOtherAndEffect'
+	//Since other part of this function (playGame) depend on other being null, we are going
+	//to just set it to null here explicitly (since passing in, say, an instantiated yet 'blank' character with no name
+	//will cause issues and heartbreak).
+	other = nullptr;
+
+	if (levelCast.IsEmpty()) {
+		UE_LOG(LogTemp, Warning, TEXT("Level cast is empty, this is not allowed - but why?"));
+	}
+	TArray<UCiFGameObject*> possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+
+	const float score = getResponderScore(sg, initiator, responder, possibleOthers);
+
+	const bool isAcceptGameIntent = (score >= 0) ? true : false;
+
+	UCiFGameObject* mostSalientOther = nullptr;
+	UCiFEffect* mostSalientEffect = nullptr;
+	if (!chosenEffect) {
+		getSalientOtherAndEffect(mostSalientOther,
+		                         mostSalientEffect,
+		                         sg,
+		                         isAcceptGameIntent,
+		                         initiator,
+		                         responder,
+		                         possibleOthers,
+		                         levelCast);
+	}
+	else if (isAcceptGameIntent) {
+		// Hack to pick a chosen Effect and other along with it
+		mostSalientEffect = chosenEffect;
+		// if there is 1 possible other, its because its been previously selected by the player
+		// else shouldn't need an other, the effect should have been found on its own
+		mostSalientOther = (possibleOthers.Num() == 1) ? possibleOthers[0] : nullptr;
+	}
+	else {
+		// find either matching chosen effect rejection
+		if (chosenEffect->mRejectId == -1) {
+			// if there is no matching reject, find whatever
+			getSalientOtherAndEffect(mostSalientOther,
+			                         mostSalientEffect,
+			                         sg,
+			                         isAcceptGameIntent,
+			                         initiator,
+			                         responder,
+			                         possibleOthers,
+			                         levelCast);
+		}
+		else {
+			// else pick the reject effect and the other similarly to accept
+			mostSalientEffect = sg->getEffectById(chosenEffect->mId);
+			mostSalientOther = (possibleOthers.Num() == 1) ? possibleOthers[0] : nullptr;
+		}
+	}
+
+	if (!mostSalientEffect) {
+		UE_LOG(LogTemp, Error, TEXT("This shouldn't happen. Didn't find effect for a social game, meaning it is meaningless SG"));
+		return nullptr;
+	}
+
+	// the other to use when all cases of other being passed in a third character being needed when one is not provided
+	UCiFGameObject* trueOther = (!mostSalientOther && sg->isThirdForSocialExchangePlay()) ? mostSalientOther : other;
+
+	//TODO: sort of a hack. I want this in GameEngine... this is part of separating playGame and changeSocialState
+	mLastResponderOther = trueOther;
+
+	/* Preparing social game context for output */
+	auto socialGameContext = NewObject<UCiFSocialExchangeContext>();
+
+	if (mostSalientEffect->hasCKBReference()) {
+		socialGameContext->mChosenItemCKB = pickAGoodCKBObject(initiator, responder, mostSalientEffect->getCKBReferencePredicate());
+	}
+
+	socialGameContext->mGameName = sg->mName;
+	socialGameContext->mInitiatorName = initiator->mObjectName;
+	socialGameContext->mResponderName = responder->mObjectName;
+
+	if (mostSalientEffect->hasSFDBLabel()) {
+		for (const auto p : mostSalientEffect->mChange->mPredicates) {
+			if (p->mType == EPredicateType::SFDBLABEL) {
+				FSFDBLabel label;
+				label.to = p->getSecondaryCharacterNameFromVariables(initiator, responder, other);
+				label.from = p->getPrimaryCharacterNameFromVariables(initiator, responder, other);
+				label.type = p->mSFDBLabel.type;
+				socialGameContext->mSFDBLabels.Add(label);
+			}
+		}
+	}
+
+	socialGameContext->mOtherName = trueOther ? trueOther->mObjectName : "";
+	socialGameContext->mTime = mTime;
+	if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
+		
+	}
+	else {
+		socialGameContext->mInitiatorScore = 0;
+	}
+	socialGameContext->mResponderScore = score;
+
+	return socialGameContext;
+}
+
+float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
+                                     UCiFGameObject* initiator,
+                                     UCiFGameObject* responder,
+                                     const TArray<UCiFGameObject*>& activeOtherCast)
+{
+	const TArray<UCiFGameObject*> possibleOthers =
+		activeOtherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : activeOtherCast;
+
+	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, possibleOthers, true);
+
+	// score MT - look up responder's intent to play social game with initiator
+	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {
+		const auto r = static_cast<UCiFCharacter*>(responder);
+		if (r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
+			getIntentType())] != r->mProspectiveMemory->getDefaultIntentScore()) {
+			score += r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
+				getIntentType())];
+		}
+	}
+
+	return score;
+}
+
+void UCiFManager::getSalientOtherAndEffect(UCiFGameObject* outOther,
+                                           UCiFEffect* outEffect,
+                                           UCiFSocialExchange* sg,
+                                           const bool isSgAccepted,
+                                           UCiFGameObject* initiator,
+                                           UCiFGameObject* responder,
+                                           const TArray<UCiFGameObject*>& otherCast,
+                                           TArray<UCiFGameObject*> levelCast)
+{
+	outOther = nullptr; // initialize to nullptr in case for some reason nothing is found in this method
+	outEffect = nullptr;
+	const auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+
+	if (levelCast.IsEmpty()) {
+		levelCast = possibleOthers;
+	}
+
+	TArray<UCiFEffect*> possibleSalientEffects;
+	TArray<UCiFGameObject*> possibleSalientOthers;
+
+	// find all valid effects (go through all others)
+	for (const auto effect : sg->mEffects) {
+		if (effect->mIsAccept == isSgAccepted) {
+			if (sg->mIsRequiresOther) {
+				for (const auto o : possibleOthers) {
+					if ((o->mObjectName != initiator->mObjectName) && (o->mObjectName != responder->mObjectName)) {
+						bool isCastMemberPresentInArea = false;
+						// make sure the character is present in the area if the instantiation requires him to be
+						const auto instantiation = sg->getInstantiationById(effect->mInstantiationId);
+						if (instantiation->requiresOtherToPerform()) {
+							if (levelCast.Contains(o)) {
+								isCastMemberPresentInArea = true;
+							}
+						}
+						else {
+							isCastMemberPresentInArea = true;
+						}
+
+						//if we have passed the check that the character is in the level (or it doesn't matter if they are or not)
+						// TODO - continue
+						if (isCastMemberPresentInArea) {
+							// check to see if this i,r,o group satisfied the condition
+							if (effect->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, o, sg) &&
+								sg->mOtherType == o->mGameObjectType) {
+								possibleSalientEffects.Add(effect);
+								possibleSalientOthers.Add(o);
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (effect->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, nullptr, sg)) {
+					possibleSalientEffects.Add(effect);
+					possibleSalientOthers.Add(nullptr);
+				}
+			}
+		}
+	}
+
+	//go through all valid effects and choose the ones that have the highest salience score
+	//at this point, we know all effects and others are valid
+	float maxSaliency = -9999;
+	for (int i = 0; i < possibleSalientEffects.Num(); i++) {
+		possibleSalientEffects[i]->scoreSalience();
+		if (maxSaliency < possibleSalientEffects[i]->mSalienceScore) {
+			maxSaliency = possibleSalientEffects[i]->mSalienceScore;
+			outOther = possibleSalientOthers[i];
+			outEffect = possibleSalientEffects[i];
+		}
+	}
+}
+
+FName UCiFManager::pickAGoodCKBObject(const UCiFGameObject* initiator,
+                                      const UCiFGameObject* responder,
+                                      const UCiFPredicate* ckbPredicate) const
+{
+	TArray<FName> potentialCKBObjects;
+	ckbPredicate->evalCKBEntryForObjects(initiator, responder, potentialCKBObjects);
+
+	// pick random one for now
+	const auto randIndex = FMath::RandRange(0, potentialCKBObjects.Num() - 1);
+	return potentialCKBObjects[randIndex];
 }
 
 UCiFGameObject* UCiFManager::getGameObjectByName(const FName name) const

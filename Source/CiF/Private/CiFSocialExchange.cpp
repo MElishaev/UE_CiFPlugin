@@ -230,13 +230,13 @@ bool UCiFSocialExchange::isThirdNeededForIntentFormation()
 bool UCiFSocialExchange::isThirdForSocialExchangePlay()
 {
 	for (const auto e : mEffects) {
-		if (e->mCondition->isOtherCharacterRequired()) return true;
-		if (e->mChange->isOtherCharacterRequired()) return true;
+		if (e->mCondition->isOtherCharacterRequired() || e->mChange->isOtherCharacterRequired())
+			return true;
 	}
 	return false;
 }
 
-TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFCharacter* initiator, UCiFCharacter* responder)
+TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder)
 {
 	if (not mIsRequiresOther) return {};
 
@@ -255,7 +255,7 @@ TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFCharacter* ini
 		if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName)) {
 			// if other found not to hold the reconditions rules, move to the next
 			for (size_t i = 0; i < mPreconditions.Num() && isOtherSuitable; i++) {
-				if (!mPreconditions[i]->evaluate(initiator, responder, other, this)) {
+				if (!mPreconditions[i]->evaluate(static_cast<UCiFCharacter*>(initiator), responder, other, this)) {
 					isOtherSuitable = false;
 				}
 			}

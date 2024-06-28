@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Utilities.h"
 #include "CiFSocialExchange.generated.h"
 
+enum class ECiFGameObjectType : uint8;
 class UCiFInfluenceRuleSet;
 class UCiFInstantiation;
 class UCiFEffect;
@@ -154,7 +156,7 @@ public:
 	 * an CharacterC. CharacterC is not a possible other, because in this case the possible other for this social
 	 * exchange should be ITEMS only.
 	 */
-	TArray<UCiFGameObject*> getPossibleOthers(UCiFCharacter* initiator, UCiFCharacter* responder);
+	TArray<UCiFGameObject*> getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder);
 
 public:
 	FName mName;
@@ -172,8 +174,10 @@ public:
 
 	bool mIsRequiresOther; // todo -maybe delete
 
+	ECiFGameObjectType mOtherType;
+	
 protected:
-	uint16 Id;        // todo -maybe delete
+	IdType Id;        // todo -maybe delete
 	FName mInitiator; // todo -maybe delete
 	FName mResponder; // todo -maybe delete
 	FName mOther;     // if a third party is involved // todo -maybe delete

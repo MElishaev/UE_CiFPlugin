@@ -68,5 +68,5 @@ public:
 	TArray<TArray<int8>> mIntentPosScoreCache;
 	TArray<TArray<int8>> mIntentNegScoreCache;
 	
-	int8 DEFAULT_INTENT_SCORE = -100;
+	int8 DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
 };
