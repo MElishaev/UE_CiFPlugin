@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CiFGameObject.h"
+#include "CiFGameObjectStatus.h"
 #include "UObject/Object.h"
 #include "CiFSocialFactsDataBase.h"
+#include "CiFSocialNetwork.h"
 #include "CiFPredicate.generated.h"
 
 enum class ETrait : uint8;
@@ -57,15 +60,11 @@ enum class EComparatorType : uint8
 	FRIENDS_OPINION UMETA(DisplayName="FRIENDSOPINION"),
 	DATING_OPINION UMETA(DisplayName="DATINGOPINION"),
 	ENEMIES_OPINION UMETA(DisplayName="ENEMIESOPINION"),
-	SIZE
-};
 
-/* Network comparision operators (a.k.a. comparators) */
-UENUM(BlueprintType)
-enum class EOperatorType : uint8
-{
 	INCREASE,
 	///< for increasing network value
+	DECREASE,
+	SIZE
 };
 
 // todo what is that?
@@ -219,6 +218,47 @@ public:
 	                                           const UCiFGameObject* responder,
 	                                           const UCiFGameObject* other) const;
 
+	void setTraitPredicate(const FName first = "initiator",
+	                       const ETrait trait = ETrait::SHY,
+	                       const bool isNegated = false,
+	                       const bool isSFDB = false);
+
+	void setNetworkPredicate(const FName first = "initiator",
+	                         const FName second = "responder",
+	                         const EComparatorType comp = EComparatorType::LESS_THAN,
+	                         const int8 networkValue = 0,
+	                         const ESocialNetworkType networkType = ESocialNetworkType::SN_BUDDY,
+	                         const bool isNegated = false,
+	                         const bool isSFDB = false);
+
+	void setStatusPredicate(const FName first = "initiator",
+	                        const FName second = "responder",
+	                        const EStatus status = EStatus::INVALID,
+	                        const int32 duration = 0,
+	                        const bool isSFDB = false,
+	                        const bool isNegated = false);
+
+	void setCKBPredicate(const FName first = "initiator",
+	                     const FName second = "responder",
+	                     const FName firstSub = "likes",
+	                     const FName secondSub = "likes",
+	                     const FName truth = "cool",
+	                     const bool isNegated = false);
+
+	void setSFDBLabelPredicate(const FName first = "initiator",
+	                           const FName second = "responder",
+	                           const ESFDBLabelType labelType = ESFDBLabelType::LABEL_COOL,
+	                           const uint32 window = 0,
+	                           const bool isNegated = false);
+
+	void setRelationshipPredicate(const FName first = "initiator",
+	                              const FName second = "responder",
+	                              const ERelationshipType relType = ERelationshipType::DATING,
+	                              const bool isNegated = false,
+	                              const bool isSFDB = false);
+
+	static UCiFPredicate* loadFromJson(TSharedPtr<FJsonObject> predJson);
+
 private:
 	FName getValueOfPredicateVariable(const FName var) const;
 
@@ -248,6 +288,8 @@ public:
 	UPROPERTY()
 	FName mTertiary;
 
+	FName mName; // predicate's name - more of a description of what this predicate represents
+
 	//TODO --	is this really the best way to implement this class? won't is be better just to
 	//			create an hierarchy of subclasses which will make this class less monolithic
 	UPROPERTY()
@@ -265,14 +307,16 @@ public:
 	int32 mSFDBOrder; // TODO - what is this?
 
 	bool mIsIntent; // true if this predicate is intent predicate TODO - this is specifically for an intent predicates
+	EIntentType mIntentType;
 
+	
 	EStatus mStatusType; // todo- another member relevant only for status predicates
+	int32 mStatusDuration;
 
 	EComparatorType mComparatorType; // TODO - this is relevant only for network predicates
-	EOperatorType mOperatorType; // TODO - this is relevant only for network predicates
 	ESocialNetworkType mNetworkType; // TODO - this is relevant only for network predicates
 	ERelationshipType mRelationshipType; // TODO - this is relevant only for network predicates
-	uint8 mNetworkValue; // network value for comparisons if this is a network predicate TODO - this is relevant only for network predicates
+	int8 mNetworkValue; // network value for comparisons if this is a network predicate TODO - this is relevant only for network predicates
 
 	bool mIsNumTimesUniquelyTruePred; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
 	uint16 mNumTimesUniquelyTrue;     // the number of times this predicate needs to be uniquely true

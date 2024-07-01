@@ -155,3 +155,20 @@ UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const
 	}
 	return nullptr;
 }
+
+UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json)
+{
+	auto e = NewObject<UCiFEffect>();
+	
+	e->mRejectId = json->GetNumberField("_rejectID");
+	e->mIsAccept = json->GetBoolField("_accept");
+	e->mInstantiationId = json->GetNumberField("_instantiationID");
+	e->mReferenceAsNLG = FName(json->GetStringField("PerformanceRealization"));
+
+	e->mCondition = UCiFRule::loadFromJson(json->GetObjectField("ConditionRule"));
+	e->mChange = UCiFRule::loadFromJson(json->GetObjectField("ChangeRule"));
+
+	e->scoreSalience();
+
+	return e;
+}

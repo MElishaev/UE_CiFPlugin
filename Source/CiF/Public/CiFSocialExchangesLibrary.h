@@ -25,6 +25,8 @@ public:
 	 * @return The social exchange or nullptr if not exists 
 	 */
 	UCiFSocialExchange* getSocialExchangeByName(const FName name);
+
+	void loadSocialGamesLibFromJson(const FString& jsonPath);
 public:
 
 	TMap<FName, UCiFSocialExchange*> mSocialExchanges;

@@ -48,6 +48,8 @@ public:
 	 * @return predicate of type CKBEntry or null if no such predicate in effect's condition rule
 	 */
 	UCiFPredicate* getCKBReferencePredicate() const;
+
+	static UCiFEffect* loadFromJson(const TSharedPtr<FJsonObject> json);
 	
 public:
 	IdType mId;
@@ -58,6 +60,7 @@ public:
 	UCiFRule* mChange; // the rule containing the social change associated with the effect
 	bool mIsAccept; // true if the effect is in the accept branch of the social game and false if in reject branch
 	int32 mLastSeenTime; // stores what was the last CiF.Time the instantiation was last seen
+	FName mReferenceAsNLG; // the english interpretation of the effect's outcome to be used when this effect is referenced in later gameplay
 
 private:
 

@@ -14,14 +14,32 @@ class UCiFCharacter;
 class UCiFRule;
 class UCiFGameObject;
 
+USTRUCT()
+struct FSocialGameTypes
+{
+	GENERATED_BODY()
+
+	// TODO -	for now i don't see a usage for this but i can see the usage
+	//			when querying for some SG from the library is needed
+	inline static const FName EMBARRASS = "Embarrass";
+	inline static const FName EMBARRASS_SELF = "Embarrass Self";
+	inline static const FName DECLARE_RIVALRY = "Declare Rivalry";
+	inline static const FName ENCOURAGE = "Encourage";
+
+	// ............ and more when will be needed
+	// TODO - i can write a python script to extract the names from the social
+	// games json and create a string in the format above so it would be easier
+	// to just scrape it from the json instead of manually adding and removing when needed
+};
+
 UENUM(BlueprintType)
 enum class ESocialExchangeIntent : uint8
 {
-	INCREASE,
 	// could be to increase some stats between characters
+	INCREASE,
 	DECREASE,
-	START,
 	// could be to start some relationship/friendship 
+	START,
 	END
 };
 
@@ -158,9 +176,14 @@ public:
 	 */
 	TArray<UCiFGameObject*> getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder);
 
+	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson);
+
 public:
 	FName mName;
-	TArray<UCiFRule*> mIntents;
+	bool mIsRequiresOther;
+	ECiFGameObjectType mOtherType;
+	ECiFGameObjectType mResponderType;
+	TArray<UCiFRule*> mIntents;       // NOTE: it seems that intents array will only consist 1 Rule with 1 Predicate
 	TArray<UCiFRule*> mPreconditions; // specify under which conditions any given social exchange is possible
 	// Initiator influence rules are used to determine the volition (desire) for a character to initiate a social exchange with other characters
 	UCiFInfluenceRuleSet* mInitiatorIR;
@@ -168,26 +191,6 @@ public:
 	UCiFInfluenceRuleSet* mResponderIR;
 	TArray<UCiFEffect*> mEffects;               // the effects of the social exchange
 	TArray<UCiFInstantiation*> mInstantiations; // the realization of the outcome of the this social exchange
-	UCiFRule* mPatsyRule;                       // TODO - no idea what this is
 	bool mIsTalkAboutSomeone;
 	bool mIsGetSomeoneToDoSomethingForYou;
-
-	bool mIsRequiresOther; // todo -maybe delete
-
-	ECiFGameObjectType mOtherType;
-	
-protected:
-	IdType Id;        // todo -maybe delete
-	FName mInitiator; // todo -maybe delete
-	FName mResponder; // todo -maybe delete
-	FName mOther;     // if a third party is involved // todo -maybe delete
-
-
-	/**
-	* initiator’s purpose for initiating the social exchange. These 
-	* purposes involve changing social state, such as increasing another character’s friendship 
-	* feelings towards the initiator (a social network value change) or initiating or terminating 
-	* a relationship (such as a dating relationship) etc.
-	 */
-	ESocialExchangeIntent mIntentType; // todo -maybe delete
 };

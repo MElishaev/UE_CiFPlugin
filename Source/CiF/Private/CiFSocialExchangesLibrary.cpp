@@ -4,6 +4,8 @@
 #include "CiFSocialExchangesLibrary.h"
 
 #include "CiFSocialExchange.h"
+#include "ReadWriteFiles.h"
+#include "Json.h"
 
 void UCiFSocialExchangesLibrary::addSocialExchange(UCiFSocialExchange* se)
 {
@@ -23,4 +25,20 @@ UCiFSocialExchange* UCiFSocialExchangesLibrary::getSocialExchangeByName(const FN
 		return *se;
 	}
 	return nullptr;
+}
+
+void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonPath)
+{
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(jsonPath, jsonObject)) {
+		return;
+	}
+
+	// iterate over the all the social games
+	const auto socialGames = jsonObject->GetArrayField("SocialGamesLib");
+
+	for (const auto sgJson : socialGames) {
+		auto sg = UCiFSocialExchange::loadFromJson(sgJson->AsObject());
+		mSocialExchanges.Add(sg->mName, sg);
+	}
 }

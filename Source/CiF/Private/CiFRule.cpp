@@ -8,6 +8,13 @@
 #include "CiFSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
+UniqueIDGenerator UCiFRule::mIDGenerator = UniqueIDGenerator();
+
+UCiFRule::UCiFRule()
+{
+	mID = mIDGenerator.getId();
+}
+
 bool UCiFRule::isOtherCharacterRequired()
 {
 	bool isThirdCharRequired = false;
@@ -103,7 +110,7 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 				auto time = cifManager->mSFDB->timeOfPredicateInHistory(pred, primary, secondary, tertiary);
 
 				//was the predicate true at all in history? If not, return false.
-				if (time == MIN_int32) {
+				if (time == UCiFSocialFactsDataBase::INVALID_TIME) {
 					return false;
 				}
 
@@ -111,12 +118,12 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 				if (time < lastOrderTruthTime) {
 					return false;
 				}
-						
+
 				//update curOrderTruthTime to highest value for this order
 				if (time > curOrderTruthTime) {
 					curOrderTruthTime = time;
 				}
-						
+
 				//if the preceding conditions are passed, this predicate of the rule is true; continue to next predicate.
 			}
 		}
@@ -133,4 +140,25 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 	}
 
 	return true;
+}
+
+UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, UCiFRule* inputRule)
+{
+	auto localRule = inputRule ? inputRule : NewObject<UCiFRule>();
+
+	FString name;
+	if (!ruleJson->TryGetStringField("_name", name)) {
+		localRule->mName = "part of a condition/change rule";
+	}
+	localRule->mName = FName(name);
+	
+	localRule->mDescription = "";
+	ruleJson->TryGetStringField("_description", localRule->mDescription);
+	
+	// load predicate
+	auto predicateJson = ruleJson->GetObjectField("Predicate");
+	auto predicate = UCiFPredicate::loadFromJson(predicateJson);
+	localRule->mPredicates.Add(predicate);
+
+	return localRule;
 }

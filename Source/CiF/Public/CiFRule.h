@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CiFCharacter.h"
+#include "Utilities.h"
 #include "CiFRule.generated.h"
 
 class UCiFSocialExchange;
@@ -38,6 +39,9 @@ class CIF_API UCiFRule : public UObject
 	GENERATED_BODY()
 
 public:
+
+	UCiFRule();
+	
 	/**
 	 * Determines if the rule requires 3rd character to be valuated or evaluated.
 	 * @return True iff 3rd character is required for processing the rule
@@ -57,6 +61,11 @@ public:
 	 */
 	bool evaluate(UCiFCharacter* initiator, UCiFGameObject* responder, UCiFGameObject* other = nullptr, UCiFSocialExchange* se = nullptr);
 
+	/* The additional inputRule is for the case where we load a subclass of this class.
+	 * if this case, the input pointer will be filled, otherwise a new object will be filled
+	 * and returned
+	 */
+	static UCiFRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, UCiFRule* inputRule=nullptr);
 private:
 	/**
 	 * Determines the highest SFDB order of the predicates in this rule.
@@ -84,9 +93,17 @@ private:
 	bool evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary);
 	
 public:
+
+	FName mName;
+	FString mDescription; // author description of the rule
+	IdType mID; // the unique identifier of this rule - TODO not sure this is needed
+	
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TArray<UCiFPredicate*> mPredicates; // the array of predicates that comprise this rule
 
-	int8 mWeight;
 	uint8 mLastTrueCount; // the number of predicate that were true during its last evaluation
+
+private:
+	static UniqueIDGenerator mIDGenerator;
 };

@@ -30,6 +30,12 @@ class CIF_API UCiFManager : public UObject
 	GENERATED_BODY()
 
 public:
+
+	UFUNCTION(BlueprintCallable)
+	void init();
+	
+	void parseSocialGameLib(const FString& filePath);
+	
 	UFUNCTION(BlueprintCallable)
 	void formIntentForAll();
 
@@ -106,8 +112,8 @@ public:
 	 * @param	responder	The character in the responder role.
 	 * @return	The most salient other.
 	 */
-	void getSalientOtherAndEffect(UCiFGameObject* outOther,
-	                              UCiFEffect* outEffect,
+	void getSalientOtherAndEffect(UCiFGameObject*& outOther,
+	                              UCiFEffect*& outEffect,
 	                              UCiFSocialExchange* sg,
 	                              const bool isSgAccepted,
 	                              UCiFGameObject* initiator,

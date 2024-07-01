@@ -509,7 +509,7 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 			break;
 		case EPredicateType::NETWORK:
 			if ((p1->mNetworkType != p2->mNetworkType) ||
-				(p1->mOperatorType != p2->mOperatorType))
+				(p1->mComparatorType != p2->mComparatorType))
 				return false;
 			break;
 		case EPredicateType::RELATIONSHIP:
@@ -546,14 +546,14 @@ EIntentType UCiFPredicate::getIntentType()
 		switch (mNetworkType) {
 			case ESocialNetworkType::SN_BUDDY:
 				{
-					if (mOperatorType == EOperatorType::INCREASE) {
+					if (mComparatorType == EComparatorType::INCREASE) {
 						return EIntentType::BUDDY_UP;
 					}
 					return EIntentType::BUDDY_DOWN;
 				}
 			case ESocialNetworkType::SN_ROMANCE:
 				{
-					if (mOperatorType == EOperatorType::INCREASE) {
+					if (mComparatorType == EComparatorType::INCREASE) {
 						return EIntentType::ROMANCE_UP;
 					}
 					return EIntentType::ROMANCE_DOWN;
@@ -627,6 +627,94 @@ FName UCiFPredicate::getPrimaryCharacterNameFromVariables(const UCiFGameObject* 
 	return mPrimary;
 }
 
+void UCiFPredicate::setTraitPredicate(const FName first, const ETrait trait, const bool isNegated, const bool isSFDB)
+{
+	mType = EPredicateType::TRAIT;
+	mTrait = trait;
+	mPrimary = first;
+	mIsNegated = isNegated;
+	mIsSFDB = isSFDB;
+}
+
+void UCiFPredicate::setNetworkPredicate(const FName first,
+                                        const FName second,
+                                        const EComparatorType comp,
+                                        const int8 networkValue,
+                                        const ESocialNetworkType networkType,
+                                        const bool isNegated,
+                                        const bool isSFDB)
+{
+	mType = EPredicateType::NETWORK;
+	mNetworkValue = networkValue;
+	mPrimary = first;
+	mSecondary = second;
+	mComparatorType = comp;
+	mNetworkType = networkType;
+	mIsNegated = isNegated;
+	mIsSFDB = isSFDB;
+}
+
+void UCiFPredicate::setStatusPredicate(const FName first,
+                                       const FName second,
+                                       const EStatus status,
+                                       const int32 duration,
+                                       const bool isSFDB,
+                                       const bool isNegated)
+{
+	mType = EPredicateType::STATUS;
+	mPrimary = first;
+	mSecondary = second;
+	mStatusType = status;
+	mStatusDuration = duration;
+	mIsNegated = isNegated;
+	mIsSFDB = isSFDB;
+}
+
+void UCiFPredicate::setCKBPredicate(const FName first,
+                                    const FName second,
+                                    const FName firstSub,
+                                    const FName secondSub,
+                                    const FName truth,
+                                    const bool isNegated)
+{
+	mType = EPredicateType::CKBENTRY;
+	mPrimary = first;
+	mSecondary = second;
+	mFirstSubjectiveLink = firstSub;
+	mSecondSubjectiveLink = secondSub;
+	mTruthLabel = truth;
+	mIsNegated = isNegated;
+}
+
+void UCiFPredicate::setSFDBLabelPredicate(const FName first,
+                                          const FName second,
+                                          const ESFDBLabelType labelType,
+                                          const uint32 window,
+                                          const bool isNegated)
+{
+	mType = EPredicateType::SFDBLABEL;
+	mPrimary = first;
+	mSecondary = second;
+	mIsSFDB = true;
+	mIsNegated = isNegated;
+	mSFDBLabel.type = labelType;
+	mWindowSize = window;
+}
+
+void UCiFPredicate::setRelationshipPredicate(const FName first,
+                                             const FName second,
+                                             const ERelationshipType relType,
+                                             const bool isNegated,
+                                             const bool isSFDB)
+{
+	mType = EPredicateType::RELATIONSHIP;
+	mPrimary = first;
+	mSecondary = second;
+	mRelationshipType = relType;
+	mIsNegated = isNegated;
+	mIsSFDB = isSFDB;
+}
+
 FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const
 {
 	if (var == "i" || var == "initiator") return "initiator";
@@ -668,4 +756,119 @@ void UCiFPredicate::clear()
 	mSFDBOrder = 0;
 	mIsNumTimesUniquelyTruePred = false; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
 	mNumTimesRoleSlot = ENumTimesRoleSlot::INVALID;
+}
+
+UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson)
+{
+	auto p = NewObject<UCiFPredicate>();
+	
+	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
+	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
+	p->mName = FName(predJson->GetStringField("_name"));
+	auto isSFDB = false;
+	auto isNegated = false;
+
+	switch (p->mType) {
+		case EPredicateType::INVALID:
+			break;
+		case EPredicateType::TRAIT:
+			{
+				const UEnum* traitEnum = StaticEnum<ETrait>();
+				const auto trait = static_cast<ETrait>(traitEnum->GetValueByName(FName(predJson->GetStringField("_trait"))));
+				isSFDB = predJson->GetBoolField("_isSFDB");
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				p->setTraitPredicate(first, trait, isNegated, isSFDB);
+				break;
+			}
+		case EPredicateType::NETWORK:
+			{
+				isSFDB = predJson->GetBoolField("_isSFDB");
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				const auto second = FName(predJson->GetStringField("_second"));
+				const UEnum* comparatorEnum = StaticEnum<EComparatorType>();
+				const auto comparator = static_cast<EComparatorType>(comparatorEnum->
+					GetValueByName(FName(predJson->GetStringField("_comparator"))));
+				const auto netVal = predJson->GetNumberField("_value");
+				const UEnum* netTypeEnum = StaticEnum<ESocialNetworkType>();
+				const auto netType = static_cast<ESocialNetworkType>(netTypeEnum->
+					GetValueByName(FName(predJson->GetStringField("_networkType"))));
+
+				p->setNetworkPredicate(first, second, comparator, netVal, netType, isNegated, isSFDB);
+				break;
+			}
+		case EPredicateType::RELATIONSHIP:
+			{
+				isSFDB = predJson->GetBoolField("_isSFDB");
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				const auto second = FName(predJson->GetStringField("_second"));
+				const UEnum* relTypeEnum = StaticEnum<ERelationshipType>();
+				const auto relType = static_cast<ERelationshipType>(relTypeEnum->
+					GetValueByName(FName(predJson->GetStringField("_relationship"))));
+
+				p->setRelationshipPredicate(first, second, relType, isNegated, isSFDB);
+			}
+			break;
+		case EPredicateType::STATUS:
+			{
+				isSFDB = predJson->GetBoolField("_isSFDB");
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				const auto second = FName(predJson->GetStringField("_second"));
+				const UEnum* statusEnum = StaticEnum<EStatus>();
+				const auto status = static_cast<EStatus>(statusEnum->
+					GetValueByName(FName(predJson->GetStringField("_status"))));
+				const auto duration = predJson->GetNumberField("_duration");
+
+				p->setStatusPredicate(first, second, status, duration, isSFDB, isNegated);
+			}
+			break;
+		case EPredicateType::CKBENTRY:
+			{
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				const auto second = FName(predJson->GetStringField("_second"));
+				const auto firstSubjective = FName(predJson->GetStringField("_firstSubjective"));
+				const auto secondSubjective = FName(predJson->GetStringField("_secondSubjective"));
+				const auto label = FName(predJson->GetStringField("_label"));
+				p->setCKBPredicate(first, second, firstSubjective, secondSubjective, label, isNegated);
+			}
+			break;
+		case EPredicateType::SFDBLABEL:
+			{
+				isNegated = predJson->GetBoolField("_negated");
+				const auto first = FName(predJson->GetStringField("_first"));
+				const auto second = FName(predJson->GetStringField("_second"));
+				const UEnum* sfdbLabelEnum = StaticEnum<ESFDBLabelType>();
+				const auto sfdbLabel = static_cast<ESFDBLabelType>(sfdbLabelEnum->
+					GetValueByName(FName(predJson->GetStringField("_label"))));
+				const auto window = predJson->GetNumberField("_window");
+				p->setSFDBLabelPredicate(first, second, sfdbLabel, window, isNegated);
+			}
+			break;
+		case EPredicateType::SIZE:
+			break;
+	}
+
+	p->mIsIntent = predJson->GetBoolField("_intent");
+	if (p->mIsIntent) {
+		const UEnum* intentTypeEnum = StaticEnum<EIntentType>();
+		p->mIntentType = static_cast<EIntentType>(intentTypeEnum->GetValueByName(FName(predJson->GetStringField("_intentType"))));
+	}
+
+	p->mIsNumTimesUniquelyTruePred = predJson->GetBoolField("_numTimesUniquelyTrueFlag");
+	p->mNumTimesUniquelyTrue = 0;
+	if (p->mIsNumTimesUniquelyTruePred) {
+		p->mNumTimesUniquelyTrue = predJson->GetNumberField("_numTimesUniquelyTrue");
+		const UEnum* roleSlotEnum = StaticEnum<ENumTimesRoleSlot>();
+		p->mNumTimesRoleSlot = static_cast<ENumTimesRoleSlot>(roleSlotEnum->
+			GetValueByName(FName(predJson->GetStringField("_numTimesRoleSlot"))));
+	}
+
+	p->mSFDBOrder = 0;
+	predJson->TryGetNumberField("_sfdbOrder", p->mSFDBOrder);
+
+	return p;
 }

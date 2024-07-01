@@ -15,6 +15,24 @@
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
 
+void UCiFManager::init()
+{
+	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
+	// player has already a save game, we need to just load it from the save game, although it should be the same data.
+	// for now i'll put it here
+	
+	const FString sgLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialGameLib.json"));
+	UE_LOG(LogTemp, Display, TEXT("Reading social games from %s"), *sgLibPath);
+	parseSocialGameLib(sgLibPath);
+
+	// todo - parse microtheories 
+}
+
+void UCiFManager::parseSocialGameLib(const FString& filePath)
+{
+	mSocialExchangesLib->loadSocialGamesLibFromJson(filePath);
+}
+
 void UCiFManager::formIntentForAll()
 {
 	clearProspectiveMemory();
@@ -237,8 +255,8 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	return score;
 }
 
-void UCiFManager::getSalientOtherAndEffect(UCiFGameObject* outOther,
-                                           UCiFEffect* outEffect,
+void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
+                                           UCiFEffect*& outEffect,
                                            UCiFSocialExchange* sg,
                                            const bool isSgAccepted,
                                            UCiFGameObject* initiator,

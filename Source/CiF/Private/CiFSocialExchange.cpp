@@ -273,3 +273,53 @@ TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFGameObject* in
 
 	return viableOthers;
 }
+
+UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson)
+{
+	auto sg = NewObject<UCiFSocialExchange>();
+	
+	sg->mName = FName(sgJson->GetStringField("_name"));
+	sg->mIsRequiresOther = sgJson->GetBoolField("_requiresOther");
+	sg->mResponderType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField("_type"));
+	sg->mOtherType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField("_othertype"));
+
+	// populate intents array (will consist only 1 rule with 1 predicate within the rule - that's how it is in the json file)
+	auto intentJson = sgJson->GetObjectField("Intents");
+	auto ruleJson = intentJson->GetObjectField("Rule");
+	auto rule = UCiFRule::loadFromJson(ruleJson);
+	sg->mIntents.Add(rule);
+
+	// load preconditions
+	const auto preconditionsJson = sgJson->GetArrayField("Preconditions");
+	for (auto precondJson : preconditionsJson) {
+		auto precond = UCiFRule::loadFromJson(precondJson->AsObject());
+		sg->mPreconditions.Add(precond);
+	}
+
+	// load influence rules
+	sg->mInitiatorIR = NewObject<UCiFInfluenceRuleSet>();
+	const auto initiatorIrJson = sgJson->GetArrayField("InitiatorInfluenceRuleSet");
+	for (auto irJson : initiatorIrJson) {
+		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject());
+		sg->mInitiatorIR->mInfluenceRules.Add(ir);
+	}
+
+	sg->mResponderIR = NewObject<UCiFInfluenceRuleSet>();
+	const auto responderIrJson = sgJson->GetArrayField("ResponderInfluenceRuleSet");
+	for (auto irJson : responderIrJson) {
+		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject());
+		sg->mResponderIR->mInfluenceRules.Add(ir);
+	}
+
+	// load effects
+	const auto effectsJson = sgJson->GetArrayField("Effects");
+	for (const auto effectJson : effectsJson) {
+		sg->mEffects.Add(UCiFEffect::loadFromJson(effectJson->AsObject()));		
+	}
+
+	// TODO - skip loading instantiations for now
+
+	// TODO - before saving, sort all the predicates in all rules - for optimizations i assume
+
+	return sg;
+}
