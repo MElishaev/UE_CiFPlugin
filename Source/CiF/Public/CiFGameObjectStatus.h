@@ -40,8 +40,22 @@ enum class EStatus : uint8
 
 	// not directed statuses
 	FIRST_NOT_DIRECTED_STATUS,
-	SICK					UMETA(DisplayName="Sick"),
+	EMBARRASSED				UMETA(DisplayName="Embarrassed"), 
 	HAPPY					UMETA(DisplayName="Happy"),
+	CHEERFUL				UMETA(DisplayName="CHEERFUL"),
+	TIPSY,
+	DRUNK,
+	HEARTBROKEN,
+	OFFENDED,
+	VIRGIN,
+	CONFUSED,
+	SAD,
+	GUILTY,
+	DISTRACTED,
+	EXCITED,
+	VULNERABLE,
+	SHAKEN,
+	ANXIOUS,
 
 	// item statuses
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
@@ -55,9 +69,17 @@ enum class EStatus : uint8
 
 	// directed statuses
 	GRATEFUL_TOWARD			UMETA(DisplayName="GRATEFUL_TOWARD"),
+	RESENTFUL_TOWARD		UMETA(DisplayName="RESENTFUL_TOWARD"),
 	ANGRY_AT				UMETA(DisplayName="ANGRY_AT"),
 	ENVIES					UMETA(DisplayName="ENVIES"),
 	AFRAID_OF				UMETA(DisplayName="AFRAID_OF"),
+	LOVE					UMETA(DisplayName="LOVE"),
+	ESTRANGED_FROM,
+	HATES,
+	MANIPULATING,
+	PITIES,
+	ELOPED_WITH,
+	IS_RELATED_TO,
 
 	// people statuses concerning items
 	WANTS					UMETA(DisplayName="WANTS"),

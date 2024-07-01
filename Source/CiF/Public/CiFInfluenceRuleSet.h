@@ -6,6 +6,8 @@
 #include "UObject/Object.h"
 #include "CiFInfluenceRuleSet.generated.h"
 
+class UCiFSocialExchange;
+class UCiFGameObject;
 class UCiFCharacter;
 class UCiFInfluenceRule;
 /**

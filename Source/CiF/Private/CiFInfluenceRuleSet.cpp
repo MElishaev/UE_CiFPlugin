@@ -2,6 +2,7 @@
 
 
 #include "CiFInfluenceRuleSet.h"
+#include "CiFSocialExchange.h"
 
 float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
                                        UCiFGameObject* responder,
@@ -11,7 +12,7 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
                                        FName microtheoryName,
                                        bool isResponder)
 {
-	// todo - implement
+	// TODO - implement
 	return 0;
 }
 
@@ -23,6 +24,6 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
                                                         FName microtheoryName,
                                                         bool isResponder)
 {
-	// todo - implement
+	// TODO - implement
 	return 0;
 }
