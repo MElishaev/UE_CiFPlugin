@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-typedef uint32_t IdType;
+typedef int32_t IdType;
 
 class UniqueIDGenerator
 {

@@ -17,9 +17,11 @@ class CIF_API UCiFSubsystem : public UGameInstanceSubsystem
 
 public:
 
-	UCiFManager* getInstance() const { return mCiFInstance; }
+	UFUNCTION(BlueprintCallable)
+	UCiFManager* getInstance();
 
 private:
 
-	UCiFManager* mCiFInstance;	
+	UPROPERTY()
+	UCiFManager* mCiFInstance = nullptr;	
 };
