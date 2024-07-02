@@ -26,9 +26,9 @@ public:
 	 */
 	UCiFSocialExchange* getSocialExchangeByName(const FName name);
 
-	void loadSocialGamesLibFromJson(const FString& jsonPath);
+	void loadSocialGamesLibFromJson(const FString& jsonPath, const UObject* worldContextObject);
 public:
-
+	UPROPERTY()
 	TMap<FName, UCiFSocialExchange*> mSocialExchanges;
 	
 };

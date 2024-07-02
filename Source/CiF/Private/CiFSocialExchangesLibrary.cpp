@@ -27,7 +27,7 @@ UCiFSocialExchange* UCiFSocialExchangesLibrary::getSocialExchangeByName(const FN
 	return nullptr;
 }
 
-void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonPath)
+void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonPath, const UObject* worldContextObject)
 {
 	TSharedPtr<FJsonObject> jsonObject;
 	if (!UReadWriteFiles::readJson(jsonPath, jsonObject)) {
@@ -38,7 +38,7 @@ void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonP
 	const auto socialGames = jsonObject->GetArrayField("SocialGamesLib");
 
 	for (const auto sgJson : socialGames) {
-		auto sg = UCiFSocialExchange::loadFromJson(sgJson->AsObject());
+		auto sg = UCiFSocialExchange::loadFromJson(sgJson->AsObject(), worldContextObject);
 		mSocialExchanges.Add(sg->mName, sg);
 	}
 }

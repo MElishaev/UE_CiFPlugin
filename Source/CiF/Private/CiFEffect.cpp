@@ -8,7 +8,6 @@
 #include "CiFRule.h"
 #include "CiFSocialNetwork.h"
 #include "CiFSubsystem.h"
-#include "Kismet/GameplayStatics.h"
 
 UniqueIDGenerator UCiFEffect::mIDGenerator = UniqueIDGenerator();
 
@@ -115,7 +114,7 @@ int8 UCiFEffect::scoreSalience()
 
 	if (mLastSeenTime >= 0) {
 		// this effect have been seen
-		const auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+		const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 		const auto howLongBeforeItWasSeen = cifManager->mTime - mLastSeenTime;
 		if (howLongBeforeItWasSeen < FEffectSaliencyValues::EFFECT_TOO_SOON) {
 			salience -= FEffectSaliencyValues::EFFECT_TOO_SOON * 2.5 - 2 * howLongBeforeItWasSeen;
@@ -156,17 +155,18 @@ UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const
 	return nullptr;
 }
 
-UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json)
+UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
 {
-	auto e = NewObject<UCiFEffect>();
+	auto e = NewObject<UCiFEffect>(const_cast<UObject*>(worldContextObject));
 	
 	e->mRejectId = json->GetNumberField("_rejectID");
 	e->mIsAccept = json->GetBoolField("_accept");
 	e->mInstantiationId = json->GetNumberField("_instantiationID");
 	e->mReferenceAsNLG = FName(json->GetStringField("PerformanceRealization"));
 
-	e->mCondition = UCiFRule::loadFromJson(json->GetObjectField("ConditionRule"));
-	e->mChange = UCiFRule::loadFromJson(json->GetObjectField("ChangeRule"));
+
+	e->mCondition = UCiFRule::loadFromJson(json->GetObjectField("ConditionRule"), worldContextObject);
+	e->mChange = UCiFRule::loadFromJson(json->GetObjectField("ChangeRule"), worldContextObject);
 
 	e->scoreSalience();
 

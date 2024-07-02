@@ -3,10 +3,10 @@
 
 #include "CiFInfluenceRule.h"
 
-UCiFInfluenceRule* UCiFInfluenceRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson)
+UCiFInfluenceRule* UCiFInfluenceRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject)
 {
-	auto ir = NewObject<UCiFInfluenceRule>();
-	ir = static_cast<UCiFInfluenceRule*>(Super::loadFromJson(ruleJson, ir));
+	auto ir = NewObject<UCiFInfluenceRule>(const_cast<UObject*>(worldContextObject));
+	ir = static_cast<UCiFInfluenceRule*>(Super::loadFromJson(ruleJson, worldContextObject, ir));
 
 	ir->mWeight = ruleJson->GetNumberField("_weight");
 

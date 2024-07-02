@@ -49,7 +49,7 @@ public:
 	 */
 	UCiFPredicate* getCKBReferencePredicate() const;
 
-	static UCiFEffect* loadFromJson(const TSharedPtr<FJsonObject> json);
+	static UCiFEffect* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 	
 public:
 	IdType mId;

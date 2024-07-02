@@ -7,6 +7,7 @@
 #include "CiFPredicate.h"
 #include "CiFSubsystem.h"
 #include "Kismet/GameplayStatics.h"
+#include "Json.h"
 
 UniqueIDGenerator UCiFRule::mIDGenerator = UniqueIDGenerator();
 
@@ -142,10 +143,18 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 	return true;
 }
 
-UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, UCiFRule* inputRule)
+UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject, UCiFRule* inputRule)
 {
-	auto localRule = inputRule ? inputRule : NewObject<UCiFRule>();
+	
+	auto localRule = inputRule ? inputRule : NewObject<UCiFRule>(const_cast<UObject*>(worldContextObject));
 
+	// handle the case where the rule is empty - this can happen when there is no condition rule in an effect
+	if (ruleJson->Values.IsEmpty()) {
+		localRule->mDescription = "empty rule";
+		localRule->mPredicates.Empty();
+		return localRule;
+	}
+	
 	FString name;
 	if (!ruleJson->TryGetStringField("_name", name)) {
 		localRule->mName = "part of a condition/change rule";
@@ -156,9 +165,11 @@ UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, UCiFRule* inp
 	ruleJson->TryGetStringField("_description", localRule->mDescription);
 	
 	// load predicate
-	auto predicateJson = ruleJson->GetObjectField("Predicate");
-	auto predicate = UCiFPredicate::loadFromJson(predicateJson);
-	localRule->mPredicates.Add(predicate);
+	auto predicateJson = ruleJson->GetArrayField("Predicate");
+	for (const auto predJson : predicateJson) {
+		auto predicate = UCiFPredicate::loadFromJson(predJson->AsObject(), worldContextObject);
+		localRule->mPredicates.Add(predicate);
+	}
 
 	return localRule;
 }

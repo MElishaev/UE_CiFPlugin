@@ -257,7 +257,7 @@ public:
 	                              const bool isNegated = false,
 	                              const bool isSFDB = false);
 
-	static UCiFPredicate* loadFromJson(TSharedPtr<FJsonObject> predJson);
+	static UCiFPredicate* loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject);
 
 private:
 	FName getValueOfPredicateVariable(const FName var) const;

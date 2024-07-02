@@ -16,7 +16,7 @@ class CIF_API UCiFInfluenceRule : public UCiFRule
 
 public:
 
-	static UCiFInfluenceRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson);
+	static UCiFInfluenceRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject);
 	
 public:
 	int8 mWeight; // the weight associated with the influence rule

@@ -274,25 +274,27 @@ TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFGameObject* in
 	return viableOthers;
 }
 
-UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson)
+UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject)
 {
-	auto sg = NewObject<UCiFSocialExchange>();
+	auto sg = NewObject<UCiFSocialExchange>(const_cast<UObject*>(worldContextObject));
 	
 	sg->mName = FName(sgJson->GetStringField("_name"));
+	UE_LOG(LogTemp, Log, TEXT("Parsing social game: %s"), *(sg->mName.ToString()));
 	sg->mIsRequiresOther = sgJson->GetBoolField("_requiresOther");
 	sg->mResponderType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField("_type"));
 	sg->mOtherType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField("_othertype"));
 
 	// populate intents array (will consist only 1 rule with 1 predicate within the rule - that's how it is in the json file)
-	auto intentJson = sgJson->GetObjectField("Intents");
-	auto ruleJson = intentJson->GetObjectField("Rule");
-	auto rule = UCiFRule::loadFromJson(ruleJson);
-	sg->mIntents.Add(rule);
+	auto intentJson = sgJson->GetArrayField("Intents");
+	for (const auto ruleJson : intentJson) {
+		auto rule = UCiFRule::loadFromJson(ruleJson->AsObject(), worldContextObject);
+		sg->mIntents.Add(rule);
+	}
 
 	// load preconditions
 	const auto preconditionsJson = sgJson->GetArrayField("Preconditions");
 	for (auto precondJson : preconditionsJson) {
-		auto precond = UCiFRule::loadFromJson(precondJson->AsObject());
+		auto precond = UCiFRule::loadFromJson(precondJson->AsObject(), worldContextObject);
 		sg->mPreconditions.Add(precond);
 	}
 
@@ -300,21 +302,21 @@ UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObjec
 	sg->mInitiatorIR = NewObject<UCiFInfluenceRuleSet>();
 	const auto initiatorIrJson = sgJson->GetArrayField("InitiatorInfluenceRuleSet");
 	for (auto irJson : initiatorIrJson) {
-		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject());
+		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
 		sg->mInitiatorIR->mInfluenceRules.Add(ir);
 	}
 
 	sg->mResponderIR = NewObject<UCiFInfluenceRuleSet>();
 	const auto responderIrJson = sgJson->GetArrayField("ResponderInfluenceRuleSet");
 	for (auto irJson : responderIrJson) {
-		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject());
+		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
 		sg->mResponderIR->mInfluenceRules.Add(ir);
 	}
 
 	// load effects
 	const auto effectsJson = sgJson->GetArrayField("Effects");
 	for (const auto effectJson : effectsJson) {
-		sg->mEffects.Add(UCiFEffect::loadFromJson(effectJson->AsObject()));		
+		sg->mEffects.Add(UCiFEffect::loadFromJson(effectJson->AsObject(), worldContextObject));		
 	}
 
 	// TODO - skip loading instantiations for now

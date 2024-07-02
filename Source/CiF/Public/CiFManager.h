@@ -31,10 +31,20 @@ class CIF_API UCiFManager : public UObject
 
 public:
 
-	UFUNCTION(BlueprintCallable)
-	void init();
+	UCiFManager();
 	
-	void parseSocialGameLib(const FString& filePath);
+	/**
+	 * @param worldContextObject	world context for the ability to access the game
+	 *								instance and CiF subsystem in all of the classes inside CiF module
+	 *								see https://forums.unrealengine.com/t/how-to-get-the-current-world-from-a-blueprint/401898/3?u=dakrn1k3
+	 *								for explanation about this meta parameter, but overall the caller of this init
+	 *								from inside the game sends itself (*this) as the world context object
+	 *								such that he is the one "knowing" about the world he is in
+	 */
+	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"))
+	void init(const UObject* worldContextObject);
+	
+	void parseSocialGameLib(const FString& filePath, const UObject* worldContextObject);
 	
 	UFUNCTION(BlueprintCallable)
 	void formIntentForAll();

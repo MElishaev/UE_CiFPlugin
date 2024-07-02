@@ -15,7 +15,7 @@ class UCiFRule;
 class UCiFGameObject;
 
 USTRUCT()
-struct FSocialGameTypes
+struct FSocialGameNames
 {
 	GENERATED_BODY()
 
@@ -176,7 +176,7 @@ public:
 	 */
 	TArray<UCiFGameObject*> getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder);
 
-	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson);
+	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject);
 
 public:
 	FName mName;

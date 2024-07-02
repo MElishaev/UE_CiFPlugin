@@ -65,7 +65,7 @@ public:
 	 * if this case, the input pointer will be filled, otherwise a new object will be filled
 	 * and returned
 	 */
-	static UCiFRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, UCiFRule* inputRule=nullptr);
+	static UCiFRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject, UCiFRule* inputRule=nullptr);
 private:
 	/**
 	 * Determines the highest SFDB order of the predicates in this rule.

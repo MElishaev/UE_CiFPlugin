@@ -758,13 +758,14 @@ void UCiFPredicate::clear()
 	mNumTimesRoleSlot = ENumTimesRoleSlot::INVALID;
 }
 
-UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson)
+UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject)
 {
-	auto p = NewObject<UCiFPredicate>();
+	auto p = NewObject<UCiFPredicate>(const_cast<UObject*>(worldContextObject));
 	
 	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
 	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
 	p->mName = FName(predJson->GetStringField("_name"));
+	UE_LOG(LogTemp, Log, TEXT("Parsing predicate: %s"), *(p->mName.ToString()));
 	auto isSFDB = false;
 	auto isNegated = false;
 
@@ -820,7 +821,9 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson)
 				const UEnum* statusEnum = StaticEnum<EStatus>();
 				const auto status = static_cast<EStatus>(statusEnum->
 					GetValueByName(FName(predJson->GetStringField("_status"))));
-				const auto duration = predJson->GetNumberField("_duration");
+
+				int32 duration = 0;
+				predJson->TryGetNumberField("_duration", duration);
 
 				p->setStatusPredicate(first, second, status, duration, isSFDB, isNegated);
 			}
