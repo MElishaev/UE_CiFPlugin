@@ -30,16 +30,19 @@ void UCiFManager::init(const UObject* worldContextObject)
 	// for now i'll put it here
 	
 	const FString sgLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialGameLib.json"));
-	UE_LOG(LogTemp, Display, TEXT("Reading social games from %s"), *sgLibPath);
+	UE_LOG(LogTemp, Log, TEXT("Reading social games from %s"), *sgLibPath);
 	loadSocialGameLib(sgLibPath, worldContextObject);
 
 	const FString mtLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/microtheories.json"));
-	UE_LOG(LogTemp, Display, TEXT("Reading microtheories from %s"), *mtLibPath);
+	UE_LOG(LogTemp, Log, TEXT("Reading microtheories from %s"), *mtLibPath);
 	loadMicrotheories(mtLibPath, worldContextObject);
 
 	const FString castPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/cast.json"));
-	UE_LOG(LogTemp, Display, TEXT("Reading cast from %s"), *castPath);
+	UE_LOG(LogTemp, Log, TEXT("Reading cast from %s"), *castPath);
 	loadCast(castPath, worldContextObject);
+
+
+	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
 
 void UCiFManager::loadSocialGameLib(const FString& filePath, const UObject* worldContextObject)
@@ -63,12 +66,12 @@ void UCiFManager::loadMicrotheories(const FString& filePath, const UObject* worl
 
 void UCiFManager::loadCast(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
 	TSharedPtr<FJsonObject> jsonObject;
 	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
 		return;
 	}
-	
+
+	mCast = UCiFCast::loadFromJson(jsonObject, worldContextObject);
 }
 
 void UCiFManager::loadItemList(const FString& filePath, const UObject* worldContextObject)

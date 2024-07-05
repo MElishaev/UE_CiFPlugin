@@ -27,7 +27,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void addCharacter(UCiFCharacter* c);	
-	
+
+	static UCiFCast* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

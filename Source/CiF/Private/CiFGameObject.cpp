@@ -25,34 +25,65 @@ bool UCiFGameObject::hasTrait(const ETrait trait) const
 	return mTraits.Contains(trait);
 }
 
-bool UCiFGameObject::hasStatus(const EStatus statusType, const UCiFGameObject* towards) const
+bool UCiFGameObject::hasStatus(const EStatus statusType, const FName towards) const
 {
 	const auto statusesWrapper = mStatuses.Find(statusType);
-	if (statusesWrapper)
-	{
+	if (statusesWrapper) {
 		const auto statuses = statusesWrapper->statusArray;
-		return statuses.ContainsByPredicate([=](const UCiFGameObjectStatus* status)
-		{
+		return statuses.ContainsByPredicate([=](const UCiFGameObjectStatus* status) {
 			return (status->mType == statusType) && (towards == status->mDirectedTowards);
 		});
 	}
 	return false;
 }
 
-void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, UCiFGameObject* towards)
+void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, const FName towards)
 {
-	auto status = getStatus(statusType, towards);
+	// if the type of the status is category
+	if (statusType < EStatus::FIRST_NOT_DIRECTED_STATUS) {
+		// apply all statuses in that category
+		const auto statusCat = UCiFGameObjectStatus::mStatusCategories.Find(statusType);
+		if (!statusCat) {
+			UE_LOG(LogTemp, Error, TEXT("Didn't find status category %d"), statusType);	
+			return;
+		}
+		
+		for (const auto type : (*statusCat).mStatusTypes) {
+			// see if character has status already
+			const auto status = getStatus(type, towards);
+			if (status) {
+				continue;
+			}
 
-	if (status)
-	{
+			// status not found, add it to character
+			auto newStatus = NewObject<UCiFGameObjectStatus>();
+			newStatus->init(statusType, duration, towards);
+			if (mStatuses.Contains(statusType)) {
+				mStatuses.Find(statusType)->statusArray.Add(newStatus);
+			}
+			else {
+				FStatusArrayWrapper statusArrayWrapper;
+				statusArrayWrapper.statusArray.Add(newStatus);
+				mStatuses[statusType] = statusArrayWrapper;
+			}
+
+			// setup the partner status if it has a partner and the status reciprocal - for now not sure about
+			// which types are reciprocal, TODO maybe implement later
+		}
+
+		return;
+	}
+
+	// not a category status
+
+	const auto status = getStatus(statusType, towards);
+	if (status) {
 		// if this object already has the status and also has duration, update the duration
-		if (status->mHasDuration && duration > 0)
-		{
+		if (status->mHasDuration && duration > 0) {
 			status->setDuration(duration);
 		}
 	}
-	else
-	{
+	else {
 		// create new status
 		auto newStatus = NewObject<UCiFGameObjectStatus>();
 		newStatus->init(statusType, duration, towards);
@@ -65,67 +96,57 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, U
 		//			but other than that, i don't know why this is needed when we have
 		//			social networks, where this data resides there, why it is also
 		//			needed to be represented in statuses?
-		
-		if (mStatuses.Contains(statusType))
-		{
+
+		if (mStatuses.Contains(statusType)) {
 			mStatuses.Find(statusType)->statusArray.Add(newStatus);
 		}
-		else
-		{
+		else {
 			FStatusArrayWrapper statusArrayWrapper;
 			statusArrayWrapper.statusArray.Add(newStatus);
-			mStatuses[statusType] = statusArrayWrapper;
+			mStatuses.Add(statusType, statusArrayWrapper);
 		}
 	}
 }
 
-void UCiFGameObject::removeStatus(const EStatus statusType, UCiFGameObject* towards)
+void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 {
 	auto statusArrWrapper = mStatuses.Find(statusType);
-	if (statusArrWrapper)
-	{
-		for (size_t i = 0; i < statusArrWrapper->statusArray.Num(); i++)
-		{
-			if (statusArrWrapper->statusArray[i]->mDirectedTowards == towards)
-			{
+	if (statusArrWrapper) {
+		for (size_t i = 0; i < statusArrWrapper->statusArray.Num(); i++) {
+			if (statusArrWrapper->statusArray[i]->mDirectedTowards == towards) {
 				statusArrWrapper->statusArray.RemoveAt(i);
 				break;
 			}
 		}
 
-		if (statusArrWrapper->statusArray.IsEmpty())
-		{
+		if (statusArrWrapper->statusArray.IsEmpty()) {
 			mStatuses.Remove(statusType);
 		}
 	}
-	
-	
 }
 
 void UCiFGameObject::updateStatusDurations(const int32 timeElapsed)
 {
-	for (auto& [statusType, statusArrWrapper] : mStatuses)
-	{
-		for (auto status : statusArrWrapper.statusArray)
-		{
-			if (status->updateRemainingDuration(timeElapsed) <= 0)
-			{
+	for (auto& [statusType, statusArrWrapper] : mStatuses) {
+		for (auto status : statusArrWrapper.statusArray) {
+			if (status->updateRemainingDuration(timeElapsed) <= 0) {
 				removeStatus(statusType, status->mDirectedTowards);
 			}
 		}
 	}
 }
 
-UCiFGameObjectStatus* UCiFGameObject::getStatus(const EStatus statusType, const UCiFGameObject* towards)
+UCiFGameObjectStatus* UCiFGameObject::getStatus(const EStatus statusType, const FName towards)
 {
 	auto statusesWrapper = mStatuses.Find(statusType);
-	if (statusesWrapper)
-	{
+	if (statusesWrapper) {
 		auto statuses = statusesWrapper->statusArray;
-		return *statuses.FindByPredicate([=](const UCiFGameObjectStatus* status)
-		{
+		auto status = statuses.FindByPredicate([=](const UCiFGameObjectStatus* status) {
 			return (status->mType == statusType) && (towards == status->mDirectedTowards);
 		});
+		if (status) {
+			return *status;
+		}
 	}
 	return nullptr;
 }
@@ -137,7 +158,6 @@ void UCiFGameObject::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 
@@ -148,4 +168,3 @@ void UCiFGameObject::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 	// ...
 }
-

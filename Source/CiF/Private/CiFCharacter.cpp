@@ -3,9 +3,12 @@
 
 #include "CiFCharacter.h"
 
+#include "CiFGameObjectStatus.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
+#include "CiFManager.h"
 #include "CiFProspectiveMemory.h"
+#include "CiFSubsystem.h"
 
 void UCiFCharacter::init()
 {
@@ -62,4 +65,30 @@ void UCiFCharacter::removeItem(const ECiFItemType itemType)
 void UCiFCharacter::resetProspectiveMemory()
 {
 	mProspectiveMemory = NewObject<UCiFProspectiveMemory>();
+}
+
+UCiFCharacter* UCiFCharacter::loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	const auto c = NewObject<UCiFCharacter>(const_cast<UObject*>(worldContextObject));
+	c->init();
+
+	c->mObjectName = FName(json->GetStringField("_name"));
+	c->mNetworkId = json->GetNumberField("_networkID");
+
+	const auto traitsJson = json->GetArrayField("Trait");
+	for (const auto traitJson : traitsJson) {
+		const auto traitEnum = StaticEnum<ETrait>();
+		c->mTraits.Add(static_cast<ETrait>(traitEnum->GetValueByName(FName(traitJson->AsString()))));
+	}
+
+	const auto statusesJson = json->GetArrayField("Status");
+	for (const auto statusJson : statusesJson) {
+		const auto statusEnum = StaticEnum<EStatus>();
+		const auto statusType = static_cast<EStatus>(statusEnum->
+			GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
+		const FName towardsName(statusJson->AsObject()->GetStringField("_to"));
+		c->addStatus(statusType, 5, towardsName); // TODO - why the status in the json doesn't have duration?
+	}
+	
+	return c;
 }

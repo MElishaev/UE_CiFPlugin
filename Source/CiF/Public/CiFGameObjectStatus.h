@@ -8,6 +8,7 @@
 
 #define INVALID_ACTOR_ID MAX_uint16
 
+struct FStatusArrayWrapper;
 class UCiFGameObject;
 
 UENUM(BlueprintType)
@@ -62,13 +63,22 @@ enum class EStatus : uint8
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
 	EATABLE					UMETA(DisplayName="EATABLE"),
 	LOCKED					UMETA(DisplayName="LOCKED"),
+	UNLOCKED,
+	HIDDEN,
 
 	// knowledge statuses
 	KNOWLEDGE_TRUE			UMETA(DisplayName="TRUE"),
 	KNOWLEDGE_FALSE			UMETA(DisplayName="FALSE"),
 	KNOWLEDGE_ACTIVE		UMETA(DisplayName="ACTIVE"),
 
+	FIRST_URGE_STATUS,
+	QUEST_TYPE_URGE,
+	CHARACTER_TYPE_URGE,
+	ITEM_TYPE_URGE,
+	KNOWLEDGE_TYPE_URGE,
+	
 	// directed statuses
+	FIRST_DIRECTED_STATUS,
 	GRATEFUL_TOWARD			UMETA(DisplayName="GRATEFUL_TOWARD"),
 	RESENTFUL_TOWARD		UMETA(DisplayName="RESENTFUL_TOWARD"),
 	ANGRY_AT				UMETA(DisplayName="ANGRY_AT"),
@@ -103,6 +113,14 @@ enum class EStatus : uint8
 
 };
 
+USTRUCT()
+struct FStatusTypesArrayWrapper
+{
+	GENERATED_BODY()
+	TArray<EStatus> mStatusTypes;
+	
+};
+
 /**
  * Represents the status of cif game objects.
  * For example, if we have an object representing a bottle, the status of this
@@ -130,7 +148,9 @@ public:
 	int32 updateRemainingDuration(const int32 timeElapsed);
 	
 	UFUNCTION(BlueprintCallable)
-	void init(const EStatus type, const int32 initialDuration=0, UCiFGameObject* towards=nullptr);
+	void init(const EStatus type, const int32 initialDuration=0, const FName towards = "");
+
+	static TMap<EStatus, FStatusTypesArrayWrapper> initializeStatusCategoriesMap();
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -140,7 +160,7 @@ public:
 	bool mBinary; // indicates if the status involves 2 actors
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UCiFGameObject* mDirectedTowards; // the CIF game object that the status directed towards (!= null iff mBinary==true)
+	FName mDirectedTowards; // the CIF game object name that the status directed towards (!= "" iff mBinary==true)
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	bool mHasDuration; // if this status has duration - sad character can't be happy forever
@@ -150,4 +170,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int32 mInitialDuration; // what is the duration this status starts with
+
+	static TMap<EStatus, FStatusTypesArrayWrapper> mStatusCategories;
+
 };

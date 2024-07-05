@@ -6,6 +6,7 @@
 #include "CiFGameObject.h"
 #include "CiFCharacter.generated.h"
 
+enum class ECiFItemType : uint8;
 enum class EItemType : uint8;
 enum class EKnowledgeType : uint8;
 class UCiFItem;
@@ -68,6 +69,8 @@ public:
 	void removeItem(const ECiFItemType itemType);
 
 	void resetProspectiveMemory();
+
+	static UCiFCharacter* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EKnowledgeType, UCiFKnowledge*> mKnowledgeMap; // the knowledge known by the character

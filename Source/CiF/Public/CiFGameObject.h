@@ -47,6 +47,7 @@ enum class ETrait : uint8
 	PROMISCUOUS,
 	UNFORGIVING,
 	STUBBORN,
+	NAGGING,
 	
 	LAST_NEG_TRAIT,
 
@@ -115,7 +116,7 @@ public:
 	 * @return	True if the character has the status, false if he does not.
 	 */
 	UFUNCTION(BlueprintCallable)
-	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr) const;
+	bool hasStatus(const EStatus statusType, const FName towards = "") const;
 
 	/**
 	 * Give the character a status with a type and a character status target if the status is directed.
@@ -124,7 +125,7 @@ public:
 	 * @param towards			The character the status is directed to.
 	 */
 	UFUNCTION(BlueprintCallable)
-	void addStatus(const EStatus statusType, const int32 duration=0, UCiFGameObject* towards=nullptr);
+	void addStatus(const EStatus statusType, const int32 duration=0, const FName towards = "");
 
 	/**
 	 * Removes a status from the character according to status type.
@@ -134,7 +135,7 @@ public:
 	 * @param towards		Optional parameter for directed statuses
 	 */
 	UFUNCTION(BlueprintCallable)
-	void removeStatus(const EStatus statusType, UCiFGameObject* towards=nullptr);
+	void removeStatus(const EStatus statusType, const FName towards = "");
 
 	/**
 	 * Updates the duration of all statuses held by the character. Removes
@@ -149,7 +150,7 @@ public:
 	 * @return The status or null if doesn't exists 
 	 */
 	UFUNCTION(BlueprintCallable)
-	UCiFGameObjectStatus* getStatus(const EStatus statusType, const UCiFGameObject* towards=nullptr);
+	UCiFGameObjectStatus* getStatus(const EStatus statusType, const FName towards = "");
 	
 protected:
 	// Called when the game starts

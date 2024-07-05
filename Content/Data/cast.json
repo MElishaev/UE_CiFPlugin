@@ -1,0 +1,437 @@
+{
+    "Cast": [
+        {
+            "_name": "Liz",
+            "_networkID": 3,
+            "Trait": [
+                "FEMALE",
+                "PROMISCUOUS",
+                "CHARMING",
+                "HONEST",
+                "CONFIDENT",
+                "PERSUASIVE",
+                "OUTGOING",
+                "IMPULSIVE",
+                "JEALOUS",
+                "OBLIVIOUS",
+                "GABBY",
+                "NAGGING"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "sweetcakes"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "knave"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "fantastic"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Whoa!"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Hellllo."
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "HEARTBROKEN",
+                    "_from": "Liz",
+                    "_to": ""
+                },
+                {
+                    "_type": "ANGRY_AT",
+                    "_from": "Liz",
+                    "_to": "Violet"
+                },
+                {
+                    "_type": "LOVES",
+                    "_from": "Liz",
+                    "_to": "James"
+                }
+            ],
+            "Location": {
+                "_place": "gardens"
+            },
+            "Inventory": []
+        },
+        {
+            "_name": "Thomas",
+            "_networkID": 4,
+            "Trait": [
+                "MALE",
+                "KIND",
+                "CHARMING",
+                "LOYAL",
+                "CONFIDENT",
+                "OUTGOING",
+                "IMPULSIVE",
+                "INDECISIVE",
+                "STUBBORN",
+                "VENGEFUL",
+                "TACTFUL",
+                "HUMBLE"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "Dear"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "buffoon"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "bonny"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Yegads!"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Hullo there"
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "VIRGIN",
+                    "_from": "Thomas",
+                    "_to": ""
+                },
+                {
+                    "_type": "VULNERABLE",
+                    "_from": "Thomas",
+                    "_to": ""
+                },
+                {
+                    "_type": "ANGRY_AT",
+                    "_from": "Thomas",
+                    "_to": "Violet"
+                },
+                {
+                    "_type": "LOVES",
+                    "_from": "Thomas",
+                    "_to": "Colonel"
+                }
+            ],
+            "Location": {
+                "_place": "dining room"
+            },
+            "Inventory": []
+        },
+        {
+            "_name": "Baroness",
+            "_networkID": 5,
+            "Trait": [
+                "FEMALE",
+                "LOYAL",
+                "CONFIDENT",
+                "IRRITABLE",
+                "DOMINEERING",
+                "ARROGANT",
+                "OBLIVIOUS",
+                "NAGGING",
+                "HONEST",
+                "STUBBORN"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "Babs"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "traitor"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "great"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "What?!"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "My dear."
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "TIPSY",
+                    "_from": "Baroness",
+                    "_to": ""
+                },
+                {
+                    "_type": "PITIES",
+                    "_from": "Baroness",
+                    "_to": "Liz"
+                },
+                {
+                    "_type": "PITIES",
+                    "_from": "Baroness",
+                    "_to": "James"
+                }
+            ],
+            "Location": {
+                "_place": "dining room"
+            },
+            "Inventory": []
+        },
+        {
+            "_name": "Violet",
+            "_networkID": 0,
+            "Trait": [
+                "FEMALE",
+                "CHARISMATIC",
+                "INDEPENDENT",
+                "OBSERVANT",
+                "CONFIDENT",
+                "PERSUASIVE",
+                "OUTGOING",
+                "IRRITABLE",
+                "DOMINEERING",
+                "VENGEFUL",
+                "DISHONEST",
+                "HOSTILE",
+                "SNIDE"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "Love"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "idiot"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "lovely"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Oh my."
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Why hello"
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "MANIPULATING",
+                    "_from": "Violet",
+                    "_to": "Player"
+                },
+                {
+                    "_type": "BUSY",
+                    "_from": "Violet",
+                    "_to": ""
+                },
+                {
+                    "_type": "IS_DATING",
+                    "_from": "Violet",
+                    "_to": "James"
+                },
+                {
+                    "_type": "IS_HOLDING",
+                    "_from": "Violet",
+                    "_to": "Violet's Diary"
+                },
+                {
+                    "_type": "IS_HOLDING",
+                    "_from": "Violet",
+                    "_to": "White Wine"
+                }
+            ],
+            "Location": {
+                "_place": "living room"
+            },
+            "Inventory": [
+                {
+                    "_name": "Violet's Diary"
+                },
+                {
+                    "_name": "White Wine"
+                }
+            ]
+        },
+        {
+            "_name": "James",
+            "_networkID": 1,
+            "Trait": [
+                "MALE",
+                "KIND",
+                "SYMPATHETIC",
+                "HUMBLE",
+                "FORGIVING",
+                "LOYAL",
+                "SHY",
+                "JEALOUS",
+                "HONEST",
+                "INDECISIVE"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "Lamby"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "bully"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "grand"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Aghhhck!"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Hullo"
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "IS_DATING",
+                    "_from": "James",
+                    "_to": "Violet"
+                },
+                {
+                    "_type": "AFRAID_OF",
+                    "_from": "James",
+                    "_to": "Violet"
+                },
+                {
+                    "_type": "DISTRACTED",
+                    "_from": "James",
+                    "_to": ""
+                },
+                {
+                    "_type": "GUILTY",
+                    "_from": "James",
+                    "_to": ""
+                },
+                {
+                    "_type": "ANXIOUS",
+                    "_from": "James",
+                    "_to": ""
+                }
+            ],
+            "Location": {
+                "_place": "gardens"
+            },
+            "Inventory": []
+        },
+        {
+            "_name": "Colonel",
+            "_networkID": 2,
+            "Trait": [
+                "MALE",
+                "CHARISMATIC",
+                "OUTGOING",
+                "IMPULSIVE",
+                "DISAPPROVING",
+                "IRRITABLE",
+                "ARROGANT",
+                "OBLIVIOUS",
+                "UNFORGIVING",
+                "STUBBORN",
+                "GABBY"
+            ],
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "little apricot"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "scoundrel"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "excellent"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Wot?"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Indeed"
+                }
+            ],
+            "Status": [
+                {
+                    "_type": "HATES",
+                    "_from": "Colonel",
+                    "_to": "James"
+                },
+                {
+                    "_type": "DISTRACTED",
+                    "_from": "Colonel",
+                    "_to": ""
+                },
+                {
+                    "_type": "ANXIOUS",
+                    "_from": "Colonel",
+                    "_to": ""
+                },
+                {
+                    "_type": "IS_HOLDING",
+                    "_from": "Colonel",
+                    "_to": "Colonel's Diary"
+                }
+            ],
+            "Location": {
+                "_place": "living room"
+            },
+            "Inventory": {
+                "Item": {
+                    "_name": "Colonel's Diary"
+                }
+            }
+        },
+        {
+            "_name": "Player",
+            "_networkID": 6,
+            "Locution": [
+                {
+                    "_type": "SWEETIE",
+                    "#text": "dear"
+                },
+                {
+                    "_type": "PEJORATIVE",
+                    "#text": "simpleton"
+                },
+                {
+                    "_type": "POSITIVEADJ",
+                    "#text": "wonderful"
+                },
+                {
+                    "_type": "SHOCKED",
+                    "#text": "Heavens!"
+                },
+                {
+                    "_type": "GREETING",
+                    "#text": "Hello"
+                }
+            ],
+            "Location": {
+                "_place": "living room"
+            },
+            "Inventory": []
+        }
+    ]
+}

@@ -169,7 +169,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 		case EPredicateType::NETWORK:
 			return evalNetwork(first, second);
 		case EPredicateType::STATUS:
-			return mIsNegated ? !evalStatus(first, second) : evalStatus(first, second);
+			return mIsNegated ? !evalStatus(first, second->mObjectName) : evalStatus(first, second->mObjectName);
 		case EPredicateType::CKBENTRY:
 			return evalCKBEntry(first, second);
 		case EPredicateType::SFDBLABEL:
@@ -260,10 +260,10 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 						break;
 					case EPredicateType::STATUS:
 						if (mNumTimesRoleSlot == ENumTimesRoleSlot::SECOND) {
-							predTrue = evalStatus(c, primaryCharacterOfConsideration);
+							predTrue = evalStatus(c, primaryCharacterOfConsideration->mObjectName);
 						}
 						else {
-							predTrue = evalStatus(primaryCharacterOfConsideration, c);
+							predTrue = evalStatus(primaryCharacterOfConsideration, c->mObjectName);
 						}
 						break;
 					case EPredicateType::CKBENTRY:
@@ -431,7 +431,7 @@ bool UCiFPredicate::evalNetwork(const UCiFGameObject* first, const UCiFGameObjec
 	return false || mIsNegated;
 }
 
-bool UCiFPredicate::evalStatus(const UCiFGameObject* first, const UCiFGameObject* second) const
+bool UCiFPredicate::evalStatus(const UCiFGameObject* first, const FName second) const
 {
 	return first->hasStatus(mStatusType, second);
 }
