@@ -62,8 +62,12 @@ enum class EStatus : uint8
 	// item statuses
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
 	EATABLE					UMETA(DisplayName="EATABLE"),
+	HIDEABLE,
+	EXAMINABLE,
+	USABLE,
 	LOCKED					UMETA(DisplayName="LOCKED"),
 	UNLOCKED,
+	OPEN,
 	HIDDEN,
 
 	// knowledge statuses

@@ -151,6 +151,27 @@ UCiFGameObjectStatus* UCiFGameObject::getStatus(const EStatus statusType, const 
 	return nullptr;
 }
 
+void UCiFGameObject::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	mObjectName = FName(json->GetStringField("_name"));
+	mNetworkId = json->GetNumberField("_networkID");
+
+	const auto traitsJson = json->GetArrayField("Trait");
+	for (const auto traitJson : traitsJson) {
+		const auto traitEnum = StaticEnum<ETrait>();
+		mTraits.Add(static_cast<ETrait>(traitEnum->GetValueByName(FName(traitJson->AsString()))));
+	}
+
+	const auto statusesJson = json->GetArrayField("Status");
+	for (const auto statusJson : statusesJson) {
+		const auto statusEnum = StaticEnum<EStatus>();
+		const auto statusType = static_cast<EStatus>(statusEnum->
+			GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
+		const FName towardsName(statusJson->AsObject()->GetStringField("_to"));
+		addStatus(statusType, 0, towardsName); // TODO - why the status in the json doesn't have duration?
+	}
+}
+
 
 // Called when the game starts
 void UCiFGameObject::BeginPlay()

@@ -10,8 +10,12 @@ UENUM(BlueprintType)
 enum class ECiFItemType : uint8
 {
 	INVALID,
-	ITEM_A,
-	ITEM_B,
+	WINE,
+	WHITE_WINE,
+	COLONELS_DIARY,
+	VIOLETS_DIARY,
+	CULT_STATUE,
+	GATE
 };
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -25,7 +29,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void init(const ECiFItemType itemType, UCiFGameObject* receivedFrom=nullptr);
-	
+
+	static UCiFItem* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)

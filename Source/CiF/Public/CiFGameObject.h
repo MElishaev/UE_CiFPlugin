@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Json.h"
 #include "CiFGameObject.generated.h"
 
 enum class EStatus : uint8;
@@ -60,6 +61,10 @@ enum class ETrait : uint8
 	ITEM			UMETA(DisplayName="ITEM"), // indicates that it is an item
 	HOLDABLE		UMETA(DisplayName="HOLDABLE"),
 	USABLE			UMETA(DisplayName="USABLE"),
+	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
+	EATABLE					UMETA(DisplayName="EATABLE"),
+	HIDEABLE,
+	EXAMINABLE,
 
 	// knowledge traits
 	KNOWLEDGE		UMETA(DisplayName="KNOWLEDGE"), // indicates that this GameObject represents knowledge
@@ -151,7 +156,8 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	UCiFGameObjectStatus* getStatus(const EStatus statusType, const FName towards = "");
-	
+
+	void loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

@@ -1,0 +1,111 @@
+{
+    "Items": [
+        {
+            "_name": "wine",
+            "_type": "WINE",
+            "_networkID": 7,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "HOLDABLE",
+                "USABLE"
+            ],
+            "Status": [
+                {
+                    "_type": "DRINKABLE"
+                }
+            ],
+            "Location": {
+                "_room": "dining room"
+            }
+        },
+        {
+            "_name": "colonel's diary",
+            "_type": "COLONELS_DIARY",
+            "_networkID": 8,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "HOLDABLE",
+                "HIDEABLE"
+            ],
+            "Location": {
+                "_room": "inventory"
+            }
+        },
+        {
+            "_name": "white wine",
+            "_type": "WHITE_WINE",
+            "_networkID": 9,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "HOLDABLE",
+                "USABLE"
+            ],
+            "Status": [
+                {
+                    "_type": "DRINKABLE"
+                }
+            ],
+            "Location": {
+                "_room": "inventory"
+            }
+        },
+        {
+            "_name": "Violet's diary",
+            "_type": "VIOLETS_DIARY",
+            "_networkID": 10,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "HOLDABLE",
+                "USABLE",
+                "HIDEABLE"
+            ],
+            "Location": {
+                "_room": "inventory"
+            }
+        },
+        {
+            "_name": "cult statue",
+            "_type": "CULT_STATUE",
+            "_networkID": 11,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "HOLDABLE",
+                "HIDEABLE"
+            ],
+            "Status": [
+                {
+                    "_type": "HIDDEN"
+                }
+            ],
+            "Location": {
+                "_room": "gardens"
+            }
+        },
+        {
+            "_name": "gate",
+            "_type": "GATE",
+            "_networkID": 12,
+            "Trait": [
+                "ITEM",
+                "EXAMINABLE",
+                "USABLE"
+            ],
+            "Status": [
+                {
+                    "_type": "OPEN"
+                },
+                {
+                    "_type": "UNLOCKED"
+                }
+            ],
+            "Location": {
+                "_room": "gardens"
+            }
+        }
+    ]
+}

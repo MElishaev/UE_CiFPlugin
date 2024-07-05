@@ -41,7 +41,10 @@ void UCiFManager::init(const UObject* worldContextObject)
 	UE_LOG(LogTemp, Log, TEXT("Reading cast from %s"), *castPath);
 	loadCast(castPath, worldContextObject);
 
-
+	const FString itemsPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/items.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading items from %s"), *itemsPath);
+	loadItemList(itemsPath, worldContextObject);
+	
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
 
@@ -76,7 +79,16 @@ void UCiFManager::loadCast(const FString& filePath, const UObject* worldContextO
 
 void UCiFManager::loadItemList(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
+
+	const auto itemsJson = jsonObject->GetArrayField("Items");
+	for (const auto itemJson : itemsJson) {
+		auto item = UCiFItem::loadFromJson(itemJson->AsObject(), worldContextObject);
+		mItemArray.Add(item);
+	}
 }
 
 void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worldContextObject)
