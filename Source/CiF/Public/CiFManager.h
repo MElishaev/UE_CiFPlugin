@@ -44,8 +44,6 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"))
 	void init(const UObject* worldContextObject);
 	
-	void parseSocialGameLib(const FString& filePath, const UObject* worldContextObject);
-	
 	UFUNCTION(BlueprintCallable)
 	void formIntentForAll();
 
@@ -150,6 +148,21 @@ private:
 	/* Clears all characters' prospective memory */
 	void clearProspectiveMemory();
 
+	/* Load the needed components and CiF state from json files.
+	 * This is for new game initialization.
+	 * For loading existing state, it is suggested to just load game from a
+	 * serialized UE save game system. TODO - when load game will be supported later on
+	 */
+	void loadSocialGameLib(const FString& filePath, const UObject* worldContextObject);
+	void loadMicrotheories(const FString& filePath, const UObject* worldContextObject);
+	void loadCast(const FString& filePath, const UObject* worldContextObject);
+	void loadItemList(const FString& filePath, const UObject* worldContextObject);
+	void loadKnowledgeList(const FString& filePath, const UObject* worldContextObject);
+	void loadCKB(const FString& filePath, const UObject* worldContextObject);
+	void loadSFDB(const FString& filePath, const UObject* worldContextObject);
+	void loadSocialNetworks(const FString& filePath, const UObject* worldContextObject);
+	void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
+	void loadQuestLib(const FString& filePath, const UObject* worldContextObject);
 public:
 
 	int32 mTime;
@@ -170,10 +183,9 @@ public:
 	UCiFSocialFactsDataBase* mSFDB;
 
 	UCiFCulturalKnowledgeBase* mCKB;
-
-	TArray<UCiFMicrotheory*> mMicrotheories;
-
+	
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
+	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
 	UCiFRelationshipNetwork* mRelationshipNetworks;
 
 	/**

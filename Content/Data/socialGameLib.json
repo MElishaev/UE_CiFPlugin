@@ -64670,6 +64670,174 @@
                     "ConditionalRules": []
                 }
             ]
+        },
+        {
+            "_name": "TriggerGame",
+            "Intents": [],
+            "Preconditions": [
+                {
+                    "_name": "Anonymous Rule",
+                    "_id": 0,
+                    "Predicate": [
+                        {
+                            "_type": "RELATIONSHIP",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_relationship": "FRIENDS",
+                            "_negated": false,
+                            "_intent": false,
+                            "_isSFDB": false,
+                            "_window": 0,
+                            "_numTimesUniquelyTrueFlag": false,
+                            "_numTimesUniquelyTrue": 0,
+                            "_numTimesRoleSlot": ""
+                        },
+                        {
+                            "_type": "RELATIONSHIP",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_relationship": "FRIENDS",
+                            "_negated": true,
+                            "_intent": false,
+                            "_isSFDB": false,
+                            "_window": 0,
+                            "_numTimesUniquelyTrueFlag": false,
+                            "_numTimesUniquelyTrue": 0,
+                            "_numTimesRoleSlot": ""
+                        }
+                    ]
+                }
+            ],
+            "InitiatorInfluenceRuleSet": [],
+            "ResponderInfluenceRuleSet": [],
+            "Effects": [
+                {
+                    "_id": 0,
+                    "_accept": true,
+                    "_instantiationID": 0,
+                    "PerformanceRealization": "3 friends makes you popular",
+                    "ConditionRule": {
+                        "Predicate": [
+                            {
+                                "_type": "RELATIONSHIP",
+                                "_first": "initiator",
+                                "_second": "responder",
+                                "_relationship": "FRIENDS",
+                                "_negated": false,
+                                "_intent": false,
+                                "_isSFDB": false,
+                                "_window": 0,
+                                "_numTimesUniquelyTrueFlag": true,
+                                "_numTimesUniquelyTrue": 3,
+                                "_numTimesRoleSlot": "first"
+                            }
+                        ]
+                    },
+                    "ChangeRule": {
+                        "Predicate": [
+                            {
+                                "_type": "STATUS",
+                                "_status": "POPULAR",
+                                "_first": "initiator",
+                                "_second": "",
+                                "_negated": false,
+                                "_intent": false,
+                                "_isSFDB": false,
+                                "_window": 0,
+                                "_numTimesUniquelyTrueFlag": false,
+                                "_numTimesUniquelyTrue": 0,
+                                "_numTimesRoleSlot": ""
+                            }
+                        ]
+                    }
+                },
+                {
+                    "_id": 1,
+                    "_accept": true,
+                    "_instantiationID": 0,
+                    "PerformanceRealization": "If everyone has 50 or over cool network, you get popular",
+                    "ConditionRule": {
+                        "Predicate": [
+                            {
+                                "_type": "NETWORK",
+                                "_networkType": "COOL",
+                                "_first": "responder",
+                                "_second": "initiator",
+                                "_comparator": "AVERAGE_OPINION",
+                                "_value": 50,
+                                "_negated": false,
+                                "_intent": false,
+                                "_isSFDB": false,
+                                "_window": 0,
+                                "_numTimesUniquelyTrueFlag": true,
+                                "_numTimesUniquelyTrue": 3,
+                                "_numTimesRoleSlot": "SECOND",
+                                "_sfdbOrder": 3
+                            }
+                        ]
+                    },
+                    "ChangeRule": {
+                        "Predicate": [
+                            {
+                                "_type": "STATUS",
+                                "_status": "POPULAR",
+                                "_first": "initiator",
+                                "_second": "",
+                                "_negated": false,
+                                "_intent": false,
+                                "_isSFDB": false,
+                                "_window": 0,
+                                "_numTimesUniquelyTrueFlag": false,
+                                "_numTimesUniquelyTrue": 0,
+                                "_numTimesRoleSlot": ""
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Instantiations": []
+        },
+        {
+            "_name": "StoryTriggerGame",
+            "Intents": [],
+            "Preconditions": [
+                {
+                    "_name": "Anonymous Rule",
+                    "_id": 0,
+                    "Predicate": [
+                        {
+                            "_type": "RELATIONSHIP",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_relationship": "FRIENDS",
+                            "_negated": false,
+                            "_intent": false,
+                            "_isSFDB": false,
+                            "_window": 0,
+                            "_numTimesUniquelyTrueFlag": false,
+                            "_numTimesUniquelyTrue": 0,
+                            "_numTimesRoleSlot": ""
+                        },
+                        {
+                            "_type": "RELATIONSHIP",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_relationship": "FRIENDS",
+                            "_negated": true,
+                            "_intent": false,
+                            "_isSFDB": false,
+                            "_window": 0,
+                            "_numTimesUniquelyTrueFlag": false,
+                            "_numTimesUniquelyTrue": 0,
+                            "_numTimesRoleSlot": ""
+                        }
+                    ]
+                }
+            ],
+            "InitiatorInfluenceRuleSet": [],
+            "ResponderInfluenceRuleSet": [],
+            "Effects": [],
+            "Instantiations": []
         }
     ]
 }

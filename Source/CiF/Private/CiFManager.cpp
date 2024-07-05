@@ -14,29 +14,102 @@
 #include "CiFSocialExchange.h"
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
+#include "ReadWriteFiles.h"
 
 UCiFManager::UCiFManager()
 {
-	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>();
 	mTime = 0;
 }
 
 void UCiFManager::init(const UObject* worldContextObject)
 {
+	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>(const_cast<UObject*>(worldContextObject));
+	mSFDB = NewObject<UCiFSocialFactsDataBase>(const_cast<UObject*>(worldContextObject));
 	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
 	// player has already has save game, we need to just load it from the save game, although it should be the same data.
 	// for now i'll put it here
 	
 	const FString sgLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialGameLib.json"));
 	UE_LOG(LogTemp, Display, TEXT("Reading social games from %s"), *sgLibPath);
-	parseSocialGameLib(sgLibPath, worldContextObject);
+	loadSocialGameLib(sgLibPath, worldContextObject);
 
-	// todo - parse microtheories 
+	const FString mtLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/microtheories.json"));
+	UE_LOG(LogTemp, Display, TEXT("Reading microtheories from %s"), *mtLibPath);
+	loadMicrotheories(mtLibPath, worldContextObject);
+
+	const FString castPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/cast.json"));
+	UE_LOG(LogTemp, Display, TEXT("Reading cast from %s"), *castPath);
+	loadCast(castPath, worldContextObject);
 }
 
-void UCiFManager::parseSocialGameLib(const FString& filePath, const UObject* worldContextObject)
+void UCiFManager::loadSocialGameLib(const FString& filePath, const UObject* worldContextObject)
 {
 	mSocialExchangesLib->loadSocialGamesLibFromJson(filePath, worldContextObject);
+}
+
+void UCiFManager::loadMicrotheories(const FString& filePath, const UObject* worldContextObject)
+{
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
+
+	const auto microtheoriesJson = jsonObject->GetArrayField("Microtheories");
+	for (const auto mtJson : microtheoriesJson) {
+		auto mt = UCiFMicrotheory::loadFromJson(mtJson->AsObject(), worldContextObject);
+		mMicrotheoriesLib.Add(mt->mName, mt);
+	}
+}
+
+void UCiFManager::loadCast(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
+	
+}
+
+void UCiFManager::loadItemList(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+}
+
+void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
+}
+
+void UCiFManager::loadCKB(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
+}
+
+void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
+}
+
+void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
+}
+
+void UCiFManager::loadPlotPoints(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
+}
+
+void UCiFManager::loadQuestLib(const FString& filePath, const UObject* worldContextObject)
+{
+	// TODO - implement
+
 }
 
 void UCiFManager::formIntentForAll()
@@ -121,7 +194,7 @@ int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
 	auto others = possibleOthers.Num() > 0 ? possibleOthers : mCast->mCharacters;
 	int8 totalScore = 0;
 
-	for (const auto microTheory : mMicrotheories) {
+	for (const auto [name, microTheory] : mMicrotheoriesLib) {
 		totalScore += microTheory->score(initiator, responder, se, others);
 	}
 

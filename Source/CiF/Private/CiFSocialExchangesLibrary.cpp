@@ -3,7 +3,11 @@
 
 #include "CiFSocialExchangesLibrary.h"
 
+#include "CiFManager.h"
 #include "CiFSocialExchange.h"
+#include "CiFSocialFactsDataBase.h"
+#include "CiFSubsystem.h"
+#include "CiFTrigger.h"
 #include "ReadWriteFiles.h"
 #include "Json.h"
 
@@ -34,11 +38,34 @@ void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonP
 		return;
 	}
 
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	
 	// iterate over the all the social games
 	const auto socialGames = jsonObject->GetArrayField("SocialGamesLib");
 
 	for (const auto sgJson : socialGames) {
 		auto sg = UCiFSocialExchange::loadFromJson(sgJson->AsObject(), worldContextObject);
-		mSocialExchanges.Add(sg->mName, sg);
+
+		if (sg->mName == "TriggerGame") {
+			for (const auto e : sg->mEffects) {
+				auto t = NewObject<UCiFTrigger>();
+				t->mReferenceAsNLG = e->mReferenceAsNLG;
+				t->mCondition = e->mCondition;
+				t->mChange = e->mChange;
+				cifManager->mSFDB->mTriggers.Add(t);
+			}
+		}
+		else if (sg->mName == "StoryTriggerGame") {
+			for (const auto e : sg->mEffects) {
+				auto t = NewObject<UCiFTrigger>();
+				t->mReferenceAsNLG = e->mReferenceAsNLG;
+				t->mCondition = e->mCondition;
+				t->mChange = e->mChange;
+				cifManager->mSFDB->mStoryTriggers.Add(t);
+			}
+		}
+		else {
+			mSocialExchanges.Add(sg->mName, sg);
+		}
 	}
 }

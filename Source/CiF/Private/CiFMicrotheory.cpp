@@ -3,11 +3,19 @@
 
 #include "CiFMicrotheory.h"
 #include "CiFCast.h"
+#include "CiFInfluenceRule.h"
 #include "CiFInfluenceRuleSet.h"
 #include "CiFManager.h"
 #include "CiFRule.h"
 #include "CiFSubsystem.h"
 #include "Kismet/GameplayStatics.h"
+
+UCiFMicrotheory::UCiFMicrotheory()
+{
+	mInitiatorIR = NewObject<UCiFInfluenceRuleSet>();
+	mResponderIR = NewObject<UCiFInfluenceRuleSet>();
+	mDefinition = nullptr; // will be loaded by the loadFromJson
+}
 
 float UCiFMicrotheory::score(UCiFCharacter* initiator,
                              UCiFCharacter* responder,
@@ -43,4 +51,29 @@ float UCiFMicrotheory::score(UCiFCharacter* initiator,
 	}
 
 	return totalScore;
+}
+
+UCiFMicrotheory* UCiFMicrotheory::loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	auto mt = NewObject<UCiFMicrotheory>(const_cast<UObject*>(worldContextObject));
+
+	mt->mName = FName(json->GetStringField("Name"));
+	UE_LOG(LogTemp, Log, TEXT("Parsing microtheory: %s"), *(mt->mName.ToString()))
+
+	const auto definitionJson = json->GetObjectField("Definition");
+	mt->mDefinition = UCiFRule::loadFromJson(definitionJson, worldContextObject);
+	
+	auto irsJson = json->GetArrayField("InitiatorInfluenceRuleSet");
+	for (const auto irJson : irsJson) {
+		const auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
+		mt->mInitiatorIR->mInfluenceRules.Add(ir);
+	}
+
+	auto rirsJson = json->GetArrayField("ResponderInfluenceRuleSet");
+	for (const auto irJson : rirsJson) {
+		const auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
+		mt->mResponderIR->mInfluenceRules.Add(ir);
+	}
+	
+	return mt;
 }

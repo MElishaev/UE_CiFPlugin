@@ -318,6 +318,14 @@ public:
 	ERelationshipType mRelationshipType; // TODO - this is relevant only for network predicates
 	int8 mNetworkValue; // network value for comparisons if this is a network predicate TODO - this is relevant only for network predicates
 
+	/* This params are for cases where we want to check how many times some predicate occured. For example:
+	* <PerformanceRealization> 3 friends makes you popular </PerformanceRealization>
+		  <ConditionRule>
+			<Predicate	type="relationship" first="initiator" second="responder" relationship="friends"
+						negated="false" intent="false" isSFDB="false" window="0" numTimesUniquelyTrueFlag="true"
+						numTimesUniquelyTrue="3" numTimesRoleSlot="first"/>
+		  </ConditionRule>
+	 */
 	bool mIsNumTimesUniquelyTruePred; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
 	uint16 mNumTimesUniquelyTrue;     // the number of times this predicate needs to be uniquely true
 	ENumTimesRoleSlot mNumTimesRoleSlot;

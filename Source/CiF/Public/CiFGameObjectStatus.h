@@ -56,6 +56,7 @@ enum class EStatus : uint8
 	VULNERABLE,
 	SHAKEN,
 	ANXIOUS,
+	BUSY,
 
 	// item statuses
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
@@ -73,7 +74,7 @@ enum class EStatus : uint8
 	ANGRY_AT				UMETA(DisplayName="ANGRY_AT"),
 	ENVIES					UMETA(DisplayName="ENVIES"),
 	AFRAID_OF				UMETA(DisplayName="AFRAID_OF"),
-	LOVE					UMETA(DisplayName="LOVE"),
+	LOVES					UMETA(DisplayName="LOVE"),
 	ESTRANGED_FROM,
 	HATES,
 	MANIPULATING,

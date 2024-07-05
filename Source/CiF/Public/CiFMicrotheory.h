@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CiFMicrotheory.generated.h"
 
+class UCiFCharacter;
 class UCiFInfluenceRuleSet;
 class UCiFRule;
 class UCiFSocialExchange;
@@ -27,6 +28,9 @@ class CIF_API UCiFMicrotheory : public UObject
 	GENERATED_BODY()
 
 public:
+
+	UCiFMicrotheory();
+	
 	/**
 	 * This function will score an influence rule set for all others that fit the definition or no others 
 	 * if the definition doesn't require it.
@@ -38,7 +42,9 @@ public:
 	            UCiFSocialExchange* se,
 	            TArray<UCiFCharacter*> others) const;
 
-protected:
+	static UCiFMicrotheory* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
+
+public:
 	FName mName = ""; // name of micro theory (acts also as ID due to being FName)
 
 	UPROPERTY()

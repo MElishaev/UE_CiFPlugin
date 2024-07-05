@@ -158,7 +158,8 @@ public:
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> initializeCategoriesMap();
 public:
 	TArray<UCiFSFDBContext*> mContexts; // contexts in ascending order - the latest is the last in the array
-	TArray<UCiFTrigger*> mTriggers;
+	TArray<UCiFTrigger*> mTriggers; // triggers that are derived from the overall social status and not a specific social game
+	TArray<UCiFTrigger*> mStoryTriggers;
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> mSFDBLabelCategories;
 	inline static int32 INVALID_TIME = -999;
 };
