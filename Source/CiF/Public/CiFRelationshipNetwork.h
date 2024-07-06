@@ -68,4 +68,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	void setRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b);
+
+	static UCiFRelationshipNetwork* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 };

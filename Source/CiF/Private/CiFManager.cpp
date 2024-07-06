@@ -10,6 +10,7 @@
 #include "CiFMicrotheory.h"
 #include "CiFPredicate.h"
 #include "CiFProspectiveMemory.h"
+#include "CiFRelationshipNetwork.h"
 #include "CiFRule.h"
 #include "CiFSocialExchange.h"
 #include "CiFSocialExchangeContext.h"
@@ -59,6 +60,10 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString triggersPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/triggers.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading triggers from %s"), *triggersPath);
 	loadTriggers(triggersPath, worldContextObject);
+	
+	const FString socialNetworksPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialNetworks.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading social networks from %s"), *socialNetworksPath);
+	loadSocialNetworks(socialNetworksPath, worldContextObject);
 	
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
@@ -178,8 +183,19 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 
 void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
 
+	const auto snsJson = jsonObject->GetArrayField("SocialNetworks");
+	for (const auto snJson : snsJson) {
+		auto sn = UCiFSocialNetwork::loadFromJson(snJson->AsObject(), worldContextObject);
+		mSocialNetworks.Add(sn->mType, sn);
+	}
+
+	const auto rsJson = jsonObject->GetObjectField("RelationshipNetwork");
+	mRelationshipNetworks = UCiFRelationshipNetwork::loadFromJson(rsJson, worldContextObject);	
 }
 
 void UCiFManager::loadPlotPoints(const FString& filePath, const UObject* worldContextObject)

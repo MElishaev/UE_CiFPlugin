@@ -2,6 +2,8 @@
 
 
 #include "CiFSocialNetwork.h"
+#include "CiFManager.h"
+#include "CiFSubsystem.h"
 
 void UCiFSocialNetwork::init(const ESocialNetworkType networkType, const uint8 numOfCharacters, const uint8 maxVal)
 {
@@ -9,17 +11,20 @@ void UCiFSocialNetwork::init(const ESocialNetworkType networkType, const uint8 n
 	mType = networkType;
 
 	mNetwork.SetNum(numOfCharacters);
-	for (auto row : mNetwork)
-	{
-		row.SetNum(numOfCharacters);
+	for (int32 i = 0; i < numOfCharacters; i++) {
+		mNetwork[i].SetNum(numOfCharacters);
 	}
 	setAllArrayElements(maxVal / 2);
-	
 }
 
-void UCiFSocialNetwork::setWeight(const uint8 c1, const uint8 c2, const uint8 w)
+void UCiFSocialNetwork::setWeight(const int32 c1, const int32 c2, const uint8 w)
 {
-	mNetwork[c1][c2] = w;
+	if (c1 < mNetwork.Num() && c2 < mNetwork.Num()) {
+		mNetwork[c1][c2] = w;
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Trying set weight to [%d][%d] while number of characters is %d"), c1, c2, mNetwork.Num());
+	}
 }
 
 void UCiFSocialNetwork::addWeight(const uint8 c1, const uint8 c2, const int addition)
@@ -74,6 +79,37 @@ TArray<uint8> UCiFSocialNetwork::getReverseRelationshipsAboveThreshold(const uin
 		}
 	}
 	return idsArr;
+}
+
+UCiFSocialNetwork* UCiFSocialNetwork::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	const auto sn = NewObject<UCiFSocialNetwork>(const_cast<UObject*>(worldContextObject));
+
+	const auto snEnum = StaticEnum<ESocialNetworkType>();
+	const auto snType = static_cast<ESocialNetworkType>(snEnum->GetValueByName(FName(json->GetStringField("_type"))));
+	const auto numChars = json->GetNumberField("_numChars");
+	const int8 maxVal = 100;
+	
+	sn->init(snType, numChars, maxVal);
+
+	// now load the values from the json
+	const auto cifManager = sn->GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const auto edgesJson = json->GetArrayField("edge");
+	for (const auto edgeJson : edgesJson) {
+		const auto weight = edgeJson->AsObject()->GetNumberField("_value");
+		const auto from = FName(edgeJson->AsObject()->GetStringField("_from"));
+		const auto to = FName(edgeJson->AsObject()->GetStringField("_to"));
+		const auto fromObject = cifManager->getGameObjectByName(from);
+		const auto toObject = cifManager->getGameObjectByName(to);
+		if (fromObject && toObject) {
+			sn->setWeight(fromObject->mNetworkId, toObject->mNetworkId, weight);
+		}
+		else {
+			UE_LOG(LogTemp, Error, TEXT("Couldn't find the characters that represented by this edge"));
+		}
+	}
+
+	return sn;
 }
 
 void UCiFSocialNetwork::setAllArrayElements(uint8 val)

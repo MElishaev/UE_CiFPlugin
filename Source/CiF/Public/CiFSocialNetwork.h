@@ -11,6 +11,8 @@ enum class ESocialNetworkType : uint8
 	// social networks (SN) are weights of feelings of characters towards each other, bidirectional
 	SN_BUDDY			UMETA(DisplayName="Buddy"),
 	SN_ROMANCE			UMETA(DisplayName="Romance"),
+	SN_TRUST,
+	SN_FAMILYBOND,
 
 	// relationship network (RN) represent publicly recognized social relationships between characters (friends - true or false)
 	RN_RELATIONSHIP		UMETA(DisplayName="Relationship"), 
@@ -58,7 +60,7 @@ public:
 	 * This is clamped to the max value if overflows
 	 */
 	UFUNCTION(BlueprintCallable)
-	void setWeight(const uint8 c1, const uint8 c2, const uint8 w);
+	void setWeight(const int32 c1, const int32 c2, const uint8 w);
 	UFUNCTION(BlueprintCallable)
 	void addWeight(const uint8 c1, const uint8 c2, const int addition);
 	UFUNCTION(BlueprintCallable)
@@ -85,15 +87,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TArray<uint8> getReverseRelationshipsAboveThreshold(const uint8 c, const uint8 th);
 
+	static UCiFSocialNetwork* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
+protected:
+	void setAllArrayElements(uint8 val);
+
 	
+public:
+
 	TArray<TArray<uint8>> mNetwork; // represents 2d array of relationship value where Network[x][y] is the opinion of x towards y
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESocialNetworkType mType;
 
-	uint8 mMaxVal;
+	uint8 mMaxVal; // the max value a network edge can hold
 
-protected:
-	void setAllArrayElements(uint8 val);
 	
 };

@@ -1,0 +1,903 @@
+{
+	"SocialNetworks": [
+		{
+			"_type": "SN_BUDDY",
+			"_numChars": 7,
+			"edge": [
+				{
+					"_from": "Liz",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Liz",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Liz",
+					"_to": "Violet",
+					"_value": 15
+				},
+				{
+					"_from": "Liz",
+					"_to": "James",
+					"_value": 25
+				},
+				{
+					"_from": "Liz",
+					"_to": "Colonel",
+					"_value": 40
+				},
+				{
+					"_from": "Liz",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Violet",
+					"_value": 15
+				},
+				{
+					"_from": "Thomas",
+					"_to": "James",
+					"_value": 25
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Colonel",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Violet",
+					"_value": 15
+				},
+				{
+					"_from": "Baroness",
+					"_to": "James",
+					"_value": 25
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Colonel",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Violet",
+					"_to": "Liz",
+					"_value": 15
+				},
+				{
+					"_from": "Violet",
+					"_to": "Thomas",
+					"_value": 15
+				},
+				{
+					"_from": "Violet",
+					"_to": "Baroness",
+					"_value": 15
+				},
+				{
+					"_from": "Violet",
+					"_to": "James",
+					"_value": 30
+				},
+				{
+					"_from": "Violet",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "James",
+					"_to": "Liz",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Thomas",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Baroness",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Violet",
+					"_value": 50
+				},
+				{
+					"_from": "James",
+					"_to": "Colonel",
+					"_value": 30
+				},
+				{
+					"_from": "James",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Violet",
+					"_value": 60
+				},
+				{
+					"_from": "Colonel",
+					"_to": "James",
+					"_value": 5
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "James",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Colonel",
+					"_value": 40
+				}
+			]
+		},
+		{
+			"_type": "SN_TRUST",
+			"_numChars": 7,
+			"edge": [
+				{
+					"_from": "Liz",
+					"_to": "Thomas",
+					"_value": 10
+				},
+				{
+					"_from": "Liz",
+					"_to": "Baroness",
+					"_value": 10
+				},
+				{
+					"_from": "Liz",
+					"_to": "Violet",
+					"_value": 52
+				},
+				{
+					"_from": "Liz",
+					"_to": "James",
+					"_value": 20
+				},
+				{
+					"_from": "Liz",
+					"_to": "Colonel",
+					"_value": 10
+				},
+				{
+					"_from": "Liz",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Liz",
+					"_value": 10
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Baroness",
+					"_value": 10
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Violet",
+					"_value": 65
+				},
+				{
+					"_from": "Thomas",
+					"_to": "James",
+					"_value": 15
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Colonel",
+					"_value": 10
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Liz",
+					"_value": 10
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Thomas",
+					"_value": 10
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Violet",
+					"_value": 52
+				},
+				{
+					"_from": "Baroness",
+					"_to": "James",
+					"_value": 20
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Colonel",
+					"_value": 10
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Violet",
+					"_to": "Liz",
+					"_value": 52
+				},
+				{
+					"_from": "Violet",
+					"_to": "Thomas",
+					"_value": 52
+				},
+				{
+					"_from": "Violet",
+					"_to": "Baroness",
+					"_value": 52
+				},
+				{
+					"_from": "Violet",
+					"_to": "James",
+					"_value": 20
+				},
+				{
+					"_from": "Violet",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "James",
+					"_to": "Liz",
+					"_value": 20
+				},
+				{
+					"_from": "James",
+					"_to": "Thomas",
+					"_value": 20
+				},
+				{
+					"_from": "James",
+					"_to": "Baroness",
+					"_value": 20
+				},
+				{
+					"_from": "James",
+					"_to": "Violet",
+					"_value": 70
+				},
+				{
+					"_from": "James",
+					"_to": "Colonel",
+					"_value": 30
+				},
+				{
+					"_from": "James",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Liz",
+					"_value": 10
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Thomas",
+					"_value": 10
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Baroness",
+					"_value": 10
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Violet",
+					"_value": 65
+				},
+				{
+					"_from": "Colonel",
+					"_to": "James",
+					"_value": 15
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "James",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Colonel",
+					"_value": 40
+				}
+			]
+		},
+		{
+			"_type": "SN_FAMILYBOND",
+			"_numChars": 7,
+			"edge": [
+				{
+					"_from": "Liz",
+					"_to": "Thomas",
+					"_value": 20
+				},
+				{
+					"_from": "Liz",
+					"_to": "Baroness",
+					"_value": 30
+				},
+				{
+					"_from": "Liz",
+					"_to": "Violet",
+					"_value": 5
+				},
+				{
+					"_from": "Liz",
+					"_to": "James",
+					"_value": 50
+				},
+				{
+					"_from": "Liz",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Liz",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Liz",
+					"_value": 5
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Baroness",
+					"_value": 50
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Violet",
+					"_value": 20
+				},
+				{
+					"_from": "Thomas",
+					"_to": "James",
+					"_value": 10
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Colonel",
+					"_value": 80
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Player",
+					"_value": 20
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "James",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Colonel",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Violet",
+					"_to": "Liz",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Thomas",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Baroness",
+					"_value": 50
+				},
+				{
+					"_from": "Violet",
+					"_to": "James",
+					"_value": 20
+				},
+				{
+					"_from": "Violet",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "James",
+					"_to": "Liz",
+					"_value": 15
+				},
+				{
+					"_from": "James",
+					"_to": "Thomas",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Baroness",
+					"_value": 35
+				},
+				{
+					"_from": "James",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "James",
+					"_to": "Colonel",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Liz",
+					"_value": 5
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Thomas",
+					"_value": 50
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Baroness",
+					"_value": 80
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Violet",
+					"_value": 80
+				},
+				{
+					"_from": "Colonel",
+					"_to": "James",
+					"_value": 10
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "James",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Colonel",
+					"_value": 40
+				}
+			]
+		},
+		{
+			"_type": "SN_ROMANCE",
+			"_numChars": 7,
+			"edge": [
+				{
+					"_from": "Liz",
+					"_to": "Thomas",
+					"_value": 25
+				},
+				{
+					"_from": "Liz",
+					"_to": "Baroness",
+					"_value": 15
+				},
+				{
+					"_from": "Liz",
+					"_to": "Violet",
+					"_value": 5
+				},
+				{
+					"_from": "Liz",
+					"_to": "James",
+					"_value": 50
+				},
+				{
+					"_from": "Liz",
+					"_to": "Colonel",
+					"_value": 35
+				},
+				{
+					"_from": "Liz",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Liz",
+					"_value": 15
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Baroness",
+					"_value": 5
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Violet",
+					"_value": 5
+				},
+				{
+					"_from": "Thomas",
+					"_to": "James",
+					"_value": 50
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Thomas",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Liz",
+					"_value": 15
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Thomas",
+					"_value": 5
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Violet",
+					"_value": 5
+				},
+				{
+					"_from": "Baroness",
+					"_to": "James",
+					"_value": 10
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Colonel",
+					"_value": 55
+				},
+				{
+					"_from": "Baroness",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Violet",
+					"_to": "Liz",
+					"_value": 25
+				},
+				{
+					"_from": "Violet",
+					"_to": "Thomas",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Baroness",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "James",
+					"_value": 50
+				},
+				{
+					"_from": "Violet",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "Violet",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "James",
+					"_to": "Liz",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Thomas",
+					"_value": 25
+				},
+				{
+					"_from": "James",
+					"_to": "Baroness",
+					"_value": 5
+				},
+				{
+					"_from": "James",
+					"_to": "Violet",
+					"_value": 70
+				},
+				{
+					"_from": "James",
+					"_to": "Colonel",
+					"_value": 5
+				},
+				{
+					"_from": "James",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Liz",
+					"_value": 55
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Thomas",
+					"_value": 5
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Baroness",
+					"_value": 15
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Violet",
+					"_value": 5
+				},
+				{
+					"_from": "Colonel",
+					"_to": "James",
+					"_value": 10
+				},
+				{
+					"_from": "Colonel",
+					"_to": "Player",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Liz",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Thomas",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Baroness",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Violet",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "James",
+					"_value": 40
+				},
+				{
+					"_from": "Player",
+					"_to": "Colonel",
+					"_value": 40
+				}
+			]
+		}
+	],
+	"RelationshipNetwork": {
+		"_numChars": 7,
+		"Relationships": [
+			{
+				"_type": "DATING",
+				"_from": "Liz",
+				"_to": "Player"
+			},
+			{
+				"_type": "FRIENDS",
+				"_from": "Player",
+				"_to": "Colonel"
+			},
+			{
+				"_type": "DATING",
+				"_from": "Violet",
+				"_to": "Thomas"
+			},
+			{
+				"_type": "ENEMIES",
+				"_from": "Colonel",
+				"_to": "Thomas"
+			},
+			{
+				"_type": "ENEMIES",
+				"_from": "Colonel",
+				"_to": "James"
+			},
+			{
+				"_type": "ENEMIES",
+				"_from": "Violet",
+				"_to": "Baroness"
+			}
+		]
+	}
+}
