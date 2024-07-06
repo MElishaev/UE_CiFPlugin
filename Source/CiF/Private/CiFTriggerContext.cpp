@@ -12,6 +12,12 @@
 #include "CiFTrigger.h"
 #include "Kismet/GameplayStatics.h"
 
+UniqueIDGenerator UCiFTriggerContext::mIDGenerator = UniqueIDGenerator();
+
+UCiFTriggerContext::UCiFTriggerContext()
+{
+	mId = mIDGenerator.getId();
+}
 
 ESFDBContextType UCiFTriggerContext::getType() const
 {
@@ -199,4 +205,21 @@ bool UCiFTriggerContext::doesPredicateRoleMatch(UCiFPredicate* predInEvalRule,
 	}
 
 	return characterReferredToInEvalRule == characterReferredToInPredInChange;
+}
+
+UCiFTriggerContext* UCiFTriggerContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	const auto tc = NewObject<UCiFTriggerContext>(const_cast<UObject*>(worldContextObject));
+
+	tc->UCiFSFDBContext::loadFromJson(json, worldContextObject);
+
+	FString name;
+	tc->mInitiatorName = json->TryGetStringField("_initiator", name) ? FName(name) : ""; 
+	tc->mResponderName = json->TryGetStringField("_responder", name) ? FName(name) : ""; 
+	tc->mOther = json->TryGetStringField("_other", name) ? FName(name) : "";
+
+	const auto ruleJson = json->GetObjectField("Rule");
+	tc->mStatusTimeoutChange = UCiFRule::loadFromJson(ruleJson, worldContextObject);
+	
+	return tc;
 }

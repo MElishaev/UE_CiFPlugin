@@ -114,3 +114,42 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatch(const ESFDBLabelType labelTyp
 
 	return false;
 }
+
+UCiFSocialExchangeContext* UCiFSocialExchangeContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	const auto sgc = NewObject<UCiFSocialExchangeContext>(const_cast<UObject*>(worldContextObject));
+	sgc->UCiFSFDBContext::loadFromJson(json, worldContextObject);
+
+
+	FString name;
+	sgc->mInitiatorName = json->TryGetStringField("_initiator", name) ? FName(name) : ""; 
+	sgc->mResponderName = json->TryGetStringField("_responder", name) ? FName(name) : ""; 
+	sgc->mOtherName = json->TryGetStringField("_other", name) ? FName(name) : "";
+	sgc->mGameName = json->TryGetStringField("_gameName", name) ? FName(name) : "";
+
+	sgc->mInitiatorScore = 0;
+	json->TryGetNumberField("_initiatorScore", sgc->mInitiatorScore); 
+	sgc->mResponderScore = 0;
+	json->TryGetNumberField("_responderScore", sgc->mInitiatorScore); 
+
+	sgc->mChosenItemCKB = json->TryGetStringField("_chosenItemCKB", name) ? FName(name) : "";
+
+	sgc->mEffectId = CIF_INVALID_ID;
+	json->TryGetNumberField("_effectID", sgc->mEffectId);
+
+	// TODO - below are stuff that i'm not gonna implement yet because i'm not sure they are relevant.
+	// maybe after i implement more of the code i will see where it is used.
+
+	
+	// sgc.referenceSFDB = context.@socialGameContextReference;
+	// if (context.@label.toString()) sgc.label = context.@label;
+	// if (context.@labelFrom.toString()) sgc.labelArg1 = context.@labelFrom;
+	// if (context.@labelDirectedAt.toString()) sgc.labelArg2 = context.@labelDirectedAt;
+	// 			
+	// //get the ckb predicates if they exists
+	// for each(var ckbPredXML:XML in context..Predicate) {
+	// 	sgc.queryCKB=predicateParse(ckbPredXML);
+	// }
+
+	return sgc;
+}

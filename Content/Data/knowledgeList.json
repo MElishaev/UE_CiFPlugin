@@ -1,0 +1,239 @@
+{
+    "Knowledge": [
+        {
+            "_name": "Colonel has a dagger collection",
+            "Trait": [
+                "KNOWLEDGE",
+                "FACTUAL"
+            ]
+        },
+        {
+            "_name": "Violet fears being abandoned",
+            "Trait": [
+                "KNOWLEDGE",
+                "EMOTIONAL",
+                "EMBARRASSING",
+                "SECRET"
+            ]
+        },
+        {
+            "_name": "Colonel doesn't like James hanging around with his daughter.",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "JAMES'S_LINE"
+            ]
+        },
+        {
+            "_name": "James is obsessed with appeasing the Colonel",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "JAMES'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet and James are together a lot",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "JAMES'S_LINE"
+            ]
+        },
+        {
+            "_name": "Liz got James his job as a stable boy",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "LIZ'S_LINE"
+            ]
+        },
+        {
+            "_name": "Liz used to be in a relationship with James",
+            "Trait": [
+                "KNOWLEDGE",
+                "LIZ'S_LINE",
+                "PLOTPOINT"
+            ]
+        },
+        {
+            "_name": "Violet ignores the Colonel",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "VIOLET'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet resents Colonel for leaving when she was younger",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "VIOLET'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet has been distant since Colonel returned home",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "VIOLET'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet's mother died while Colonel was away",
+            "Trait": [
+                "KNOWLEDGE",
+                "VIOLET'S_LINE",
+                "PLOTPOINT"
+            ]
+        },
+        {
+            "_name": "The Colonel is disappointed in Thomas",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "Thomas wants Colonel's approval",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "Thomas is afraid of losing the Colonel",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "Thomas is protecting the Colonel",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "Liz thinks something suspicious is happening at the mansion",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "LIZ'S_LINE",
+                "CULT_LINE"
+            ]
+        },
+        {
+            "_name": "James doesn't like talking about the manor",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "JAMES'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet has strange scars on her wrist",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "VIOLET'S_LINE"
+            ]
+        },
+        {
+            "_name": "Colonel doesn't know about some rooms in the manor",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "COLONEL'S_LINE"
+            ]
+        },
+        {
+            "_name": "James is afraid of Violet",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "JAMES'S_LINE",
+                "CULT_LINE"
+            ]
+        },
+        {
+            "_name": "The manor is a headquarter to a dark cult",
+            "Trait": [
+                "KNOWLEDGE",
+                "CULT_LINE",
+                "PLOTPOINT"
+            ]
+        },
+        {
+            "_name": "James is a member of the cult",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "JAMES'S_LINE"
+            ]
+        },
+        {
+            "_name": "James is not entirely brainwashed",
+            "Trait": [
+                "KNOWLEDGE",
+                "CULT_LINE",
+                "JAMES'S_LINE",
+                "PLOTPOINT"
+            ]
+        },
+        {
+            "_name": "Violet is a member of the cult",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "VIOLET'S_LINE"
+            ]
+        },
+        {
+            "_name": "Thomas knows Violet is running a cult",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "Violet is blackmailing Thomas",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "THOMAS'S_LINE"
+            ]
+        },
+        {
+            "_name": "There is a cult ritual tonight to bring back Violet's mother",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE"
+            ]
+        },
+        {
+            "_name": "The player is the sacrifice for that ritual",
+            "Trait": [
+                "KNOWLEDGE",
+                "PLOTPOINT",
+                "CULT_LINE",
+                "ENDGAME"
+            ]
+        }
+    ]
+}

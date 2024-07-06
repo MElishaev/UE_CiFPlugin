@@ -38,6 +38,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void init(const EKnowledgeType knowledgeType, UCiFGameObject* learnedFrom=nullptr);
 
+	static UCiFKnowledge* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
 	UPROPERTY(BlueprintReadWrite)

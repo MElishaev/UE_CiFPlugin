@@ -14,6 +14,8 @@
 #include "CiFSocialExchange.h"
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
+#include "CiFStatusContext.h"
+#include "CiFTriggerContext.h"
 #include "ReadWriteFiles.h"
 
 UCiFManager::UCiFManager()
@@ -44,6 +46,14 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString itemsPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/items.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading items from %s"), *itemsPath);
 	loadItemList(itemsPath, worldContextObject);
+
+	const FString knowledgePath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/knowledgeList.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading knowledge list from %s"), *knowledgePath);
+	loadKnowledgeList(knowledgePath, worldContextObject);
+
+	const FString sfdbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/sfdb.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading SFDB from %s"), *sfdbPath);
+	loadSFDB(sfdbPath, worldContextObject);
 	
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
@@ -93,8 +103,16 @@ void UCiFManager::loadItemList(const FString& filePath, const UObject* worldCont
 
 void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
-
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
+	
+	const auto knowledgeJson = jsonObject->GetArrayField("Knowledge");
+	for (const auto kJson : knowledgeJson) {
+		auto knowledge = UCiFKnowledge::loadFromJson(kJson->AsObject(), worldContextObject);
+		mKnowledgeArray.Add(knowledge);
+	}
 }
 
 void UCiFManager::loadCKB(const FString& filePath, const UObject* worldContextObject)
@@ -106,7 +124,38 @@ void UCiFManager::loadCKB(const FString& filePath, const UObject* worldContextOb
 void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextObject)
 {
 	// TODO - implement
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
 
+	const auto scsJson = jsonObject->GetArrayField("StatusContext");
+	for (const auto scJson : scsJson) {
+		auto sc = UCiFStatusContext::loadFromJson(scJson->AsObject(), worldContextObject);
+		if (sc) {
+			mSFDB->mContexts.Add(sc);
+		}
+	}
+
+	const auto tcsJson = jsonObject->GetArrayField("TriggerContext");
+	for (const auto tcJson : tcsJson) {
+		auto tc = UCiFTriggerContext::loadFromJson(tcJson->AsObject(), worldContextObject);
+		if (tc) {
+			mSFDB->mContexts.Add(tc);
+		}
+	}
+
+	const auto sgcsJson = jsonObject->GetArrayField("SocialGameContext");
+	for (const auto sgJson : sgcsJson) {
+		auto sgc = UCiFSocialExchangeContext::loadFromJson(sgJson->AsObject(), worldContextObject);
+		if (sgc) {
+			mSFDB->mContexts.Add(sgc);
+		}
+	}
+
+	// sort the contexts in SFDB in the specified order (ascending in our case)
+	// if want to sort in a descending order, need to provide lambda function that return a > b as true
+	mSFDB->mContexts.Sort();
 }
 
 void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* worldContextObject)

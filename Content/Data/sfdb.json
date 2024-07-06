@@ -1,0 +1,107 @@
+{
+    "StatusContext": [
+        {
+            "_time": 0,
+            "Predicate": {
+                "_type": "STATUS",
+                "_status": "",
+                "_first": "stableboy",
+                "_second": "violet",
+                "_negated": false,
+                "_duration": 0,
+                "_name": "",
+                "_intent": false,
+                "_intentType": -1,
+                "_isSFDB": true,
+                "_window": 0,
+                "_numTimesUniquelyTrueFlag": false,
+                "_numTimesUniquelyTrue": 0,
+                "_numTimesRoleSlot": ""
+            }
+        }
+    ],
+    "SocialGameContext": [
+        {
+            "_gameName": "REMINISCE",
+            "_initiator": "violet",
+            "_responder": "stableboy",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": 0,
+            "_effectID": 0,
+            "_other": "colonel",
+            "_socialGameContextReference": 0
+        },
+        {
+            "_gameName": "SHOW_OFF",
+            "_initiator": "violet",
+            "_responder": "stableboy",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": -1,
+            "_effectID": 0,
+            "_other": "colonel",
+            "_socialGameContextReference": 0
+        },
+        {
+            "_gameName": "INSULT",
+            "_initiator": "violet",
+            "_responder": "stableboy",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": -2,
+            "_effectID": 0,
+            "_other": "colonel",
+            "_socialGameContextReference": 0
+        },
+        {
+            "_gameName": "REMINISCE",
+            "_initiator": "violet",
+            "_responder": "colonel",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": -3,
+            "_effectID": 0,
+            "_socialGameContextReference": 0
+        },
+        {
+            "_gameName": "INSULT",
+            "_initiator": "stableboy",
+            "_responder": "colonel",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": -4,
+            "_effectID": 0,
+            "_other": "violet",
+            "_socialGameContextReference": 0
+        },
+        {
+            "_gameName": "REMINISCE",
+            "_initiator": "stableboy",
+            "_responder": "violet",
+            "_initiatorScore": 80,
+            "_responderScore": 40,
+            "_time": -5,
+            "_effectID": 0,
+            "_socialGameContextReference": 0
+        }
+    ],
+    "TriggerContext": [
+        {
+            "_time": 2,
+            "Rule": {
+                "_name": "Anonymous Rule",
+                "Predicate": [
+                    {
+                        "_type": "STATUS",
+                        "_status": "ENMITY",
+                        "_first": "Robert",
+                        "_second": "Lily",
+                        "_negated": false,
+                        "_isSFDB": false
+                    }
+                ]
+            }
+        }
+    ]
+}

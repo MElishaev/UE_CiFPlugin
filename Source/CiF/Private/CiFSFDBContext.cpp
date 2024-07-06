@@ -17,3 +17,13 @@ bool UCiFSFDBContext::isPredicateInChange(const UCiFPredicate* pred,
 	// this is default implementation - we shouldn't reach here (UE won't let me leave it without implementation)
 	return false;	
 }
+
+void UCiFSFDBContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	mTime = json->GetNumberField("_time");
+}
+
+auto UCiFSFDBContext::operator<(const UCiFSFDBContext& o) const
+{
+	return mTime < o.mTime;
+}

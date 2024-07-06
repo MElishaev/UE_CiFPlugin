@@ -148,3 +148,12 @@ TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::initia
 	
 	return outMap;
 }
+
+UCiFSocialFactsDataBase* UCiFSocialFactsDataBase::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
+{
+	const auto sfdb = NewObject<UCiFSocialFactsDataBase>(const_cast<UObject*>(worldContextObject));
+
+	
+	
+	return sfdb;
+}

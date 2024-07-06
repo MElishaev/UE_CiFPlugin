@@ -156,6 +156,8 @@ public:
 	static bool doesMatchLabelOrCategory(const ESFDBLabelType contextLabel, const ESFDBLabelType predicateLabel) noexcept;
 
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> initializeCategoriesMap();
+
+	static UCiFSocialFactsDataBase* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 	TArray<UCiFSFDBContext*> mContexts; // contexts in ascending order - the latest is the last in the array
 	TArray<UCiFTrigger*> mTriggers; // triggers that are derived from the overall social status and not a specific social game

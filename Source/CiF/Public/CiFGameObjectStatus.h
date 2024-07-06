@@ -58,6 +58,7 @@ enum class EStatus : uint8
 	SHAKEN,
 	ANXIOUS,
 	BUSY,
+	ENMITY,
 
 	// item statuses
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),

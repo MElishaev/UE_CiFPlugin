@@ -22,6 +22,9 @@ class CIF_API UCiFTriggerContext : public UCiFSFDBContext
 	GENERATED_BODY()
 
 public:
+
+	UCiFTriggerContext();
+	
 	virtual ESFDBContextType getType() const override;
 
 	/**
@@ -82,6 +85,8 @@ public:
 
 	UCiFRule* getChange() const;
 
+	static UCiFTriggerContext* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
+
 private:
 	/**
 	 * Determines if the character names in context's predicates primary, secondary, 
@@ -127,9 +132,11 @@ public:
 	FName mResponderName; // name of the responder of this social exchange
 	FName mOther;         // name of the other of this social exchange
 
-	IdType mId;                     // TODO - maybe this needs to be FName, or this needs to be in the base class
+	IdType mId;
 	UCiFRule* mStatusTimeoutChange; // is this a trigger that occurs from a status ending?
 
 	// todo - why is there many labels associated with this context entry? i need an example to understand what does it mean
-	TArray<FSFDBLabel> mSFDBLabels; // the SFDB labels associated with this context entry 
+	TArray<FSFDBLabel> mSFDBLabels; // the SFDB labels associated with this context entry
+
+	static UniqueIDGenerator mIDGenerator;
 };
