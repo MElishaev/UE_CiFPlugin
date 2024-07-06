@@ -105,7 +105,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 	 * This is the only evaluation needed for a Predicate with isSFDB
 	 * being true. 
 	 */
-	if (mIsSFDB && mType != EPredicateType::SFDBLABEL) {
+	if (mIsSFDB && mType != EPredicateType::SFDB_LABEL) {
 		return cifManager->mSFDB->isPredicateInHistory(this, c1, c2, c3);
 	}
 
@@ -138,7 +138,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 							(pred->mSecondary == mSecondary) &&
 							(pred->mIsNegated == mIsNegated);
 					}
-					else if (mType == EPredicateType::SFDBLABEL) {
+					else if (mType == EPredicateType::SFDB_LABEL) {
 						bMatch = (pred->mSFDBLabel == mSFDBLabel) &&
 							(pred->mPrimary == mPrimary) &&
 							(pred->mSecondary == mSecondary) &&
@@ -172,7 +172,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 			return mIsNegated ? !evalStatus(first, second->mObjectName) : evalStatus(first, second->mObjectName);
 		case EPredicateType::CKBENTRY:
 			return evalCKBEntry(first, second);
-		case EPredicateType::SFDBLABEL:
+		case EPredicateType::SFDB_LABEL:
 			return evalSFDBLabel(first, second, third);
 		case EPredicateType::RELATIONSHIP:
 			return mIsNegated ? !evalRelationship(first, second) : evalRelationship(first, second);
@@ -225,7 +225,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 					numTriesTrue = outArray.Num();
 					break;
 				}
-			case EPredicateType::SFDBLABEL:
+			case EPredicateType::SFDB_LABEL:
 				{
 					TArray<int> out{};
 					cifManager->mSFDB->findLabelFromValues(out,
@@ -269,7 +269,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 					case EPredicateType::CKBENTRY:
 						predTrue = evalCKBEntry(primaryCharacterOfConsideration, c);
 						break;
-					case EPredicateType::SFDBLABEL:
+					case EPredicateType::SFDB_LABEL:
 						if (mNumTimesRoleSlot == ENumTimesRoleSlot::SECOND) {
 							TArray<int> out;
 							cifManager->mSFDB->findLabelFromValues(out,
@@ -305,7 +305,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 	}
 
 	// This is a special case for where we want to count numTimesTrue for contexts labels that don't have the nonPrimary role specified 
-	if (mType == EPredicateType::SFDBLABEL && mIsNumTimesUniquelyTruePred) {
+	if (mType == EPredicateType::SFDB_LABEL && mIsNumTimesUniquelyTruePred) {
 		if (mNumTimesRoleSlot == ENumTimesRoleSlot::FIRST) {
 			TArray<int> out;
 			cifManager->mSFDB->findLabelFromValues(out,
@@ -524,7 +524,7 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 				(p1->mTruthLabel != p2->mTruthLabel))
 				return false;
 			break;
-		case EPredicateType::SFDBLABEL:
+		case EPredicateType::SFDB_LABEL:
 			if ((p1->mSFDBLabel != p2->mSFDBLabel) ||
 				(p1->mIsNegated != p2->mIsNegated))
 				return false;
@@ -692,7 +692,7 @@ void UCiFPredicate::setSFDBLabelPredicate(const FName first,
                                           const uint32 window,
                                           const bool isNegated)
 {
-	mType = EPredicateType::SFDBLABEL;
+	mType = EPredicateType::SFDB_LABEL;
 	mPrimary = first;
 	mSecondary = second;
 	mIsSFDB = true;
@@ -739,7 +739,7 @@ ERelationshipType UCiFPredicate::comparatorTypeToRelationshipType(const ECompara
 
 bool UCiFPredicate::isSFDBLabelCategory() const
 {
-	return (mType == EPredicateType::SFDBLABEL) && (mSFDBLabel.type <= ESFDBLabelType::CAT_LAST);
+	return (mType == EPredicateType::SFDB_LABEL) && (mSFDBLabel.type <= ESFDBLabelType::CAT_LAST);
 }
 
 void UCiFPredicate::clear()
@@ -839,7 +839,7 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				p->setCKBPredicate(first, second, firstSubjective, secondSubjective, label, isNegated);
 			}
 			break;
-		case EPredicateType::SFDBLABEL:
+		case EPredicateType::SFDB_LABEL:
 			{
 				isNegated = predJson->GetBoolField("_negated");
 				const auto first = FName(predJson->GetStringField("_first"));

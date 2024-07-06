@@ -6,6 +6,8 @@
 #include "CiFEffect.h"
 #include "CiFTrigger.generated.h"
 
+class UCiFGameObject;
+class UCiFTriggerContext;
 /**
  * The Trigger class consists of conditional rules that look over the recent
  * social state and perform social change based on evaluation of the conditions.
@@ -36,6 +38,19 @@ class CIF_API UCiFTrigger : public UCiFEffect
 {
 	GENERATED_BODY()
 
+public:
+	/**
+	 * Returns a SFDBContext interface compatible SFDB entry for this
+	 * trigger. No time is set as this function is meant to be called
+	 * in either CiFSingleton or SocialFactsDB when placing a trigger
+	 * that has fired into the SFDB context.
+	 * @param	time The SFDB time with which to tag the SFDB entry.
+	 * @return	The SFDB entry for the Trigger.
+	 */
+	UCiFTriggerContext* makeTriggerContext(const int32 time, UCiFGameObject* x, UCiFGameObject* y = nullptr, UCiFGameObject* z = nullptr) const;
+
+	static UCiFTrigger* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
+	
 public:
 	/**
 	 * This is used to help know when we are dealing with an actual authored trigger, or a trigger context which has

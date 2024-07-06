@@ -21,7 +21,7 @@ int8 UCiFEffect::scoreSalience()
 	int8 salience = 0;
 
 	for (const auto pred : mChange->mPredicates) {
-		if (pred->mType == EPredicateType::SFDBLABEL) {
+		if (pred->mType == EPredicateType::SFDB_LABEL) {
 			salience += 6;
 		}
 	}
@@ -89,7 +89,7 @@ int8 UCiFEffect::scoreSalience()
 					salience += 5; // this means all entries were specified
 				}
 				break;
-			case EPredicateType::SFDBLABEL:
+			case EPredicateType::SFDB_LABEL:
 				if (pred->mPrimary == "" || pred->mSecondary == "") {
 					if (static_cast<int>(pred->mSFDBLabel.type) < 0) {
 						salience += 3;
@@ -138,7 +138,7 @@ bool UCiFEffect::hasCKBReference() const
 bool UCiFEffect::hasSFDBLabel() const
 {
 	for (const auto p : mCondition->mPredicates) {
-		if (p->mType == EPredicateType::SFDBLABEL) {
+		if (p->mType == EPredicateType::SFDB_LABEL) {
 			return true;
 		}
 	}

@@ -87,7 +87,7 @@ public:
 	bool mIsBackstory;
 	FSFDBLabel mSFDBLabel; // the SFDB label for this context entry
 	IdType mEffectId; // not sure yet what is this - i think it may be the effect ID that is the result of this social exchange
-	FString mPerformanceRealization; // this describes what happened in this social game in an NLG
+	FName mPerformanceRealization; // this describes what happened in this social game in an NLG
 
 	// todo - why is there many labels associated with this context entry? i need an example to understand what does it mean
 	TArray<FSFDBLabel> mSFDBLabels; // the SFDB labels associated with this context entry 

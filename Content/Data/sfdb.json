@@ -103,5 +103,335 @@
                 ]
             }
         }
+    ],
+    "BackstoryContext": [
+        {
+            "_time": -6,
+            "_initiator": "Zack",
+            "_responder": "Cassie",
+            "_other": "",
+            "_SFDBLabel": "LAME",
+            "_PerformanceRealizationString": "%i% thought %r% said to no when %pron(i,he/she)% asked %pron(r,him/her)% out because he beat her at life"
+        },
+        {
+            "_time": -3,
+            "_initiator": "Nicholas",
+            "_responder": "Monica",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% cheated off of %rp% homework"
+        },
+        {
+            "_time": -2,
+            "_initiator": "Lil",
+            "_responder": "Zack",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% gave %r% a high five so hard that it hurt %pron(r,his/her)% hand"
+        },
+        {
+            "_time": -1,
+            "_initiator": "Zack",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "ROMANTIC",
+            "_PerformanceRealizationString": "%i% smooched %r% on the cheak"
+        },
+        {
+            "_time": -4,
+            "_initiator": "Monica",
+            "_responder": "Nicholas",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% offered to let %r% cheat off %pron(i,his/her)% homework"
+        },
+        {
+            "_time": -30,
+            "_initiator": "Jordan",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% helped %r% out with %pron(r,his/her)% homework"
+        },
+        {
+            "_time": -20,
+            "_initiator": "Jordan",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "FUNNY",
+            "_PerformanceRealizationString": "%i% told %r% that awesome joke about koalas"
+        },
+        {
+            "_time": -10,
+            "_initiator": "Jordan",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "COOL",
+            "_PerformanceRealizationString": "%i% showed %r% how to do that awesome skate trick"
+        },
+        {
+            "_time": -15,
+            "_initiator": "Jordan",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% helped %r% out with %pron(r,his/her)% homework"
+        },
+        {
+            "_time": -25,
+            "_initiator": "Doug",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "COOL",
+            "_PerformanceRealizationString": "%i% fixed %rp% bike"
+        },
+        {
+            "_time": -15,
+            "_initiator": "Doug",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "FUNNY",
+            "_PerformanceRealizationString": "%i% did that sweet impression of the assistant principal"
+        },
+        {
+            "_time": -5,
+            "_initiator": "Doug",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% walked %r% home from school after %pron(r,he/she)% failed that test"
+        },
+        {
+            "_time": -300,
+            "_initiator": "Naomi",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% became friends with %r%"
+        },
+        {
+            "_time": -200,
+            "_initiator": "Jordan",
+            "_responder": "Naomi",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% and %r% stopped being friends because %r% was getting too popular or something"
+        },
+        {
+            "_time": -200,
+            "_initiator": "Buzz",
+            "_responder": "Cassandra",
+            "_other": "",
+            "_SFDBLabel": "ROMANTIC",
+            "_PerformanceRealizationString": "%i% asked %r% out during halftime of the football game"
+        },
+        {
+            "_time": -199,
+            "_initiator": "Buzz",
+            "_responder": "Cassandra",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% dumped %r% right after the football game"
+        },
+        {
+            "_time": -100,
+            "_initiator": "Buzz",
+            "_responder": "Monica",
+            "_other": "",
+            "_SFDBLabel": "BAD_ASS",
+            "_PerformanceRealizationString": "%i% asked %r% out in the middle of the homecoming assembly"
+        },
+        {
+            "_time": -99,
+            "_initiator": "Buzz",
+            "_responder": "Monica",
+            "_other": "",
+            "_SFDBLabel": "CHEATING",
+            "_PerformanceRealizationString": "%i% cheated on %r% with that sophomore chick"
+        },
+        {
+            "_time": -80,
+            "_initiator": "Buzz",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% broke %rp% skateboard in half"
+        },
+        {
+            "_time": -66,
+            "_initiator": "Buzz",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% made fun of %rp% hair over the PA system"
+        },
+        {
+            "_time": -40,
+            "_initiator": "Buzz",
+            "_responder": "Zack",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% flushed %rp% homework down the toilet"
+        },
+        {
+            "_time": -30,
+            "_initiator": "Buzz",
+            "_responder": "Simon",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% gave %r% a wedgie in gym class"
+        },
+        {
+            "_time": -35,
+            "_initiator": "Buzz",
+            "_responder": "Nicholas",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% called %r% a momma's boy"
+        },
+        {
+            "_time": -2,
+            "_initiator": "Naomi",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% decided to make %r% %pron(i,his/her)% project"
+        },
+        {
+            "_time": -12,
+            "_initiator": "Nicholas",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% told %r% %pron(r,he/she)% dressed like a depressed clown"
+        },
+        {
+            "_time": -1500,
+            "_initiator": "Zack",
+            "_responder": "Simon",
+            "_other": "",
+            "_SFDBLabel": "NICE",
+            "_PerformanceRealizationString": "%i% and %r% became best friends in like third grade"
+        },
+        {
+            "_time": -800,
+            "_initiator": "Zack",
+            "_responder": "Simon",
+            "_other": "",
+            "_SFDBLabel": "FUNNY",
+            "_PerformanceRealizationString": "%i% and %r% hacked the school's network together in eighth grade"
+        },
+        {
+            "_time": -30,
+            "_initiator": "Simon",
+            "_responder": "Zack",
+            "_other": "",
+            "_SFDBLabel": "COOL",
+            "_PerformanceRealizationString": "%i% lets %r% cheat off %pron(i,his/her)% homework"
+        },
+        {
+            "_time": -50,
+            "_initiator": "Zack",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "ROMANTIC",
+            "_PerformanceRealizationString": "%i% wrote that perl script to ask %r% out"
+        },
+        {
+            "_time": -75,
+            "_initiator": "Zack",
+            "_responder": "Buzz",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% posted that embarassing picture of %r% to SkimddIt"
+        },
+        {
+            "_time": -60,
+            "_initiator": "Zack",
+            "_responder": "Nicholas",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% totally stomped on %rp% paper in English class"
+        },
+        {
+            "_time": -50,
+            "_initiator": "Zack",
+            "_responder": "Doug",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% told %r% that %pron(r,his/her)% clothes were so 2000s"
+        },
+        {
+            "_time": -30,
+            "_initiator": "Zack",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% unfriended %r% with extreme prejudice"
+        },
+        {
+            "_time": -30,
+            "_initiator": "Zack",
+            "_responder": "Naomi",
+            "_other": "",
+            "_SFDBLabel": "EMBARRASSING",
+            "_PerformanceRealizationString": "%i% thought %r% said to no when %pron(i,he/she)% asked %pron(r,him/her)% out because he beat her at chess"
+        },
+        {
+            "_time": -80,
+            "_initiator": "Nicholas",
+            "_responder": "Zack",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% broke %rp% glasses in gym class"
+        },
+        {
+            "_time": -300,
+            "_initiator": "Simon",
+            "_responder": "Naomi",
+            "_other": "",
+            "_SFDBLabel": "LAME",
+            "_PerformanceRealizationString": "%i% invited %r% to chess club by filling %pron(r,his/her)% backpack with pawns"
+        },
+        {
+            "_time": -100,
+            "_initiator": "Monica",
+            "_responder": "Jordan",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% pretended not to notice %r% at the mall"
+        },
+        {
+            "_time": -80,
+            "_initiator": "Monica",
+            "_responder": "Simon",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% texted that mortifying video from %rp% blog to everyone"
+        },
+        {
+            "_time": -60,
+            "_initiator": "Monica",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% spilled soda all over %r% and pretended it was %pron(r,his/her)% fault"
+        },
+        {
+            "_time": -40,
+            "_initiator": "Monica",
+            "_responder": "Naomi",
+            "_other": "",
+            "_SFDBLabel": "RUDE",
+            "_PerformanceRealizationString": "%i% told everyone %r% was the one who farted"
+        },
+        {
+            "_time": -100,
+            "_initiator": "Monica",
+            "_responder": "Lil",
+            "_other": "",
+            "_SFDBLabel": "MEAN",
+            "_PerformanceRealizationString": "%i% made that fake dating profile for %r% and posted the link all over"
+        }
     ]
 }

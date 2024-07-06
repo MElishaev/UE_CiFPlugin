@@ -27,7 +27,7 @@ enum class EPredicateType : uint8
 	///< intent predicate type (intent of the character to modify the social state)
 	STATUS UMETA(DisplayName="Status"),
 	CKBENTRY UMETA(DisplayName="CBKEntry"),
-	SFDBLABEL UMETA(DisplayName="SFDBLabel"),
+	SFDB_LABEL UMETA(DisplayName="SFDBLabel"),
 	SIZE
 };
 

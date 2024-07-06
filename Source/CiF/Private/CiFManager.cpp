@@ -15,6 +15,7 @@
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
 #include "CiFStatusContext.h"
+#include "CiFTrigger.h"
 #include "CiFTriggerContext.h"
 #include "ReadWriteFiles.h"
 
@@ -54,6 +55,10 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString sfdbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/sfdb.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading SFDB from %s"), *sfdbPath);
 	loadSFDB(sfdbPath, worldContextObject);
+
+	const FString triggersPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/triggers.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading triggers from %s"), *triggersPath);
+	loadTriggers(triggersPath, worldContextObject);
 	
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
@@ -123,7 +128,6 @@ void UCiFManager::loadCKB(const FString& filePath, const UObject* worldContextOb
 
 void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
 	TSharedPtr<FJsonObject> jsonObject;
 	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
 		return;
@@ -151,8 +155,22 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 		if (sgc) {
 			mSFDB->mContexts.Add(sgc);
 		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
+		}
 	}
 
+	const auto backstoryJson = jsonObject->GetArrayField("BackstoryContext");
+	for (const auto bsJson : backstoryJson) {
+		auto bsc = UCiFSocialExchangeContext::loadFromJson(bsJson->AsObject(), worldContextObject);
+		if (bsc) {
+			mSFDB->mContexts.Add(bsc);
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
+		}
+	}
+	
 	// sort the contexts in SFDB in the specified order (ascending in our case)
 	// if want to sort in a descending order, need to provide lambda function that return a > b as true
 	mSFDB->mContexts.Sort();
@@ -174,6 +192,25 @@ void UCiFManager::loadQuestLib(const FString& filePath, const UObject* worldCont
 {
 	// TODO - implement
 
+}
+
+void UCiFManager::loadTriggers(const FString& filePath, const UObject* worldContextObject)
+{
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
+
+	const auto triggersJson = jsonObject->GetArrayField("Triggers");
+	for (const auto triggerJson : triggersJson) {
+		auto t = UCiFTrigger::loadFromJson(triggerJson->AsObject(), worldContextObject);
+		if (t) {
+			mSFDB->mTriggers.Add(t);
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("Trigger failed to load from file"));
+		}
+	}
 }
 
 void UCiFManager::formIntentForAll()
@@ -352,7 +389,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 
 	if (mostSalientEffect->hasSFDBLabel()) {
 		for (const auto p : mostSalientEffect->mChange->mPredicates) {
-			if (p->mType == EPredicateType::SFDBLABEL) {
+			if (p->mType == EPredicateType::SFDB_LABEL) {
 				FSFDBLabel label;
 				label.to = p->getSecondaryCharacterNameFromVariables(initiator, responder, other);
 				label.from = p->getPrimaryCharacterNameFromVariables(initiator, responder, other);

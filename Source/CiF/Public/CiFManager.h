@@ -163,6 +163,7 @@ private:
 	void loadSocialNetworks(const FString& filePath, const UObject* worldContextObject);
 	void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
 	void loadQuestLib(const FString& filePath, const UObject* worldContextObject);
+	void loadTriggers(const FString& filePath, const UObject* worldContextObject);
 public:
 
 	int32 mTime;

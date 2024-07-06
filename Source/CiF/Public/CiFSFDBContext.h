@@ -16,6 +16,7 @@ enum class ESFDBContextType : uint8
 	SOCIAL_GAME,
 	TRIGGER,
 	STATUS,
+	BACKSTORY
 };
 
 /**
