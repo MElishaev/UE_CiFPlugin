@@ -337,15 +337,15 @@ void UCiFPredicate::evalCKBEntryForObjects(const UCiFGameObject* first, const UC
 
 		//determine if the two character constraints result in a match
 		//1. find first matches
-		ckb->findItems(first->mObjectName, firstResults, mTruthLabel, mFirstSubjectiveLink);
+		ckb->findItems(first->mObjectName, firstResults, mFirstSubjectiveLink, mTruthLabel);
 
-		if (mSecondSubjectiveLink == "") {
+		if (mSecondSubjectiveLink == ESubjectiveLabel::INVALID) {
 			outArray = firstResults;
 			return;
 		}
 
 		//2. find second matches
-		ckb->findItems(second->mObjectName, secondResults, mTruthLabel, mSecondSubjectiveLink);
+		ckb->findItems(second->mObjectName, secondResults, mSecondSubjectiveLink, mTruthLabel);
 		//3. see if any of first's matches intersect second's matches.
 		for (int32 i = 0; i < firstResults.Num(); ++i) {
 			for (int32 j = 0; j < secondResults.Num(); ++j) {
@@ -672,9 +672,9 @@ void UCiFPredicate::setStatusPredicate(const FName first,
 
 void UCiFPredicate::setCKBPredicate(const FName first,
                                     const FName second,
-                                    const FName firstSub,
-                                    const FName secondSub,
-                                    const FName truth,
+                                    const ESubjectiveLabel firstSub,
+                                    const ESubjectiveLabel secondSub,
+                                    const ETruthLabel truth,
                                     const bool isNegated)
 {
 	mType = EPredicateType::CKBENTRY;
@@ -761,7 +761,7 @@ void UCiFPredicate::clear()
 UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject)
 {
 	auto p = NewObject<UCiFPredicate>(const_cast<UObject*>(worldContextObject));
-	
+
 	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
 	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
 	p->mName = FName(predJson->GetStringField("_name"));
@@ -833,9 +833,21 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				isNegated = predJson->GetBoolField("_negated");
 				const auto first = FName(predJson->GetStringField("_first"));
 				const auto second = FName(predJson->GetStringField("_second"));
-				const auto firstSubjective = FName(predJson->GetStringField("_firstSubjective"));
-				const auto secondSubjective = FName(predJson->GetStringField("_secondSubjective"));
-				const auto label = FName(predJson->GetStringField("_label"));
+
+				const auto connectionTypeEnum = StaticEnum<ESubjectiveLabel>();
+				auto connectionTypeName = FName(predJson->GetStringField("_firstSubjective"));
+				const auto firstSubjective = connectionTypeName == ""
+					                             ? ESubjectiveLabel::INVALID
+					                             : static_cast<ESubjectiveLabel>(connectionTypeEnum->GetValueByName(connectionTypeName));
+
+				connectionTypeName = FName(predJson->GetStringField("_secondSubjective"));
+				const auto secondSubjective = connectionTypeName == ""
+					                              ? ESubjectiveLabel::INVALID
+					                              : static_cast<ESubjectiveLabel>(connectionTypeEnum->GetValueByName(connectionTypeName));
+
+				const auto truthEnum = StaticEnum<ETruthLabel>();
+				const auto labelName = FName(predJson->GetStringField("_label"));
+				const auto label = labelName == "" ? ETruthLabel::INVALID : static_cast<ETruthLabel>(truthEnum->GetValueByName(labelName));
 				p->setCKBPredicate(first, second, firstSubjective, secondSubjective, label, isNegated);
 			}
 			break;

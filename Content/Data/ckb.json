@@ -1,0 +1,34 @@
+{
+  "CKB": [
+    {
+      "_type": "SUBJECTIVE",
+      "_head": "Colonel",
+      "_connection": "LIKES",
+      "_tail": "pirates"
+    },
+    {
+      "_type": "SUBJECTIVE",
+      "_head": "Violet",
+      "_connection": "DISLIKES",
+      "_tail": "flowers"
+    },
+    {
+      "_type": "SUBJECTIVE",
+      "_head": "Colonel",
+      "_connection": "LIKES",
+      "_tail": "flowers"
+    },
+    {
+      "_type": "GENERAL_TRUTH",
+      "_head": "pirates",
+      "_connection": "ARE",
+      "_tail": "MEAN"
+    },
+    {
+      "_type": "GENERAL_TRUTH",
+      "_head": "flowers",
+      "_connection": "ARE",
+      "_tail": "PRETTY"
+    }
+  ]
+}

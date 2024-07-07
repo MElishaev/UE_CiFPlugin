@@ -75,14 +75,14 @@ int8 UCiFEffect::scoreSalience()
 				break;
 			case EPredicateType::CKBENTRY:
 				if (pred->mPrimary == "" || pred->mSecondary == "") {
-					if (pred->mTruthLabel == "") {
+					if (pred->mTruthLabel == ETruthLabel::INVALID) {
 						salience += 3;
 					}
 					else {
 						salience += 4;
 					}
 				}
-				else if (pred->mTruthLabel == "") {
+				else if (pred->mTruthLabel == ETruthLabel::INVALID) {
 					salience += 4;
 				}
 				else {

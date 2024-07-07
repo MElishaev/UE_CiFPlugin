@@ -9,56 +9,50 @@
 UENUM(BlueprintType)
 enum class ECKBLabelType : uint8
 {
+	INVALID,
 	GENERAL_TRUTH,
 	SUBJECTIVE,
 	SIZE
 };
 
-USTRUCT(BlueprintType)
-struct FTruthLabel
+UENUM()
+enum class ETruthLabel
 {
-	GENERATED_BODY()
-	inline static const FName ROMANTIC = "romantic";
-	inline static const FName COOL = "cool";
-	inline static const FName GROSS = "gross";
-	inline static const FName FUNNY = "funny";
-	inline static const FName MEAN = "mean";
-	inline static const FName NICE = "nice";
-	inline static const FName RUDE = "rude";
-	inline static const FName CHEATING = "cheating"; 
+	INVALID,
+	ROMANTIC,
+	COOL,
+	GROSS,
+	FUNNY,
+	MEAN,
+	NICE,
+	RUDE,
+	CHEATING,
+	PRETTY,
 };
 
-USTRUCT(BlueprintType)
-struct FSubjectiveLabel
+UENUM()
+enum class ESubjectiveLabel : uint8
 {
-	GENERATED_BODY()
-	inline static const FName LIKES = "likes";
-	inline static const FName DISLIKES = "dislikes";
-	inline static const FName HAS = "has";
-	inline static const FName ARE = "are";
+	INVALID,
+	LIKES,
+	DISLIKES,
+	WANTS,
+	HAS,
+	ARE,
 };
 
-
-/**
- * Example:
- * CKB(GameObject, (GameObject, FSubjectiveLabel), (GameObject, FSubjectiveLabel), FTruthLabel) - general structure.
- * if we look more specific, we can get this:
- * CKB(item,(x, likes), (y, dislikes), lame)
- * This entry describes what characters x,y thinks about some item, and what is the general truth about this item, is it cool or lame.
- * todo: the structure of entry is still subject to change as can be seen by the above examples
- * which aren't inline with the class below.
- */
 UCLASS()
 class CIF_API UCiFCKBEntry : public UObject
 {
 	GENERATED_BODY()
 
 public:
+	// TODO - this may need some changes because the structure is not really neat
+	void initSubjectiveEntry(const FName head, const ESubjectiveLabel connectionType, const FName tail);
+	void initTruthEntry(const FName head, const ESubjectiveLabel connectionType, const ETruthLabel tail);
 
-	void init(const FName head, const FName connectionType, const FName tail);
-	
 	ECKBLabelType mType; // subjective or general truth connection
-	FName mHead; // can represent characters or nouns
-	FName mTail; // can represent characters or truth labels
-	FName mConnection;
+	FName mHead;         // can represent characters or nouns
+	FName mTail;         // can represent nouns (/items) or truth labels
+	ESubjectiveLabel mConnection;
 };

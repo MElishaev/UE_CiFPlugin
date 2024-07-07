@@ -4,6 +4,7 @@
 #include "CiFManager.h"
 #include "CiFCast.h"
 #include "CiFCharacter.h"
+#include "CiFCulturalKnowledgeBase.h"
 #include "CiFInstantiation.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
@@ -64,6 +65,10 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString socialNetworksPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialNetworks.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading social networks from %s"), *socialNetworksPath);
 	loadSocialNetworks(socialNetworksPath, worldContextObject);
+
+	const FString ckbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/ckb.json"));
+	UE_LOG(LogTemp, Log, TEXT("Reading CKB from %s"), *ckbPath);
+	loadCKB(ckbPath, worldContextObject);
 	
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
@@ -127,8 +132,12 @@ void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worl
 
 void UCiFManager::loadCKB(const FString& filePath, const UObject* worldContextObject)
 {
-	// TODO - implement
+	TSharedPtr<FJsonObject> jsonObject;
+	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
+		return;
+	}
 
+	mCKB = UCiFCulturalKnowledgeBase::loadFromJson(jsonObject, worldContextObject);
 }
 
 void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextObject)

@@ -60,7 +60,7 @@ public:
 	 * This is clamped to the max value if overflows
 	 */
 	UFUNCTION(BlueprintCallable)
-	void setWeight(const int32 c1, const int32 c2, const uint8 w);
+	void setWeight(const uint8 c1, const uint8 c2, const uint8 w);
 	UFUNCTION(BlueprintCallable)
 	void addWeight(const uint8 c1, const uint8 c2, const int addition);
 	UFUNCTION(BlueprintCallable)

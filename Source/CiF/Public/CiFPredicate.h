@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CiFCKBEntry.h"
 #include "CiFGameObject.h"
 #include "CiFGameObjectStatus.h"
 #include "UObject/Object.h"
@@ -10,6 +11,8 @@
 #include "CiFSocialNetwork.h"
 #include "CiFPredicate.generated.h"
 
+enum class ETruthLabel;
+enum class ESubjectiveLabel : uint8;
 enum class ETrait : uint8;
 enum class ERelationshipType : uint8;
 enum class ESocialNetworkType : uint8;
@@ -240,9 +243,9 @@ public:
 
 	void setCKBPredicate(const FName first = "initiator",
 	                     const FName second = "responder",
-	                     const FName firstSub = "likes",
-	                     const FName secondSub = "likes",
-	                     const FName truth = "cool",
+	                     const ESubjectiveLabel firstSub = ESubjectiveLabel::LIKES,
+	                     const ESubjectiveLabel secondSub = ESubjectiveLabel::LIKES,
+	                     const ETruthLabel truth = ETruthLabel::COOL,
 	                     const bool isNegated = false);
 
 	void setSFDBLabelPredicate(const FName first = "initiator",
@@ -331,7 +334,7 @@ public:
 	ENumTimesRoleSlot mNumTimesRoleSlot;
 	// todo - what is this shit? my assumption for now is that it indicates which role the predicate goes towards? or from?
 
-	FName mFirstSubjectiveLink;  // todo - what is the purpose of this?
-	FName mSecondSubjectiveLink; // todo - what is the purpose of this?
-	FName mTruthLabel;           // todo - what is the purpose of this?
+	ESubjectiveLabel mFirstSubjectiveLink;  // todo - what is the purpose of this?
+	ESubjectiveLabel mSecondSubjectiveLink; // todo - what is the purpose of this?
+	ETruthLabel mTruthLabel;           // todo - what is the purpose of this?
 };
