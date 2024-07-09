@@ -30,9 +30,8 @@ class CIF_API UCiFManager : public UObject
 	GENERATED_BODY()
 
 public:
-
 	UCiFManager();
-	
+
 	/**
 	 * @param worldContextObject	world context for the ability to access the game
 	 *								instance and CiF subsystem in all of the classes inside CiF module
@@ -43,7 +42,7 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"))
 	void init(const UObject* worldContextObject);
-	
+
 	UFUNCTION(BlueprintCallable)
 	void formIntentForAll();
 
@@ -130,6 +129,25 @@ public:
 	                              TArray<UCiFGameObject*> levelCast = {});
 
 	/**
+	 * (April)
+	 * Called when needing to pick what effect and other the player wants
+	 * @param outEffects	The output param that will be filled with all possible effects rather than just the most salient
+	 * @param sg			The social game 
+	 * @param isAccepted	Indicates if social game was accepted - TODO: but if it wasn't isn't there effects for this case also?
+	 * @param initiator
+	 * @param responder
+	 * @param otherCast		The possible others
+	 * @param levelCast		The others that are near (in the level or vicinity, depends on your game implementation and definition of this)
+	 */
+	void getAllSalientEffects(TArray<UCiFEffect*> outEffects,
+	                          UCiFSocialExchange* sg,
+	                          const bool isAccepted,
+	                          UCiFGameObject* initiator,
+	                          UCiFGameObject* responder,
+	                          const TArray<UCiFGameObject*> otherCast = {},
+	                          TArray<UCiFGameObject*> levelCast = {});
+
+	/**
 	 * Chooses a CKB object from those specified by the parameterized characters and CKBEntry predicate
 	 * @param initiator the character in the initiator role
 	 * @param responder the character in the responder role
@@ -137,7 +155,7 @@ public:
 	 * @return The name of the chosen CKB object
 	 */
 	FName pickAGoodCKBObject(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFPredicate* ckbPredicate) const;
-	
+
 	/* Getters */
 	UCiFGameObject* getGameObjectByName(const FName name) const;
 	UCiFItem* getItemByName(const FName name) const;
@@ -164,10 +182,10 @@ private:
 	void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
 	void loadQuestLib(const FString& filePath, const UObject* worldContextObject);
 	void loadTriggers(const FString& filePath, const UObject* worldContextObject);
-public:
 
+public:
 	int32 mTime;
-	
+
 	UPROPERTY()
 	UCiFCast* mCast;
 
@@ -184,7 +202,7 @@ public:
 	UCiFSocialFactsDataBase* mSFDB;
 
 	UCiFCulturalKnowledgeBase* mCKB;
-	
+
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
 	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
 	UCiFRelationshipNetwork* mRelationshipNetworks;

@@ -8,7 +8,11 @@
 #include "CiFInstantiation.generated.h"
 
 /**
+ * Instantiations store the performance realization for a particular Effect
+ * branch when performing social game play.
  * 
+ * The Instantiation class aggregates lines of dialogs into Instantiations
+ * to be associated with Effects of SocialGames. 
  */
 UCLASS()
 class CIF_API UCiFInstantiation : public UObject

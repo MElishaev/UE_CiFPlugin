@@ -33,7 +33,7 @@ void UCiFManager::init(const UObject* worldContextObject)
 	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
 	// player has already has save game, we need to just load it from the save game, although it should be the same data.
 	// for now i'll put it here
-	
+
 	const FString sgLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialGameLib.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading social games from %s"), *sgLibPath);
 	loadSocialGameLib(sgLibPath, worldContextObject);
@@ -61,7 +61,7 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString triggersPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/triggers.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading triggers from %s"), *triggersPath);
 	loadTriggers(triggersPath, worldContextObject);
-	
+
 	const FString socialNetworksPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialNetworks.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading social networks from %s"), *socialNetworksPath);
 	loadSocialNetworks(socialNetworksPath, worldContextObject);
@@ -69,7 +69,7 @@ void UCiFManager::init(const UObject* worldContextObject)
 	const FString ckbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/ckb.json"));
 	UE_LOG(LogTemp, Log, TEXT("Reading CKB from %s"), *ckbPath);
 	loadCKB(ckbPath, worldContextObject);
-	
+
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
 }
 
@@ -122,7 +122,7 @@ void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worl
 	if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
 		return;
 	}
-	
+
 	const auto knowledgeJson = jsonObject->GetArrayField("Knowledge");
 	for (const auto kJson : knowledgeJson) {
 		auto knowledge = UCiFKnowledge::loadFromJson(kJson->AsObject(), worldContextObject);
@@ -184,7 +184,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 			UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
 		}
 	}
-	
+
 	// sort the contexts in SFDB in the specified order (ascending in our case)
 	// if want to sort in a descending order, need to provide lambda function that return a > b as true
 	mSFDB->mContexts.Sort();
@@ -204,19 +204,17 @@ void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* wor
 	}
 
 	const auto rsJson = jsonObject->GetObjectField("RelationshipNetwork");
-	mRelationshipNetworks = UCiFRelationshipNetwork::loadFromJson(rsJson, worldContextObject);	
+	mRelationshipNetworks = UCiFRelationshipNetwork::loadFromJson(rsJson, worldContextObject);
 }
 
 void UCiFManager::loadPlotPoints(const FString& filePath, const UObject* worldContextObject)
 {
 	// TODO - implement
-
 }
 
 void UCiFManager::loadQuestLib(const FString& filePath, const UObject* worldContextObject)
 {
 	// TODO - implement
-
 }
 
 void UCiFManager::loadTriggers(const FString& filePath, const UObject* worldContextObject)
@@ -427,7 +425,6 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	socialGameContext->mOtherName = trueOther ? trueOther->mObjectName : "";
 	socialGameContext->mTime = mTime;
 	if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-		
 	}
 	else {
 		socialGameContext->mInitiatorScore = 0;
@@ -529,6 +526,64 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 			maxSaliency = possibleSalientEffects[i]->mSalienceScore;
 			outOther = possibleSalientOthers[i];
 			outEffect = possibleSalientEffects[i];
+		}
+	}
+}
+
+void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*> outEffects,
+                                       UCiFSocialExchange* sg,
+                                       const bool isAccepted,
+                                       UCiFGameObject* initiator,
+                                       UCiFGameObject* responder,
+                                       const TArray<UCiFGameObject*> otherCast,
+                                       TArray<UCiFGameObject*> levelCast)
+{
+	auto& possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	if (levelCast.IsEmpty()) {
+		levelCast = possibleOthers;
+	}
+
+	TArray<UCiFGameObject*> possibleSalientOthers;
+	
+	// find all valid effects, make sure to go through all others
+	for (const auto e : sg->mEffects) {
+		if (e->mIsAccept == isAccepted) {
+			if (sg->mIsRequiresOther) {
+				for (const auto c : possibleOthers) {
+					bool castMemberPresent = false;
+					if ((c->mObjectName != initiator->mObjectName) && (c->mObjectName == responder->mObjectName)) {
+						//make sure the character is in the level if the instantiation requires him to be
+						auto instantiation = sg->getInstantiationById(e->mInstantiationId);
+						if (instantiation && instantiation->requiresOtherToPerform()) {
+							// see if the other is in the level
+							for (const auto castMember : levelCast) {
+								if (castMember->mObjectName == c->mObjectName) {
+									castMemberPresent = true;
+								}
+							}
+						}
+						else {
+							castMemberPresent = true; // doesn't mean he is present but that we don't need him
+						}
+
+						//if we have passed the check that the character is in the level (or it doesn't matter if they are or not)
+						if (castMemberPresent) {
+							//check to see if this i,r,o group satisfies the condition
+							if (e->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, c, sg)) {
+								outEffects.Add(e);
+								possibleSalientOthers.Add(c);
+							}
+						}
+					}
+				}
+			}
+			else {
+				// in this case we don't require other
+				if (e->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, nullptr, sg)) {
+					outEffects.Add(e);
+					possibleSalientOthers.Add(nullptr);
+				}
+			}
 		}
 	}
 }
