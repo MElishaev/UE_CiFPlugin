@@ -18,7 +18,7 @@ UENUM(BlueprintType)
 enum class EGender : uint8
 {
 	MALE		UMETA(DisplayName="Male"),
-	FEMALE	UMETA(DisplayName="Female")
+	FEMALE		UMETA(DisplayName="Female")
 };
 
 UENUM()
@@ -31,9 +31,8 @@ enum class ELocutionType
 
 /**
  * A CiF object derived class representing characters.
- * TODO: maybe add functionality to construct characters from json properties for modding community
  */
-UCLASS()
+UCLASS(meta=(BlueprintSpawnableComponent))
 class CIF_API UCiFCharacter : public UCiFGameObject
 {
 	GENERATED_BODY()

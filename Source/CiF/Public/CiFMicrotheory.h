@@ -38,7 +38,7 @@ public:
 	 * @return The total weight of the influence rules
 	 */
 	float score(UCiFCharacter* initiator,
-	            UCiFCharacter* responder,
+	            UCiFGameObject* responder,
 	            UCiFSocialExchange* se,
 	            TArray<UCiFCharacter*> others) const;
 

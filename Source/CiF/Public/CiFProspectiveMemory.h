@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "CiFProspectiveMemory.generated.h"
 
+class UCiFGameObject;
 enum class EIntentType : uint8;
 class UCiFCharacter;
 class UCiFRuleRecord;
@@ -22,7 +23,7 @@ public:
 	void init();
 	void initializeIntentScoreCache();
 
-	void cacheIntentScore(const UCiFCharacter* responder, const EIntentType intentType, const int8 score);
+	void cacheIntentScore(const UCiFGameObject* responder, const EIntentType intentType, const int8 score);
 	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const int8 score);
 
 	int8 getIntentScore(const UCiFCharacter* responder, EIntentType intentType);
@@ -59,6 +60,8 @@ public:
 	void clear();
 public:
 
+	bool mIsCleared; // indicates if the prospective memory is clear before starting forming scores and storing here
+	
 	TArray<FGameScore> mScores;
 	TArray<UCiFRuleRecord*> mRuleRecords; // array of all rules that evaluated to true while forming intent
 	TArray<UCiFRuleRecord*> mResponseSeRuleRecords;

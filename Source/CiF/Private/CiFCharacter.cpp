@@ -64,7 +64,7 @@ void UCiFCharacter::removeItem(const ECiFItemType itemType)
 
 void UCiFCharacter::resetProspectiveMemory()
 {
-	mProspectiveMemory = NewObject<UCiFProspectiveMemory>();
+	mProspectiveMemory->clear();
 }
 
 UCiFCharacter* UCiFCharacter::loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject)

@@ -42,9 +42,10 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 	}
 }
 
-void UCiFProspectiveMemory::cacheIntentScore(const UCiFCharacter* responder, const EIntentType intentType, const int8 score)
+void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const EIntentType intentType, const int8 score)
 {
 	mIntentScoreCache[responder->mNetworkId][static_cast<uint8>(intentType)] = score;
+	mIsCleared = false; // todo - should it be here? in what cases we cache and does this needs to be reset before forming intents?
 }
 
 void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
@@ -54,6 +55,7 @@ void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
                                                    const int8 score)
 {
 	mScores.Emplace(seName, initator, responder, other, score);
+	mIsCleared = false;
 }
 
 int8 UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, EIntentType intentType)
@@ -116,6 +118,11 @@ bool UCiFProspectiveMemory::getGameScoreByName(const FName gameName, const UCiFC
 
 void UCiFProspectiveMemory::clear()
 {
+	if (mIsCleared) {
+		UE_LOG(LogTemp, Log, TEXT("Prospective memory is already cleared"))
+		return;
+	}
+	
 	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	const auto numCharacters = cifManager->mCast->mCharacters.Num();
@@ -134,4 +141,6 @@ void UCiFProspectiveMemory::clear()
 	mResponseSeRuleRecords.Reset();
 	mRuleRecords.Reset();
 	mScores.Reset();
+
+	mIsCleared = true;
 }

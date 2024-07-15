@@ -260,6 +260,8 @@ public:
 	                              const bool isNegated = false,
 	                              const bool isSFDB = false);
 
+	void toIntentNLGString(FString& outputStr);
+	
 	static UCiFPredicate* loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject);
 
 private:

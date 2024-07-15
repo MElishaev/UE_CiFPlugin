@@ -24,7 +24,7 @@ class UCiFCast;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CIF_API UCiFManager : public UObject
 {
 	GENERATED_BODY()
@@ -65,11 +65,11 @@ public:
 	 * @param initiator	The character in the initiator role.
 	 * @param responder	The character in the responder role.
 	 */
-	void formIntentForSocialGames(UCiFCharacter* initiator, UCiFCharacter* responder, const TArray<UCiFCharacter*>& possibleOthers = {});
+	void formIntentForSocialGames(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFCharacter*>& possibleOthers = {});
 
 	void formIntentForSpecificSocialExchange(UCiFSocialExchange* socialExchange,
 	                                         UCiFCharacter* initiator,
-	                                         UCiFCharacter* responder,
+	                                         UCiFGameObject* responder,
 	                                         const TArray<UCiFCharacter*>& possibleOthers = {});
 
 	/**
@@ -86,13 +86,13 @@ public:
 	 */
 	void formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	                          UCiFCharacter* initiator,
-	                          UCiFCharacter* responder,
+	                          UCiFGameObject* responder,
 	                          const TArray<UCiFCharacter*>& possibleOthers = {});
 
 	/* Scores all micro-theories for either initiator or responder */
 	int8 scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
 	                                  UCiFCharacter* initiator,
-	                                  UCiFCharacter* responder,
+	                                  UCiFGameObject* responder,
 	                                  const TArray<UCiFCharacter*>& possibleOthers = {});
 
 	UCiFSocialExchangeContext* playGame(UCiFSocialExchange* sg,
@@ -186,7 +186,7 @@ private:
 public:
 	int32 mTime;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	UCiFCast* mCast;
 
 	UPROPERTY()

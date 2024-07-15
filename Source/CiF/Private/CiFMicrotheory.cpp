@@ -18,7 +18,7 @@ UCiFMicrotheory::UCiFMicrotheory()
 }
 
 float UCiFMicrotheory::score(UCiFCharacter* initiator,
-                             UCiFCharacter* responder,
+                             UCiFGameObject* responder,
                              UCiFSocialExchange* se,
                              TArray<UCiFCharacter*> others) const
 {

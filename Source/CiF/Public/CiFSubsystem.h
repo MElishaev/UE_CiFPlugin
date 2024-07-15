@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CifImplementationBase.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "CiFSubsystem.generated.h"
 
+class UCifImplementationBase;
 class UCiFManager;
 /**
  * 
@@ -20,8 +22,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UCiFManager* getInstance();
 
-private:
+	UFUNCTION(BlueprintCallable)
+	UCifImplementationBase* getImplementation() const;
 
+	UFUNCTION(BlueprintCallable)
+	void setImplementation(UCifImplementationBase* impl);
+	
+private:
 	UPROPERTY()
-	UCiFManager* mCiFInstance = nullptr;	
+	UCifImplementationBase* mImpl = nullptr; // holds the game specific implementation related to cif
+	
+	UPROPERTY()
+	UCiFManager* mCiFInstance = nullptr;
 };

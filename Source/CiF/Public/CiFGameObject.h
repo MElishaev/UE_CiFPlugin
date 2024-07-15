@@ -166,13 +166,12 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly) // TODO-- this and more members can be exposed on spawn or something
+	UPROPERTY(BlueprintReadOnly, meta = (ExposeOnSpawn="true"))
 	FName mObjectName;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSet<ETrait> mTraits; // Set of traits of this game object
 
-	// TODO-- not sure this works - can you forward declare status?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TMap<EStatus, FStatusArrayWrapper> mStatuses; // Map of statuses that currently the object has
 
@@ -181,6 +180,4 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	uint8 mNetworkId; // The ID that this character is represented by in a social network.
-
-	
 };

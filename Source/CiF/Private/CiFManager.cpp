@@ -254,8 +254,10 @@ void UCiFManager::formIntent(UCiFCharacter* initiator)
 	}
 }
 
-void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator, UCiFCharacter* responder, const TArray<UCiFCharacter*>& possibleOthers)
+void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFCharacter*>& possibleOthers)
 {
+	clearProspectiveMemory();
+
 	for (auto [name, se] : mSocialExchangesLib->mSocialExchanges) {
 		formIntentForSpecificSocialExchange(se, initiator, responder, possibleOthers);
 	}
@@ -263,13 +265,11 @@ void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator, UCiFCharact
 
 void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* socialExchange,
                                                       UCiFCharacter* initiator,
-                                                      UCiFCharacter* responder,
+                                                      UCiFGameObject* responder,
                                                       const TArray<UCiFCharacter*>& possibleOthers)
 {
 	if (possibleOthers.Num() == 0) {
-		/* this is suitable for Mismanor where they have other than characters,
-		 * representation for knowledge and items - off for now, later we can complicate stuff */
-		// auto calculatedPossibleOthers = socialExchange->getPossibleOthers(initiator, responder);
+		auto calculatedPossibleOthers = socialExchange->getPossibleOthers(initiator, responder);
 		formIntentThirdParty(socialExchange, initiator, responder, mCast->mCharacters);
 	}
 	else {
@@ -279,7 +279,7 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
 
 void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFCharacter* initiator,
-                                       UCiFCharacter* responder,
+                                       UCiFGameObject* responder,
                                        const TArray<UCiFCharacter*>& possibleOthers)
 {
 	int8 score = 0;
@@ -312,7 +312,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 
 int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
                                                UCiFCharacter* initiator,
-                                               UCiFCharacter* responder,
+                                               UCiFGameObject* responder,
                                                const TArray<UCiFCharacter*>& possibleOthers)
 {
 	auto others = possibleOthers.Num() > 0 ? possibleOthers : mCast->mCharacters;
@@ -544,7 +544,7 @@ void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*> outEffects,
 	}
 
 	TArray<UCiFGameObject*> possibleSalientOthers;
-	
+
 	// find all valid effects, make sure to go through all others
 	for (const auto e : sg->mEffects) {
 		if (e->mIsAccept == isAccepted) {

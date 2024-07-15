@@ -715,6 +715,42 @@ void UCiFPredicate::setRelationshipPredicate(const FName first,
 	mIsSFDB = isSFDB;
 }
 
+void UCiFPredicate::toIntentNLGString(FString& outputStr)
+{
+	outputStr = "";
+	if (mIsIntent) {
+		const auto predTypeEnum = StaticEnum<EPredicateType>();
+		auto typeString = predTypeEnum->GetValueAsString(mType);
+		const auto intentTypeEnum = StaticEnum<EIntentType>();
+		auto intentTypeString = intentTypeEnum->GetValueAsString(mIntentType);
+		
+		switch (mIntentType) {
+			case EIntentType::COOL_UP:
+			case EIntentType::BUDDY_UP:
+			case EIntentType::ROMANCE_UP:
+				outputStr = "(Improve " + typeString + " network)";
+				break;
+			case EIntentType::COOL_DOWN:
+			case EIntentType::BUDDY_DOWN:
+			case EIntentType::ROMANCE_DOWN:
+				outputStr = "(Weaken " + typeString + " network)";
+				break;
+			case EIntentType::DATING:
+			case EIntentType::ENEMIES:
+			case EIntentType::FRIENDS:
+				outputStr = "(Add status " + intentTypeString + ")";
+				break;
+			case EIntentType::END_DATING:
+			case EIntentType::END_ENEMIES:
+			case EIntentType::END_FRIENDS:
+				outputStr = "(Remove status " + intentTypeString + ")";
+				break;
+			default:
+				UE_LOG(LogTemp, Warning, TEXT("Unrecognized predicate type: %d"), mIntentType);
+		}
+	}
+}
+
 FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const
 {
 	if (var == "i" || var == "initiator") return "initiator";
