@@ -10,9 +10,11 @@
 #include "CiFProspectiveMemory.h"
 #include "CiFSubsystem.h"
 
-void UCiFCharacter::init()
+void UCiFCharacter::init(UObject* worldContextObject)
 {
 	mGameObjectType = ECiFGameObjectType::CHARACTER;
+	mProspectiveMemory = NewObject<UCiFProspectiveMemory>(worldContextObject);
+	mProspectiveMemory->init();
 }
 
 bool UCiFCharacter::hasKnowledge(const UCiFKnowledge* knowledge, const UCiFCharacter* learnedFrom) const
@@ -70,7 +72,7 @@ void UCiFCharacter::resetProspectiveMemory()
 UCiFCharacter* UCiFCharacter::loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
 {
 	const auto c = NewObject<UCiFCharacter>(const_cast<UObject*>(worldContextObject));
-	c->init();
+	// c->init(const_cast<UObject*>(worldContextObject)); // TODO - this should be moved after all characters and cast were added
 
 	c->UCiFGameObject::loadFromJson(json, worldContextObject);
 	

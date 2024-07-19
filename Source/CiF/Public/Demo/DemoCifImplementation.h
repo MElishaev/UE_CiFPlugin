@@ -15,7 +15,11 @@ USTRUCT(BlueprintType)
 struct FSocialGameIntentPair
 {
 	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
 	FName socialGameName;
+
+	UPROPERTY(BlueprintReadWrite)
 	FString intentString;
 };
 
@@ -46,4 +50,18 @@ public:
 											   int32 numSocialGames,
 											   const bool isShowIntent,
 											   const bool isNPC = false);
+
+	/** TODO: maybe this method should be in the main cif subsystem because i think the method to
+	 *	add objects in the world as cif game objects will be pretty much the same no matter how you
+	 *	build your game
+	 * 
+	 * This method attaches to the caller's component the matching component that was initialized in the cif subsystem.
+	 * For example, if a character was spawned in the level, it needs to be registered to the cif system to be taken
+	 * into account in the social state
+	 * @param objectName The object's name that we want to register as
+	 * @param gameObjectCompRef The game object's component that will be filled with the matching component that was initialized in the CiF subsystem
+	 * @return True if successfully found and initialized the component
+	 */
+	UFUNCTION(BlueprintCallable)
+	bool registerAsGameObject(const FName objectName, UCiFGameObject*& gameObjectCompRef);
 };

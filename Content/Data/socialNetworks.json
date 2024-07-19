@@ -1,7 +1,7 @@
 {
 	"SocialNetworks": [
 		{
-			"_type": "SN_BUDDY",
+			"_type": "BUDDY",
 			"_numChars": 7,
 			"edge": [
 				{
@@ -217,7 +217,7 @@
 			]
 		},
 		{
-			"_type": "SN_TRUST",
+			"_type": "TRUST",
 			"_numChars": 7,
 			"edge": [
 				{
@@ -433,7 +433,7 @@
 			]
 		},
 		{
-			"_type": "SN_FAMILYBOND",
+			"_type": "FAMILY_BOND",
 			"_numChars": 7,
 			"edge": [
 				{
@@ -649,7 +649,7 @@
 			]
 		},
 		{
-			"_type": "SN_ROMANCE",
+			"_type": "ROMANCE",
 			"_numChars": 7,
 			"edge": [
 				{

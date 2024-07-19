@@ -17,6 +17,11 @@ class CIF_API UCiFCast : public UObject
 
 public:
 	/**
+	 * This initialization method should be called after all characters were added
+	 */
+	void init(UObject* worldContextObject);
+	
+	/**
 	 * @return pointer to the character or nullptr if not exists 
 	 */
 	UFUNCTION(BlueprintCallable)

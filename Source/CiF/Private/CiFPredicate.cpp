@@ -63,7 +63,8 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 		}
 		else {
 			second = nullptr;
-			UE_LOG(LogTemp, Warning, TEXT("Second variable doesn't bound to game object"));
+			if (mType != EPredicateType::TRAIT)
+				UE_LOG(LogTemp, Warning, TEXT("Second variable doesn't bound to game object"));
 		}
 	}
 
@@ -83,7 +84,6 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 		else {
 			third = nullptr;
 			isThird = false;
-			UE_LOG(LogTemp, Warning, TEXT("Second variable doesn't bound to game object"));
 		}
 	}
 
@@ -544,14 +544,14 @@ EIntentType UCiFPredicate::getIntentType()
 
 	if (mType == EPredicateType::NETWORK) {
 		switch (mNetworkType) {
-			case ESocialNetworkType::SN_BUDDY:
+			case ESocialNetworkType::BUDDY:
 				{
 					if (mComparatorType == EComparatorType::INCREASE) {
 						return EIntentType::BUDDY_UP;
 					}
 					return EIntentType::BUDDY_DOWN;
 				}
-			case ESocialNetworkType::SN_ROMANCE:
+			case ESocialNetworkType::ROMANCE:
 				{
 					if (mComparatorType == EComparatorType::INCREASE) {
 						return EIntentType::ROMANCE_UP;
@@ -719,35 +719,36 @@ void UCiFPredicate::toIntentNLGString(FString& outputStr)
 {
 	outputStr = "";
 	if (mIsIntent) {
-		const auto predTypeEnum = StaticEnum<EPredicateType>();
-		auto typeString = predTypeEnum->GetValueAsString(mType);
-		const auto intentTypeEnum = StaticEnum<EIntentType>();
-		auto intentTypeString = intentTypeEnum->GetValueAsString(mIntentType);
-		
-		switch (mIntentType) {
-			case EIntentType::COOL_UP:
-			case EIntentType::BUDDY_UP:
-			case EIntentType::ROMANCE_UP:
-				outputStr = "(Improve " + typeString + " network)";
-				break;
-			case EIntentType::COOL_DOWN:
-			case EIntentType::BUDDY_DOWN:
-			case EIntentType::ROMANCE_DOWN:
-				outputStr = "(Weaken " + typeString + " network)";
-				break;
-			case EIntentType::DATING:
-			case EIntentType::ENEMIES:
-			case EIntentType::FRIENDS:
-				outputStr = "(Add status " + intentTypeString + ")";
-				break;
-			case EIntentType::END_DATING:
-			case EIntentType::END_ENEMIES:
-			case EIntentType::END_FRIENDS:
-				outputStr = "(Remove status " + intentTypeString + ")";
-				break;
-			default:
-				UE_LOG(LogTemp, Warning, TEXT("Unrecognized predicate type: %d"), mIntentType);
-		}
+		outputStr = mName.ToString();
+		// const auto predTypeEnum = StaticEnum<EPredicateType>();
+		// auto typeString = predTypeEnum->GetValueAsString(mType);
+		// const auto intentTypeEnum = StaticEnum<EIntentType>();
+		// auto intentTypeString = intentTypeEnum->GetValueAsString(mIntentType);
+		//
+		// switch (mIntentType) {
+		// 	case EIntentType::COOL_UP:
+		// 	case EIntentType::BUDDY_UP:
+		// 	case EIntentType::ROMANCE_UP:
+		// 		outputStr = "(Improve " + typeString + " network)";
+		// 		break;
+		// 	case EIntentType::COOL_DOWN:
+		// 	case EIntentType::BUDDY_DOWN:
+		// 	case EIntentType::ROMANCE_DOWN:
+		// 		outputStr = "(Weaken " + typeString + " network)";
+		// 		break;
+		// 	case EIntentType::DATING:
+		// 	case EIntentType::ENEMIES:
+		// 	case EIntentType::FRIENDS:
+		// 		outputStr = "(Add status " + intentTypeString + ")";
+		// 		break;
+		// 	case EIntentType::END_DATING:
+		// 	case EIntentType::END_ENEMIES:
+		// 	case EIntentType::END_FRIENDS:
+		// 		outputStr = "(Remove status " + intentTypeString + ")";
+		// 		break;
+		// 	default:
+		// 		UE_LOG(LogTemp, Warning, TEXT("Unrecognized intent type: %d"), mIntentType);
+		// }
 	}
 }
 
@@ -757,7 +758,6 @@ FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const
 	if (var == "r" || var == "responder") return "responder";
 	if (var == "o" || var == "other") return "other";
 
-	UE_LOG(LogTemp, Warning, TEXT("Couldn't find value for predicate variable %s"), *(var.ToString()));
 	return "";
 }
 

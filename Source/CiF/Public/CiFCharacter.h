@@ -38,9 +38,8 @@ class CIF_API UCiFCharacter : public UCiFGameObject
 	GENERATED_BODY()
 
 public:
-
-	UFUNCTION(BlueprintCallable)
-	void init();
+	UFUNCTION(BlueprintCallable, meta = (WorldContext = "worldContextObject"))
+	void init(UObject* worldContextObject);
 
 	/**
 	 * @param knowledge The knowledge to query for

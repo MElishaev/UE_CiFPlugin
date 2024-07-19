@@ -230,7 +230,7 @@ public:
 	                         const FName second = "responder",
 	                         const EComparatorType comp = EComparatorType::LESS_THAN,
 	                         const int8 networkValue = 0,
-	                         const ESocialNetworkType networkType = ESocialNetworkType::SN_BUDDY,
+	                         const ESocialNetworkType networkType = ESocialNetworkType::BUDDY,
 	                         const bool isNegated = false,
 	                         const bool isSFDB = false);
 

@@ -17,6 +17,7 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
                                                                    const bool isShowIntent,
                                                                    const bool isNPC)
 {
+	checkf(mCifManager != nullptr, TEXT("CiF manager wasn't initialized in the implementation"));
 	auto init = static_cast<UCiFCharacter*>(mCifManager->getGameObjectByName(initiator->mCifCharacterComp->mObjectName));
 	mCifManager->formIntentForSocialGames(init, responder);
 
@@ -53,5 +54,15 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
 	else {
 		UE_LOG(LogTemp, Log, TEXT("No social moves found"));
 	}
+}
+
+bool UDemoCifImplementation::registerAsGameObject(const FName objectName, UCiFGameObject*& gameObjectCompRef)
+{
+	gameObjectCompRef = mCifManager->getGameObjectByName(objectName);
+	if (!gameObjectCompRef) {
+		UE_LOG(LogTemp, Error, TEXT("Couldn't find game object with name %s"), *objectName.ToString())
+		return false;
+	}
+	return true;
 }
 

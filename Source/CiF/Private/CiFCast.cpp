@@ -4,6 +4,13 @@
 #include "CiFCast.h"
 #include "CiFCharacter.h"
 
+void UCiFCast::init(UObject* worldContextObject)
+{
+	for (const auto c : mCharacters) {
+		c->init(worldContextObject);
+	}
+}
+
 UCiFCharacter* UCiFCast::getCharByName(const FName name) const
 {
 	auto character = mCharactersByName.Find(name);

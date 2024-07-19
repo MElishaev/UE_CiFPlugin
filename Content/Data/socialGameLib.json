@@ -912,7 +912,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 30,
                     "Predicate": [
@@ -937,7 +937,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 31,
                     "Predicate": [
@@ -1010,7 +1010,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 34,
                     "Predicate": [
@@ -1055,7 +1055,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 36,
                     "Predicate": [
@@ -1096,12 +1096,12 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,responder,initiator,0) window(4)]",
+                            "_name": "[SFDB_LABEL(cat: negative,responder,initiator,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -1211,7 +1211,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 21,
                     "Predicate": [
@@ -1261,7 +1261,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 23,
                     "Predicate": [
@@ -1286,7 +1286,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 24,
                     "Predicate": [
@@ -1820,7 +1820,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 8,
                     "Predicate": [
@@ -2001,7 +2001,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 0,
                     "Predicate": [
@@ -2023,7 +2023,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 1,
                     "Predicate": [
@@ -2331,7 +2331,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 14,
                     "Predicate": [
@@ -2406,7 +2406,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 17,
                     "Predicate": [
@@ -2523,7 +2523,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 22,
                     "Predicate": [
@@ -2546,7 +2546,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 23,
                     "Predicate": [
@@ -3855,17 +3855,17 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 14,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,initiator,responder,0) window(4)]",
+                            "_name": "[SFDB_LABEL(cat: negative,initiator,responder,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -3877,17 +3877,17 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 15,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,initiator,responder,0) window(4)]",
+                            "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -3899,17 +3899,17 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 16,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_RUDE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(rude,initiator,responder,0) window(4)]",
+                            "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -3921,7 +3921,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 17,
                     "Predicate": [
@@ -4141,12 +4141,12 @@
                     "_id": 10,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_POSITIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: positive,initiator,responder,0) window(4)]",
+                            "_name": "[SFDB_LABEL(cat: positive,initiator,responder,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -4158,17 +4158,17 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 11,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,initiator,responder,0) window(4)]",
+                            "_name": "[SFDB_LABEL(cat: negative,initiator,responder,0) window(4)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -4203,7 +4203,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 13,
                     "Predicate": [
@@ -4366,12 +4366,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -4410,12 +4410,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -5418,7 +5418,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 62,
                     "Predicate": [
@@ -5441,7 +5441,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 64,
                     "Predicate": [
@@ -5464,7 +5464,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 65,
                     "Predicate": [
@@ -5492,12 +5492,12 @@
                     "_id": 66,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,responder,initiator,0) window(6)]",
+                            "_name": "[SFDB_LABEL(cat: negative,responder,initiator,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -5509,17 +5509,17 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 67,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,responder,initiator,0) window(6)]",
+                            "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -5536,12 +5536,12 @@
                     "_id": 67,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_EMBARRASSING",
                             "_negated": false,
-                            "_name": "[SFDBLabel(embarrassing,initiator,responder,0) window(6)]",
+                            "_name": "[SFDB_LABEL(embarrassing,initiator,responder,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -5766,7 +5766,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 36,
                     "Predicate": [
@@ -5789,7 +5789,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 37,
                     "Predicate": [
@@ -5812,17 +5812,17 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 38,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,initiator,responder,0) window(6)]",
+                            "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -5834,17 +5834,17 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 39,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_RUDE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(rude,initiator,responder,0) window(6)]",
+                            "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -7134,7 +7134,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "If %i% is not very close to %o%, %i% will feel less obligation to mediate.",
                     "_id": 13,
                     "Predicate": [
@@ -7159,7 +7159,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 14,
                     "Predicate": [
@@ -7184,7 +7184,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 15,
                     "Predicate": [
@@ -7230,7 +7230,7 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 17,
                     "Predicate": [
@@ -7411,7 +7411,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 4,
                     "Predicate": [
@@ -7533,7 +7533,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 11,
                     "Predicate": [
@@ -7652,7 +7652,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 16,
                     "Predicate": [
@@ -10622,7 +10622,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 21,
                     "Predicate": [
@@ -13141,12 +13141,12 @@
                     "_id": 4,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,responder,initiator,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -13185,7 +13185,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 0,
                     "Predicate": [
@@ -13210,7 +13210,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 1,
                     "Predicate": [
@@ -13235,7 +13235,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 2,
                     "Predicate": [
@@ -13258,7 +13258,7 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 3,
                     "Predicate": [
@@ -13332,12 +13332,12 @@
                     "_id": 6,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -13349,17 +13349,17 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_FAILED_ROMANCE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -13376,12 +13376,12 @@
                     "_id": 8,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,responder,initiator,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -13437,12 +13437,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_ROMANTIC",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -13513,12 +13513,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -17511,7 +17511,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -17821,7 +17821,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 6,
                     "Predicate": [
@@ -18933,7 +18933,7 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -18979,7 +18979,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 9,
                     "Predicate": [
@@ -19055,12 +19055,12 @@
                     "_id": 12,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "CAT_POSITIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: positive,responder,initiator,0) window(0)]",
+                            "_name": "[SFDB_LABEL(cat: positive,responder,initiator,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -19074,7 +19074,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 0,
                     "Predicate": [
@@ -19247,12 +19247,12 @@
                     "_id": 7,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -19269,12 +19269,12 @@
                     "_id": 8,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,other,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,other,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -23907,7 +23907,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 19,
                     "Predicate": [
@@ -23929,7 +23929,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 20,
                     "Predicate": [
@@ -23951,7 +23951,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 21,
                     "Predicate": [
@@ -23976,7 +23976,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 22,
                     "Predicate": [
@@ -24001,7 +24001,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 23,
                     "Predicate": [
@@ -24195,12 +24195,12 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,other,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(cat: negative,other,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -24353,7 +24353,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 17,
                     "Predicate": [
@@ -24378,7 +24378,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 18,
                     "Predicate": [
@@ -24431,12 +24431,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -24492,12 +24492,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -24586,12 +24586,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -24678,12 +24678,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -24789,12 +24789,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -25486,7 +25486,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "iirs dummy disapproving",
                     "_id": 7,
                     "Predicate": [
@@ -25628,7 +25628,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 12,
                     "Predicate": [
@@ -25697,7 +25697,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 15,
                     "Predicate": [
@@ -25767,7 +25767,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -25813,7 +25813,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -25930,7 +25930,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 12,
                     "Predicate": [
@@ -25981,12 +25981,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -26025,12 +26025,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -32130,7 +32130,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -32175,7 +32175,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -32839,7 +32839,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 11,
                     "Predicate": [
@@ -32887,7 +32887,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 13,
                     "Predicate": [
@@ -33029,7 +33029,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 13,
                     "Predicate": [
@@ -34023,7 +34023,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 26,
                     "Predicate": [
@@ -34751,7 +34751,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 19,
                     "Predicate": [
@@ -34929,7 +34929,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 15,
                     "Predicate": [
@@ -35203,12 +35203,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "initiator",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,responder,initiator,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,responder,initiator,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -35291,12 +35291,12 @@
                     "ConditionRule": {
                         "Predicate": [
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "initiator",
                                 "_label": "CAT_NEGATIVE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(cat: negative,responder,initiator,0) window(0)]",
+                                "_name": "[SFDB_LABEL(cat: negative,responder,initiator,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -36428,7 +36428,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 27,
                     "Predicate": [
@@ -36520,7 +36520,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 31,
                     "Predicate": [
@@ -36612,7 +36612,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 28,
                     "Predicate": [
@@ -36635,7 +36635,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 29,
                     "Predicate": [
@@ -36781,7 +36781,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 34,
                     "Predicate": [
@@ -36895,7 +36895,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 29,
                     "Predicate": [
@@ -36987,7 +36987,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 33,
                     "Predicate": [
@@ -37033,7 +37033,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 35,
                     "Predicate": [
@@ -39632,7 +39632,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -41046,7 +41046,7 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -41069,7 +41069,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 6,
                     "Predicate": [
@@ -41092,7 +41092,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -41138,7 +41138,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 9,
                     "Predicate": [
@@ -41184,7 +41184,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 11,
                     "Predicate": [
@@ -41231,7 +41231,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 0,
                     "Predicate": [
@@ -41256,7 +41256,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 2,
                     "Predicate": [
@@ -41304,7 +41304,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 4,
                     "Predicate": [
@@ -41327,7 +41327,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -41350,7 +41350,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 6,
                     "Predicate": [
@@ -41373,7 +41373,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -41396,7 +41396,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 8,
                     "Predicate": [
@@ -41419,7 +41419,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 9,
                     "Predicate": [
@@ -41566,12 +41566,12 @@
                     "_id": 15,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -41626,12 +41626,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_ROMANTIC",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -41702,12 +41702,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -41795,12 +41795,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -41810,12 +41810,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "initiator",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,responder,initiator,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -41905,12 +41905,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -41983,12 +41983,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_ROMANTIC",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -42863,7 +42863,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 3,
                     "Predicate": [
@@ -43848,7 +43848,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 2,
                     "Predicate": [
@@ -43873,7 +43873,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 3,
                     "Predicate": [
@@ -43898,7 +43898,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 4,
                     "Predicate": [
@@ -43946,7 +43946,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 6,
                     "Predicate": [
@@ -43969,7 +43969,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 7,
                     "Predicate": [
@@ -43992,7 +43992,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 8,
                     "Predicate": [
@@ -44038,7 +44038,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 10,
                     "Predicate": [
@@ -44063,7 +44063,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 11,
                     "Predicate": [
@@ -44093,12 +44093,12 @@
                     "_id": 12,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,responder,initiator,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -44112,7 +44112,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 0,
                     "Predicate": [
@@ -44134,7 +44134,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 1,
                     "Predicate": [
@@ -44159,7 +44159,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 2,
                     "Predicate": [
@@ -44285,12 +44285,12 @@
                     "_id": 7,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -44307,12 +44307,12 @@
                     "_id": 8,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,other,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(mean,other,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -44329,12 +44329,12 @@
                     "_id": 8,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -44351,12 +44351,12 @@
                     "_id": 9,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
                             "_label": "LABEL_ROMANTIC",
                             "_negated": false,
-                            "_name": "[SFDBLabel(romantic,other,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(romantic,other,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -44412,7 +44412,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 12,
                     "Predicate": [
@@ -44435,7 +44435,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 3,
                     "Predicate": [
@@ -44460,7 +44460,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 4,
                     "Predicate": [
@@ -49252,7 +49252,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 66,
                     "Predicate": [
@@ -49519,7 +49519,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 31,
                     "Predicate": [
@@ -50205,12 +50205,12 @@
                     "_id": 20,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_NEGATIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: negative,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(cat: negative,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -50222,17 +50222,17 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 21,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_POSITIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: positive,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(cat: positive,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -50249,12 +50249,12 @@
                     "_id": 22,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "LABEL_RUDE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(rude,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -50519,7 +50519,7 @@
                     ]
                 },
                 {
-                    "_weight": "-4",
+                    "_weight": -4,
                     "_name": "",
                     "_id": 25,
                     "Predicate": [
@@ -50730,7 +50730,7 @@
                     ]
                 },
                 {
-                    "_weight": "-5",
+                    "_weight": -5,
                     "_name": "",
                     "_id": 34,
                     "Predicate": [
@@ -50804,12 +50804,12 @@
                     "_id": 37,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
                             "_label": "CAT_POSITIVE",
                             "_negated": false,
-                            "_name": "[SFDBLabel(cat: positive,initiator,responder,0) window(0)]",
+                            "_name": "[SFDB_LABEL(cat: positive,initiator,responder,0) window(0)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -50887,12 +50887,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_NICE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(nice,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -51181,7 +51181,7 @@
                     "_description": "",
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "CAT_NEGATIVE",
@@ -51205,12 +51205,12 @@
                     "_id": 27,
                     "Predicate": [
                         {
-                            "_type": "SFDBLABEL",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
                             "_label": "LABEL_MEAN",
                             "_negated": false,
-                            "_name": "[SFDBLabel(mean,responder,initiator,0) window(6)]",
+                            "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(6)]",
                             "_intent": false,
                             "_intentType": -1,
                             "_isSFDB": true,
@@ -51456,7 +51456,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 38,
                     "Predicate": [
@@ -51527,7 +51527,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 41,
                     "Predicate": [
@@ -51617,7 +51617,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "rirs domineering",
                     "_id": 14,
                     "Predicate": [
@@ -51639,7 +51639,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "rirs angry at",
                     "_id": 3,
                     "Predicate": [
@@ -51662,7 +51662,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "rirs stubborn",
                     "_id": 12,
                     "Predicate": [
@@ -51840,12 +51840,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_EMBARRASSING",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(embarrassing,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(embarrassing,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -51855,12 +51855,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_RUDE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(rude,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -51934,12 +51934,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_RUDE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(rude,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -51978,12 +51978,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_RUDE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(rude,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -52022,12 +52022,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_RUDE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(rude,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -52507,7 +52507,7 @@
             ],
             "InitiatorInfluenceRuleSet": [
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 3,
                     "Predicate": [
@@ -52551,7 +52551,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -52648,7 +52648,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 9,
                     "Predicate": [
@@ -52767,7 +52767,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 14,
                     "Predicate": [
@@ -52790,7 +52790,7 @@
                     ]
                 },
                 {
-                    "_weight": "-3",
+                    "_weight": -3,
                     "_name": "",
                     "_id": 15,
                     "Predicate": [
@@ -52903,7 +52903,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 8,
                     "Predicate": [
@@ -52950,7 +52950,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 10,
                     "Predicate": [
@@ -53073,7 +53073,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 16,
                     "Predicate": [
@@ -53142,7 +53142,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 19,
                     "Predicate": [
@@ -53247,12 +53247,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": true,
-                                "_name": "[~SFDBLabel(failed romance,initiator,responder,0) window(6)]",
+                                "_name": "[~SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -53307,12 +53307,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -53400,12 +53400,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -53415,12 +53415,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -53508,12 +53508,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -53654,12 +53654,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,initiator,responder,0) window(6)]",
+                                "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -54424,7 +54424,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 8,
                     "Predicate": [
@@ -54449,7 +54449,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 9,
                     "Predicate": [
@@ -55304,7 +55304,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 4,
                     "Predicate": [
@@ -56623,7 +56623,7 @@
             ],
             "ResponderInfluenceRuleSet": [
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 25,
                     "Predicate": [
@@ -56648,7 +56648,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 26,
                     "Predicate": [
@@ -56723,7 +56723,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 30,
                     "Predicate": [
@@ -56815,7 +56815,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 34,
                     "Predicate": [
@@ -56838,7 +56838,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 27,
                     "Predicate": [
@@ -56915,12 +56915,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": true,
-                                "_name": "[~SFDBLabel(failed romance,responder,other,0) window(6)]",
+                                "_name": "[~SFDB_LABEL(failed romance,responder,other,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -56942,12 +56942,12 @@
                     "ChangeRule": {
                         "Predicate": [
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
                                 "_label": "",
                                 "_negated": false,
-                                "_name": "SFDBLabel(,responder,other,0)",
+                                "_name": "SFDB_LABEL(,responder,other,0)",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -56957,12 +56957,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
                                 "_label": "LABEL_ROMANTIC",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(romantic,responder,other,0) window(6)]",
+                                "_name": "[SFDB_LABEL(romantic,responder,other,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -57036,12 +57036,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,responder,other,0) window(6)]",
+                                "_name": "[SFDB_LABEL(failed romance,responder,other,0) window(6)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -57116,12 +57116,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -57195,12 +57195,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
                                 "_label": "LABEL_FAILED_ROMANCE",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(failed romance,responder,other,0) window(0)]",
+                                "_name": "[SFDB_LABEL(failed romance,responder,other,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -57286,12 +57286,12 @@
                                 "_numTimesRoleSlot": ""
                             },
                             {
-                                "_type": "SFDBLABEL",
+                                "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
                                 "_label": "LABEL_MEAN",
                                 "_negated": false,
-                                "_name": "[SFDBLabel(mean,initiator,responder,0) window(0)]",
+                                "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                                 "_intent": false,
                                 "_intentType": -1,
                                 "_isSFDB": true,
@@ -58891,7 +58891,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 56,
                     "Predicate": [
@@ -59808,7 +59808,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 52,
                     "Predicate": [
@@ -60347,7 +60347,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 5,
                     "Predicate": [
@@ -62104,7 +62104,7 @@
                     ]
                 },
                 {
-                    "_weight": "-2",
+                    "_weight": -2,
                     "_name": "",
                     "_id": 10,
                     "Predicate": [

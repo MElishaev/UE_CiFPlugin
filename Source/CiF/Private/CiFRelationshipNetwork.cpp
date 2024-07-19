@@ -8,7 +8,7 @@
 
 void UCiFRelationshipNetwork::initialize(const uint8 numOfCharacters, const uint8 maxVal)
 {
-	Super::init(ESocialNetworkType::RN_RELATIONSHIP, numOfCharacters, maxVal);
+	Super::init(ESocialNetworkType::RELATIONSHIP, numOfCharacters, maxVal);
 	setAllArrayElements(0);
 }
 

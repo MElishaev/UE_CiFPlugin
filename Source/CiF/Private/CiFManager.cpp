@@ -100,6 +100,7 @@ void UCiFManager::loadCast(const FString& filePath, const UObject* worldContextO
 	}
 
 	mCast = UCiFCast::loadFromJson(jsonObject, worldContextObject);
+	mCast->init(const_cast<UObject*>(worldContextObject));
 }
 
 void UCiFManager::loadItemList(const FString& filePath, const UObject* worldContextObject)

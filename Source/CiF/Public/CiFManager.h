@@ -201,15 +201,22 @@ public:
 	UPROPERTY()
 	UCiFSocialFactsDataBase* mSFDB;
 
+	UPROPERTY()
 	UCiFCulturalKnowledgeBase* mCKB;
 
+	UPROPERTY()
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
+	
+	UPROPERTY()
 	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
+
+	UPROPERTY()
 	UCiFRelationshipNetwork* mRelationshipNetworks;
 
 	/**
 	 * this will always hold the last other that the last responder used while deciding accept/reject
 	 * it should only be referenced immediately after play game
 	 */
+	UPROPERTY()
 	UCiFGameObject* mLastResponderOther;
 };
