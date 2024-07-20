@@ -165,7 +165,7 @@ public:
 	bool mBinary; // indicates if the status involves 2 actors
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FName mDirectedTowards; // the CIF game object name that the status directed towards (!= "" iff mBinary==true)
+	FName mDirectedTowards = ""; // the CIF game object name that the status directed towards (!= "" iff mBinary==true)
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	bool mHasDuration; // if this status has duration - sad character can't be happy forever

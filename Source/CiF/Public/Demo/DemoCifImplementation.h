@@ -21,6 +21,9 @@ struct FSocialGameIntentPair
 
 	UPROPERTY(BlueprintReadWrite)
 	FString intentString;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 score;
 };
 
 /**

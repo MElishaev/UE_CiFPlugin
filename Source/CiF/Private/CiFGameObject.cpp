@@ -25,13 +25,16 @@ bool UCiFGameObject::hasTrait(const ETrait trait) const
 	return mTraits.Contains(trait);
 }
 
-bool UCiFGameObject::hasStatus(const EStatus statusType, const FName towards) const
+bool UCiFGameObject::hasStatus(const EStatus statusType, const UCiFGameObject* towards) const
 {
 	const auto statusesWrapper = mStatuses.Find(statusType);
 	if (statusesWrapper) {
 		const auto statuses = statusesWrapper->statusArray;
 		return statuses.ContainsByPredicate([=](const UCiFGameObjectStatus* status) {
-			return (status->mType == statusType) && (towards == status->mDirectedTowards);
+			if (towards) {
+				return (status->mType == statusType) && (towards->mObjectName == status->mDirectedTowards);
+			}
+			return status->mType == statusType;
 		});
 	}
 	return false;

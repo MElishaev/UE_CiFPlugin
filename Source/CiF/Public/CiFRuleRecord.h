@@ -24,6 +24,14 @@ class CIF_API UCiFRuleRecord : public UObject
 	GENERATED_BODY()
 
 public:
+	void init(const FName name,
+	          const FName initiatorName,
+	          const FName responderName,
+	          const FName otherName,
+	          const ERuleRecordType type,
+	          UCiFInfluenceRule* ir);
+
+public:
 	UCiFInfluenceRule* mInfluenceRule;
 	ERuleRecordType mType;
 	FName mName;

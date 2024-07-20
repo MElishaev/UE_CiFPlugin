@@ -43,7 +43,7 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
 					const auto socialGame = mCifManager->mSocialExchangesLib->getSocialExchangeByName(gs.mName);
 					socialGame->mIntents[0]->mPredicates[0]->toIntentNLGString(intentString);
 				}
-				outSocialGamesNames.Emplace(gs.mName, intentString);
+				outSocialGamesNames.Emplace(gs.mName, intentString, gs.mScore);
 				numSocialGames--;
 				if (numSocialGames <= 0) {
 					break;

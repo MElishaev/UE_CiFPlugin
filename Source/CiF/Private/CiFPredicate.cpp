@@ -63,7 +63,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 		}
 		else {
 			second = nullptr;
-			if (mType != EPredicateType::TRAIT)
+			if ((mType != EPredicateType::TRAIT) && (mType != EPredicateType::STATUS))
 				UE_LOG(LogTemp, Warning, TEXT("Second variable doesn't bound to game object"));
 		}
 	}
@@ -169,7 +169,7 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 		case EPredicateType::NETWORK:
 			return evalNetwork(first, second);
 		case EPredicateType::STATUS:
-			return mIsNegated ? !evalStatus(first, second->mObjectName) : evalStatus(first, second->mObjectName);
+			return mIsNegated ? !evalStatus(first, second) : evalStatus(first, second);
 		case EPredicateType::CKBENTRY:
 			return evalCKBEntry(first, second);
 		case EPredicateType::SFDB_LABEL:
@@ -260,10 +260,10 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 						break;
 					case EPredicateType::STATUS:
 						if (mNumTimesRoleSlot == ENumTimesRoleSlot::SECOND) {
-							predTrue = evalStatus(c, primaryCharacterOfConsideration->mObjectName);
+							predTrue = evalStatus(c, primaryCharacterOfConsideration);
 						}
 						else {
-							predTrue = evalStatus(primaryCharacterOfConsideration, c->mObjectName);
+							predTrue = evalStatus(primaryCharacterOfConsideration, c);
 						}
 						break;
 					case EPredicateType::CKBENTRY:
@@ -431,7 +431,7 @@ bool UCiFPredicate::evalNetwork(const UCiFGameObject* first, const UCiFGameObjec
 	return false || mIsNegated;
 }
 
-bool UCiFPredicate::evalStatus(const UCiFGameObject* first, const FName second) const
+bool UCiFPredicate::evalStatus(const UCiFGameObject* first, const UCiFGameObject* second) const
 {
 	return first->hasStatus(mStatusType, second);
 }

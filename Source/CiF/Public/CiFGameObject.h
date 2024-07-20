@@ -121,7 +121,7 @@ public:
 	 * @return	True if the character has the status, false if he does not.
 	 */
 	UFUNCTION(BlueprintCallable)
-	bool hasStatus(const EStatus statusType, const FName towards = "") const;
+	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards = nullptr) const;
 
 	/**
 	 * Give the character a status with a type and a character status target if the status is directed.

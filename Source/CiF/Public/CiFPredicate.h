@@ -159,7 +159,7 @@ public:
 	 * @param first The character for which the existence of the status is ascertained.
 	 * @return True if the character has the status. False if the status is not present.
 	 */
-	bool evalStatus(const UCiFGameObject* first, const FName second) const;
+	bool evalStatus(const UCiFGameObject* first, const UCiFGameObject* second = nullptr) const;
 
 	bool evalCKBEntry(const UCiFGameObject* first, const UCiFGameObject* second) const;
 
