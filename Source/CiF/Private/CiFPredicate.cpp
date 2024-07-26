@@ -183,6 +183,95 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 	return false;
 }
 
+void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObject* z)
+{
+	/**
+	 * Need to determine if the predicate's predicate variables reference
+	 * roles (initiator,responder), generic variables (x,y,z), or 
+	 * characters (edward, karen).
+	 */
+
+	//if this.primary is not a reference to a character, determine if 
+	//it is either a role or a generic variable
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto first = cifManager->getGameObjectByName(mPrimary);
+	if (!first) {
+		const auto val = getRoleValue(mPrimary);
+		if (val == "initiator" || val == "x") {
+			first = x;
+		}
+		else if (val == "responder" || val == "y") {
+			first = y;
+		}
+		else if (val == "other" || val == "z") {
+			first = z;
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("first variable was not bound to a character"));
+		}
+	}
+
+	auto second = cifManager->getGameObjectByName(mSecondary);
+	if (!second) {
+		const auto val = getRoleValue(mSecondary);
+		if (val == "initiator" || val == "x") {
+			second = x;
+		}
+		else if (val == "responder" || val == "y") {
+			second = y;
+		}
+		else if (val == "other" || val == "z") {
+			second = z;
+		}
+	}
+
+	auto third = cifManager->getGameObjectByName(mTertiary);
+	if (!third) {
+		const auto val = getRoleValue(mTertiary);
+		if (val == "initiator" || val == "x") {
+			third = x;
+		}
+		else if (val == "responder" || val == "y") {
+			third = y;
+		}
+		else if (val == "other" || val == "z") {
+			third = z;
+		}
+	}
+
+	/*
+	 * At this point only first has to be set. Any other bindings might
+	 * not be valid depending on the type of the predicate. For example
+	 * a CKBENTRY type could only have a first character variable
+	 * specified and would work properly. If second or third are not set
+	 * their value is set to null so the proper evaluation functions can
+	 * determine how to handle the different cases of character variable
+	 * specification.
+	 */
+	switch (mType) {
+		case EPredicateType::TRAIT:
+			UE_LOG(LogTemp, Warning, TEXT("Traits cannot be subject to valuation"));
+			break;
+		case EPredicateType::NETWORK:
+			updateNetwork(first, second);
+			break;
+		case EPredicateType::RELATIONSHIP:
+			updateRelationship(first, second);
+			break;
+		case EPredicateType::STATUS:
+			updateStatus(first, second);
+			break;
+		case EPredicateType::CKBENTRY:
+			UE_LOG(LogTemp, Warning, TEXT("CKBENTRIES cannot be subject to valuation"));
+			break;
+		case EPredicateType::SFDB_LABEL:
+			UE_LOG(LogTemp, Warning, TEXT("SFDBLABELs cannot be subject to valuation"));
+			break;
+		default:
+			UE_LOG(LogTemp, Warning, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
+	}
+}
+
 bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
                                               const UCiFGameObject* c2,
                                               const UCiFGameObject* c3,
@@ -715,6 +804,105 @@ void UCiFPredicate::setRelationshipPredicate(const FName first,
 	mIsSFDB = isSFDB;
 }
 
+void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
+{
+	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+
+	const auto net = cifManager->getSocialNetworkByType(mNetworkType);
+
+	switch (mComparatorType) {
+		case EComparatorType::LESS_THAN:
+		case EComparatorType::GREATER_THAN:
+		case EComparatorType::AVERAGE_OPINION:
+		case EComparatorType::FRIENDS_OPINION:
+		case EComparatorType::DATING_OPINION:
+		case EComparatorType::ENEMIES_OPINION:
+			UE_LOG(LogTemp, Warning, TEXT("Not relevant in this method"));
+			break;
+		case EComparatorType::INCREASE:
+			net->addWeight(first->mNetworkId, second->mNetworkId, mNetworkValue);
+			break;
+		case EComparatorType::DECREASE:
+			net->addWeight(first->mNetworkId, second->mNetworkId, -mNetworkValue);
+			break;
+	}
+}
+
+void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) const
+{
+	const auto statusEnum = StaticEnum<EStatus>();
+	if (mIsNegated) {
+		if (second) {
+			UE_LOG(LogTemp,
+			       Log,
+			       TEXT("%s removing status %s from %s"),
+			       *(first->mObjectName.ToString()),
+			       *(statusEnum->GetValueAsString(mStatusType)),
+			       *(second->mObjectName.ToString()));
+		}
+		else {
+			UE_LOG(LogTemp,
+			       Log,
+			       TEXT("%s removing status %s"),
+			       *(first->mObjectName.ToString()),
+			       *(statusEnum->GetValueAsString(mStatusType)));
+		}
+		first->removeStatus(mStatusType, second->mObjectName);
+	}
+	else {
+		if (second) {
+			UE_LOG(LogTemp,
+			       Log,
+			       TEXT("%s adding status %s from %s"),
+			       *(first->mObjectName.ToString()),
+			       *(statusEnum->GetValueAsString(mStatusType)),
+			       *(second->mObjectName.ToString()));
+		}
+		else {
+			UE_LOG(LogTemp,
+			       Log,
+			       TEXT("%s adding status %s"),
+			       *(first->mObjectName.ToString()),
+			       *(statusEnum->GetValueAsString(mStatusType)));
+		}
+
+		first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
+	}
+}
+
+void UCiFPredicate::updateRelationship(UCiFGameObject* first, UCiFGameObject* second) const
+{
+	checkf(first != nullptr && second != nullptr, TEXT("Something went wrong. updating relationships while one of the parties is null"));
+
+	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+
+	auto firstAsChar = static_cast<UCiFCharacter*>(first);
+	auto secondAsChar = static_cast<UCiFCharacter*>(second);
+
+	auto relEnum = StaticEnum<ERelationshipType>();
+	auto relStr = relEnum->GetValueAsString(mRelationshipType);
+
+	auto net = cifManager->mRelationshipNetworks;
+	if (mIsNegated) {
+		net->removeRelationship(mRelationshipType, firstAsChar, secondAsChar);
+		UE_LOG(LogTemp,
+		       Log,
+		       TEXT("%s relationship removed between %s and %s"),
+		       *relStr,
+		       *(first->mObjectName.ToString()),
+		       *(second->mObjectName.ToString()))
+	}
+	else {
+		net->setRelationship(mRelationshipType, firstAsChar, secondAsChar);
+		UE_LOG(LogTemp,
+		       Log,
+		       TEXT("%s relationship added between %s and %s"),
+		       *relStr,
+		       *(first->mObjectName.ToString()),
+		       *(second->mObjectName.ToString()))
+	}
+}
+
 void UCiFPredicate::toIntentNLGString(FString& outputStr)
 {
 	outputStr = "";
@@ -750,6 +938,517 @@ void UCiFPredicate::toIntentNLGString(FString& outputStr)
 		// 		UE_LOG(LogTemp, Warning, TEXT("Unrecognized intent type: %d"), mIntentType);
 		// }
 	}
+}
+
+FString UCiFPredicate::toNLG(const FName initiatorName, const FName responderName, const FName otherName)
+{
+	FString outStr;
+	if (!mIsNumTimesUniquelyTruePred) {
+		switch (mType) {
+			case EPredicateType::TRAIT:
+				outStr = traitPredToNLG(initiatorName, responderName, otherName);
+				break;
+			case EPredicateType::NETWORK:
+				outStr = networkPredToNLG(initiatorName, responderName, otherName);
+				break;
+			case EPredicateType::RELATIONSHIP:
+				outStr = relationshipPredToNLG(initiatorName, responderName, otherName);
+				break;
+			case EPredicateType::STATUS:
+				outStr = statusPredToNLG(initiatorName, responderName, otherName);
+				break;
+			case EPredicateType::CKBENTRY:
+				outStr = ckbPredToNLG(initiatorName, responderName, otherName);
+				break;
+			case EPredicateType::SFDB_LABEL:
+				outStr = sfdbPredToNLG(initiatorName, responderName, otherName);
+				break;
+		}
+	}
+	else {
+		if (mType == EPredicateType::CKBENTRY) {
+			outStr = ckbPredToNLG(initiatorName, responderName, otherName);
+		}
+		else {
+			outStr = numTimesUniquelyTruePredToNLG(initiatorName, responderName, otherName);
+		}
+	}
+
+	// append the sfdb window information to the natural language predicate
+	FString timeElapsedStr;
+	if (mIsSFDB) {
+		if (mWindowSize < 0) {
+			// backstory
+			timeElapsedStr = " way back when";
+		}
+		else if (mWindowSize >= 0 && mWindowSize <= 5) {
+			timeElapsedStr = " recently";
+		}
+		else if (mWindowSize > 5 && mWindowSize <= 10) {
+			timeElapsedStr = " not too long ago";
+		}
+		else {
+			timeElapsedStr = " a while ago";
+		}
+	}
+
+	outStr += timeElapsedStr;
+
+	// if we are dealing with something with an SFDB order, we just kind of append that ot the end
+	if (mSFDBOrder > 0) {
+		outStr += " " + sfdbOrderToNLG();
+	}
+
+	return outStr;
+}
+
+FString UCiFPredicate::traitPredToNLG(const FName initiatorName, const FName responderName, const FName otherName)
+{
+	FString outStr;
+	FString first = getRoleValue(mPrimary).ToString();
+	if (first == "initiator") {
+		outStr = mPrimary.ToString();
+	}
+	else if (first == "responder") {
+		outStr = mSecondary.ToString();
+	}
+	else {
+		outStr = mTertiary.ToString();
+	}
+
+	FString notStr = mIsNegated ? " not " : " ";
+
+	auto traitEnum = StaticEnum<ETrait>();
+
+	outStr += " is" + notStr + traitEnum->GetValueAsString(mTrait);
+	return outStr;
+}
+
+FString UCiFPredicate::relationshipPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const
+{
+	FString notStr = mIsNegated ? " not " : " ";
+	FString outStr;
+	switch (mRelationshipType) {
+		case ERelationshipType::FRIENDS:
+			outStr = initiatorName.ToString() + " is" + notStr + " friends with " + responderName.ToString();
+			break;
+		case ERelationshipType::DATING:
+			outStr = initiatorName.ToString() + " is" + notStr + " dating " + responderName.ToString();
+			break;
+		case ERelationshipType::ENEMIES:
+			outStr = initiatorName.ToString() + " and " + responderName.ToString() + " are " + notStr + "enemies";
+			break;
+		default:
+			outStr = "unrecognized relationship type";
+	}
+	return outStr;
+}
+
+FString UCiFPredicate::networkPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const
+{
+	FString initiator, responder;
+
+	if (getRoleValue(mPrimary) == "initiator") initiator = initiatorName.ToString();
+	else if (getRoleValue(mPrimary) == "responder") initiator = responderName.ToString();
+	else initiator = mTertiary.ToString();
+
+	if (getRoleValue(mSecondary) == "initiator") responder = initiatorName.ToString();
+	else if (getRoleValue(mSecondary) == "responder") responder = responderName.ToString();
+	else responder = mTertiary.ToString();
+
+	auto networkEnum = StaticEnum<ESocialNetworkType>();
+	if (mComparatorType == EComparatorType::LESS_THAN) {
+		if (mIsNegated) {
+			return initiator + " " + networkEnum->GetValueAsString(mNetworkType) + " towards " + responder + " isn't low enough";
+		}
+		else {
+			return initiator + " " + networkEnum->GetValueAsString(mNetworkType) + " towards " + responder + " is low enough";
+		}
+	}
+
+	if (mComparatorType == EComparatorType::GREATER_THAN) {
+		if (mIsNegated) {
+			return initiator + " " + networkEnum->GetValueAsString(mNetworkType) + " towards " + responder + " isn't high enough";
+		}
+		else {
+			return initiator + " " + networkEnum->GetValueAsString(mNetworkType) + " towards " + responder + " is high enough";
+		}
+	}
+
+	return "lazy to implement all comparator types in network predicate to NLG";
+}
+
+FString UCiFPredicate::statusPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const
+{
+	FString outStr;
+	FString towardsName;
+
+	auto first = getRoleValue(mPrimary);
+	if (first == "initiator") outStr = initiatorName.ToString();
+	else if (first == "responder") outStr = responderName.ToString();
+	else outStr = otherName.ToString();
+
+	auto second = getRoleValue(mSecondary);
+	if (second == "initiator") towardsName = initiatorName.ToString();
+	else if (second == "responder") towardsName = responderName.ToString();
+	else towardsName = otherName.ToString();
+
+	FString notStr = mIsNegated ? " not " : " ";
+
+	auto statusEnum = StaticEnum<EStatus>();
+	outStr += " is" + notStr + statusEnum->GetValueAsString(mStatusType);
+	if (mStatusType >= EStatus::FIRST_DIRECTED_STATUS) {
+		outStr += " towards " + towardsName;
+	}
+
+	return outStr;
+}
+
+FString UCiFPredicate::ckbPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const
+{
+	FString negatedStr;
+	if (mIsNegated) {
+		negatedStr = "it isn't the case that ";
+	}
+
+	auto truthEnum = StaticEnum<ETruthLabel>();
+	FString gestaltTruth = truthEnum->GetValueAsString(mTruthLabel);
+
+	FString amountOfThings;
+	if (mNumTimesUniquelyTrue == 1 || mNumTimesUniquelyTrue == 0) amountOfThings = "something " + gestaltTruth;
+	if (mNumTimesUniquelyTrue == 2) amountOfThings = "a couple " + gestaltTruth + " things";
+	if (mNumTimesUniquelyTrue >= 3) amountOfThings = "a lot of " + gestaltTruth + " things";
+
+	auto subjLabelEnum = StaticEnum<ESubjectiveLabel>();
+	FString outStr;
+	if (mFirstSubjectiveLink != mSecondSubjectiveLink) {
+		// primary and secondary disagree
+		//based on the num times uniquely true, it will use a different word to describe it!
+		//But where do I handle negation?
+		outStr = negatedStr + initiatorName.ToString() + subjLabelEnum->GetValueAsString(mFirstSubjectiveLink) + " " +
+			amountOfThings + " that " + responderName.ToString() + subjLabelEnum->GetValueAsString(mSecondSubjectiveLink);
+	}
+	else {
+		outStr = initiatorName.ToString() + " and " + responderName.ToString() + " both " +
+			subjLabelEnum->GetValueAsString(mFirstSubjectiveLink) + " " + amountOfThings;
+	}
+
+	return outStr;
+}
+
+FString UCiFPredicate::sfdbPredToNLG(const FName initiatorName, const FName responderName, const FName otherName)
+{
+	FString sfdbLabelType;
+	if (mSFDBLabel.type == ESFDBLabelType::CAT_POSITIVE) sfdbLabelType = "generally positive";
+	if (mSFDBLabel.type == ESFDBLabelType::CAT_NEGATIVE) sfdbLabelType = "generally negative";
+
+	FString outStr = initiatorName.ToString() + " did something " + sfdbLabelType + " to " + responderName.ToString();
+	if (initiatorName == responderName || responderName == "") {
+		// this is a case where the SFDB should only care about the primary person
+		outStr = initiatorName.ToString() + " did something " + sfdbLabelType;
+	}
+	return outStr;
+}
+
+FString UCiFPredicate::numTimesUniquelyTruePredToNLG(const FName initiatorName, const FName responderName, const FName otherName)
+{
+	return "please god im not built for doing this right now";
+	FString notStr = mIsNegated ? " not" : "";
+
+	FString heroName;
+	switch (mNumTimesRoleSlot) {
+		case ENumTimesRoleSlot::FIRST: heroName = initiatorName.ToString();
+			break;
+		case ENumTimesRoleSlot::SECOND: heroName = responderName.ToString();
+			break;
+		case ENumTimesRoleSlot::BOTH: heroName = initiatorName.ToString() + " and " + responderName.ToString();
+			break;
+		default: heroName = "invalid role slot";
+			break;
+	}
+
+	FString outStr;
+	switch (mType) {
+		case EPredicateType::TRAIT:
+			UE_LOG(LogTemp, Error, TEXT("Trait can't be num times uniquely true"));
+			break;
+		case EPredicateType::NETWORK:
+			{
+				bool isHigh = false, isLow = false, isMed = false;
+				if (mNetworkValue == 66 && mComparatorType == EComparatorType::GREATER_THAN) isHigh = true;
+				else if (mNetworkValue == 34 && mComparatorType == EComparatorType::LESS_THAN) isLow = true;
+				else if ((mNetworkValue == 33 && mComparatorType == EComparatorType::GREATER_THAN) ||
+					(mNetworkValue == 67 && mComparatorType == EComparatorType::LESS_THAN))
+					isMed = true;
+
+				switch (mNumTimesRoleSlot) {
+					case ENumTimesRoleSlot::FIRST:
+						{
+							switch (mNetworkType) {
+								case ESocialNetworkType::BUDDY:
+									if (isLow) {
+										if (mIsNegated) {
+											outStr = heroName + " does not even think that at least " + mNumTimesUniquelyTrue +
+												" people aren't very good buddies.";
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
+												" people aren't very good buddies.";
+										}
+									}
+									else if (isMed) {
+										if (mIsNegated) {
+											outStr = heroName + " does not even think that at least " + mNumTimesUniquelyTrue +
+												" people are OK buddies.";
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue + " people are OK buddies.";
+										}
+									}
+									else if (isHigh) {
+										if (mIsNegated) {
+											outStr = heroName + " does not even think that at least " + mNumTimesUniquelyTrue +
+												" people are great buddies.";
+											break;
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue + " people are great buddies.";
+											break;
+										}
+									}
+									else {
+										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
+										break;
+									}
+									break;
+								case ESocialNetworkType::ROMANCE:
+									if (isLow) {
+										if (mIsNegated) {
+											outStr = heroName + " isn't completely romantically disinterested in at least " +
+												mNumTimesUniquelyTrue + " people.";
+											break;
+										}
+										else {
+											outStr = heroName + " is romantically turned off by at least " + mNumTimesUniquelyTrue +
+												" people.";
+											break;
+										}
+									}
+									else if (isMed) {
+										if (mIsNegated) {
+											outStr = heroName + " isn't kinda romantically interested in at least " + mNumTimesUniquelyTrue
+												+ " people.";
+										}
+										else {
+											outStr = heroName + " is kinda romantically interested in at least " + mNumTimesUniquelyTrue +
+												" people.";
+										}
+									}
+									else if (isHigh) {
+										if (mIsNegated) {
+											outStr = heroName + " is not head over heels in love with at least " + mNumTimesUniquelyTrue +
+												" people.";
+										}
+										else {
+											outStr = heroName + " is head over heels gaga for at least" + mNumTimesUniquelyTrue +
+												" people.";
+										}
+									}
+									else {
+										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
+									}
+									break;
+								case ESocialNetworkType::TRUST:
+									if (isLow) {
+										if (mIsNegated) {
+											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
+												" people are pretty darn lame.";
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
+												" people are pretty darn lame.";
+										}
+									}
+									else if (isMed) {
+										if (mIsNegated) {
+											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
+												" people are actually kinda cool.";
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
+												" people are actually kinda cool.";
+										}
+									}
+									else if (isHigh) {
+										if (mIsNegated) {
+											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
+												" people are wicked cool.";
+										}
+										else {
+											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue + " people are wicked cool.";
+										}
+									}
+									else {
+										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
+									}
+									break;
+								case ESocialNetworkType::SIZE:
+									break;
+							}
+						}
+						break;
+					case ENumTimesRoleSlot::SECOND:
+						break;
+				}
+
+				break;
+			}
+		case EPredicateType::RELATIONSHIP:
+			break;
+		case EPredicateType::STATUS:
+			break;
+		case EPredicateType::CKBENTRY:
+			break;
+		case EPredicateType::SFDB_LABEL:
+			break;
+		case EPredicateType::SIZE:
+			break;
+	}
+
+	return outStr;
+}
+
+FString UCiFPredicate::sfdbOrderToNLG()
+{
+	if (mSFDBOrder == 1) return "first";
+	if (mSFDBOrder == 2) return "second";
+	if (mSFDBOrder == 3) return "third";
+	if (mSFDBOrder == 4) return "fourth";
+	if (mSFDBOrder == 5) return "fifth";
+	if (mSFDBOrder == 6) return "sixth";
+	if (mSFDBOrder == 7) return "seventh";
+	if (mSFDBOrder == 8) return "eighth";
+	if (mSFDBOrder == 9) return "ninth";
+	return "how did we get here";
+}
+
+void UCiFPredicate::toString(FString& outStr) const
+{
+	if (mIsNegated) outStr += "~";
+
+	switch (mType) {
+		case EPredicateType::TRAIT:
+			{
+				auto traitEnum = StaticEnum<ETrait>();
+				outStr += "trait(" + mPrimary.ToString() + ", " + traitEnum->GetValueAsString(mTrait) + ")";
+				break;
+			}
+		case EPredicateType::NETWORK:
+			{
+				auto socialNetEnum = StaticEnum<ESocialNetworkType>();
+				auto comparatorEnum = StaticEnum<EComparatorType>();
+				outStr += socialNetEnum->GetValueAsString(mNetworkType) + " Network(" + mPrimary.ToString() + ", " + mSecondary.ToString() +
+					") " + comparatorEnum->GetValueAsString(mComparatorType) + " " + FString::FromInt(mNetworkValue);
+				break;
+			}
+		case EPredicateType::RELATIONSHIP:
+			{
+				auto relationshipEnum = StaticEnum<ERelationshipType>();
+				outStr += "relationship(" + mPrimary.ToString() + ", " + mSecondary.ToString() + relationshipEnum->
+					GetValueAsString(mRelationshipType) + ")";
+				break;
+			}
+		case EPredicateType::STATUS:
+			{
+				auto statusEnum = StaticEnum<EStatus>();
+				if (mStatusType >= EStatus::FIRST_DIRECTED_STATUS || mStatusType == EStatus::CAT_FEELING_GOOD_ABOUT_SOMEONE ||
+					mStatusType == EStatus::CAT_FEELING_BAD_ABOUT_SOMEONE) {
+					outStr += "status(" + mPrimary.ToString() + ", " + mSecondary.ToString() + ", " + statusEnum->
+						GetValueAsString(mStatusType)
+						+ ", " + FString::FromInt(mStatusDuration) + ")";
+				}
+				else {
+					outStr += "status(" + mPrimary.ToString() + ", " + statusEnum->GetValueAsString(mStatusType)
+						+ ", " + FString::FromInt(mStatusDuration) + ")";
+				}
+				break;
+			}
+		case EPredicateType::CKBENTRY:
+			{
+				auto subjLinkEnum = StaticEnum<ESubjectiveLabel>();
+				auto truthLabelEnum = StaticEnum<ETruthLabel>();
+				outStr += "ckb(" + mPrimary.ToString() + ", " + subjLinkEnum->GetValueAsString(mFirstSubjectiveLink) + ", " + mSecondary.
+					ToString() + ", " + subjLinkEnum->GetValueAsString(mSecondSubjectiveLink) + ", " + truthLabelEnum->
+					GetValueAsString(mTruthLabel) + ")";
+				break;
+			}
+		case EPredicateType::SFDB_LABEL:
+			{
+				auto sfdbLabelEnum = StaticEnum<ESFDBLabelType>();
+				outStr += "SFDBLabel(" + sfdbLabelEnum->GetValueAsString(mSFDBLabel.type) + "," + mPrimary.ToString() + "," + mSecondary.
+					ToString() + "," + FString::FromInt(mSFDBOrder) + ")";
+				break;
+			}
+	}
+	if (mIsSFDB) outStr = "[" + outStr + " window(" + FString::FromInt(mWindowSize) + ")]";
+	if (mIsIntent) outStr = "{" + outStr + "}";
+}
+
+bool UCiFPredicate::operator==(const UCiFPredicate& other) const
+{
+	if (mType != other.mType) return false;
+	if (mIsIntent != other.mIsIntent) return false;
+	if (mIsNegated != other.mIsNegated) return false;
+	if (mIsSFDB != other.mIsSFDB) return false;
+	if (mIsNumTimesUniquelyTruePred != other.mIsNumTimesUniquelyTruePred) return false;
+	if (mNumTimesUniquelyTrue != other.mNumTimesUniquelyTrue) return false;
+	if (mIsNumTimesUniquelyTruePred) {
+		if (mNumTimesRoleSlot != other.mNumTimesRoleSlot) return false;
+	}
+
+	switch (mType) {
+		case EPredicateType::TRAIT:
+			if (mTrait != other.mTrait) return false;
+			if (mPrimary != other.mPrimary) return false;
+			break;
+		case EPredicateType::NETWORK:
+			if ((mPrimary != other.mPrimary) ||
+				(mSecondary != other.mSecondary) ||
+				(mNetworkType != other.mNetworkType) ||
+				(mNetworkValue != other.mNetworkValue) ||
+				(mComparatorType != other.mComparatorType))
+				return false;
+			break;
+		case EPredicateType::RELATIONSHIP:
+			if ((mRelationshipType != other.mRelationshipType) ||
+				!(mPrimary == other.mPrimary && mSecondary == other.mSecondary) ||
+				!(mSecondary == other.mPrimary && mPrimary == other.mSecondary))
+				return false;
+			break;
+		case EPredicateType::STATUS:
+			if ((mStatusType != other.mStatusType) ||
+				(mPrimary != other.mPrimary) ||
+				(mSecondary != other.mSecondary))
+				return false;
+			break;
+		case EPredicateType::CKBENTRY:
+			if ((mPrimary != other.mPrimary) ||
+				(mSecondary != other.mSecondary) ||
+				(mFirstSubjectiveLink != other.mFirstSubjectiveLink) ||
+				(mSecondSubjectiveLink != other.mSecondSubjectiveLink) ||
+				(mTruthLabel != other.mTruthLabel))
+				return false;
+			break;
+		case EPredicateType::SFDB_LABEL:
+			if ((mPrimary != other.mPrimary) ||
+				(mSecondary != other.mSecondary) ||
+				(mSFDBOrder != other.mSFDBOrder) ||
+				(mSFDBLabel != other.mSFDBLabel))
+				return false;
+			break;
+	}
+
+	return true;
 }
 
 FName UCiFPredicate::getValueOfPredicateVariable(const FName var) const

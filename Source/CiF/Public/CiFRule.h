@@ -47,7 +47,7 @@ public:
 	 * @return True iff 3rd character is required for processing the rule
 	 */
 	UFUNCTION(BlueprintCallable)
-	bool isOtherCharacterRequired();
+	bool isThirdCharacterRequired();
 
 	/**
 	 * Returns the conjunction of all the truth values of the Predicates
@@ -59,8 +59,27 @@ public:
 	 * @return True if all the predicates in the rules are true. Otherwise,
 	 * false.
 	 */
-	bool evaluate(UCiFCharacter* initiator, UCiFGameObject* responder, UCiFGameObject* other = nullptr, UCiFSocialExchange* se = nullptr);
+	bool evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other = nullptr, UCiFSocialExchange* se = nullptr);
 
+	/**
+	 * Performs valuation (aka updating the social state according to
+	 * parameterized predicates) for every predicate in the rule.
+	 * 
+	 * @param	initiator The initiator of the social game.
+	 * @param	responder	The responder of the social game.
+	 * @param	other		A third party in the social game.
+	 */
+	void valuation(UCiFGameObject* initiator, UCiFGameObject* responder = nullptr, UCiFGameObject* other = nullptr);
+
+	/**
+	 * Any given rule should only have a single intent, the function stop searching when it finds the first intent.
+	 *
+	 * @return index of the intent in the predicate vector or -1 if no intent was found
+	 */
+	int32 findIntentIndex();
+
+	void toString(FString& outStr);
+	
 	/* The additional inputRule is for the case where we load a subclass of this class.
 	 * if this case, the input pointer will be filled, otherwise a new object will be filled
 	 * and returned

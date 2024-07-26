@@ -8,6 +8,7 @@
 #include "Utilities.h"
 #include "CiFSocialExchangeContext.generated.h"
 
+class UCiFRule;
 class UCiFGameObject;
 enum class ESFDBLabelType : uint8;
 /**
@@ -74,6 +75,10 @@ public:
 	                        const UCiFGameObject* second = nullptr,
 	                        const UCiFGameObject* third = nullptr,
 	                        const UCiFPredicate* pred = nullptr) const;
+	/**
+	 * Returns a pointer to the social game's change rule.
+	 */
+	UCiFRule* getChange() const;
 
 	static UCiFSocialExchangeContext* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:

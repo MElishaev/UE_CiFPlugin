@@ -26,7 +26,7 @@ float UCiFMicrotheory::score(UCiFCharacter* initiator,
 	const auto& possibleOthers = others.Num() > 0 ? others : cifManager->mCast->mCharacters;
 	float totalScore = 0;
 
-	if (mDefinition->isOtherCharacterRequired()) {
+	if (mDefinition->isThirdCharacterRequired()) {
 		// if the definition is about an other, if it is true for even one other, run the microtheory
 		for (const auto other : possibleOthers) {
 			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName)) {

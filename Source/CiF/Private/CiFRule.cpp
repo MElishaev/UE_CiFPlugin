@@ -16,7 +16,7 @@ UCiFRule::UCiFRule()
 	mID = mIDGenerator.getId();
 }
 
-bool UCiFRule::isOtherCharacterRequired()
+bool UCiFRule::isThirdCharacterRequired()
 {
 	bool isThirdCharRequired = false;
 
@@ -62,7 +62,7 @@ bool UCiFRule::isOtherCharacterRequired()
 	return isThirdCharRequired;
 }
 
-bool UCiFRule::evaluate(UCiFCharacter* initiator, UCiFGameObject* responder, UCiFGameObject* other, UCiFSocialExchange* se)
+bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, UCiFSocialExchange* se)
 {
 	mLastTrueCount = 0;
 
@@ -79,6 +79,35 @@ bool UCiFRule::evaluate(UCiFCharacter* initiator, UCiFGameObject* responder, UCi
 	}
 	
 	return true;
+}
+
+void UCiFRule::valuation(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other)
+{
+	for (auto p : mPredicates) {
+		p->valuation(initiator, responder, other);
+	}
+}
+
+int32 UCiFRule::findIntentIndex()
+{
+	for (int32 i = 0; i < mPredicates.Num(); i++) {
+		if (mPredicates[i]->mIsIntent) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void UCiFRule::toString(FString& outStr)
+{
+	for (int i = 0; i < mPredicates.Num(); i++) {
+		FString predStr;
+		mPredicates[i]->toString(predStr);
+		outStr += predStr;
+		if (i < mPredicates.Num() - 1) {
+			outStr += " ^ ";
+		}
+	}
 }
 
 int32 UCiFRule::getHighestSFDBOrder()

@@ -125,6 +125,16 @@ int8 UCiFEffect::scoreSalience()
 	return salience;
 }
 
+bool UCiFEffect::evaluateCondition(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other) const
+{
+	return mCondition->evaluate(initiator, responder, other);
+}
+
+void UCiFEffect::valuation(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other) const
+{
+	mChange->valuation(initiator, responder, other);
+}
+
 bool UCiFEffect::hasCKBReference() const
 {
 	for (const auto p : mCondition->mPredicates) {
@@ -145,6 +155,11 @@ bool UCiFEffect::hasSFDBLabel() const
 	return false;
 }
 
+bool UCiFEffect::isThirdCharacterRequired() const
+{
+	return mCondition->isThirdCharacterRequired() || mChange->isThirdCharacterRequired();
+}
+
 UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const
 {
 	for (const auto p : mCondition->mPredicates) {
@@ -153,6 +168,20 @@ UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const
 		}
 	}
 	return nullptr;
+}
+
+void UCiFEffect::toString(FString& outStr) const
+{
+	outStr = mIsAccept ? "Accept: " : "Reject: ";
+	
+	FString conditionStr;
+	mCondition->toString(conditionStr);
+	outStr += conditionStr;
+	outStr += " | ";
+
+	FString changeStr;
+	mChange->toString(changeStr);
+	outStr += changeStr;
 }
 
 UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)

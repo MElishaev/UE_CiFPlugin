@@ -3,7 +3,11 @@
 
 #include "CiFSocialExchangeContext.h"
 #include "CiFGameObject.h"
+#include "CiFManager.h"
 #include "CiFPredicate.h"
+#include "CiFRule.h"
+#include "CiFSocialExchangesLibrary.h"
+#include "CiFSubsystem.h"
 
 ESFDBContextType UCiFSocialExchangeContext::getType() const
 {
@@ -113,6 +117,18 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatch(const ESFDBLabelType labelTyp
 	}
 
 	return false;
+}
+
+UCiFRule* UCiFSocialExchangeContext::getChange() const
+{
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	if (mIsBackstory) return NewObject<UCiFRule>(); //make empty rule and bail early if this is a backstory TODO: why?
+	auto sg = cifManager->mSocialExchangesLib->getSocialExchangeByName(mGameName);
+	if (sg) {
+		return sg->getEffectById(mEffectId)->mChange;
+	}
+	UE_LOG(LogTemp, Error, TEXT("Couldn't find the social game %s"), *(mGameName.ToString()));
+	return nullptr;
 }
 
 UCiFSocialExchangeContext* UCiFSocialExchangeContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)

@@ -88,7 +88,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 
 	// TODO - assumption for only 1 precondition - don't know why but will go with it for now
 	if (!mPreconditions.IsEmpty()) {
-		if (mPreconditions[0]->isOtherCharacterRequired()) {
+		if (mPreconditions[0]->isThirdCharacterRequired()) {
 			//if the precondition involves an other run the IRS for all others with
 			//a static other (for others that satisfy the SE's preconditions)
 			for (auto other : possibleOthers) {
@@ -145,7 +145,7 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 
 	bool requiresOther = false;
 	for (const auto precond : mPreconditions) {
-		if (precond->isOtherCharacterRequired()) {
+		if (precond->isThirdCharacterRequired()) {
 			requiresOther = true;
 		}
 	}
@@ -208,20 +208,20 @@ bool UCiFSocialExchange::isThirdNeededForIntentFormation()
 	// checks in any of the members that can contain a third party if it is required
 	
 	for (const auto precond : mPreconditions) {
-		if (precond->isOtherCharacterRequired()) return true;
+		if (precond->isThirdCharacterRequired()) return true;
 	}
 
 	for (const auto ir : mInitiatorIR->mInfluenceRules) {
-		if (ir->isOtherCharacterRequired()) return true;
+		if (ir->isThirdCharacterRequired()) return true;
 	}
 
 	for (const auto ir : mResponderIR->mInfluenceRules) {
-		if (ir->isOtherCharacterRequired()) return true;
+		if (ir->isThirdCharacterRequired()) return true;
 	}
 
 	for (const auto e : mEffects) {
-		if (e->mCondition->isOtherCharacterRequired()) return true;
-		if (e->mChange->isOtherCharacterRequired()) return true;
+		if (e->mCondition->isThirdCharacterRequired()) return true;
+		if (e->mChange->isThirdCharacterRequired()) return true;
 	}
 
 	return false;
@@ -230,7 +230,7 @@ bool UCiFSocialExchange::isThirdNeededForIntentFormation()
 bool UCiFSocialExchange::isThirdForSocialExchangePlay()
 {
 	for (const auto e : mEffects) {
-		if (e->mCondition->isOtherCharacterRequired() || e->mChange->isOtherCharacterRequired())
+		if (e->mCondition->isThirdCharacterRequired() || e->mChange->isThirdCharacterRequired())
 			return true;
 	}
 	return false;

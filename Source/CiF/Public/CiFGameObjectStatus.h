@@ -177,5 +177,6 @@ public:
 	int32 mInitialDuration; // what is the duration this status starts with
 
 	static TMap<EStatus, FStatusTypesArrayWrapper> mStatusCategories;
+	inline static int32 DEFAULT_INITIAL_DURATION = 5;
 
 };

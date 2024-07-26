@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CiFGameObject.h"
 #include "Utilities.h"
 #include "UObject/Object.h"
 #include "CiFEffect.generated.h"
 
+class UCiFGameObject;
 class UCiFPredicate;
 class UCiFRule;
 
@@ -37,6 +39,27 @@ public:
 	int8 scoreSalience();
 
 	/**
+	 * Evaluations the condition of the Effect for truth given the current
+	 * game state.
+	 * 
+	 * @param	initiator	The initiator of the social game.
+	 * @param	responder	The responder of the social game.
+	 * @param	other		A third party in the social game.
+	 * @return True if all the predicates in the condition are true. Otherwise,
+	 * false.
+	 */
+	bool evaluateCondition(UCiFGameObject* initiator, UCiFGameObject* responder=nullptr, UCiFGameObject* other=nullptr) const;
+
+	/**
+	 * Updates the social state if given the predicates in this valuation
+	 * rule.
+	 * 
+	 * @param	initiator	The initiator of the social game.
+	 * @param	responder	The responder of the social game.
+	 * @param	other		A third party in the social game.
+	 */
+	void valuation(UCiFGameObject* initiator, UCiFGameObject* responder = nullptr, UCiFGameObject* other = nullptr) const;
+	/**
 	 * Checks the effect's condition rule for a CKB predicate (which constitutes a CKB item reference)
 	 * @return True if a CKB reference exists in the effect's change rule
 	 */
@@ -44,11 +67,16 @@ public:
 
 	bool hasSFDBLabel() const;
 
+	bool isThirdCharacterRequired() const;
+
 	/**
 	 * @return predicate of type CKBEntry or null if no such predicate in effect's condition rule
 	 */
 	UCiFPredicate* getCKBReferencePredicate() const;
 
+	/****************************** Utility methods ***********************************/
+	
+	void toString(FString& outStr) const;
 	static UCiFEffect* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 	
 public:

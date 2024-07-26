@@ -89,12 +89,6 @@ class CIF_API UCiFSocialFactsDataBase : public UObject
 	GENERATED_BODY()
 
 public:
-	// Returns the oldest context time w.r.t game start time. Could be negative due to authored backstory which included before game starts
-	int32 getLowestContextTime() const;
-
-	// Returns timestamp of the latest SFDB context in game time
-	int32 getLatestContextTime() const;
-
 	/**
 	 * Returns the most recent time a predicate was true in social exchange associated with a SFDBContext.
 	 * 
@@ -142,8 +136,6 @@ public:
 	                         const UCiFGameObject* c3 = nullptr,
 	                         int window = 0,
 	                         const UCiFPredicate* pred = nullptr) const;
-
-	UCiFTrigger* getTriggerByID(uint64_t id) const;
 	
 	/**
 	 * This function is used to deal with when we are seeing is a label is in a category.
@@ -157,6 +149,27 @@ public:
 
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> initializeCategoriesMap();
 
+	/* Adds contexts and sorts in ascending order */
+	void addContext(UCiFSFDBContext* context);
+
+	/**
+	 * Runs all the triggers over the social facts database for each
+	 * character. Meant to be called after playGame.
+	 */
+	void runTriggers(TArray<UCiFGameObject*> cast = {});
+
+	/************************** Getters *******************************/
+	
+	UCiFTrigger* getTriggerByID(uint64_t id) const;
+
+	// Returns the oldest context time w.r.t game start time. Could be negative due to authored backstory which included before game starts
+	int32 getLowestContextTime() const;
+
+	// Returns timestamp of the latest SFDB context in game time
+	int32 getLatestContextTime() const;
+	
+	/************************** Utility methods *******************************/
+	
 	static UCiFSocialFactsDataBase* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 	TArray<UCiFSFDBContext*> mContexts; // contexts in ascending order - the latest is the last in the array

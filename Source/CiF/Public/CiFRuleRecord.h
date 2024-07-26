@@ -31,6 +31,11 @@ public:
 	          const ERuleRecordType type,
 	          UCiFInfluenceRule* ir);
 
+	/**
+	 * @param outStr Fills the string representing the rule record in natural language
+	 */
+	void toNLG(FString& outStr);
+
 public:
 	UCiFInfluenceRule* mInfluenceRule;
 	ERuleRecordType mType;

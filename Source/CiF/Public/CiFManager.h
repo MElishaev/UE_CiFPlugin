@@ -6,9 +6,11 @@
 #include "CiFCharacter.h"
 #include "CiFEffect.h"
 #include "CiFSocialExchange.h"
+#include "CiFSocialNetwork.h"
 #include "UObject/Object.h"
 #include "CiFManager.generated.h"
 
+class UCiFRuleRecord;
 class UCiFPredicate;
 class UCiFEffect;
 class UCiFSocialExchangeContext;
@@ -139,7 +141,7 @@ public:
 	 * @param otherCast		The possible others
 	 * @param levelCast		The others that are near (in the level or vicinity, depends on your game implementation and definition of this)
 	 */
-	void getAllSalientEffects(TArray<UCiFEffect*> outEffects,
+	void getAllSalientEffects(TArray<UCiFEffect*>& outEffects,
 	                          UCiFSocialExchange* sg,
 	                          const bool isAccepted,
 	                          UCiFGameObject* initiator,
@@ -147,6 +149,22 @@ public:
 	                          const TArray<UCiFGameObject*> otherCast = {},
 	                          TArray<UCiFGameObject*> levelCast = {});
 
+	void changeSocialState(UCiFSocialExchangeContext* sgContext, TArray<UCiFGameObject*> otherCast = {});
+	
+	/**
+	 * Figures out how important each predicate was in the initiator's desire to play a game
+	 * @return A vector of influence rules where each rule has only one predicate and weight
+	 * on the rule is the percent that the rule contributed to the initiator wanting to play that game
+	 */
+	TArray<UCiFRuleRecord*> getPredicateRelevance(UCiFSocialExchange* sg,
+	                                              UCiFGameObject* initiator,
+	                                              UCiFGameObject* responder,
+	                                              UCiFGameObject* other = nullptr,
+	                                              const FName forRole = "initiator",
+	                                              TArray<UCiFGameObject*> otherCast = {},
+	                                              const FName mode = "positive");
+
+	
 	/**
 	 * Chooses a CKB object from those specified by the parameterized characters and CKBEntry predicate
 	 * @param initiator the character in the initiator role
@@ -156,12 +174,15 @@ public:
 	 */
 	FName pickAGoodCKBObject(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFPredicate* ckbPredicate) const;
 
-	/* Getters */
+	/********************************** Getters ********************************/
 	UCiFGameObject* getGameObjectByName(const FName name) const;
 	UCiFItem* getItemByName(const FName name) const;
 	UCiFKnowledge* getKnowledgeByName(const FName name) const;
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
-
+	UCiFMicrotheory* getMicrotheoryByName(const FName mtName);
+	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs);
+	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type);
+	int8 getNetworkWeightByType(const ESocialNetworkType netType, const uint8 id1, const uint8 id2) const;
 private:
 	/* Clears all characters' prospective memory */
 	void clearProspectiveMemory();
@@ -206,7 +227,7 @@ public:
 
 	UPROPERTY()
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
-	
+
 	UPROPERTY()
 	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
 

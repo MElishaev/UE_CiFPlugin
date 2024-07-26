@@ -3,6 +3,8 @@
 
 #include "CiFRuleRecord.h"
 
+#include "CiFInfluenceRule.h"
+
 void UCiFRuleRecord::init(const FName name,
                           const FName initiatorName,
                           const FName responderName,
@@ -16,4 +18,9 @@ void UCiFRuleRecord::init(const FName name,
 	mOther = otherName;
 	mType = type;
 	mInfluenceRule = ir;
+}
+
+void UCiFRuleRecord::toNLG(FString& outStr)
+{
+	mInfluenceRule->toNLG(outStr, mInitiator, mResponder, mOther);
 }

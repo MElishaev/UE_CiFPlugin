@@ -16,6 +16,9 @@ class CIF_API UCiFInfluenceRule : public UCiFRule
 
 public:
 
+	// fills the given string with string represents the influence rule in natural language
+	void toNLG(FString& outStr, const FName initiatorName, const FName responderName, const FName otherName);
+	
 	static UCiFInfluenceRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject);
 	
 public:

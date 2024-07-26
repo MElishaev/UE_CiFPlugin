@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CiFEffect.h"
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+class UCiFSocialExchangeContext;
 class UCiFGameObject;
 class ACifNPC;
 /**
@@ -48,11 +50,11 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	void prepareSocialGameOptionsWithCharacter(TArray<FSocialGameIntentPair>& outSocialGamesNames,
-											   ACifNPC* initiator,
-											   UCiFGameObject* responder,
-											   int32 numSocialGames,
-											   const bool isShowIntent,
-											   const bool isNPC = false);
+	                                           ACifNPC* initiator,
+	                                           UCiFGameObject* responder,
+	                                           int32 numSocialGames,
+	                                           const bool isShowIntent,
+	                                           const bool isNPC = false);
 
 	/** TODO: maybe this method should be in the main cif subsystem because i think the method to
 	 *	add objects in the world as cif game objects will be pretty much the same no matter how you
@@ -67,4 +69,64 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	bool registerAsGameObject(const FName objectName, UCiFGameObject*& gameObjectCompRef);
+
+
+	/**
+	 * Allows to select what other objects to discuss, share or talk about (characters/items/knowledge).
+	 * this seem to be called in any case of choosing any social move (even if others aren't needed for
+	 * the social move), when no other is needed, it is directly calls moveChosen, which I'm not sure
+	 * I like this approach. I would rather it being a separate method that only called to offer others
+	 * 
+	 * @param outOthers Output array holds possible others for this social game
+	 * @param sgName Social game name
+	 * @param initiator The initiator of the social game
+	 * @param responder Responder of the social game
+	 * @param isNPC True iff the initiator is an NPC
+	 */
+	UFUNCTION(BlueprintCallable)
+	void offerOthers(TArray<UCiFGameObject*>& outOthers,
+	                 const FName sgName,
+	                 ACifNPC* initiator,
+	                 UCiFGameObject* responder,
+	                 bool isNPC);
+
+	/** 
+	 * Only should be called after offerOthers().
+	 * This method calls the moveChosen with the other that was chosen.
+	 * If it is a move of type USE ITEM or GIVE ITEM etc, it calls offerEffects instead
+	 */
+	UFUNCTION(BlueprintCallable)
+	void otherChosen(ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* other, const FName sgName, const bool isNPC);
+
+	/**
+	 * Should be called when the move requires choosing an effect (Give Gift, Give Romantic Gift, Use)
+	 * Allows the player to select what specific effect they want to enact with a move
+	 * otherChosen signals the use of this inside a character move (instead of an item)
+	 */
+	UFUNCTION(BlueprintCallable)
+	void offerEffects(TArray<UCiFEffect*>& outEffects, const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* otherChosen = nullptr);
+
+	void itemMoveChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPCPlaying, UCiFEffect* effect);
+	
+	// TODO - what this function returns?
+	UFUNCTION(BlueprintCallable)
+	void moveChosen(const FName sgName,
+	                ACifNPC* initiator,
+	                UCiFGameObject* responder,
+	                bool isNPC,
+	                UCiFGameObject* other = nullptr,
+	                UCiFEffect* effect = nullptr);
+
+	// Only should be called after offerOthers()
+	// e is the effect.referenceAsNaturalLanguage
+	UFUNCTION(BlueprintCallable)
+	void effectChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPC, UCiFEffect* effect, UCiFGameObject* other);
+
+	/**
+	 * Should be called in any situation where social moves including items will be played
+	 * This includes moves with items (Pick up, Put down)
+	 * AND moves with characters concerning items (Give item)
+	 * Please note the order of predicates in the effect rules matters for the game state to change correctly
+	 */
+	void handleItemMoveEffects(UCiFSocialExchangeContext* context);
 };

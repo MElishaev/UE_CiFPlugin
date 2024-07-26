@@ -25,7 +25,7 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 	
 	for (auto ir : mInfluenceRules) {
 		if (ir->mWeight != 0) {
-			if (ir->isOtherCharacterRequired()) {
+			if (ir->isThirdCharacterRequired()) {
 				if (!other) {
 					UE_LOG(LogTemp, Error, TEXT("No other was passed in while needed"));
 					return 0;
@@ -113,7 +113,7 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
 	
 	for (auto ir : mInfluenceRules) {
 		if (ir->mWeight != 0) {
-			if (ir->isOtherCharacterRequired()) {
+			if (ir->isThirdCharacterRequired()) {
 				for (auto o : possibleOthers) {
 					if ((o->mObjectName != initiator->mObjectName) && (o->mObjectName != responder->mObjectName)) {
 						if (ir->evaluate(initiator, responder, other, se)) {

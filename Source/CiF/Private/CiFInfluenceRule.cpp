@@ -2,6 +2,14 @@
 
 
 #include "CiFInfluenceRule.h"
+#include "CiFPredicate.h"
+
+void UCiFInfluenceRule::toNLG(FString& outStr, const FName initiatorName, const FName responderName, const FName otherName)
+{
+	for (auto p : mPredicates) {
+		outStr += p->toNLG(initiatorName, responderName, otherName);
+	}
+}
 
 UCiFInfluenceRule* UCiFInfluenceRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject)
 {

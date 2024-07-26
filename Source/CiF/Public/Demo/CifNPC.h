@@ -16,6 +16,9 @@ public:
 	// Sets default values for this character's properties
 	ACifNPC();
 
+	// add social move to the last social moves
+	void addMove(const FName sgName);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

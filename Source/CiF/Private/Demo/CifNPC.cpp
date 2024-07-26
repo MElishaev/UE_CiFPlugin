@@ -12,6 +12,14 @@ ACifNPC::ACifNPC()
 	// mCifCharacterComp = CreateDefaultSubobject<UCiFCharacter>(TEXT("CifCharacterComponent"));
 }
 
+void ACifNPC::addMove(const FName sgName)
+{
+	mLastSocialMoves.Add(sgName);
+	if (mLastSocialMoves.Num() > mNumOfLastMoves) {
+		mLastSocialMoves.RemoveAt(0);
+	}
+}
+
 // Called when the game starts or when spawned
 void ACifNPC::BeginPlay()
 {

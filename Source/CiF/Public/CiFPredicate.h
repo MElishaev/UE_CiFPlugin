@@ -11,6 +11,7 @@
 #include "CiFSocialNetwork.h"
 #include "CiFPredicate.generated.h"
 
+class UCiFCharacter;
 enum class ETruthLabel;
 enum class ESubjectiveLabel : uint8;
 enum class ETrait : uint8;
@@ -114,6 +115,16 @@ public:
 	              const UCiFGameObject* c2 = nullptr,
 	              const UCiFGameObject* c3 = nullptr,
 	              const UCiFSocialExchange* se = nullptr);
+
+	/**
+	 * Performs the predicate as a valuation (aka a change to the current game model/social state).
+	 * 
+	 * @param	x Character variable of the first predicate parameter.
+	 * @param	y Character variable of the second predicate parameter.
+	 * @param	z Character variable of the third predicate parameter.
+	 */
+	void valuation(UCiFGameObject* x, UCiFGameObject* y = nullptr, UCiFGameObject* z = nullptr);
+
 
 	/**
 	 * Evaluates the predicate for truth given the characters involved
@@ -221,6 +232,9 @@ public:
 	                                           const UCiFGameObject* responder,
 	                                           const UCiFGameObject* other) const;
 
+
+	/********************* predicate initializer methods ****************************/
+	
 	void setTraitPredicate(const FName first = "initiator",
 	                       const ETrait trait = ETrait::SHY,
 	                       const bool isNegated = false,
@@ -260,8 +274,47 @@ public:
 	                              const bool isNegated = false,
 	                              const bool isSFDB = false);
 
-	void toIntentNLGString(FString& outputStr);
+
+	/********************* social state update methods ****************************/
+
+	/**
+	 * Updates a social network according to the Predicate's parameters via
+	 * valuation.
+	 * 
+	 * @param	first Character variable of the first predicate parameter.
+	 * @param	second Character variable of the second predicate parameter.
+	 * 
+	 * Note: Only characters need to update networks
+	 */
+	void updateNetwork(UCiFGameObject* first, UCiFGameObject* second);
+
+	/**
+	 * Updates the social status state with a status predicate via valuation.
+	 */
+	void updateStatus(UCiFGameObject* first, UCiFGameObject* second) const;
+
+	/**
+	 * Updates the relationship state with a status predicate via valuation.
+	 */
+	void updateRelationship(UCiFGameObject* first, UCiFGameObject* second) const;
 	
+
+
+	/********************* To natural language methods ****************************/
+	void toIntentNLGString(FString& outputStr);
+	FString toNLG(const FName initiatorName, const FName responderName, const FName otherName);
+	FString traitPredToNLG(const FName initiatorName, const FName responderName, const FName otherName);
+	FString relationshipPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const;
+	FString networkPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const;
+	FString statusPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const;
+	FString ckbPredToNLG(const FName initiatorName, const FName responderName, const FName otherName) const;
+	FString sfdbPredToNLG(const FName initiatorName, const FName responderName, const FName otherName);
+	FString numTimesUniquelyTruePredToNLG(const FName initiatorName, const FName responderName, const FName otherName);
+	FString sfdbOrderToNLG();
+
+	/********************* Utility methods ****************************/
+	void toString(FString& outStr) const;
+	bool operator==(const UCiFPredicate& other) const;
 	static UCiFPredicate* loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject);
 
 private:

@@ -5,6 +5,7 @@
 #include "CiFCast.h"
 #include "CiFCharacter.h"
 #include "CiFCulturalKnowledgeBase.h"
+#include "CiFInfluenceRule.h"
 #include "CiFInstantiation.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
@@ -13,6 +14,7 @@
 #include "CiFProspectiveMemory.h"
 #include "CiFRelationshipNetwork.h"
 #include "CiFRule.h"
+#include "CiFRuleRecord.h"
 #include "CiFSocialExchange.h"
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
@@ -255,7 +257,9 @@ void UCiFManager::formIntent(UCiFCharacter* initiator)
 	}
 }
 
-void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFCharacter*>& possibleOthers)
+void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
+                                           UCiFGameObject* responder,
+                                           const TArray<UCiFCharacter*>& possibleOthers)
 {
 	clearProspectiveMemory();
 
@@ -531,7 +535,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 	}
 }
 
-void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*> outEffects,
+void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*>& outEffects,
                                        UCiFSocialExchange* sg,
                                        const bool isAccepted,
                                        UCiFGameObject* initiator,
@@ -587,6 +591,277 @@ void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*> outEffects,
 			}
 		}
 	}
+}
+
+void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray<UCiFGameObject*> otherCast)
+{
+	auto sg = mSocialExchangesLib->getSocialExchangeByName(sgContext->mGameName);
+	auto initiator = getGameObjectByName(sgContext->mInitiatorName);
+	auto responder = getGameObjectByName(sgContext->mResponderName);
+	if (!sg) {
+		UE_LOG(LogTemp, Error, TEXT("No social game '%s' found"), *(sgContext->mGameName.ToString()));
+		return;
+	}
+
+	auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+
+	auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
+	auto other = getGameObjectByName(sgContext->mOtherName);
+	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
+
+	highestSaliencyEffect->mLastSeenTime = mTime;
+
+	mSFDB->addContext(sgContext);
+
+	//update all of the status to be one turn older now that we've chosen salient effects
+	//in other words, the status lives "through" this spot in cif.time
+	//and new statuses are not decremented yet, as they start on the next time step.
+	for (auto c : possibleOthers) {
+		//for now, just update the possible others (i.e. people who aren't present don't change)
+		for (auto statusArr : c->mStatuses) {
+			for (UCiFGameObjectStatus* status : statusArr.Value.statusArray) {
+				if (status->mHasDuration && status->mRemainingDuration <= 1) {
+					auto pred = NewObject<UCiFPredicate>();
+					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, true);
+					auto directedToward = getGameObjectByName(status->mDirectedTowards);
+					pred->valuation(c, directedToward);
+
+					// make trigger context for this change in state
+					auto trigger = NewObject<UCiFTrigger>();
+					trigger->mId = UCiFTrigger::mStatusTimeoutTriggerID;
+					auto changeRule = NewObject<UCiFRule>();
+					changeRule->mPredicates.Add(pred);
+
+					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward, nullptr);
+					triggerContext->mStatusTimeoutChange = changeRule;
+					mSFDB->addContext(triggerContext);
+				}
+			}
+		}
+
+		// decrement status counters of all players
+		c->updateStatusDurations(1);
+	}
+
+	//now that we have changed the state, updated statuses, we should run the triggers.
+	//for now, triggers will happen *at the same cif time* as the change that caused them to trigger
+	//
+	//NOTE: I think the status.remainingTime should not be updated until after this call, to be consistent, but
+	// that would require not updating the status.time's that were made the case from triggers and.... well, no. Not now.
+	// the down side to this is that some statuses will have been made no more, that should probably be considered in the triggers
+	mSFDB->runTriggers(possibleOthers);
+
+	//increment system time after the context has been added
+	mTime++;
+}
+
+TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* sg,
+                                                           UCiFGameObject* initiator,
+                                                           UCiFGameObject* responder,
+                                                           UCiFGameObject* other,
+                                                           const FName forRole,
+                                                           TArray<UCiFGameObject*> otherCast,
+                                                           const FName mode)
+{
+	if (initiator->mGameObjectType != ECiFGameObjectType::CHARACTER || responder->mGameObjectType != ECiFGameObjectType::CHARACTER) {
+		return {};
+	}
+
+	auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	const auto initAsChar = static_cast<UCiFCharacter*>(initiator);
+	const auto resAsChar = static_cast<UCiFCharacter*>(responder);
+
+	float totalNegScore = 0, totalPosScore = 0, totalScore = 0;
+	TArray<UCiFRuleRecord*> relevantNegRR, relevantPosRR, relevantRR;
+
+	// look through the rule records and pull out the important once. Also add MT definitions to the influence rules
+	UCiFCharacter* role = nullptr;
+	if (forRole == "initiator") {
+		role = initAsChar;
+	}
+	else if (forRole == "responder") {
+		role = resAsChar;
+	}
+
+	if (role) {
+		for (const auto rr : role->mProspectiveMemory->mRuleRecords) {
+			if ((rr->mInitiator == role->mObjectName) && (rr->mResponder == resAsChar->mObjectName)) {
+				if (rr->mType == ERuleRecordType::SOCIAL_EXCHANGE) {
+					if (rr->mName == sg->mName) {
+						auto rrWeight = rr->mInfluenceRule->mWeight;
+						if (rrWeight < 0) {
+							totalNegScore += rrWeight;
+							relevantNegRR.Add(rr);
+						}
+						else {
+							totalPosScore += rrWeight;
+							relevantPosRR.Add(rr);
+						}
+						totalScore += rrWeight;
+						relevantRR.Add(rr);
+					}
+				}
+				else if (rr->mType == ERuleRecordType::MICROTHEORY) {
+					auto rrIntentIndex = rr->mInfluenceRule->findIntentIndex();
+					if (rrIntentIndex < 0) {
+						UE_LOG(LogTemp, Error, TEXT("Microtheory %s has a rule record without an intent"), *(rr->mName.ToString()));
+					}
+					else {
+						auto rrIntentType = rr->mInfluenceRule->mPredicates[rrIntentIndex]->getIntentType();
+						if (sg->mIntents[0]->mPredicates[0]->getIntentType() == rrIntentType) {
+							auto mt = getMicrotheoryByName(rr->mName);
+							auto newRR = NewObject<UCiFRuleRecord>();
+							newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, rr->mInfluenceRule);
+							for (const auto p : mt->mDefinition->mPredicates) {
+								newRR->mInfluenceRule->mPredicates.Add(p);
+							}
+
+							auto rrWeight = newRR->mInfluenceRule->mWeight;
+							if (rrWeight < 0) {
+								totalNegScore += rrWeight;
+								relevantNegRR.Add(newRR);
+							}
+							else {
+								totalPosScore += rrWeight;
+								relevantPosRR.Add(newRR);
+							}
+							totalScore += rrWeight;
+							relevantRR.Add(newRR);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// at this point we have 2 vectors of the relevant pos and neg IRs
+	//If we are interested in why the responder rejected...
+	//if (mode == "reject" && forRole == "responder")
+	//{
+	//relevantRuleRecords = relevantNegRuleRecords;
+	//totalScore = Math.abs(totalNegScore);
+	//for each (ruleRecord in relevantRuleRecords)
+	//{
+	//ir = ruleRecord.influenceRule;
+	//Debug.debug(this,"reject rule: " + ir.toString())
+	//ir.weight = Math.abs(ir.weight);
+	//}
+	//}
+	//else
+	//{
+	//otherwise, we are only interested in the positive reasons why someone did something
+	//relevantRuleRecords = relevantPosRuleRecords;
+	//totalScore = totalPosScore;
+	//}
+
+	// at this point relevantRR holds all the info we are interested in
+	// now go over all the relevantRR and break them into their predicate pieces (each as its own rule record)
+	TArray<UCiFRuleRecord*> uniquePredicateRuleRecords;
+	for (const auto rr : relevantRR) {
+		// before we can determine the number of predicates in relevant rulerecord we need to know how many
+		// intent type preds to not include in the count
+		int numIntents = 0;
+		for (const auto p : rr->mInfluenceRule->mPredicates) {
+			if (p->mIsIntent) {
+				numIntents++;
+			}
+		}
+		for (const auto p : rr->mInfluenceRule->mPredicates) {
+			bool presentInUniquePredicateRuleRecords = false;
+			if (!p->mIsIntent) {
+				// do not count preds that are the second half of medium networks?????
+				if (!((p->mComparatorType == EComparatorType::LESS_THAN) && (p->mNetworkValue == 67))) {
+					// if this predicate has not been seen yet. to determine this, we need to go through all of the uniquePredicateRuleRecords
+					for (const auto uniqueRR : uniquePredicateRuleRecords) {
+						if (*p == *(uniqueRR->mInfluenceRule->mPredicates[0]) && (rr->mOther == uniqueRR->mOther)) {
+							presentInUniquePredicateRuleRecords = true;
+							uniqueRR->mInfluenceRule->mWeight += float(rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num()
+								- numIntents);
+						}
+					}
+
+					if (!presentInUniquePredicateRuleRecords) {
+						const auto newRR = NewObject<UCiFRuleRecord>();
+						const auto influenceRule = NewObject<UCiFInfluenceRule>();
+						influenceRule->mPredicates.Add(p);
+						influenceRule->mWeight = float(rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num() - numIntents);
+						newRR->mInfluenceRule = influenceRule;
+						newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, influenceRule);
+					}
+				}
+			}
+		}
+	}
+
+	totalScore = 0; // TODO: why were we accumulating the total score while not doing anything with it
+	TArray<UCiFRuleRecord*> outUniqueRRs;
+	for (auto ruleRecord : uniquePredicateRuleRecords) {
+		if (forRole == "responder" && (mode == "reject" || mode == "negative")) {
+			if (ruleRecord->mInfluenceRule->mWeight < 0) {
+				// if we are looking for responder reject rules, we want the highest negative
+				ruleRecord->mInfluenceRule->mWeight = abs(ruleRecord->mInfluenceRule->mWeight);
+				outUniqueRRs.Add(ruleRecord);
+				totalScore += ruleRecord->mInfluenceRule->mWeight;
+			}
+		}
+		else if (ruleRecord->mInfluenceRule->mWeight > 0) {
+			outUniqueRRs.Add(ruleRecord);
+			totalScore += ruleRecord->mInfluenceRule->mWeight;
+		}
+	}
+
+	outUniqueRRs.Sort([](const UCiFRuleRecord& a, const UCiFRuleRecord& b) {
+		return a.mInfluenceRule->mWeight <= b.mInfluenceRule->mWeight;
+	});
+
+	// now that we have the influence rules we need to normalize the weights
+	for (auto ruleRecord : outUniqueRRs) {
+		ruleRecord->mInfluenceRule->mWeight = round(ruleRecord->mInfluenceRule->mWeight / totalScore * 100);
+	}
+
+	return outUniqueRRs;
+}
+
+UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName)
+{
+	auto mt = mMicrotheoriesLib.Find(mtName);
+	if (mt) {
+		return *mt;
+	}
+	return nullptr;
+}
+
+void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs)
+{
+	for (auto x : mCast->mCharacters) outGameObjs.Add(x);
+	for (auto x : mItemArray) outGameObjs.Add(x);
+	for (auto x : mKnowledgeArray) outGameObjs.Add(x);
+}
+
+void UCiFManager::getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type)
+{
+	switch (type) {
+		case ECiFGameObjectType::CHARACTER:
+			for (const auto c : mCast->mCharacters) outGameObjs.Add(c);
+			break;
+		case ECiFGameObjectType::ITEM:
+			for (const auto i : mItemArray) outGameObjs.Add(i);
+			break;
+		case ECiFGameObjectType::KNOWLEDGE:
+			for (const auto k : mKnowledgeArray) outGameObjs.Add(k);
+			break;
+	}
+}
+
+int8 UCiFManager::getNetworkWeightByType(const ESocialNetworkType netType, const uint8 id1, const uint8 id2) const
+{
+	auto net = mSocialNetworks.Find(netType);
+	if (net) {
+		return (*net)->getWeight(id1, id2);
+	}
+
+	UE_LOG(LogTemp, Error, TEXT("Couldn't find network of type %d"), netType);
+	return 0;
 }
 
 FName UCiFManager::pickAGoodCKBObject(const UCiFGameObject* initiator,
