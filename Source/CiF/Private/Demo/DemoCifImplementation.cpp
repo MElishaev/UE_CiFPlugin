@@ -71,13 +71,16 @@ bool UDemoCifImplementation::registerAsGameObject(const FName objectName, UCiFGa
 void UDemoCifImplementation::offerOthers(TArray<UCiFGameObject*>& outOthers,
                                          const FName sgName,
                                          ACifNPC* initiator,
-                                         UCiFGameObject* responder,
+                                         const FName responder,
                                          bool isNPC)
 {
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
+	UCiFGameObject* responderComp = mCifManager->getGameObjectByName(responder);
 	if (sg->mIsRequiresOther) {
-		// Find all the possible others (TO DO: WILL NEED TO BE UPDATED WITH SEEN/KNOW)
-		for (const auto object : sg->getPossibleOthers(initiator->mCifCharacterComp, responder)) {
+		// Find all the possible others (TODO: WILL NEED TO BE UPDATED WITH SEEN/KNOW)
+		TArray<UCiFGameObject*> possibleOthers;
+		sg->getPossibleOthers(possibleOthers, initiator->mCifCharacterComp->mObjectName, responder);
+		for (const auto object : possibleOthers) {
 			// Characters/Items should have been seen by the initiator (player) and know exist
 			// if (object->hasStatus(EStatus::KNOWN_BY, initiator)) {
 			outOthers.Add(object);
@@ -87,7 +90,7 @@ void UDemoCifImplementation::offerOthers(TArray<UCiFGameObject*>& outOthers,
 	else {
 		// call moveChosen if no others are required
 		UE_LOG(LogTemp, Log, TEXT("No others are required for this interaction"));
-		moveChosen(sgName, initiator, responder, isNPC);
+		moveChosen(sgName, initiator, responderComp, isNPC);
 	}
 }
 

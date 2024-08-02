@@ -20,10 +20,10 @@ UCiFMicrotheory::UCiFMicrotheory()
 float UCiFMicrotheory::score(UCiFCharacter* initiator,
                              UCiFGameObject* responder,
                              UCiFSocialExchange* se,
-                             TArray<UCiFCharacter*> others) const
+                             TArray<UCiFGameObject*>& others) const
 {
 	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
-	const auto& possibleOthers = others.Num() > 0 ? others : cifManager->mCast->mCharacters;
+	const TArray<UCiFGameObject*> possibleOthers = others.Num() > 0 ? others : static_cast<TArray<UCiFGameObject*>>(cifManager->mCast->mCharacters);
 	float totalScore = 0;
 
 	if (mDefinition->isThirdCharacterRequired()) {
@@ -33,7 +33,7 @@ float UCiFMicrotheory::score(UCiFCharacter* initiator,
 				if (mDefinition->evaluate(initiator, responder, other, se)) {
 					// do not reverse roles here, because whichever IRS we are using, the roles are how they ought to be
 					// role reversal for MTs happens at parsing xml time.
-					totalScore += mInitiatorIR->scoreRules(initiator, responder, other, se, TArray<UCiFGameObject*>(possibleOthers), mName);
+					totalScore += mInitiatorIR->scoreRules(initiator, responder, other, se, possibleOthers, mName);
 				}
 			}
 		}
@@ -45,7 +45,7 @@ float UCiFMicrotheory::score(UCiFCharacter* initiator,
 			                                                        responder,
 			                                                        nullptr,
 			                                                        se,
-			                                                        TArray<UCiFGameObject*>(possibleOthers),
+			                                                        possibleOthers,
 			                                                        mName);
 		}
 	}

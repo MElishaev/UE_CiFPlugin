@@ -191,7 +191,7 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 	 * characters (edward, karen).
 	 */
 
-	//if this.primary is not a reference to a character, determine if 
+	//if primary is not a reference to a character, determine if 
 	//it is either a role or a generic variable
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto first = cifManager->getGameObjectByName(mPrimary);

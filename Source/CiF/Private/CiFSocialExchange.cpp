@@ -6,13 +6,12 @@
 #include "CiFCast.h"
 #include "CiFInstantiation.h"
 #include "CiFEffect.h"
+#include "CiFKnowledge.h"
 #include "CiFInfluenceRule.h"
 #include "CiFInfluenceRuleSet.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
-#include "Kismet/GameplayStatics.h"
 #include "CiFItem.h"
-#include "CiFKnowledge.h"
 #include "CiFRule.h"
 
 void UCiFSocialExchange::addEffect(UCiFEffect* effect)
@@ -57,7 +56,7 @@ float UCiFSocialExchange::getInitiatorScore(UCiFCharacter* initiator,
 		return mInitiatorIR->scoreRules(initiator, responder, other, se, activeOtherCast);
 	}
 
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	return mInitiatorIR->scoreRules(initiator, responder, other, se, TArray<UCiFGameObject*>(cifManager->mCast->mCharacters));
 }
 
@@ -72,7 +71,7 @@ float UCiFSocialExchange::getResponderScore(UCiFCharacter* initiator,
 		return mResponderIR->scoreRules(initiator, responder, other, se, activeOtherCast);
 	}
 
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	return mResponderIR->scoreRules(initiator, responder, other, se, TArray<UCiFGameObject*>(cifManager->mCast->mCharacters));
 }
 
@@ -82,7 +81,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
                                               bool isResponder)
 {
 	float totalScore = 0;
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
 	auto influenceRuleSet = isResponder ? mResponderIR : mInitiatorIR;
 
@@ -92,7 +91,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 			//if the precondition involves an other run the IRS for all others with
 			//a static other (for others that satisfy the SE's preconditions)
 			for (auto other : possibleOthers) {
-				if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName)) {
+				if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
 					if (mPreconditions[0]->evaluate(initiator, responder, other, this)) {
 						totalScore += influenceRuleSet->scoreRules(initiator,
 						                                           responder,
@@ -140,7 +139,7 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 		return true; // no preconditions means it is automatically true
 	}
 
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
 
 	bool requiresOther = false;
@@ -236,42 +235,52 @@ bool UCiFSocialExchange::isThirdForSocialExchangePlay()
 	return false;
 }
 
-TArray<UCiFGameObject*> UCiFSocialExchange::getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder)
+void UCiFSocialExchange::updateRequiresOther()
 {
-	if (not mIsRequiresOther) return {};
+	for (const auto precond : mPreconditions) {
+		mIsRequiresOther = mIsRequiresOther || precond->isThirdCharacterRequired();
+	}
+}
 
-	TArray<UCiFGameObject*> viableOthers, possibleOthers;
+void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName)
+{
+	if (!mIsRequiresOther) return;
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	checkf(cifManager != nullptr, TEXT("Couldn't get cif manager"));
+	
+	TArray<UCiFGameObject*> possibleOthers = {};
+	cifManager->getAllGameObjectsOfType(possibleOthers, mOtherType);
 
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
-
-	for (auto c : cifManager->mCast->mCharacters) { possibleOthers.Add(c); }
-	for (auto i : cifManager->mItemArray) { possibleOthers.Add(i); }
-	for (auto k : cifManager->mKnowledgeArray) { possibleOthers.Add(k); }
-
-	bool isOtherSuitable;
-
-	for (auto other : possibleOthers) {
-		isOtherSuitable = false;
-		if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName)) {
-			// if other found not to hold the reconditions rules, move to the next
-			for (size_t i = 0; i < mPreconditions.Num() && isOtherSuitable; i++) {
-				if (!mPreconditions[i]->evaluate(static_cast<UCiFCharacter*>(initiator), responder, other, this)) {
+	const auto initiator = cifManager->getGameObjectByName(initiatorName);
+	const auto responder = cifManager->getGameObjectByName(responderName);
+	
+	for (int32 j = 0; j < possibleOthers.Num(); j++) {
+		UCiFGameObject* other = possibleOthers[j];
+		if ((initiatorName != other->mObjectName) && (responderName != other->mObjectName)) {
+			bool isOtherSuitable = true;
+			// if other found not to hold the preconditions rules, move to the next
+			for (int32 i = 0; i < mPreconditions.Num() && isOtherSuitable; i++) {
+				if (!mPreconditions[i]->evaluate(initiator, responder, other, this)) {
 					isOtherSuitable = false;
 				}
 			}
 
 			// If a suitable other for preconditions is found, make sure the other ALSO is an appropriate type for the move
-			// Should not be a problem for most moves (for example, RequestItem requires the other has trait "item"
-			if (isOtherSuitable /*&& !checkOtherType(other)*/) {
+			// Should not be a problem for most moves (for example, RequestItem requires the other has trait "item")
+			if (isOtherSuitable && !checkOtherType(other)) {
 				isOtherSuitable = false;
 			}
 			if (isOtherSuitable) {
-				viableOthers.AddUnique(other);
+				outOthers.Add(other);
 			}
 		}
 	}
-
-	return viableOthers;
+	if (outOthers.IsEmpty()) {
+		UE_LOG(LogTemp, Log, TEXT("Didn't find any others"));
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("Found others"));
+	}
 }
 
 UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject)
@@ -323,5 +332,18 @@ UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObjec
 
 	// TODO - before saving, sort all the predicates in all rules - for optimizations i assume
 
+	sg->updateRequiresOther();
+
 	return sg;
+}
+
+bool UCiFSocialExchange::checkOtherType(const UCiFGameObject* other) const
+{
+	if (other &&
+		mOtherType == ECiFGameObjectType::CHARACTER ||
+		mOtherType == ECiFGameObjectType::ITEM ||
+		mOtherType == ECiFGameObjectType::KNOWLEDGE) {
+		return true;
+	}
+	return false;
 }

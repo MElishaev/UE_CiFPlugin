@@ -38,7 +38,7 @@ public:
 
 	void loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 
-	auto operator<(const UCiFSFDBContext& o) const;
+	bool operator<(const UCiFSFDBContext& o) const;
 public:
 	UPROPERTY()
 	int32 mTime; // the time in game in which the event related to the SFDB entry occured 

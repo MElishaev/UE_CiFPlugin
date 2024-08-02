@@ -87,7 +87,7 @@ public:
 	void offerOthers(TArray<UCiFGameObject*>& outOthers,
 	                 const FName sgName,
 	                 ACifNPC* initiator,
-	                 UCiFGameObject* responder,
+	                 const FName responder,
 	                 bool isNPC);
 
 	/** 

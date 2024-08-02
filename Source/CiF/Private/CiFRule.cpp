@@ -123,9 +123,9 @@ int32 UCiFRule::getHighestSFDBOrder()
 
 bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary)
 {
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
-	auto maxOrderInRule = getHighestSFDBOrder(); // max order value of the rule
+	const auto maxOrderInRule = getHighestSFDBOrder(); // max order value of the rule
 
 	//when evaluating an order, this value is updated with the highest truth time for the order.
 	auto curOrderTruthTime = cifManager->mSFDB->getLowestContextTime();
@@ -137,7 +137,7 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 		for (const auto pred : mPredicates) {
 			if (pred->mSFDBOrder == order) {
 				//the predicate is of the order we are currently concerned with
-				auto time = cifManager->mSFDB->timeOfPredicateInHistory(pred, primary, secondary, tertiary);
+				const auto time = cifManager->mSFDB->timeOfPredicateInHistory(pred, primary, secondary, tertiary);
 
 				//was the predicate true at all in history? If not, return false.
 				if (time == UCiFSocialFactsDataBase::INVALID_TIME) {

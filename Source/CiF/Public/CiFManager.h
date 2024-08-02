@@ -67,12 +67,12 @@ public:
 	 * @param initiator	The character in the initiator role.
 	 * @param responder	The character in the responder role.
 	 */
-	void formIntentForSocialGames(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFCharacter*>& possibleOthers = {});
+	void formIntentForSocialGames(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	void formIntentForSpecificSocialExchange(UCiFSocialExchange* socialExchange,
 	                                         UCiFCharacter* initiator,
 	                                         UCiFGameObject* responder,
-	                                         const TArray<UCiFCharacter*>& possibleOthers = {});
+	                                         const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	/**
 	 * Forms the intents, each consisting of a gameScore, between an initiator, 
@@ -89,13 +89,13 @@ public:
 	void formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	                          UCiFCharacter* initiator,
 	                          UCiFGameObject* responder,
-	                          const TArray<UCiFCharacter*>& possibleOthers = {});
+	                          const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	/* Scores all micro-theories for either initiator or responder */
 	int8 scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
 	                                  UCiFCharacter* initiator,
 	                                  UCiFGameObject* responder,
-	                                  const TArray<UCiFCharacter*>& possibleOthers = {});
+	                                  const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	UCiFSocialExchangeContext* playGame(UCiFSocialExchange* sg,
 	                                    UCiFGameObject* initiator,
@@ -181,6 +181,8 @@ public:
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
 	UCiFMicrotheory* getMicrotheoryByName(const FName mtName);
 	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs);
+	void getAllGameObjectsNames(TArray<FName>& outObjNames);
+	TArray<FName> getAllGameObjectsNames();
 	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type);
 	int8 getNetworkWeightByType(const ESocialNetworkType netType, const uint8 id1, const uint8 id2) const;
 private:

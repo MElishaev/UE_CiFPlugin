@@ -9,7 +9,7 @@ ACifNPC::ACifNPC()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	// mCifCharacterComp = CreateDefaultSubobject<UCiFCharacter>(TEXT("CifCharacterComponent"));
+	mCifCharacterComp = CreateDefaultSubobject<UCiFCharacter>(TEXT("CifCharacterComponent"));
 }
 
 void ACifNPC::addMove(const FName sgName)

@@ -23,7 +23,7 @@ void UCiFSFDBContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UOb
 	mTime = json->GetNumberField("_time");
 }
 
-auto UCiFSFDBContext::operator<(const UCiFSFDBContext& o) const
+bool UCiFSFDBContext::operator<(const UCiFSFDBContext& o) const
 {
 	return mTime < o.mTime;
 }

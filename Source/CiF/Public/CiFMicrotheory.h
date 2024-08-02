@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CiFMicrotheory.generated.h"
 
+class UCiFGameObject;
 class UCiFCharacter;
 class UCiFInfluenceRuleSet;
 class UCiFRule;
@@ -40,7 +41,7 @@ public:
 	float score(UCiFCharacter* initiator,
 	            UCiFGameObject* responder,
 	            UCiFSocialExchange* se,
-	            TArray<UCiFCharacter*> others) const;
+	            TArray<UCiFGameObject*>& others) const;
 
 	static UCiFMicrotheory* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 

@@ -167,6 +167,8 @@ public:
 
 	// todo - what is the difference between this and the above?
 	bool isThirdParty() const { return mIsTalkAboutSomeone || mIsGetSomeoneToDoSomethingForYou; }
+
+	void updateRequiresOther();
 	
 	/* this method is more appropriate for mismanor than prom week because in mismanor you have items which
 	 * are also game objects, and because of that you need to check that the other is viable for social interactions
@@ -174,10 +176,15 @@ public:
 	 * an CharacterC. CharacterC is not a possible other, because in this case the possible other for this social
 	 * exchange should be ITEMS only.
 	 */
-	TArray<UCiFGameObject*> getPossibleOthers(UCiFGameObject* initiator, UCiFGameObject* responder);
+	void getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName);
 
 	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject);
 
+private:
+	/* Returns true if the current other type is appropriate for the social move.
+	 * Makes sure that item moves aren't being used with characters etc. */
+	bool checkOtherType(const UCiFGameObject* other) const;
+	
 public:
 	FName mName;
 	bool mIsRequiresOther;

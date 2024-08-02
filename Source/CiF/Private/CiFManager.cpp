@@ -252,14 +252,14 @@ void UCiFManager::formIntent(UCiFCharacter* initiator)
 {
 	for (auto responder : mCast->mCharacters) {
 		if (responder->mObjectName != initiator->mObjectName) {
-			formIntentForSocialGames(initiator, responder, mCast->mCharacters);
+			formIntentForSocialGames(initiator, responder, static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters));
 		}
 	}
 }
 
 void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
                                            UCiFGameObject* responder,
-                                           const TArray<UCiFCharacter*>& possibleOthers)
+                                           const TArray<UCiFGameObject*>& possibleOthers)
 {
 	clearProspectiveMemory();
 
@@ -271,11 +271,12 @@ void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
 void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* socialExchange,
                                                       UCiFCharacter* initiator,
                                                       UCiFGameObject* responder,
-                                                      const TArray<UCiFCharacter*>& possibleOthers)
+                                                      const TArray<UCiFGameObject*>& possibleOthers)
 {
 	if (possibleOthers.Num() == 0) {
-		auto calculatedPossibleOthers = socialExchange->getPossibleOthers(initiator, responder);
-		formIntentThirdParty(socialExchange, initiator, responder, mCast->mCharacters);
+		TArray<UCiFGameObject*> calculatedPossibleOthers;
+		socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
+		formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
 	}
 	else {
 		formIntentThirdParty(socialExchange, initiator, responder, possibleOthers);
@@ -285,7 +286,7 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
 void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFCharacter* initiator,
                                        UCiFGameObject* responder,
-                                       const TArray<UCiFCharacter*>& possibleOthers)
+                                       const TArray<UCiFGameObject*>& possibleOthers)
 {
 	int8 score = 0;
 
@@ -318,9 +319,9 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
                                                UCiFCharacter* initiator,
                                                UCiFGameObject* responder,
-                                               const TArray<UCiFCharacter*>& possibleOthers)
+                                               const TArray<UCiFGameObject*>& possibleOthers)
 {
-	auto others = possibleOthers.Num() > 0 ? possibleOthers : mCast->mCharacters;
+	TArray<UCiFGameObject*> others = possibleOthers.Num() > 0 ? possibleOthers : static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters);
 	int8 totalScore = 0;
 
 	for (const auto [name, microTheory] : mMicrotheoriesLib) {
@@ -348,7 +349,11 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	if (levelCast.IsEmpty()) {
 		UE_LOG(LogTemp, Warning, TEXT("Level cast is empty, this is not allowed - but why?"));
 	}
-	TArray<UCiFGameObject*> possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	
+	TArray<UCiFGameObject*> possibleOthers = otherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 
 	const float score = getResponderScore(sg, initiator, responder, possibleOthers);
 
@@ -375,7 +380,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	}
 	else {
 		// find either matching chosen effect rejection
-		if (chosenEffect->mRejectId == -1) {
+		if (chosenEffect->mRejectId == CIF_INVALID_ID) {
 			// if there is no matching reject, find whatever
 			getSalientOtherAndEffect(mostSalientOther,
 			                         mostSalientEffect,
@@ -399,19 +404,20 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	}
 
 	// the other to use when all cases of other being passed in a third character being needed when one is not provided
-	UCiFGameObject* trueOther = (!mostSalientOther && sg->isThirdForSocialExchangePlay()) ? mostSalientOther : other;
+	UCiFGameObject* trueOther = (!other && sg->isThirdForSocialExchangePlay()) ? mostSalientOther : other;
 
 	//TODO: sort of a hack. I want this in GameEngine... this is part of separating playGame and changeSocialState
 	mLastResponderOther = trueOther;
 
 	/* Preparing social game context for output */
-	auto socialGameContext = NewObject<UCiFSocialExchangeContext>();
+	const auto socialGameContext = NewObject<UCiFSocialExchangeContext>();
 
 	if (mostSalientEffect->hasCKBReference()) {
 		socialGameContext->mChosenItemCKB = pickAGoodCKBObject(initiator, responder, mostSalientEffect->getCKBReferencePredicate());
 	}
 
 	socialGameContext->mGameName = sg->mName;
+	socialGameContext->mEffectId = mostSalientEffect->mId;
 	socialGameContext->mInitiatorName = initiator->mObjectName;
 	socialGameContext->mResponderName = responder->mObjectName;
 
@@ -444,8 +450,10 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
                                      UCiFGameObject* responder,
                                      const TArray<UCiFGameObject*>& activeOtherCast)
 {
-	const TArray<UCiFGameObject*> possibleOthers =
-		activeOtherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : activeOtherCast;
+	TArray<UCiFGameObject*> possibleOthers = activeOtherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 
 	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, possibleOthers, true);
 
@@ -473,7 +481,10 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 {
 	outOther = nullptr; // initialize to nullptr in case for some reason nothing is found in this method
 	outEffect = nullptr;
-	const auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	auto possibleOthers = otherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 
 	if (levelCast.IsEmpty()) {
 		levelCast = possibleOthers;
@@ -485,6 +496,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 	// find all valid effects (go through all others)
 	for (const auto effect : sg->mEffects) {
 		if (effect->mIsAccept == isSgAccepted) {
+			// if its effect of social move accepted
 			if (sg->mIsRequiresOther) {
 				for (const auto o : possibleOthers) {
 					if ((o->mObjectName != initiator->mObjectName) && (o->mObjectName != responder->mObjectName)) {
@@ -543,7 +555,10 @@ void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*>& outEffects,
                                        const TArray<UCiFGameObject*> otherCast,
                                        TArray<UCiFGameObject*> levelCast)
 {
-	auto& possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	auto possibleOthers = otherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 	if (levelCast.IsEmpty()) {
 		levelCast = possibleOthers;
 	}
@@ -603,9 +618,13 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 		return;
 	}
 
-	auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	auto possibleOthers = otherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 
-	auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
+	const auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
+	checkf(highestSaliencyEffect != nullptr, TEXT("Effect wasn't found - this shouldn't happen at this stage"));
 	auto other = getGameObjectByName(sgContext->mOtherName);
 	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 
@@ -667,7 +686,10 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 		return {};
 	}
 
-	auto possibleOthers = otherCast.IsEmpty() ? sg->getPossibleOthers(initiator, responder) : otherCast;
+	auto possibleOthers = otherCast;
+	if (possibleOthers.IsEmpty()) {
+		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+	}
 	const auto initAsChar = static_cast<UCiFCharacter*>(initiator);
 	const auto resAsChar = static_cast<UCiFCharacter*>(responder);
 
@@ -833,9 +855,28 @@ UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName)
 
 void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs)
 {
-	for (auto x : mCast->mCharacters) outGameObjs.Add(x);
-	for (auto x : mItemArray) outGameObjs.Add(x);
-	for (auto x : mKnowledgeArray) outGameObjs.Add(x);
+	// TODO - optimizations, maybe after the first call for this, store all these game objects
+	// in a member and return it, instead of every time running over all the objects
+	for (const auto x : mCast->mCharacters) outGameObjs.Add(x);
+	for (const auto x : mItemArray) outGameObjs.Add(x);
+	for (const auto x : mKnowledgeArray) outGameObjs.Add(x);
+}
+
+void UCiFManager::getAllGameObjectsNames(TArray<FName>& outObjNames)
+{
+	for (auto x : mCast->mCharacters) outObjNames.Add(x->mObjectName);
+	for (auto x : mItemArray) outObjNames.Add(x->mObjectName);
+	for (auto x : mKnowledgeArray) outObjNames.Add(x->mObjectName);
+}
+
+TArray<FName> UCiFManager::getAllGameObjectsNames()
+{
+	TArray<FName> names;
+	for (auto x : mCast->mCharacters) names.Add(x->mObjectName);
+	for (auto x : mItemArray) names.Add(x->mObjectName);
+	for (auto x : mKnowledgeArray) names.Add(x->mObjectName);
+
+	return names;
 }
 
 void UCiFManager::getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type)
