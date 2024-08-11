@@ -67,7 +67,7 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 			else {
 				FStatusArrayWrapper statusArrayWrapper;
 				statusArrayWrapper.statusArray.Add(newStatus);
-				mStatuses[statusType] = statusArrayWrapper;
+				mStatuses.Add(statusType, statusArrayWrapper);
 			}
 
 			// setup the partner status if it has a partner and the status reciprocal - for now not sure about
@@ -115,7 +115,7 @@ void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 {
 	auto statusArrWrapper = mStatuses.Find(statusType);
 	if (statusArrWrapper) {
-		for (size_t i = 0; i < statusArrWrapper->statusArray.Num(); i++) {
+		for (int32 i = statusArrWrapper->statusArray.Num() - 1; i >= 0; i--) {
 			if (statusArrWrapper->statusArray[i]->mDirectedTowards == towards) {
 				statusArrWrapper->statusArray.RemoveAt(i);
 				break;
@@ -130,10 +130,11 @@ void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 
 void UCiFGameObject::updateStatusDurations(const int32 timeElapsed)
 {
-	for (auto& [statusType, statusArrWrapper] : mStatuses) {
-		for (auto status : statusArrWrapper.statusArray) {
-			if (status->updateRemainingDuration(timeElapsed) <= 0) {
-				removeStatus(statusType, status->mDirectedTowards);
+	for (auto it = mStatuses.CreateIterator(); it; ++it) {
+		// loop backwards through the array to remove status to not mess with indices while passing over the array
+		for (int32 i = it.Value().statusArray.Num() - 1; i >= 0; i--) {
+			if (it.Value().statusArray[i]->updateRemainingDuration(timeElapsed) <= 0) {
+				removeStatus(it.Key(), it.Value().statusArray[i]->mDirectedTowards);
 			}
 		}
 	}

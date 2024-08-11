@@ -209,6 +209,9 @@ private:
 public:
 	int32 mTime;
 
+	UPROPERTY()
+	UObject* mWorldContextObject;
+
 	UPROPERTY(BlueprintReadOnly)
 	UCiFCast* mCast;
 

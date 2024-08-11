@@ -839,6 +839,7 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)),
 			       *(second->mObjectName.ToString()));
+			first->removeStatus(mStatusType, second->mObjectName);
 		}
 		else {
 			UE_LOG(LogTemp,
@@ -846,8 +847,8 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 			       TEXT("%s removing status %s"),
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)));
+			first->removeStatus(mStatusType);
 		}
-		first->removeStatus(mStatusType, second->mObjectName);
 	}
 	else {
 		if (second) {
@@ -857,6 +858,7 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)),
 			       *(second->mObjectName.ToString()));
+			first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
 		}
 		else {
 			UE_LOG(LogTemp,
@@ -864,9 +866,9 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 			       TEXT("%s adding status %s"),
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)));
+			first->addStatus(mStatusType, mStatusDuration);
 		}
 
-		first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
 	}
 }
 

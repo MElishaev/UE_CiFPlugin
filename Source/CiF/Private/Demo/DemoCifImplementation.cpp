@@ -270,7 +270,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 
 	// track what move the player chosen
 	initiator->addMove(sgName);
-	TArray<UCiFGameObject*> possibleOthers = {responder};
+	TArray<UCiFGameObject*> possibleOthers = {other};
 
 	TArray<UCiFGameObject*> allGameObjects;
 	mCifManager->getAllGameObjects(allGameObjects);

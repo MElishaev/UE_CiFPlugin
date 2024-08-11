@@ -84,7 +84,10 @@ public:
 	IdType mInstantiationId; // ID of the instantiation this effect uses for performance realization
 	IdType mRejectId; // the unique identifier of this effect's reject
 	int8 mSalienceScore; // Approximate measure of how "awesome" we think this effect will be
+	UPROPERTY()
 	UCiFRule* mCondition; // condition for if this effect can be happen
+
+	UPROPERTY()
 	UCiFRule* mChange; // the rule containing the social change associated with the effect
 	bool mIsAccept; // true if the effect is in the accept branch of the social game and false if in reject branch
 	int32 mLastSeenTime; // stores what was the last CiF.Time the instantiation was last seen

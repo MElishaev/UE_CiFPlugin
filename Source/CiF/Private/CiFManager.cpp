@@ -30,6 +30,8 @@ UCiFManager::UCiFManager()
 
 void UCiFManager::init(const UObject* worldContextObject)
 {
+	mWorldContextObject = const_cast<UObject*>(worldContextObject);
+	
 	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>(const_cast<UObject*>(worldContextObject));
 	mSFDB = NewObject<UCiFSocialFactsDataBase>(const_cast<UObject*>(worldContextObject));
 	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
@@ -341,7 +343,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 {
 	//The fact that other was ever passed in at all is an artifact of cif from days long gone.  
 	//NOW we figure out who the other is in THIS function, when we call 'getSalientOtherAndEffect'
-	//Since other part of this function (playGame) depend on other being null, we are going
+	//Since other part of this function depend on other being null, we are going
 	//to just set it to null here explicitly (since passing in, say, an instantiated yet 'blank' character with no name
 	//will cause issues and heartbreak).
 	other = nullptr;
@@ -410,7 +412,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	mLastResponderOther = trueOther;
 
 	/* Preparing social game context for output */
-	const auto socialGameContext = NewObject<UCiFSocialExchangeContext>();
+	const auto socialGameContext = NewObject<UCiFSocialExchangeContext>(mWorldContextObject);
 
 	if (mostSalientEffect->hasCKBReference()) {
 		socialGameContext->mChosenItemCKB = pickAGoodCKBObject(initiator, responder, mostSalientEffect->getCKBReferencePredicate());
