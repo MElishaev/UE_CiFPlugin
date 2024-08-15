@@ -102,7 +102,7 @@ UCiFRule* UCiFTriggerContext::getChange() const
 	if (mId == UCiFTrigger::mStatusTimeoutTriggerID) {
 		return mStatusTimeoutChange;
 	}
-	const auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	const auto trigger = cifManager->mSFDB->getTriggerByID(mId);
 	return trigger->mChange;
 }

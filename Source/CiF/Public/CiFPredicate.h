@@ -125,6 +125,12 @@ public:
 	 */
 	void valuation(UCiFGameObject* x, UCiFGameObject* y = nullptr, UCiFGameObject* z = nullptr);
 
+	void determinePredicatesVars(UCiFGameObject*& first,
+	                             UCiFGameObject*& second,
+	                             UCiFGameObject*& third,
+	                             UCiFGameObject* x,
+	                             UCiFGameObject* y,
+	                             UCiFGameObject* z) const;
 
 	/**
 	 * Evaluates the predicate for truth given the characters involved
@@ -132,6 +138,9 @@ public:
 	 * uniquely true. The process of evaluating truth depends
 	 * on the type of the specific instance of the predicate and the number of times
 	 * the predicate is uniquely true.
+	 * (an example for this could be a predicate that checks how many predicates involves
+	 * some character X are friends with Edward -> meaning that Edward can be statused as
+	 * popular)
 	 * 
 	 * @param	c1 Character variable of the first predicate parameter.
 	 * @param	c2 Character variable of the second predicate parameter.
@@ -234,7 +243,7 @@ public:
 
 
 	/********************* predicate initializer methods ****************************/
-	
+
 	void setTraitPredicate(const FName first = "initiator",
 	                       const ETrait trait = ETrait::SHY,
 	                       const bool isNegated = false,
@@ -297,7 +306,6 @@ public:
 	 * Updates the relationship state with a status predicate via valuation.
 	 */
 	void updateRelationship(UCiFGameObject* first, UCiFGameObject* second) const;
-	
 
 
 	/********************* To natural language methods ****************************/
@@ -367,7 +375,7 @@ public:
 	bool mIsIntent; // true if this predicate is intent predicate TODO - this is specifically for an intent predicates
 	EIntentType mIntentType;
 
-	
+
 	EStatus mStatusType; // todo- another member relevant only for status predicates
 	int32 mStatusDuration;
 
@@ -391,5 +399,5 @@ public:
 
 	ESubjectiveLabel mFirstSubjectiveLink;  // todo - what is the purpose of this?
 	ESubjectiveLabel mSecondSubjectiveLink; // todo - what is the purpose of this?
-	ETruthLabel mTruthLabel;           // todo - what is the purpose of this?
+	ETruthLabel mTruthLabel;                // todo - what is the purpose of this?
 };

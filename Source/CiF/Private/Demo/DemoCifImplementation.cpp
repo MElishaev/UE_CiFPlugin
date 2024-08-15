@@ -400,7 +400,7 @@ void UDemoCifImplementation::effectChosen(const FName sgName,
 void UDemoCifImplementation::handleItemMoveEffects(UCiFSocialExchangeContext* context)
 {
 	auto changeRule = context->getChange();
-	checkf(changeRule == nullptr, TEXT("Change rule is nullptr"));
+	checkf(changeRule != nullptr, TEXT("Change rule is nullptr"));
 
 	for (const auto p : changeRule->mPredicates) {
 		// TODO: This stuff should all be taken care of in valuation, not done by hand here 

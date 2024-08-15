@@ -32,60 +32,10 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 
 	// if Primary is not a reference to a game object, determine if it
 	// is either a role or a generic variable
-	const UCiFGameObject* first = cifManager->getGameObjectByName(mPrimary);
-	if (!first) {
-		const auto val = getValueOfPredicateVariable(mPrimary);
-		if (val == "initiator") {
-			first = c1;
-		}
-		else if (val == "responder") {
-			first = c2;
-		}
-		else if (val == "other") {
-			first = c3;
-		}
-		else {
-			UE_LOG(LogTemp, Warning, TEXT("First variable doesn't bound to game object"));
-		}
-	}
-
-	const UCiFGameObject* second = cifManager->getGameObjectByName(mSecondary);
-	if (!second) {
-		const auto val = getValueOfPredicateVariable(mSecondary);
-		if (val == "initiator") {
-			second = c1;
-		}
-		else if (val == "responder") {
-			second = c2;
-		}
-		else if (val == "other") {
-			second = c3;
-		}
-		else {
-			second = nullptr;
-			if ((mType != EPredicateType::TRAIT) && (mType != EPredicateType::STATUS))
-				UE_LOG(LogTemp, Warning, TEXT("Second variable doesn't bound to game object"));
-		}
-	}
-
-	bool isThird = true;
-	const UCiFGameObject* third = cifManager->getGameObjectByName(mTertiary);
-	if (!third) {
-		const auto val = getValueOfPredicateVariable(mTertiary);
-		if (val == "initiator") {
-			third = c1;
-		}
-		else if (val == "responder") {
-			third = c2;
-		}
-		else if (val == "other") {
-			third = c3;
-		}
-		else {
-			third = nullptr;
-			isThird = false;
-		}
-	}
+	UCiFGameObject* first = cifManager->getGameObjectByName(mPrimary);
+	UCiFGameObject* second = cifManager->getGameObjectByName(mSecondary);
+	UCiFGameObject* third = cifManager->getGameObjectByName(mTertiary);
+	determinePredicatesVars(first, second, third, const_cast<UCiFGameObject*>(c1), const_cast<UCiFGameObject*>(c2), const_cast<UCiFGameObject*>(c3));
 
 	/*
 	 * At this point only first has to be set. Any other bindings might
@@ -195,49 +145,9 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 	//it is either a role or a generic variable
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto first = cifManager->getGameObjectByName(mPrimary);
-	if (!first) {
-		const auto val = getRoleValue(mPrimary);
-		if (val == "initiator" || val == "x") {
-			first = x;
-		}
-		else if (val == "responder" || val == "y") {
-			first = y;
-		}
-		else if (val == "other" || val == "z") {
-			first = z;
-		}
-		else {
-			UE_LOG(LogTemp, Warning, TEXT("first variable was not bound to a character"));
-		}
-	}
-
 	auto second = cifManager->getGameObjectByName(mSecondary);
-	if (!second) {
-		const auto val = getRoleValue(mSecondary);
-		if (val == "initiator" || val == "x") {
-			second = x;
-		}
-		else if (val == "responder" || val == "y") {
-			second = y;
-		}
-		else if (val == "other" || val == "z") {
-			second = z;
-		}
-	}
-
 	auto third = cifManager->getGameObjectByName(mTertiary);
-	if (!third) {
-		const auto val = getRoleValue(mTertiary);
-		if (val == "initiator" || val == "x") {
-			third = x;
-		}
-		else if (val == "responder" || val == "y") {
-			third = y;
-		}
-		else if (val == "other" || val == "z") {
-			third = z;
-		}
-	}
+	determinePredicatesVars(first, second, third, x, y, z);
 
 	/*
 	 * At this point only first has to be set. Any other bindings might
@@ -269,6 +179,56 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 			break;
 		default:
 			UE_LOG(LogTemp, Warning, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
+	}
+}
+
+void UCiFPredicate::determinePredicatesVars(UCiFGameObject*& first,
+                                            UCiFGameObject*& second,
+                                            UCiFGameObject*& third,
+                                            UCiFGameObject* x,
+                                            UCiFGameObject* y,
+                                            UCiFGameObject* z) const
+{
+	if (!first) {
+		const auto val = getRoleValue(mPrimary);
+		if (val == "initiator" || val == "x") {
+			first = x;
+		}
+		else if (val == "responder" || val == "y") {
+			first = y;
+		}
+		else if (val == "other" || val == "z") {
+			first = z;
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("first variable was not bound to a character"));
+		}
+	}
+
+	if (!second) {
+		const auto val = getRoleValue(mSecondary);
+		if (val == "initiator" || val == "x") {
+			second = x;
+		}
+		else if (val == "responder" || val == "y") {
+			second = y;
+		}
+		else if (val == "other" || val == "z") {
+			second = z;
+		}
+	}
+
+	if (!third) {
+		const auto val = getRoleValue(mTertiary);
+		if (val == "initiator" || val == "x") {
+			third = x;
+		}
+		else if (val == "responder" || val == "y") {
+			third = y;
+		}
+		else if (val == "other" || val == "z") {
+			third = z;
+		}
 	}
 }
 
@@ -453,7 +413,11 @@ bool UCiFPredicate::evalTrait(const UCiFGameObject* first) const
 
 bool UCiFPredicate::evalNetwork(const UCiFGameObject* first, const UCiFGameObject* second) const
 {
-	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	if ((first && first->mGameObjectType != ECiFGameObjectType::CHARACTER) ||
+		(second && second->mGameObjectType != ECiFGameObjectType::CHARACTER)) {
+		return false;
+	}
+	const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	const uint8 firstNetworkID = first->mNetworkId;
 	uint8 secondNetworkID = 0;
@@ -555,14 +519,17 @@ bool UCiFPredicate::evalCKBEntry(const UCiFGameObject* first, const UCiFGameObje
 
 bool UCiFPredicate::evalRelationship(const UCiFGameObject* first, const UCiFGameObject* second) const
 {
-	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	if (first->mGameObjectType != ECiFGameObjectType::CHARACTER || second->mGameObjectType != ECiFGameObjectType::CHARACTER) {
+		return false;
+	}
+	const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	const auto rel = cifManager->mRelationshipNetworks;
 	return rel->getRelationship(mRelationshipType, static_cast<const UCiFCharacter*>(first), static_cast<const UCiFCharacter*>(second));
 }
 
 bool UCiFPredicate::evalSFDBLabel(const UCiFGameObject* first, const UCiFGameObject* second, const UCiFGameObject* third) const
 {
-	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	if (isSFDBLabelCategory()) {
 		for (const auto sfdbLabel : UCiFSocialFactsDataBase::mSFDBLabelCategories[mSFDBLabel.type].mCategoryLabels) {
@@ -806,7 +773,9 @@ void UCiFPredicate::setRelationshipPredicate(const FName first,
 
 void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 {
-	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	checkf(first->mGameObjectType == ECiFGameObjectType::CHARACTER && second->mGameObjectType == ECiFGameObjectType::CHARACTER,
+	       TEXT("first and second must be characters in a social network valuation"));
+	const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	const auto net = cifManager->getSocialNetworkByType(mNetworkType);
 
@@ -868,13 +837,14 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 			       *(statusEnum->GetValueAsString(mStatusType)));
 			first->addStatus(mStatusType, mStatusDuration);
 		}
-
 	}
 }
 
 void UCiFPredicate::updateRelationship(UCiFGameObject* first, UCiFGameObject* second) const
 {
-	checkf(first != nullptr && second != nullptr, TEXT("Something went wrong. updating relationships while one of the parties is null"));
+	checkf(first != nullptr && second != nullptr &&
+	       first->mGameObjectType == ECiFGameObjectType::CHARACTER && second->mGameObjectType == ECiFGameObjectType::CHARACTER,
+	       TEXT("Something went wrong. updating relationships while one of the parties is null, or objects are not characters"));
 
 	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 

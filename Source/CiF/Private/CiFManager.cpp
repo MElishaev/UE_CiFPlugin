@@ -292,8 +292,8 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 {
 	int8 score = 0;
 
-	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, TArray<UCiFGameObject*>(possibleOthers))) {
-		score += socialExchange->scoreSocialExchange(initiator, responder, TArray<UCiFGameObject*>(possibleOthers));
+	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
+		score += socialExchange->scoreSocialExchange(initiator, responder, possibleOthers);
 
 		const auto intentType = socialExchange->mIntents[0]->mPredicates[0]->getIntentType();
 		const auto intentIndex = static_cast<uint8>(intentType);
@@ -612,9 +612,9 @@ void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*>& outEffects,
 
 void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray<UCiFGameObject*> otherCast)
 {
-	auto sg = mSocialExchangesLib->getSocialExchangeByName(sgContext->mGameName);
-	auto initiator = getGameObjectByName(sgContext->mInitiatorName);
-	auto responder = getGameObjectByName(sgContext->mResponderName);
+	const auto sg = mSocialExchangesLib->getSocialExchangeByName(sgContext->mGameName);
+	const auto initiator = getGameObjectByName(sgContext->mInitiatorName);
+	const auto responder = getGameObjectByName(sgContext->mResponderName);
 	if (!sg) {
 		UE_LOG(LogTemp, Error, TEXT("No social game '%s' found"), *(sgContext->mGameName.ToString()));
 		return;
@@ -627,7 +627,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 
 	const auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
 	checkf(highestSaliencyEffect != nullptr, TEXT("Effect wasn't found - this shouldn't happen at this stage"));
-	auto other = getGameObjectByName(sgContext->mOtherName);
+	const auto other = getGameObjectByName(sgContext->mOtherName);
 	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 
 	highestSaliencyEffect->mLastSeenTime = mTime;
@@ -637,6 +637,8 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	//update all of the status to be one turn older now that we've chosen salient effects
 	//in other words, the status lives "through" this spot in cif.time
 	//and new statuses are not decremented yet, as they start on the next time step.
+	// statuses that reached the end of their lifetime added as trigger context
+	// to fire the necessary changes when finished.
 	for (auto c : possibleOthers) {
 		//for now, just update the possible others (i.e. people who aren't present don't change)
 		for (auto statusArr : c->mStatuses) {
