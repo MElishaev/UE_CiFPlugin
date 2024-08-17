@@ -136,18 +136,18 @@ TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::initia
 	
 	outMap.Add(ESFDBLabelType::CAT_NEGATIVE, FLabelCategoryArrayWrapper{
 		.mCategoryLabels = {
-			ESFDBLabelType::LABEL_MEAN, ESFDBLabelType::LABEL_TABOO, ESFDBLabelType::LABEL_RUDE
+			ESFDBLabelType::MEAN, ESFDBLabelType::TABOO, ESFDBLabelType::RUDE
 		}
 	});
 
 	outMap.Add(ESFDBLabelType::CAT_POSITIVE, FLabelCategoryArrayWrapper{
 		.mCategoryLabels = {
-			ESFDBLabelType::LABEL_COOL, ESFDBLabelType::LABEL_FUNNY
+			ESFDBLabelType::COOL, ESFDBLabelType::FUNNY
 		}
 	});
 
 	outMap.Add(ESFDBLabelType::CAT_FLIRT, FLabelCategoryArrayWrapper{
-		.mCategoryLabels = {ESFDBLabelType::LABEL_ROMANTIC, ESFDBLabelType::LABEL_FAILED_ROMANCE}
+		.mCategoryLabels = {ESFDBLabelType::ROMANTIC, ESFDBLabelType::FAILED_ROMANCE}
 	});
 	
 	return outMap;
@@ -155,7 +155,7 @@ TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::initia
 
 void UCiFSocialFactsDataBase::addContext(UCiFSFDBContext* context)
 {
-	// todo - this is for now not optimized because we sort it on every addition.
+	// todo - this is for now not optimized because we sort it on every addition. (i think this can be done with heapsort and heappush methods of array)
 	// it would better be to store the context in a heap to be able to insert in O(logn) instead of O(nlogn)
 	mContexts.Add(context);
 	mContexts.Sort([](UCiFSFDBContext& c1, UCiFSFDBContext& c2) { return c1.mTime <= c2.mTime; });
@@ -170,7 +170,7 @@ void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 		potentialChars = cast;
 	}
 	else {
-		cifManager->getAllGameObjects(potentialChars);
+		cifManager->getAllGameObjectsOfType(potentialChars, ECiFGameObjectType::CHARACTER);
 	}
 
 
@@ -179,7 +179,10 @@ void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 	TArray<UCiFGameObject*> secondRoles;
 	TArray<UCiFGameObject*> thirdRoles;
 	
-	// run each trigger on every duple of characters or triple where needed by trigger
+	// run each trigger on every duple of characters or triple where needed by trigger (only characters for now because the current
+	// triggers involve only statuses between characters. later on items could also be added)
+	// TODO - why not run all triggers only on the characters that participated in the last social move that this method was called after?
+	
 	for (auto trigger : mTriggers) {
 		for (auto firstChar : potentialChars) {
 			for (auto secondChar : potentialChars) {

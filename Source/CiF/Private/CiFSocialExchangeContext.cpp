@@ -22,7 +22,7 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatchStrict(const ESFDBLabelType la
 {
 	if (mIsBackstory) {
 		// if not wildcard, labels must match
-		if (labelType != ESFDBLabelType::LABEL_WILDCARD) {
+		if (labelType != ESFDBLabelType::WILDCARD) {
 			if (mSFDBLabel.type != labelType) {
 				return false;
 			}
@@ -43,7 +43,7 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatchStrict(const ESFDBLabelType la
 	else {
 		if (!mSFDBLabels.IsEmpty()) {
 			for (const auto& sfdbLabel : mSFDBLabels) {
-				if ((labelType == ESFDBLabelType::LABEL_WILDCARD) ||
+				if ((labelType == ESFDBLabelType::WILDCARD) ||
 					UCiFSocialFactsDataBase::doesMatchLabelOrCategory(sfdbLabel.type, labelType)) {
 					//in here either the label matches or it is a wild card. check characters
 					if (sfdbLabel.from == first->mObjectName) {
@@ -74,7 +74,7 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatch(const ESFDBLabelType labelTyp
 	if (mIsBackstory) {
 		// if this context is a backstory context, the first and second character
 		// parameters must match the context's initiator and responder respectively
-		if (labelType != ESFDBLabelType::LABEL_WILDCARD) {
+		if (labelType != ESFDBLabelType::WILDCARD) {
 			if (mSFDBLabel.type != labelType) {
 				return false;
 			}
@@ -98,7 +98,7 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatch(const ESFDBLabelType labelTyp
 	// we reach here if it isn't a backstory context
 	for (const auto sfdbLabel : mSFDBLabels) {
 		bool isTrue = true;
-		if (!((labelType == ESFDBLabelType::LABEL_WILDCARD) ||
+		if (!((labelType == ESFDBLabelType::WILDCARD) ||
 			UCiFSocialFactsDataBase::doesMatchLabelOrCategory(sfdbLabel.type, labelType))) {
 			isTrue = false; // if the label doesn't match and it isn't a wildcard fail - todo - why?
 		}

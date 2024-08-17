@@ -51,7 +51,7 @@ bool UCiFTriggerContext::doesSFDBLabelMatchStrict(const ESFDBLabelType labelType
                                                   const UCiFPredicate* pred) const
 {
 	for (const auto sfdbLabel : mSFDBLabels) {
-		if (labelType == ESFDBLabelType::LABEL_WILDCARD || UCiFSocialFactsDataBase::doesMatchLabelOrCategory(sfdbLabel.type, labelType)) {
+		if (labelType == ESFDBLabelType::WILDCARD || UCiFSocialFactsDataBase::doesMatchLabelOrCategory(sfdbLabel.type, labelType)) {
 			// either the label matches or it is a wildcard, check characters matching
 			if (sfdbLabel.from == first->mObjectName) {
 				if (second) {
@@ -76,7 +76,7 @@ bool UCiFTriggerContext::doesSFDBLabelMatch(const ESFDBLabelType labelType,
 {
 	for (const auto sfdbLabel : mSFDBLabels) {
 		bool isTrue = true;
-		if (!((labelType == ESFDBLabelType::LABEL_WILDCARD) ||
+		if (!((labelType == ESFDBLabelType::WILDCARD) ||
 			UCiFSocialFactsDataBase::doesMatchLabelOrCategory(sfdbLabel.type, labelType))) {
 			isTrue = false; // if the label doesn't match and it isn't a wildcard fail - todo - why?
 		}

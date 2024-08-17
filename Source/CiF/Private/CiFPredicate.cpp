@@ -547,7 +547,7 @@ bool UCiFPredicate::evalSFDBLabel(const UCiFGameObject* first, const UCiFGameObj
 			return !mIsNegated;
 		}
 	}
-	return !mIsNegated;
+	return mIsNegated;
 }
 
 bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiFPredicate* p2)
@@ -754,6 +754,8 @@ void UCiFPredicate::setSFDBLabelPredicate(const FName first,
 	mIsSFDB = true;
 	mIsNegated = isNegated;
 	mSFDBLabel.type = labelType;
+	mSFDBLabel.from = first;
+	mSFDBLabel.to = second;
 	mWindowSize = window;
 }
 

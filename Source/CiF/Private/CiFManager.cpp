@@ -179,16 +179,17 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 		}
 	}
 
-	const auto backstoryJson = jsonObject->GetArrayField("BackstoryContext");
-	for (const auto bsJson : backstoryJson) {
-		auto bsc = UCiFSocialExchangeContext::loadFromJson(bsJson->AsObject(), worldContextObject);
-		if (bsc) {
-			mSFDB->mContexts.Add(bsc);
-		}
-		else {
-			UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
-		}
-	}
+	// Dont load backstory context for now, they include characters not available in game.
+	// const auto backstoryJson = jsonObject->GetArrayField("BackstoryContext");
+	// for (const auto bsJson : backstoryJson) {
+	// 	auto bsc = UCiFSocialExchangeContext::loadFromJson(bsJson->AsObject(), worldContextObject);
+	// 	if (bsc) {
+	// 		mSFDB->mContexts.Add(bsc);
+	// 	}
+	// 	else {
+	// 		UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
+	// 	}
+	// }
 
 	// sort the contexts in SFDB in the specified order (ascending in our case)
 	// if want to sort in a descending order, need to provide lambda function that return a > b as true
@@ -641,21 +642,24 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	// to fire the necessary changes when finished.
 	for (auto c : possibleOthers) {
 		//for now, just update the possible others (i.e. people who aren't present don't change)
-		for (auto statusArr : c->mStatuses) {
-			for (UCiFGameObjectStatus* status : statusArr.Value.statusArray) {
+		for (auto &[statusType, statusArrWrapper] : c->mStatuses) {
+			for (const UCiFGameObjectStatus* status : statusArrWrapper.statusArray) {
 				if (status->mHasDuration && status->mRemainingDuration <= 1) {
+					// creating predicate to remove the status
 					auto pred = NewObject<UCiFPredicate>();
-					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, true);
-					auto directedToward = getGameObjectByName(status->mDirectedTowards);
+					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, false, true);
+
+					// remove the status due to end of duration
+					const auto directedToward = getGameObjectByName(status->mDirectedTowards);
 					pred->valuation(c, directedToward);
 
 					// make trigger context for this change in state
-					auto trigger = NewObject<UCiFTrigger>();
+					const auto trigger = NewObject<UCiFTrigger>(mWorldContextObject);
 					trigger->mId = UCiFTrigger::mStatusTimeoutTriggerID;
-					auto changeRule = NewObject<UCiFRule>();
+					const auto changeRule = NewObject<UCiFRule>(mWorldContextObject);
 					changeRule->mPredicates.Add(pred);
 
-					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward, nullptr);
+					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward);
 					triggerContext->mStatusTimeoutChange = changeRule;
 					mSFDB->addContext(triggerContext);
 				}

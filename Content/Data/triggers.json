@@ -154,21 +154,23 @@
         },
         {
             "_id": 3,
-            "PerformanceRealization": "STop being embarrassed if someone nice to you",
+            "PerformanceRealization": "Stop being embarrassed if someone nice to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "NICE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "NICE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -203,8 +205,8 @@
                         "_isSFDB": true,
                         "_window": 1,
                         "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -243,19 +245,21 @@
             "_id": 5,
             "PerformanceRealization": "Lose Shaken if people are nice",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "NICE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 6,
-                    "_numTimesUniquelyTrueFlag": true,
-                    "_numTimesUniquelyTrue": 2,
-                    "_numTimesRoleSlot": "first"
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "NICE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 6,
+                        "_numTimesUniquelyTrueFlag": true,
+                        "_numTimesUniquelyTrue": 2,
+                        "_numTimesRoleSlot": "first"
+                    }
+                    ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -279,163 +283,27 @@
             "_id": 7,
             "PerformanceRealization": "Lose Desperate if start a relationship",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "DATING",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": false,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "DATING",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
                     {
                         "_type": "STATUS",
                         "_status": "DESPERATE",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 8,
-            "PerformanceRealization": "Class clown if lots of funny actions",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "FUNNY",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 10,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "FUNNY",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "CLASS_CLOWN",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 9,
-            "PerformanceRealization": "Lose Class clown if do something taboo",
-            "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "TABOO",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "CLASS_CLOWN",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 10,
-            "PerformanceRealization": "Lose Class clown if too mean",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "MEAN",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 10,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "MEAN",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "CLASS_CLOWN",
                         "_first": "initiator",
                         "_second": "",
                         "_negated": true,
@@ -509,7 +377,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "initiator",
                         "_second": "",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -522,14 +390,14 @@
                         "_type": "SFDB_LABEL",
                         "_first": "initiator",
                         "_second": "",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
                         "_window": 1,
                         "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
                     }
                 ]
             },
@@ -619,7 +487,7 @@
         },
         {
             "_id": 14,
-            "PerformanceRealization": "Lose lovestruck if r does something negativ e",
+            "PerformanceRealization": "Lose lovestruck if r does something negative",
             "ConditionRule": {
                 "Predicate": [
                     {
@@ -641,7 +509,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -723,7 +591,7 @@
         },
         {
             "_id": 16,
-            "PerformanceRealization": "Excited if starting a relationship with someone awesome",
+            "PerformanceRealization": "Excited if starting a relationship with someone",
             "ConditionRule": {
                 "Predicate": [
                     {
@@ -734,21 +602,6 @@
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "NETWORK",
-                        "_networkType": "cool",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_comparator": "GREATER_THAN",
-                        "_value": 66,
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
@@ -793,19 +646,21 @@
             "_id": 17,
             "PerformanceRealization": "Lose Excited if lose a partner",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "DATING",
-                    "_negated": true,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "DATING",
+                        "_negated": true,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -829,19 +684,21 @@
             "_id": 18,
             "PerformanceRealization": "Lose Excited if lose a friend",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "FRIENDS",
-                    "_negated": true,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "FRIENDS",
+                        "_negated": true,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }   
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -934,7 +791,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -947,7 +804,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -1082,19 +939,21 @@
             "_id": 23,
             "PerformanceRealization": "Lose sad if gain a new friend",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "FRIENDS",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "FRIENDS",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -1118,19 +977,21 @@
             "_id": 24,
             "PerformanceRealization": "Lose sad if gain a new dating partner",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "DATING",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "DATING",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -1154,19 +1015,21 @@
             "_id": 25,
             "PerformanceRealization": "Lose sad if someone is nice to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "NICE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "NICE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -1312,7 +1175,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -1325,7 +1188,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -1358,19 +1221,21 @@
             "_id": 29,
             "PerformanceRealization": "Lose anxious if someone is romantic to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "ROMANTIC",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "ROMANTIC",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -1394,61 +1259,12 @@
             "_id": 30,
             "PerformanceRealization": "Lose anxious if someone is funny to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "FUNNY",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "ANXIOUS",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 31,
-            "PerformanceRealization": "Honor roll if haven't done negative things in a long time",
-            "ConditionRule": {
                 "Predicate": [
                     {
                         "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT:_NEGATIVE",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 15,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT:_POSITIVE",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "FUNNY",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -1463,43 +1279,7 @@
                 "Predicate": [
                     {
                         "_type": "STATUS",
-                        "_status": "HONOR_ROLL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 32,
-            "PerformanceRealization": "Lose Honor roll if do a bad thing",
-            "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "CAT:_NEGATIVE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "HONOR_ROLL",
+                        "_status": "ANXIOUS",
                         "_first": "initiator",
                         "_second": "",
                         "_negated": true,
@@ -1522,7 +1302,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "initiator",
                         "_second": "",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -1581,19 +1361,21 @@
             "_id": 34,
             "PerformanceRealization": "Not looking for trouble if do a positive thing",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "CAT:_POSITIVE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "initiator",
+                        "_second": "",
+                        "_label": "CAT_POSITIVE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -1997,7 +1779,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "initiator",
                         "_second": "responder",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2010,7 +1792,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "initiator",
                         "_second": "responder",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2169,19 +1951,21 @@
             "_id": 44,
             "PerformanceRealization": "Lose feels out of place if does something cool",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "COOL",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "initiator",
+                        "_second": "",
+                        "_label": "COOL",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -2205,19 +1989,21 @@
             "_id": 45,
             "PerformanceRealization": "Lose feels out of place if  something cool happens to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "COOL",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "COOL",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -2370,19 +2156,21 @@
             "_id": 48,
             "PerformanceRealization": "Not heartbroken if do something romantic to someone",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "ROMANTIC",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "initiator",
+                        "_second": "",
+                        "_label": "ROMANTIC",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -2435,7 +2223,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2448,7 +2236,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2498,7 +2286,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2511,7 +2299,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2639,7 +2427,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2652,7 +2440,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2835,7 +2623,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2848,7 +2636,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -2945,19 +2733,21 @@
             "_id": 57,
             "PerformanceRealization": "Anxious if multiple enemies",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "ENEMIES",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": false,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": true,
-                    "_numTimesUniquelyTrue": 3,
-                    "_numTimesRoleSlot": "first"
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "ENEMIES",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": true,
+                        "_numTimesUniquelyTrue": 3,
+                        "_numTimesRoleSlot": "first"
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -2981,19 +2771,21 @@
             "_id": 58,
             "PerformanceRealization": "Lonely if no interactions in a while",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "initiator",
-                    "_second": "",
-                    "_label": "",
-                    "_negated": true,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 10,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "initiator",
+                        "_second": "",
+                        "_label": "",
+                        "_negated": true,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 10,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3017,19 +2809,21 @@
             "_id": 59,
             "PerformanceRealization": "Lose lonely if someone has a positive interaction with you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "CAT:_POSITIVE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": "first"
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "CAT_POSITIVE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": "first"
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3053,19 +2847,21 @@
             "_id": 60,
             "PerformanceRealization": "Lose lonely if start a relationship",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "DATING",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": false,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "DATING",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3089,19 +2885,21 @@
             "_id": 61,
             "PerformanceRealization": "Lose lonely if start a friendship",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "FRIENDS",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": false,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "FRIENDS",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3158,7 +2956,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -3171,7 +2969,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": true,
                         "_intent": false,
                         "_isSFDB": true,
@@ -3209,7 +3007,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -3415,64 +3213,11 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
                         "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "WANTS_TO_PICK_ON",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 67,
-            "PerformanceRealization": "No longer want to pick on if start thinking cool",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "WANTS_TO_PICK_ON",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "NETWORK",
-                        "_networkType": "cool",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_comparator": "GREATER_THAN",
-                        "_value": 66,
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
                         "_numTimesRoleSlot": ""
@@ -3629,19 +3374,21 @@
             "_id": 70,
             "PerformanceRealization": "Annoyed with if too much interaction",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 4,
-                    "_numTimesUniquelyTrueFlag": true,
-                    "_numTimesUniquelyTrue": 4,
-                    "_numTimesRoleSlot": "first"
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 4,
+                        "_numTimesUniquelyTrueFlag": true,
+                        "_numTimesUniquelyTrue": 4,
+                        "_numTimesRoleSlot": "first"
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3716,19 +3463,21 @@
             "_id": 72,
             "PerformanceRealization": "Stop being annoyed with someone if you start dating them",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "RELATIONSHIP",
-                    "_first": "initiator",
-                    "_second": "responder",
-                    "_relationship": "DATING",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": false,
-                    "_window": 0,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "RELATIONSHIP",
+                        "_first": "initiator",
+                        "_second": "responder",
+                        "_relationship": "DATING",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -3846,7 +3595,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -3909,7 +3658,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4023,7 +3772,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4345,7 +4094,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4480,19 +4229,21 @@
             "_id": 85,
             "PerformanceRealization": "Lose grateful towards someone mean to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "MEAN",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "MEAN",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -4516,19 +4267,21 @@
             "_id": 86,
             "PerformanceRealization": "Lose grateful towards someone rude to you",
             "ConditionRule": {
-                "Predicate": {
-                    "_type": "SFDB_LABEL",
-                    "_first": "responder",
-                    "_second": "initiator",
-                    "_label": "RUDE",
-                    "_negated": false,
-                    "_intent": false,
-                    "_isSFDB": true,
-                    "_window": 1,
-                    "_numTimesUniquelyTrueFlag": false,
-                    "_numTimesUniquelyTrue": 0,
-                    "_numTimesRoleSlot": ""
-                }
+                "Predicate": [
+                    {
+                        "_type": "SFDB_LABEL",
+                        "_first": "responder",
+                        "_second": "initiator",
+                        "_label": "RUDE",
+                        "_negated": false,
+                        "_intent": false,
+                        "_isSFDB": true,
+                        "_window": 1,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
             },
             "ChangeRule": {
                 "Predicate": [
@@ -4557,7 +4310,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4570,7 +4323,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_NEGATIVE",
+                        "_label": "CAT_NEGATIVE",
                         "_negated": true,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4583,7 +4336,7 @@
                         "_type": "SFDB_LABEL",
                         "_first": "responder",
                         "_second": "initiator",
-                        "_label": "CAT:_POSITIVE",
+                        "_label": "CAT_POSITIVE",
                         "_negated": false,
                         "_intent": false,
                         "_isSFDB": true,
@@ -4992,7 +4745,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": ""
                     },
                     {
                         "_type": "RELATIONSHIP",

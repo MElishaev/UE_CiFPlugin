@@ -273,7 +273,7 @@ public:
 
 	void setSFDBLabelPredicate(const FName first = "initiator",
 	                           const FName second = "responder",
-	                           const ESFDBLabelType labelType = ESFDBLabelType::LABEL_COOL,
+	                           const ESFDBLabelType labelType = ESFDBLabelType::COOL,
 	                           const uint32 window = 0,
 	                           const bool isNegated = false);
 
@@ -337,6 +337,12 @@ private:
 	void clear();
 
 public:
+
+	UPROPERTY()
+	EPredicateType mType;
+	
+	FName mName; // predicate's name - more of a description of what this predicate represents
+	
 	/* The character variable to which this predicate applies.
 	 * example for a predicate to give an idea how primary/secondary are related to first and second in
 	 * the evaluate() method:
@@ -354,28 +360,23 @@ public:
 	UPROPERTY()
 	FName mTertiary;
 
-	FName mName; // predicate's name - more of a description of what this predicate represents
 
 	//TODO --	is this really the best way to implement this class? won't is be better just to
 	//			create an hierarchy of subclasses which will make this class less monolithic
 	UPROPERTY()
 	bool mIsSFDB; // True if this predicate is an SFDB lookup
-
 	bool mIsNegated; // True if the truth value of the predicate should be negated.
-
-	UPROPERTY()
-	EPredicateType mType;
+	bool mIsNumTimesUniquelyTruePred; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
+	bool mIsIntent; // true if this predicate is intent predicate TODO - this is specifically for an intent predicates
+	EIntentType mIntentType;
+	
 	ETrait mTrait; // TODO - for a TRAIT predicate
 	UPROPERTY()
-	int32 mWindowSize; // how long to look back in SFDB // TODO - this is also SFDB only param
+	int32 mWindowSize; // how long to look back in SFDB (0 means using the whole history until beginning of game, excluding backstory) // TODO - this is also SFDB only param
 	FSFDBLabel mSFDBLabel;
 
 	int32 mSFDBOrder; // TODO - what is this?
-
-	bool mIsIntent; // true if this predicate is intent predicate TODO - this is specifically for an intent predicates
-	EIntentType mIntentType;
-
-
+	
 	EStatus mStatusType; // todo- another member relevant only for status predicates
 	int32 mStatusDuration;
 
@@ -392,7 +393,6 @@ public:
 						numTimesUniquelyTrue="3" numTimesRoleSlot="first"/>
 		  </ConditionRule>
 	 */
-	bool mIsNumTimesUniquelyTruePred; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
 	uint16 mNumTimesUniquelyTrue;     // the number of times this predicate needs to be uniquely true
 	ENumTimesRoleSlot mNumTimesRoleSlot;
 	// todo - what is this shit? my assumption for now is that it indicates which role the predicate goes towards? or from?

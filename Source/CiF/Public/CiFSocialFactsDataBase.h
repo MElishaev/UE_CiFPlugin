@@ -20,17 +20,17 @@ enum class ESFDBLabelType : uint8
 	CAT_LAST, ///< indicates the last category type for arithmetic comparisons
 
 	// Labels
-	LABEL_WILDCARD,
-	LABEL_COOL,
-	LABEL_MEAN,
-	LABEL_TABOO,
-	LABEL_RUDE,
-	LABEL_LAME,
-	LABEL_NICE,
-	LABEL_ROMANTIC,
-	LABEL_EMBARRASSING,
-	LABEL_FAILED_ROMANCE,
-	LABEL_FUNNY,
+	WILDCARD,
+	COOL,
+	MEAN,
+	TABOO,
+	RUDE,
+	LAME,
+	NICE,
+	ROMANTIC,
+	EMBARRASSING,
+	FAILED_ROMANCE,
+	FUNNY,
 	SIZE
 };
 

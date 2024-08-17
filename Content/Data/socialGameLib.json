@@ -64751,49 +64751,6 @@
                         ]
                     }
                 },
-                {
-                    "_id": 1,
-                    "_accept": true,
-                    "_instantiationID": 0,
-                    "PerformanceRealization": "If everyone has 50 or over cool network, you get popular",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "COOL",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "AVERAGE_OPINION",
-                                "_value": 50,
-                                "_negated": false,
-                                "_intent": false,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": true,
-                                "_numTimesUniquelyTrue": 3,
-                                "_numTimesRoleSlot": "SECOND",
-                                "_sfdbOrder": 3
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "STATUS",
-                                "_status": "POPULAR",
-                                "_first": "initiator",
-                                "_second": "",
-                                "_negated": false,
-                                "_intent": false,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                }
             ],
             "Instantiations": []
         },

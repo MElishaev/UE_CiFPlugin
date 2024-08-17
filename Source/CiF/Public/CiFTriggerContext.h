@@ -133,6 +133,8 @@ public:
 	FName mOtherName;         // name of the other of this social exchange
 
 	IdType mId;
+	
+	UPROPERTY()
 	UCiFRule* mStatusTimeoutChange; // is this a trigger that occurs from a status ending?
 
 	// todo - why is there many labels associated with this context entry? i need an example to understand what does it mean
