@@ -10,6 +10,7 @@
 #include "UObject/Object.h"
 #include "CiFManager.generated.h"
 
+enum class EPredicateType : uint8;
 class UCiFRuleRecord;
 class UCiFPredicate;
 class UCiFEffect;
@@ -23,6 +24,12 @@ class UCiFSocialFactsDataBase;
 class UCiFSocialExchange;
 class UCiFSocialExchangesLibrary;
 class UCiFCast;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSocialNetworkUpdated, ESocialNetworkType, type);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRelationshipUpdated, ERelationshipType, type);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStatusUpdated, EPredicateType, predType);
+
+
 /**
  * 
  */
@@ -45,6 +52,9 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"))
 	void init(const UObject* worldContextObject);
 
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnSocialNetworkUpdated OnSocialNetworkUpdated;
+	
 	UFUNCTION(BlueprintCallable)
 	void formIntentForAll();
 
@@ -178,14 +188,24 @@ public:
 	UCiFGameObject* getGameObjectByName(const FName name) const;
 	UCiFItem* getItemByName(const FName name) const;
 	UCiFKnowledge* getKnowledgeByName(const FName name) const;
+	
+	UFUNCTION(BlueprintCallable)
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
+
 	UCiFMicrotheory* getMicrotheoryByName(const FName mtName);
-	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs);
-	void getAllGameObjectsNames(TArray<FName>& outObjNames);
-	TArray<FName> getAllGameObjectsNames();
-	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type);
+	
+	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const;
+	void getAllGameObjectsNames(TArray<FName>& outObjNames) const;
+	
+	UFUNCTION(BlueprintCallable)
+	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const;
+
+	//TODO-fix bug where the type could be relationship but then we search it as social network and not relationship net
 	int8 getNetworkWeightByType(const ESocialNetworkType netType, const uint8 id1, const uint8 id2) const;
 private:
+
+	void notifySocialStateChange(const UCiFEffect* effect);
+	
 	/* Clears all characters' prospective memory */
 	void clearProspectiveMemory();
 
@@ -230,13 +250,13 @@ public:
 	UPROPERTY()
 	UCiFCulturalKnowledgeBase* mCKB;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
 
 	UPROPERTY()
 	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	UCiFRelationshipNetwork* mRelationshipNetworks;
 
 	/**

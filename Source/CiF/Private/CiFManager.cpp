@@ -678,6 +678,12 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	// the down side to this is that some statuses will have been made no more, that should probably be considered in the triggers
 	mSFDB->runTriggers(possibleOthers);
 
+	// todo - assuming i add a delegate here, i have a delegate for each possible change, how should i extract the exact change?
+	//  for example, if the change is of social network, how can i update only the cell that was changed and not
+	//  go through all the matrices again to update the UI, this feels very un-optimized.
+	//  i could start with partial optimization of only notifying for a specific type of social state change
+	notifySocialStateChange(highestSaliencyEffect);
+	
 	//increment system time after the context has been added
 	mTime++;
 }
@@ -861,7 +867,7 @@ UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName)
 	return nullptr;
 }
 
-void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs)
+void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const
 {
 	// TODO - optimizations, maybe after the first call for this, store all these game objects
 	// in a member and return it, instead of every time running over all the objects
@@ -870,24 +876,14 @@ void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs)
 	for (const auto x : mKnowledgeArray) outGameObjs.Add(x);
 }
 
-void UCiFManager::getAllGameObjectsNames(TArray<FName>& outObjNames)
+void UCiFManager::getAllGameObjectsNames(TArray<FName>& outObjNames) const
 {
 	for (auto x : mCast->mCharacters) outObjNames.Add(x->mObjectName);
 	for (auto x : mItemArray) outObjNames.Add(x->mObjectName);
 	for (auto x : mKnowledgeArray) outObjNames.Add(x->mObjectName);
 }
 
-TArray<FName> UCiFManager::getAllGameObjectsNames()
-{
-	TArray<FName> names;
-	for (auto x : mCast->mCharacters) names.Add(x->mObjectName);
-	for (auto x : mItemArray) names.Add(x->mObjectName);
-	for (auto x : mKnowledgeArray) names.Add(x->mObjectName);
-
-	return names;
-}
-
-void UCiFManager::getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type)
+void UCiFManager::getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const
 {
 	switch (type) {
 		case ECiFGameObjectType::CHARACTER:
@@ -911,6 +907,22 @@ int8 UCiFManager::getNetworkWeightByType(const ESocialNetworkType netType, const
 
 	UE_LOG(LogTemp, Error, TEXT("Couldn't find network of type %d"), netType);
 	return 0;
+}
+
+void UCiFManager::notifySocialStateChange(const UCiFEffect* effect)
+{
+	for (const auto p : effect->mChange->mPredicates) {
+		switch (p->mType) {
+			case EPredicateType::NETWORK:
+				OnSocialNetworkUpdated.Broadcast(p->mNetworkType);
+				break;
+			case EPredicateType::RELATIONSHIP:
+				break;
+		}
+	}
+
+	// TODO - always notify status changes because they are more dynamic and can change without intentional play from the player
+	
 }
 
 FName UCiFManager::pickAGoodCKBObject(const UCiFGameObject* initiator,

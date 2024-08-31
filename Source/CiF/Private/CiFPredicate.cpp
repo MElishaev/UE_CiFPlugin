@@ -629,7 +629,7 @@ EIntentType UCiFPredicate::getIntentType()
 
 FName UCiFPredicate::getRoleValue(const FName val) const
 {
-	const auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	if (val == "init" || val == "initiator" || val == "i") {
 		return "initiator";
@@ -644,7 +644,6 @@ FName UCiFPredicate::getRoleValue(const FName val) const
 		return val;
 	}
 	if (val == "") {
-		UE_LOG(LogTemp, Warning, TEXT("Primary value of predicated is empty \"\""));
 		return "";
 	}
 	if (cifManager->getGameObjectByName(val)) {
@@ -781,6 +780,8 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 
 	const auto net = cifManager->getSocialNetworkByType(mNetworkType);
 
+	auto netEnum = StaticEnum<ESocialNetworkType>();
+	
 	switch (mComparatorType) {
 		case EComparatorType::LESS_THAN:
 		case EComparatorType::GREATER_THAN:
@@ -792,9 +793,13 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 			break;
 		case EComparatorType::INCREASE:
 			net->addWeight(first->mNetworkId, second->mNetworkId, mNetworkValue);
+			UE_LOG(LogTemp, Warning, TEXT("Network %s: %s-->%s +%d"), *(netEnum->GetNameStringByValue(int(net->mType))),
+				*(first->mObjectName.ToString()), *(second->mObjectName.ToString()), mNetworkValue);
 			break;
 		case EComparatorType::DECREASE:
 			net->addWeight(first->mNetworkId, second->mNetworkId, -mNetworkValue);
+			UE_LOG(LogTemp, Warning, TEXT("Network %s: %s-->%s -%d"), *(netEnum->GetNameStringByValue(int(net->mType))),
+				*(first->mObjectName.ToString()), *(second->mObjectName.ToString()), mNetworkValue);
 			break;
 	}
 }
@@ -825,7 +830,7 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 		if (second) {
 			UE_LOG(LogTemp,
 			       Log,
-			       TEXT("%s adding status %s from %s"),
+			       TEXT("Added status: %s %s %s"),
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)),
 			       *(second->mObjectName.ToString()));
@@ -834,9 +839,10 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 		else {
 			UE_LOG(LogTemp,
 			       Log,
-			       TEXT("%s adding status %s"),
+			       TEXT("Added status: %s is %s for duration %d"),
 			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)));
+			       *(statusEnum->GetValueAsString(mStatusType)),
+			       mStatusDuration);
 			first->addStatus(mStatusType, mStatusDuration);
 		}
 	}

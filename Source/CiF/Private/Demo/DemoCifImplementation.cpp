@@ -266,6 +266,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
                                         UCiFGameObject* other,
                                         UCiFEffect* effect)
 {
+	UE_LOG(LogTemp, Log, TEXT("move chosen: %s"), *(sgName.ToString()));
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 
 	// track what move the player chosen
@@ -282,16 +283,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 	                                                             possibleOthers,
 	                                                             allGameObjects,
 	                                                             effect);
-
-	// todo-this is in mismanor because their game is based on text, and they attach the events to the pressed text, which is not my case
-	FString resultString;
-	if (sgContext->mResponderScore < 0) {
-		resultString = responder->mObjectName.ToString() + " rejects " + sgName.ToString();
-	}
-	else {
-		resultString = responder->mObjectName.ToString() + " accepts " + sgName.ToString();
-	}
-
+	
 	// skipped resetting urges - no idea what it is for now
 
 	// skipped realizing dialogue - not sure yet how the realization of SG will be present
@@ -325,6 +317,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 		}
 	}
 
+	FString resultString;
 	if (sgContext->mResponderScore >= 0) {
 		if (!temp.IsEmpty()) {
 			resultString += sg->mName.ToString() + " accepted by " + responder->mObjectName.ToString() + " because " + temp + "\n";
@@ -375,7 +368,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 		}
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("move chosen: %s"), *resultString);
+	UE_LOG(LogTemp, Log, TEXT("move result: %s"), *resultString);
 }
 
 void UDemoCifImplementation::effectChosen(const FName sgName,

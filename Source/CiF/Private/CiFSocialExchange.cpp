@@ -276,10 +276,10 @@ void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, c
 		}
 	}
 	if (outOthers.IsEmpty()) {
-		UE_LOG(LogTemp, Log, TEXT("Didn't find any others"));
+		UE_LOG(LogTemp, Log, TEXT("Didn't find any others for %s"), *(mName.ToString()));
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Found others"));
+		UE_LOG(LogTemp, Log, TEXT("Found others for %s"), *(mName.ToString()));
 	}
 }
 

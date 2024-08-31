@@ -11,8 +11,8 @@ enum class ESocialNetworkType : uint8
 	// social networks (SN) are weights of feelings of characters towards each other, bidirectional
 	BUDDY			UMETA(DisplayName="Buddy"),
 	ROMANCE			UMETA(DisplayName="Romance"),
-	TRUST,
-	FAMILY_BOND,
+	TRUST			UMETA(DisplayName="Trust"),
+	FAMILY_BOND		UMETA(DisplayName="Family Bond"),
 	LAST_SN_TYPE, // borders the social network types - can be used for comparisons to check if enum represent a social network or relationship
 
 	// relationship network (RN) represent publicly recognized social relationships between characters (friends - true or false)
@@ -40,7 +40,7 @@ enum class ERelationshipType : uint8
  * meaning given 2 actors A,B, Trust[A][B] represents how A trusts B, but that doesnt
  * mean that B trusts A the same way or even knows how much A trusts him.
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CIF_API UCiFSocialNetwork : public UObject
 {
 	GENERATED_BODY()
@@ -90,9 +90,9 @@ public:
 
 	static UCiFSocialNetwork* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 protected:
+	
 	void setAllArrayElements(uint8 val);
 
-	
 public:
 
 	TArray<TArray<uint8>> mNetwork; // represents 2d array of relationship value where Network[x][y] is the opinion of x towards y
@@ -101,6 +101,4 @@ public:
 	ESocialNetworkType mType;
 
 	uint8 mMaxVal; // the max value a network edge can hold
-
-	
 };
