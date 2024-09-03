@@ -67,7 +67,7 @@ public:
 
 	bool hasSFDBLabel() const;
 
-	bool isThirdCharacterRequired() const;
+	bool isRoleRequired(const FName role) const;
 
 	/**
 	 * @return predicate of type CKBEntry or null if no such predicate in effect's condition rule

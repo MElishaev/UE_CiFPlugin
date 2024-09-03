@@ -155,9 +155,9 @@ bool UCiFEffect::hasSFDBLabel() const
 	return false;
 }
 
-bool UCiFEffect::isThirdCharacterRequired() const
+bool UCiFEffect::isRoleRequired(const FName role) const
 {
-	return mCondition->isThirdCharacterRequired() || mChange->isThirdCharacterRequired();
+	return mCondition->isRoleRequired(role) || mChange->isRoleRequired(role);
 }
 
 UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const

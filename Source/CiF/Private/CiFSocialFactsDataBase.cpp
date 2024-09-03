@@ -185,29 +185,42 @@ void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 	
 	for (auto trigger : mTriggers) {
 		for (auto firstChar : potentialChars) {
-			for (auto secondChar : potentialChars) {
-				if (firstChar != secondChar) {
-					if (trigger->isThirdCharacterRequired()) {
-						for (auto thirdChar : potentialChars) {
-							if (thirdChar != firstChar && thirdChar != secondChar) {
-								if (trigger->evaluateCondition(firstChar, secondChar, thirdChar)) {
-									// valuate the trigger
-									triggersToApply.Add(trigger);
-									firstRoles.Add(firstChar);
-									secondRoles.Add(secondChar);
-									thirdRoles.Add(thirdChar);
+			if (trigger->isRoleRequired("responder")) {
+				for (auto secondChar : potentialChars) {
+					if (firstChar != secondChar) {
+						if (trigger->isRoleRequired("other")) {
+							for (auto thirdChar : potentialChars) {
+								if (thirdChar != firstChar && thirdChar != secondChar) {
+									if (trigger->evaluateCondition(firstChar, secondChar, thirdChar)) {
+										// valuate the trigger
+										triggersToApply.Add(trigger);
+										firstRoles.Add(firstChar);
+										secondRoles.Add(secondChar);
+										thirdRoles.Add(thirdChar);
+									}
 								}
 							}
 						}
-					}
-					else {
-						if (trigger->evaluateCondition(firstChar, secondChar)) {
-							triggersToApply.Add(trigger);
-							firstRoles.Add(firstChar);
-							secondRoles.Add(secondChar);
-							thirdRoles.Add(nullptr);
+						else {
+							if (trigger->evaluateCondition(firstChar, secondChar)) {
+								triggersToApply.Add(trigger);
+								firstRoles.Add(firstChar);
+								secondRoles.Add(secondChar);
+								thirdRoles.Add(nullptr);
+							}
 						}
 					}
+				}
+			}
+			else {
+				// this fixes bug where status triggers that aren't directed applied NUM_CHARS-1 times because for every
+				// secondChar, we add to firstChar the same trigger to apply - for example leading to a trigger that applies lonely to
+				// firstChar NUM_CHARS-1 times
+				if (trigger->evaluateCondition(firstChar, nullptr)) {
+					triggersToApply.Add(trigger);
+					firstRoles.Add(firstChar);
+					secondRoles.Add(nullptr);
+					thirdRoles.Add(nullptr);
 				}
 			}
 		}
@@ -242,7 +255,7 @@ void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 					else towardChar = cifManager->getGameObjectByName(secondaryVal);
 				}
 
-				if (fromChar && fromChar->getStatus(changePred->mStatusType, towardChar->mObjectName)) {
+				if (fromChar && fromChar->hasStatus(changePred->mStatusType, towardChar)) {
 					//if we are here, then we know that the fromChar has the status
 					if (changePred->mIsNegated) {
 						//this deals with removing status, which warrants a new trigger context

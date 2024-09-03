@@ -16,7 +16,7 @@ UCiFRule::UCiFRule()
 	mID = mIDGenerator.getId();
 }
 
-bool UCiFRule::isThirdCharacterRequired()
+bool UCiFRule::isRoleRequired(const FName role) const
 {
 	bool isThirdCharRequired = false;
 
@@ -31,26 +31,26 @@ bool UCiFRule::isThirdCharacterRequired()
 					break;
 				case ENumTimesRoleSlot::FIRST:
 					//if the first role is an 'other', then return true.  Otherwise, we can move on to the next predicate.
-					if (pred->mPrimary == "other") {
+					if (pred->mPrimary == role) {
 						return true;
 					}
 					break;
 				case ENumTimesRoleSlot::SECOND:
 					//if the second role is an 'other', then return true.  Otherwise, we can move on to the next predicate.
-					if (pred->mSecondary == "other") {
+					if (pred->mSecondary == role) {
 						return true;
 					}
 					break;
 				case ENumTimesRoleSlot::BOTH:
 					//if either the first or second role is an 'other', then return true.  Otherwise we move on to next predicate.
-					if (pred->mPrimary == "other" || pred->mSecondary == "other") {
+					if (pred->mPrimary == role || pred->mSecondary == role) {
 						return true;
 					}
 					break;
 			}
 		}
 
-		if (pred->mPrimary == "other" || pred->mSecondary == "other" || pred->mTertiary == "other") {
+		if (pred->mPrimary == role || pred->mSecondary == role || pred->mTertiary == role) {
 			isThirdCharRequired = true;
 		}
 
@@ -65,8 +65,8 @@ bool UCiFRule::isThirdCharacterRequired()
 bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, UCiFSocialExchange* se)
 {
 	mLastTrueCount = 0;
-
-	//if there is a time ordering dependency in this rule, use the evaluateTimeOrderedRule() pipeline.
+	
+	// if there is a time ordering dependency in this rule
 	if (getHighestSFDBOrder() > 0) {
 		return evaluateTimeOrderedRule(initiator, responder, other);
 	}
@@ -123,7 +123,11 @@ int32 UCiFRule::getHighestSFDBOrder()
 
 bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary)
 {
-	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	auto world = GetWorld();
+	if (!world) {
+		UE_LOG(LogTemp, Warning, TEXT("Failed getting world"));
+	}
+	const auto cifManager = world->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	const auto maxOrderInRule = getHighestSFDBOrder(); // max order value of the rule
 

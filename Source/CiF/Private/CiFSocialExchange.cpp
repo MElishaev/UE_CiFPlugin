@@ -87,7 +87,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 
 	// TODO - assumption for only 1 precondition - don't know why but will go with it for now
 	if (!mPreconditions.IsEmpty()) {
-		if (mPreconditions[0]->isThirdCharacterRequired()) {
+		if (mPreconditions[0]->isRoleRequired("other")) {
 			//if the precondition involves an other run the IRS for all others with
 			//a static other (for others that satisfy the SE's preconditions)
 			for (auto other : possibleOthers) {
@@ -144,7 +144,7 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 
 	bool requiresOther = false;
 	for (const auto precond : mPreconditions) {
-		if (precond->isThirdCharacterRequired()) {
+		if (precond->isRoleRequired("other")) {
 			requiresOther = true;
 		}
 	}
@@ -207,20 +207,20 @@ bool UCiFSocialExchange::isThirdNeededForIntentFormation()
 	// checks in any of the members that can contain a third party if it is required
 	
 	for (const auto precond : mPreconditions) {
-		if (precond->isThirdCharacterRequired()) return true;
+		if (precond->isRoleRequired("other")) return true;
 	}
 
 	for (const auto ir : mInitiatorIR->mInfluenceRules) {
-		if (ir->isThirdCharacterRequired()) return true;
+		if (ir->isRoleRequired("other")) return true;
 	}
 
 	for (const auto ir : mResponderIR->mInfluenceRules) {
-		if (ir->isThirdCharacterRequired()) return true;
+		if (ir->isRoleRequired("other")) return true;
 	}
 
 	for (const auto e : mEffects) {
-		if (e->mCondition->isThirdCharacterRequired()) return true;
-		if (e->mChange->isThirdCharacterRequired()) return true;
+		if (e->mCondition->isRoleRequired("other")) return true;
+		if (e->mChange->isRoleRequired("other")) return true;
 	}
 
 	return false;
@@ -229,7 +229,7 @@ bool UCiFSocialExchange::isThirdNeededForIntentFormation()
 bool UCiFSocialExchange::isThirdForSocialExchangePlay()
 {
 	for (const auto e : mEffects) {
-		if (e->mCondition->isThirdCharacterRequired() || e->mChange->isThirdCharacterRequired())
+		if (e->mCondition->isRoleRequired("other") || e->mChange->isRoleRequired("other"))
 			return true;
 	}
 	return false;
@@ -238,7 +238,7 @@ bool UCiFSocialExchange::isThirdForSocialExchangePlay()
 void UCiFSocialExchange::updateRequiresOther()
 {
 	for (const auto precond : mPreconditions) {
-		mIsRequiresOther = mIsRequiresOther || precond->isThirdCharacterRequired();
+		mIsRequiresOther = mIsRequiresOther || precond->isRoleRequired("other");
 	}
 }
 

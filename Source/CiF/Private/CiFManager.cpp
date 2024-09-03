@@ -646,7 +646,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 			for (const UCiFGameObjectStatus* status : statusArrWrapper.statusArray) {
 				if (status->mHasDuration && status->mRemainingDuration <= 1) {
 					// creating predicate to remove the status
-					auto pred = NewObject<UCiFPredicate>();
+					auto pred = NewObject<UCiFPredicate>(mWorldContextObject);
 					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, false, true);
 
 					// remove the status due to end of duration

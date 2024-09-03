@@ -47,7 +47,7 @@ public:
 	 * @return True iff 3rd character is required for processing the rule
 	 */
 	UFUNCTION(BlueprintCallable)
-	bool isThirdCharacterRequired();
+	bool isRoleRequired(const FName role) const;
 
 	/**
 	 * Returns the conjunction of all the truth values of the Predicates

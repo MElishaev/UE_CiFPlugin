@@ -54,7 +54,7 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
 		}
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("No social moves found"));
+		UE_LOG(LogTemp, Warning, TEXT("No social moves found"));
 	}
 }
 

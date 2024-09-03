@@ -22,7 +22,7 @@ UCiFPredicate::UCiFPredicate()
 
 bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2, const UCiFGameObject* c3, const UCiFSocialExchange* se)
 {
-	const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
+	const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	/**
 	 * Need to determine if the predicate's predicate variables reference
@@ -807,6 +807,7 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) const
 {
 	const auto statusEnum = StaticEnum<EStatus>();
+	checkf(statusEnum->GetValueAsName(mStatusType) != "None", TEXT("Not found the specified status"));
 	if (mIsNegated) {
 		if (second) {
 			UE_LOG(LogTemp,
