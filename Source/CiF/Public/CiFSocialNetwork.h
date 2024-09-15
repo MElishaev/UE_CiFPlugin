@@ -28,9 +28,9 @@ enum class ESocialNetworkType : uint8
 UENUM(BlueprintType)
 enum class ERelationshipType : uint8
 {
-	FRIENDS			UMETA(DisplayName="FRIENDS"),
-	DATING			UMETA(DisplayName="DATING"),
-	ENEMIES			UMETA(DisplayName="ENEMIES"), 
+	FRIENDS			UMETA(DisplayName="Friends"),
+	DATING			UMETA(DisplayName="Dating"),
+	ENEMIES			UMETA(DisplayName="Enemies"), 
 	SIZE
 };
 

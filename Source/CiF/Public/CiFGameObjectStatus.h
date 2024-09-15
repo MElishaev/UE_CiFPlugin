@@ -43,23 +43,23 @@ enum class EStatus : uint8
 	FIRST_NOT_DIRECTED_STATUS,
 	EMBARRASSED				UMETA(DisplayName="Embarrassed"), 
 	HAPPY					UMETA(DisplayName="Happy"),
-	CHEERFUL				UMETA(DisplayName="CHEERFUL"),
-	TIPSY,
-	DRUNK,
-	HEARTBROKEN,
-	OFFENDED,
-	VIRGIN,
-	CONFUSED,
-	SAD,
-	GUILTY,
-	DISTRACTED,
-	EXCITED,
-	VULNERABLE,
-	SHAKEN,
-	ANXIOUS,
-	BUSY,
-	ENMITY,
-	LONELY,
+	CHEERFUL				UMETA(DisplayName="Cheerful"),
+	TIPSY					UMETA(DisplayName="Tipsy"),
+	DRUNK					UMETA(DisplayName="Drunk"),
+	HEARTBROKEN				UMETA(DisplayName="Heartbroken"),
+	OFFENDED				UMETA(DisplayName="Offended"),
+	VIRGIN					UMETA(DisplayName="Virgin"),
+	CONFUSED				UMETA(DisplayName="Confused"),
+	SAD						UMETA(DisplayName="Sad"),
+	GUILTY					UMETA(DisplayName="Guilty"),
+	DISTRACTED				UMETA(DisplayName="Distracted"),
+	EXCITED					UMETA(DisplayName="Excited"),
+	VULNERABLE				UMETA(DisplayName="Vulnerable"),
+	SHAKEN					UMETA(DisplayName="Shaken"),
+	ANXIOUS					UMETA(DisplayName="Anxious"),
+	BUSY					UMETA(DisplayName="Busy"),
+	ENMITY					UMETA(DisplayName="Enmity"),
+	LONELY					UMETA(DisplayName="Lonely"),
 
 	// item statuses
 	DRINKABLE				UMETA(DisplayName="DRINKABLE"),
@@ -85,46 +85,47 @@ enum class EStatus : uint8
 	
 	// directed statuses
 	FIRST_DIRECTED_STATUS,
-	GRATEFUL_TOWARD			UMETA(DisplayName="GRATEFUL_TOWARD"),
-	RESENTFUL_TOWARD		UMETA(DisplayName="RESENTFUL_TOWARD"),
-	ANGRY_AT				UMETA(DisplayName="ANGRY_AT"),
-	ENVIES					UMETA(DisplayName="ENVIES"),
-	AFRAID_OF				UMETA(DisplayName="AFRAID_OF"),
-	LOVES					UMETA(DisplayName="LOVE"),
-	ESTRANGED_FROM,
-	HATES,
-	MANIPULATING,
-	PITIES,
-	ELOPED_WITH,
-	IS_RELATED_TO,
+	GRATEFUL_TOWARD			UMETA(DisplayName="Greatful toward"),
+	RESENTFUL_TOWARD		UMETA(DisplayName="Resentful toward"),
+	ANGRY_AT				UMETA(DisplayName="Angry at"),
+	ENVIES					UMETA(DisplayName="Envies"),
+	AFRAID_OF				UMETA(DisplayName="Afraid of"),
+	LOVES					UMETA(DisplayName="Loves"),
+	ESTRANGED_FROM			UMETA(DisplayName="Estranged from"),
+	HATES					UMETA(DisplayName="Hates"),
+	MANIPULATING			UMETA(DisplayName="Manipulating"),
+	PITIES					UMETA(DisplayName="Pities"),
+	ELOPED_WITH				UMETA(DisplayName="Eloped with"),
+	IS_RELATED_TO			UMETA(DisplayName="is related to"),
 
 	// people statuses concerning items
-	WANTS					UMETA(DisplayName="WANTS"),
-	LIKES					UMETA(DisplayName="LIKES"),
-	DISLIKES				UMETA(DisplayName="DISLIKES"),
-	IS_HOLDING				UMETA(DisplayName="IS_HOLDING"),
+	WANTS					UMETA(DisplayName="wants"),
+	LIKES					UMETA(DisplayName="likes"),
+	DISLIKES				UMETA(DisplayName="dislikes"),
+	IS_HOLDING				UMETA(DisplayName="is holding"),
 
 	// directed statuses concerning knowledge
-	KNOWS					UMETA(DisplayName="KNOWS"),
-	KNOWN_BY				UMETA(DisplayName="KNOWN_BY"),
+	KNOWS					UMETA(DisplayName="knows"),
+	KNOWN_BY				UMETA(DisplayName="known by"),
 
 	// directed concerning items
-	HELD_BY					UMETA(DisplayName="HELD_BY"),
-	WORN_BY					UMETA(DisplayName="WORN_BY"),
+	HELD_BY					UMETA(DisplayName="held by"),
+	WORN_BY					UMETA(DisplayName="worn by"),
 
 	// relationships
-	IS_DATING				UMETA(DisplayName="IS_DATING"),
-	IS_FRIENDS_WITH			UMETA(DisplayName="IS_FRIENDS_WITH"),
-	IS_ENEMIES_WITH			UMETA(DisplayName="IS_ENEMIES_WITH"),
+	IS_DATING				UMETA(DisplayName="is dating"),
+	IS_FRIENDS_WITH			UMETA(DisplayName="is friends with"),
+	IS_ENEMIES_WITH			UMETA(DisplayName="is enemies with"),
 
 };
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FStatusTypesArrayWrapper
 {
 	GENERATED_BODY()
-	TArray<EStatus> mStatusTypes;
 	
+	UPROPERTY(BlueprintReadWrite)
+	TArray<EStatus> mStatusTypes;
 };
 
 /**

@@ -91,15 +91,6 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 		auto newStatus = NewObject<UCiFGameObjectStatus>();
 		newStatus->init(statusType, duration, towards);
 
-		// TODO --	if this is a reciprocal status, like dating, i think it is also
-		//			needed to call towards->addStatus(statusType, duration, this)
-		//			but this is risky because we can get into a infinite loop - so maybe i need to check first
-		//			if the other side already has the status and the addStatus call should happen in the
-		//			end of the function so the other call would terminate because it will see it was already added here
-		//			but other than that, i don't know why this is needed when we have
-		//			social networks, where this data resides there, why it is also
-		//			needed to be represented in statuses?
-
 		if (mStatuses.Contains(statusType)) {
 			mStatuses.Find(statusType)->statusArray.Add(newStatus);
 		}
@@ -108,6 +99,16 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 			statusArrayWrapper.statusArray.Add(newStatus);
 			mStatuses.Add(statusType, statusArrayWrapper);
 		}
+
+		// TODO --	if this is a reciprocal status, like dating, i think it is also
+		//			needed to call towards->addStatus(statusType, duration, this)
+		//			but this is risky because we can get into a infinite loop - so maybe i need to check first
+		//			if the other side already has the status and the addStatus call should happen in the
+		//			end of the function so the other call would terminate because it will see it was already added here
+		//			but other than that, i don't know why this is needed when we have
+		//			social networks, where this data resides there, why it is also
+		//			needed to be represented in statuses?
+		
 	}
 }
 

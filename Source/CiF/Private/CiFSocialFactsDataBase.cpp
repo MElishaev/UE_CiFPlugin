@@ -181,7 +181,10 @@ void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 	
 	// run each trigger on every duple of characters or triple where needed by trigger (only characters for now because the current
 	// triggers involve only statuses between characters. later on items could also be added)
+
 	// TODO - why not run all triggers only on the characters that participated in the last social move that this method was called after?
+	//  => because some triggers like the one that check if character is lonely because didnt have interaction for X turns, aren't
+	//     dependent on the participating characters on this frames. so need to query every character each turn
 	
 	for (auto trigger : mTriggers) {
 		for (auto firstChar : potentialChars) {

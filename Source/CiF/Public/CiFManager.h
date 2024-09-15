@@ -185,7 +185,9 @@ public:
 	FName pickAGoodCKBObject(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFPredicate* ckbPredicate) const;
 
 	/********************************** Getters ********************************/
+	UFUNCTION(BlueprintCallable)
 	UCiFGameObject* getGameObjectByName(const FName name) const;
+	
 	UCiFItem* getItemByName(const FName name) const;
 	UCiFKnowledge* getKnowledgeByName(const FName name) const;
 	
