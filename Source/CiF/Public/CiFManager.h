@@ -65,6 +65,7 @@ public:
 	 * 
 	 * @param initiator The subject of the intent formation process.
 	 */
+	UFUNCTION(BlueprintCallable)
 	void formIntent(UCiFCharacter* initiator);
 
 	/**
@@ -202,6 +203,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const;
 
+	void clearProspectiveMemory();
+
 	//TODO-fix bug where the type could be relationship but then we search it as social network and not relationship net
 	int8 getNetworkWeightByType(const ESocialNetworkType netType, const uint8 id1, const uint8 id2) const;
 private:
@@ -209,7 +212,6 @@ private:
 	void notifySocialStateChange(const UCiFEffect* effect);
 	
 	/* Clears all characters' prospective memory */
-	void clearProspectiveMemory();
 
 	/* Load the needed components and CiF state from json files.
 	 * This is for new game initialization.

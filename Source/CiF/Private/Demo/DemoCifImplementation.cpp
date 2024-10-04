@@ -2,6 +2,8 @@
 
 
 #include "Demo/DemoCifImplementation.h"
+
+#include "CiFCast.h"
 #include "CiFCharacter.h"
 #include "CiFManager.h"
 #include "CiFPredicate.h"
@@ -12,6 +14,20 @@
 #include "CiFSocialExchangesLibrary.h"
 #include "Demo/CifNPC.h"
 
+UCiFCharacter* UDemoCifImplementation::chooseInitiatorForSocialGame()
+{
+	checkf(mCifManager != nullptr, TEXT("CiF manager wasn't initialized in the implementation"));
+	const auto numOfChars = mCifManager->mCast->mCharacters.Num();
+	mCharacterIndexInCast = (mCharacterIndexInCast + 1) % numOfChars;
+	auto initiator = mCifManager->mCast->mCharacters[mCharacterIndexInCast];
+	if (initiator->mObjectName == "Player") {
+		mCharacterIndexInCast = (mCharacterIndexInCast + 1) % numOfChars;
+		initiator = mCifManager->mCast->mCharacters[mCharacterIndexInCast];
+	}
+	UE_LOG(LogTemp, Log, TEXT("Chosen initiator: %s"), *(initiator->mObjectName.ToString()));
+	return initiator;
+}
+
 void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocialGameIntentPair>& outSocialGamesNames,
                                                                    ACifNPC* initiator,
                                                                    UCiFGameObject* responder,
@@ -21,6 +37,7 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
 {
 	checkf(mCifManager != nullptr, TEXT("CiF manager wasn't initialized in the implementation"));
 	auto init = static_cast<UCiFCharacter*>(mCifManager->getGameObjectByName(initiator->mCifCharacterComp->mObjectName));
+	mCifManager->clearProspectiveMemory();
 	mCifManager->formIntentForSocialGames(init, responder);
 
 	// taking into account the last N moves the initiator taken in case it would want to take one of the recently taken
@@ -271,7 +288,10 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 
 	// track what move the player chosen
 	initiator->addMove(sgName);
-	TArray<UCiFGameObject*> possibleOthers = {other};
+	TArray<UCiFGameObject*> possibleOthers = {};
+	if (other) {
+		possibleOthers.Add(other);
+	}
 
 	TArray<UCiFGameObject*> allGameObjects;
 	mCifManager->getAllGameObjects(allGameObjects);

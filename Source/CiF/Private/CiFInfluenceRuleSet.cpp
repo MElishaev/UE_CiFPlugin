@@ -94,7 +94,7 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
                                                         FName microtheoryName,
                                                         bool isResponder)
 {
-	float score = 0;
+	float score = 0; // todo - why the score is global and not per other?
 
 	TArray<UCiFGameObject*> possibleOthers;
 	if (!activeOtherCast.IsEmpty()) {
@@ -105,10 +105,8 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
 			UE_LOG(LogTemp, Error, TEXT("Couldn't obtain world"));
 			return 0;
 		}
-		const UCiFManager* cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
-		for (const auto c : cifManager->mCast->mCharacters) possibleOthers.Add(c);
-		for (const auto c : cifManager->mItemArray) possibleOthers.Add(c);
-		for (const auto c : cifManager->mKnowledgeArray) possibleOthers.Add(c);
+		const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+		cifManager->getAllGameObjects(possibleOthers);
 	}
 	
 	for (auto ir : mInfluenceRules) {

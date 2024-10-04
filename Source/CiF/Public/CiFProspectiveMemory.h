@@ -33,6 +33,7 @@ public:
 	 * 
 	 * @param	count The number of the highest scored games to return.
 	 */
+	UFUNCTION(BlueprintCallable)
 	TArray<FGameScore> getNHighestGameScores(uint8 count = 5);
 
 	/**
@@ -55,6 +56,9 @@ public:
 	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore);
 
 	int8 getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
+
+	UFUNCTION(BlueprintCallable)
+	void printGameScores(UPARAM(ref) const TArray<FGameScore>& scores);
 	
 	/* Resets the object to its default state */
 	void clear();

@@ -253,7 +253,9 @@ void UCiFManager::formIntentForAll()
 
 void UCiFManager::formIntent(UCiFCharacter* initiator)
 {
-	for (auto responder : mCast->mCharacters) {
+	clearProspectiveMemory();
+
+	for (const auto responder : mCast->mCharacters) {
 		if (responder->mObjectName != initiator->mObjectName) {
 			formIntentForSocialGames(initiator, responder, static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters));
 		}
@@ -264,8 +266,6 @@ void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
                                            UCiFGameObject* responder,
                                            const TArray<UCiFGameObject*>& possibleOthers)
 {
-	clearProspectiveMemory();
-
 	for (auto [name, se] : mSocialExchangesLib->mSocialExchanges) {
 		formIntentForSpecificSocialExchange(se, initiator, responder, possibleOthers);
 	}
@@ -294,13 +294,17 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	int8 score = 0;
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
+
+		// TODO: how to know what other was chosen?
+		
 		score += socialExchange->scoreSocialExchange(initiator, responder, possibleOthers);
 
 		const auto intentType = socialExchange->mIntents[0]->mPredicates[0]->getIntentType();
 		const auto intentIndex = static_cast<uint8>(intentType);
 		if (initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex] ==
 			initiator->mProspectiveMemory->getDefaultIntentScore()) {
-			auto singleScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
+			
+			const auto singleScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
 			initiator->mProspectiveMemory->cacheIntentScore(responder, intentType, singleScore);
 			score += singleScore;
 		}

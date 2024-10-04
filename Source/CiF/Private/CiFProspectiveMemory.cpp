@@ -66,6 +66,7 @@ int8 UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, EInte
 TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
 {
 	mScores.Sort();
+	
 	TArray<FGameScore> topNScores;
 	count = mScores.Num() < count ? mScores.Num() : count;
 
@@ -114,6 +115,15 @@ bool UCiFProspectiveMemory::getGameScoreByName(const FName gameName, const UCiFC
 	}
 
 	return false;
+}
+
+void UCiFProspectiveMemory::printGameScores(const TArray<FGameScore>& scores)
+{
+	for (const auto& gs : scores) {
+		UE_LOG(LogTemp, Log, TEXT("%s: %s -> %s (%s) == %d"),
+			*(gs.mName.ToString()), *(gs.mInitiator.ToString()), *(gs.mResponder.ToString()),
+			*(gs.mOther.ToString()), gs.mScore);
+	}
 }
 
 void UCiFProspectiveMemory::clear()

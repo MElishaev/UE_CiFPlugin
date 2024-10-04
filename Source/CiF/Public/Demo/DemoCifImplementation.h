@@ -7,6 +7,7 @@
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+class UCiFCharacter;
 class UCiFSocialExchangeContext;
 class UCiFGameObject;
 class ACifNPC;
@@ -37,7 +38,15 @@ class CIF_API UDemoCifImplementation : public UCifImplementationBase
 	GENERATED_BODY()
 
 public:
-	// TODO - maybe change this name later
+	/**
+	 * Chooses an initiator for a social game.
+	 * (this is based on the game logic for how to choose an initiator, maybe at random, maybe the next in queue etc.)
+	 * @return the chosen initiator
+	 */
+	UFUNCTION(BlueprintCallable)
+	UCiFCharacter* chooseInitiatorForSocialGame();
+	
+	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
 	/**
 	 * Prepares the available social games options when interacting with a character for a social game.
 	 * @param outSocialGamesNames	Output array that holds in a pair the social game FName and its Intent string in case we want
@@ -129,4 +138,7 @@ public:
 	 * Please note the order of predicates in the effect rules matters for the game state to change correctly
 	 */
 	void handleItemMoveEffects(UCiFSocialExchangeContext* context);
+
+private:
+	uint8_t mCharacterIndexInCast = 0; // this is used to choose the next initiator for a social game
 };
