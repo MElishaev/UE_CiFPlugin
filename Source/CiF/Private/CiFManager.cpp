@@ -291,15 +291,17 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFGameObject* responder,
                                        const TArray<UCiFGameObject*>& possibleOthers)
 {
-	int8 score = 0;
+	int8 score = initiator->mProspectiveMemory->getDefaultIntentScore();
+	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
 
-		// TODO: how to know what other was chosen?
-		
-		score += socialExchange->scoreSocialExchange(initiator, responder, possibleOthers);
+		// score the SG and if requires other, fills in the other that results in the best score
+		score = socialExchange->scoreSocialExchange(initiator, responder, bestOther, possibleOthers);
 
-		const auto intentType = socialExchange->mIntents[0]->mPredicates[0]->getIntentType();
+		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
+		// if not, score and cache
+		const auto intentType = socialExchange->getSocialExchangeIntentType();
 		const auto intentIndex = static_cast<uint8>(intentType);
 		if (initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex] ==
 			initiator->mProspectiveMemory->getDefaultIntentScore()) {
@@ -313,13 +315,14 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 		}
 	}
 	else {
+		// if SE doesn't pass the preconditions with the specified characters combination
 		score = initiator->mProspectiveMemory->getDefaultIntentScore();
 	}
 
 	initiator->mProspectiveMemory->addSocialExchangeScore(socialExchange->mName,
 	                                                      initiator->mObjectName,
 	                                                      responder->mObjectName,
-	                                                      "",
+	                                                      bestOther ? bestOther->mObjectName : "",
 	                                                      score);
 }
 
@@ -462,7 +465,8 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
 	}
 
-	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, possibleOthers, true);
+	UCiFGameObject* discard;
+	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
 
 	// score MT - look up responder's intent to play social game with initiator
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {

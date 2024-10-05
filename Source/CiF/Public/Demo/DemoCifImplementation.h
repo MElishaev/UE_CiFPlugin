@@ -40,11 +40,12 @@ class CIF_API UDemoCifImplementation : public UCifImplementationBase
 public:
 	/**
 	 * Chooses an initiator for a social game.
-	 * (this is based on the game logic for how to choose an initiator, maybe at random, maybe the next in queue etc.)
+	 * (this is based on the game logic for how to choose an initiator, maybe at random, maybe the next in queue etc.
+	 * for now, this is just iterating in a sequence over the cast of characters which are not player)
 	 * @return the chosen initiator
 	 */
 	UFUNCTION(BlueprintCallable)
-	UCiFCharacter* chooseInitiatorForSocialGame();
+	UCiFCharacter* chooseNPCInitiatorForSocialGame();
 	
 	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
 	/**

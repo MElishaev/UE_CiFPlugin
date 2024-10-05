@@ -14,7 +14,7 @@
 #include "CiFSocialExchangesLibrary.h"
 #include "Demo/CifNPC.h"
 
-UCiFCharacter* UDemoCifImplementation::chooseInitiatorForSocialGame()
+UCiFCharacter* UDemoCifImplementation::chooseNPCInitiatorForSocialGame()
 {
 	checkf(mCifManager != nullptr, TEXT("CiF manager wasn't initialized in the implementation"));
 	const auto numOfChars = mCifManager->mCast->mCharacters.Num();

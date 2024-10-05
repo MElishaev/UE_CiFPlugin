@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CiFPredicate.h"
+#include "CiFRule.h"
 #include "Utilities.h"
 #include "CiFSocialExchange.generated.h"
 
+enum class EIntentType : uint8;
 enum class ECiFGameObjectType : uint8;
 class UCiFInfluenceRuleSet;
 class UCiFInstantiation;
@@ -74,8 +77,7 @@ public:
 	float getInitiatorScore(UCiFCharacter* initiator,
 	                        UCiFGameObject* responder,
 	                        UCiFGameObject* other = nullptr,
-	                        UCiFSocialExchange* se = nullptr,
-	                        TArray<UCiFGameObject*> activeOtherCast = {});
+	                        UCiFSocialExchange* se = nullptr);
 
 	/**
 	 * Returns the responder's influence rule set score with respect to the
@@ -88,12 +90,11 @@ public:
 	float getResponderScore(UCiFCharacter* initiator,
 	                        UCiFGameObject* responder,
 	                        UCiFGameObject* other = nullptr,
-	                        UCiFSocialExchange* se = nullptr,
-	                        TArray<UCiFGameObject*> activeOtherCast = {});
+	                        UCiFSocialExchange* se = nullptr);
 
 	/**
 	 * This function will score an influence rule set for all others that fit the definition or no others 
-	 * if the definition doesn't require it. This function assumes that there is one precondition rule.
+	 * if the definition doesn't require it.
 	 * 
 	 * @param	initiator
 	 * @param	responder
@@ -102,6 +103,7 @@ public:
 	 */
 	float scoreSocialExchange(UCiFCharacter* initiator,
 	                          UCiFGameObject* responder,
+	                          UCiFGameObject*& bestOther,
 	                          TArray<UCiFGameObject*> activeOtherCast = {},
 	                          bool isResponder = false);
 
@@ -177,6 +179,8 @@ public:
 	 * exchange should be ITEMS only.
 	 */
 	void getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName);
+
+	EIntentType getSocialExchangeIntentType() const;
 
 	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject);
 

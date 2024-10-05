@@ -2,11 +2,9 @@
 
 
 #include "CiFInfluenceRuleSet.h"
-#include "CiFKnowledge.h"
-#include "CiFItem.h"
-#include "CiFCast.h"
 #include "CiFManager.h"
 #include "CiFInfluenceRule.h"
+#include "CiFPredicate.h"
 #include "CiFProspectiveMemory.h"
 #include "CiFRuleRecord.h"
 #include "CiFSocialExchange.h"
@@ -17,13 +15,14 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
                                        UCiFGameObject* responder,
                                        UCiFGameObject* other,
                                        UCiFSocialExchange* se,
-                                       TArray<UCiFGameObject*> activeOtherCast,
                                        FName microtheoryName,
                                        bool isResponder)
 {
-	float score = 0;
+	int8 score = 0;
+	UE_LOG(LogTemp, Log, TEXT("START, %s, %s, %s, %s"), *(se->mName.ToString()), *(initiator->mObjectName.ToString()), *(responder->mObjectName.ToString()), *(other->mObjectName.ToString()));
 	
 	for (auto ir : mInfluenceRules) {
+		UE_LOG(LogTemp, Log, TEXT("ir %s, %d"), *(ir->mPredicates[0]->mName.ToString()), ir->mWeight);
 		if (ir->mWeight != 0) {
 			if (ir->isRoleRequired("other")) {
 				if (!other) {
@@ -49,6 +48,7 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					mTruthCount++;
 				}
 				else {
+					UE_LOG(LogTemp, Warning, TEXT("Evaluated to false"));
 					mLastTruthValues.Add(false);
 					mLastScore.Add(0);					
 				}
@@ -76,13 +76,15 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					mTruthCount++;
 				}
 				else {
+					UE_LOG(LogTemp, Warning, TEXT("Evaluated to false"));
 					mLastTruthValues.Add(false);
 					mLastScore.Add(0);					
 				}
 			}
 		}
 	}
-	
+	UE_LOG(LogTemp, Log, TEXT("END, %d"), score);
+
 	return score;
 }
 
