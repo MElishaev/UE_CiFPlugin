@@ -33,7 +33,6 @@ public:
 	                 UCiFGameObject* responder,
 	                 UCiFGameObject* other = nullptr,
 	                 UCiFSocialExchange* se = nullptr,
-	                 TArray<UCiFGameObject*> activeOtherCast = {},
 	                 FName microtheoryName = "",
 	                 bool isResponder = false);
 

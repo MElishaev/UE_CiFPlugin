@@ -41,7 +41,7 @@ public:
 	float score(UCiFCharacter* initiator,
 	            UCiFGameObject* responder,
 	            UCiFSocialExchange* se,
-	            TArray<UCiFGameObject*>& others) const;
+	            const TArray<UCiFGameObject*>& others) const;
 
 	static UCiFMicrotheory* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 

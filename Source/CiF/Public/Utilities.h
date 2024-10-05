@@ -13,3 +13,6 @@ public:
 private:
 	IdType id = 0;
 };
+
+#define MYLOG(CategoryName, Verbosity, Format, ...) \
+	UE_LOG(LogTemp, Verbosity, TEXT("[%s:%d]: " Format), TEXT(__FUNCTION__), __LINE__, ##__VA_ARGS__)

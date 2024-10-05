@@ -48,86 +48,69 @@ UCiFInstantiation* UCiFSocialExchange::getInstantiationById(const uint32 id)
 float UCiFSocialExchange::getInitiatorScore(UCiFCharacter* initiator,
                                             UCiFGameObject* responder,
                                             UCiFGameObject* other,
-                                            UCiFSocialExchange* se,
-                                            TArray<UCiFGameObject*> activeOtherCast)
+                                            UCiFSocialExchange* se)
 {
-	// if other cast was given use, else use all the cast in the game
-	if (activeOtherCast.Num() > 0) {
-		return mInitiatorIR->scoreRules(initiator, responder, other, se, activeOtherCast);
-	}
-
-	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	return mInitiatorIR->scoreRules(initiator, responder, other, se, TArray<UCiFGameObject*>(cifManager->mCast->mCharacters));
+	return mInitiatorIR->scoreRules(initiator, responder, other, se);
 }
 
 float UCiFSocialExchange::getResponderScore(UCiFCharacter* initiator,
                                             UCiFGameObject* responder,
                                             UCiFGameObject* other,
-                                            UCiFSocialExchange* se,
-                                            TArray<UCiFGameObject*> activeOtherCast)
+                                            UCiFSocialExchange* se)
 {
-	// if other cast was given use, else use all the cast in the game
-	if (activeOtherCast.Num() > 0) {
-		return mResponderIR->scoreRules(initiator, responder, other, se, activeOtherCast);
-	}
-
-	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	return mResponderIR->scoreRules(initiator, responder, other, se, TArray<UCiFGameObject*>(cifManager->mCast->mCharacters));
+	return mResponderIR->scoreRules(initiator, responder, other, se);
 }
 
 float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
                                               UCiFGameObject* responder,
+                                              UCiFGameObject*& bestOther,
                                               TArray<UCiFGameObject*> activeOtherCast,
                                               bool isResponder)
 {
-	float totalScore = 0;
-	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
+	int8 totalScore = -100;
+	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
-	auto influenceRuleSet = isResponder ? mResponderIR : mInitiatorIR;
+	const auto influenceRuleSet = isResponder ? mResponderIR : mInitiatorIR;
+	bestOther = nullptr;
 
-	// TODO - assumption for only 1 precondition - don't know why but will go with it for now
-	if (!mPreconditions.IsEmpty()) {
-		if (mPreconditions[0]->isRoleRequired("other")) {
-			//if the precondition involves an other run the IRS for all others with
-			//a static other (for others that satisfy the SE's preconditions)
-			for (auto other : possibleOthers) {
-				if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
-					if (mPreconditions[0]->evaluate(initiator, responder, other, this)) {
-						totalScore += influenceRuleSet->scoreRules(initiator,
-						                                           responder,
-						                                           other,
-						                                           this,
-						                                           possibleOthers,
-						                                           "",
-						                                           isResponder);
+	if (mIsRequiresOther) {
+		for (auto other : possibleOthers) {
+			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
+				if (checkPreconditions(initiator, responder, other, this)) {
+						
+					const float localScore = influenceRuleSet->scoreRules(initiator,
+																		  responder,
+																		  other,
+																		  this,
+																		  "",
+																		  isResponder);
+					if (localScore >= totalScore) {
+						// if the score is the same, just randomly pick between the 2 so the
+						// behavior will be more dynamic
+						if (localScore == totalScore) {
+							bestOther = FMath::RandRange(0, 1) == 1 ? other : bestOther;
+						}
+						else {
+							bestOther = other;
+							totalScore = localScore;
+						}
 					}
 				}
 			}
 		}
-		else {
-			// if there is a precondition, but it doesn't require a third, just score the IRS once with variable other
-			if (mPreconditions[0]->evaluate(initiator, responder, nullptr, this)) {
-				totalScore += influenceRuleSet->scoreRulesWithVariableOther(initiator,
-				                                                            responder,
-				                                                            nullptr,
-				                                                            this,
-				                                                            possibleOthers,
-				                                                            "",
-				                                                            isResponder);
-			}
-		}
 	}
 	else {
-		//if there are no precondition, just score the IRS, once with a variable other
-		totalScore += influenceRuleSet->scoreRulesWithVariableOther(initiator,
-		                                                            responder,
-		                                                            nullptr,
-		                                                            this,
-		                                                            possibleOthers,
-		                                                            "",
-		                                                            isResponder);
+		if (checkPreconditions(initiator, responder, nullptr, this)) {
+			totalScore = influenceRuleSet->scoreRulesWithVariableOther(initiator,
+																		responder,
+																		nullptr,
+																		this,
+																		possibleOthers,
+																		"",
+																		isResponder);
+		}
 	}
-
+	
 	return totalScore;
 }
 
@@ -281,6 +264,12 @@ void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, c
 	else {
 		UE_LOG(LogTemp, Log, TEXT("Found others for %s"), *(mName.ToString()));
 	}
+}
+
+EIntentType UCiFSocialExchange::getSocialExchangeIntentType() const
+{
+	// for now, intents of a SG have 1 rule in them with 1 predicate, so accessing it like this is ok.
+	return mIntents[0]->mPredicates[0]->getIntentType(); 
 }
 
 UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject)
