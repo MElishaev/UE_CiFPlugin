@@ -129,7 +129,6 @@ void UCiFProspectiveMemory::printGameScores(const TArray<FGameScore>& scores)
 void UCiFProspectiveMemory::clear()
 {
 	if (mIsCleared) {
-		UE_LOG(LogTemp, Log, TEXT("Prospective memory is already cleared"))
 		return;
 	}
 	

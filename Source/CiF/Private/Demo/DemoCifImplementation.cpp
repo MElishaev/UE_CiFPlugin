@@ -28,6 +28,28 @@ UCiFCharacter* UDemoCifImplementation::chooseNPCInitiatorForSocialGame()
 	return initiator;
 }
 
+FGameScore UDemoCifImplementation::selectSocialGameFromList(const TArray<FGameScore> sgs) const
+{
+	/* use scores as distribution function to select a social game */
+
+	int32 totalScore = 0;
+	for (const auto& sg : sgs) {
+		totalScore += sg.mScore;
+	}
+
+	auto selectedIndex = FMath::RandRange(0, totalScore - 1);
+	int32 currentPos = 0;
+	for (int i = 0; i < sgs.Num(); i++) {
+		currentPos += sgs[i].mScore;
+		if (selectedIndex < currentPos) {
+			UE_LOG(LogTemp, Log, TEXT("Selected social game: %s"), *(sgs[i].mName.ToString()));
+			return sgs[i];
+		}
+	}
+	checkf(false, TEXT("Shouldn't get here"));
+	return {};
+}
+
 void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocialGameIntentPair>& outSocialGamesNames,
                                                                    ACifNPC* initiator,
                                                                    UCiFGameObject* responder,
@@ -383,7 +405,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 				auto networkEnum = StaticEnum<ESocialNetworkType>();
 				resultString += networkEnum->GetValueAsString(p->mNetworkType) + ": ";
 				resultString += first->mObjectName.ToString() + "-->" + second->mObjectName.ToString() + ": ";
-				resultString += mCifManager->getNetworkWeightByType(p->mNetworkType, first->mNetworkId, second->mNetworkId) + "\n";
+				resultString += FString::FromInt(mCifManager->getNetworkWeightByType(p->mNetworkType, first->mNetworkId, second->mNetworkId)) + "\n";
 			}
 		}
 	}

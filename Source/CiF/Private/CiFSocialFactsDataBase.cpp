@@ -35,7 +35,7 @@ int UCiFSocialFactsDataBase::timeOfPredicateInHistory(const UCiFPredicate* pred,
 		                   : latestTimeInSFDB + 1;
 
 	int32 i = mContexts.Num() - 1;
-	while ((i >= 0) && mContexts[i]->mTime > latestTimeInSFDB - window) {
+	while ((i >= 0) && (mContexts[i]->mTime > latestTimeInSFDB - window)) {
 		if (mContexts[i]->isPredicateInChange(pred, x, y, z)) {
 			return mContexts[i]->mTime;
 		}

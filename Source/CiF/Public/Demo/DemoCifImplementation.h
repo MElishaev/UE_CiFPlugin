@@ -7,6 +7,7 @@
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+struct FGameScore;
 class UCiFCharacter;
 class UCiFSocialExchangeContext;
 class UCiFGameObject;
@@ -46,6 +47,14 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	UCiFCharacter* chooseNPCInitiatorForSocialGame();
+
+	/**
+	 * Given a list of social games and their scores, selects a social game based on the implemented selection method
+	 * @param sgs The social games array
+	 * @return the selected social game name
+	 */
+	UFUNCTION(BlueprintCallable)
+	FGameScore selectSocialGameFromList(UPARAM(ref) const TArray<FGameScore> sgs) const;
 	
 	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
 	/**
