@@ -35,7 +35,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = "true"))
 	UCiFCharacter* mCifCharacterComp; // cif character component
 	
-	TArray<FName> mLastSocialMoves; // the last N moves
-	int32 mNumOfLastMoves; // the max number of last moves to store
+	TArray<FName> mLastSocialMoves; // the last @mNumOfLastMoves moves
+	int32 mNumOfLastMoves = 5; // the max number of last moves to store
 	
 };

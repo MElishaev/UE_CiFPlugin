@@ -175,10 +175,10 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 			UE_LOG(LogTemp, Warning, TEXT("CKBENTRIES cannot be subject to valuation"));
 			break;
 		case EPredicateType::SFDB_LABEL:
-			UE_LOG(LogTemp, Warning, TEXT("SFDBLABELs cannot be subject to valuation"));
+			UE_LOG(LogTemp, Warning, TEXT("SFDBLABELs cannot be subject to valuation by itself"));
 			break;
 		default:
-			UE_LOG(LogTemp, Warning, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
+			UE_LOG(LogTemp, Error, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
 	}
 }
 
@@ -243,11 +243,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 	bool predTrue = false;
 	const UCiFGameObject* primaryCharacterOfConsideration;
 	const UCiFGameObject* secondaryCharacterOfConsideration = nullptr;
-
-	if (mNumTimesRoleSlot == ENumTimesRoleSlot::INVALID) {
-		mNumTimesRoleSlot = ENumTimesRoleSlot::FIRST;
-	}
-
+	
 	switch (mNumTimesRoleSlot) {
 		case ENumTimesRoleSlot::FIRST:
 			primaryCharacterOfConsideration = c1;
@@ -262,7 +258,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 		default:
 			mNumTimesRoleSlot = ENumTimesRoleSlot::FIRST;
 			primaryCharacterOfConsideration = c1;
-			UE_LOG(LogTemp, Warning, TEXT("Role slot is not recognized %d"), uint8(mNumTimesRoleSlot));
+			UE_LOG(LogTemp, Warning, TEXT("Role slot is not recognized or invalid %d"), uint8(mNumTimesRoleSlot));
 	}
 
 	if (mNumTimesRoleSlot == ENumTimesRoleSlot::BOTH) {
@@ -831,10 +827,11 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 		if (second) {
 			UE_LOG(LogTemp,
 			       Log,
-			       TEXT("Added status: %s %s %s"),
+			       TEXT("Added status: %s %s %s for duration %d"),
 			       *(first->mObjectName.ToString()),
 			       *(statusEnum->GetValueAsString(mStatusType)),
-			       *(second->mObjectName.ToString()));
+			       *(second->mObjectName.ToString()),
+			       mStatusDuration);
 			first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
 		}
 		else {
@@ -1573,8 +1570,17 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				const auto first = FName(predJson->GetStringField("_first"));
 				const auto second = FName(predJson->GetStringField("_second"));
 				const UEnum* sfdbLabelEnum = StaticEnum<ESFDBLabelType>();
-				const auto sfdbLabel = static_cast<ESFDBLabelType>(sfdbLabelEnum->
-					GetValueByName(FName(predJson->GetStringField("_label"))));
+				// todo - what to do if this is none
+				const auto sfdbLabelJson = FName(predJson->GetStringField("_label"));
+				ESFDBLabelType sfdbLabel;
+				if (sfdbLabelJson == "") { // todo should it be really wildcard if it is empty?
+					sfdbLabel = ESFDBLabelType::WILDCARD;
+				}
+				else {
+					sfdbLabel = static_cast<ESFDBLabelType>(sfdbLabelEnum->GetValueByName(sfdbLabelJson));
+				}
+				
+				
 				const auto window = predJson->GetNumberField("_window");
 				p->setSFDBLabelPredicate(first, second, sfdbLabel, window, isNegated);
 			}

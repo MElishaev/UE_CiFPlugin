@@ -31,6 +31,7 @@ public:
 	/* return the type of the context */
 	virtual ESFDBContextType getType() const;
 
+	/* checks if the predicate is in the change rule of the context */
 	virtual bool isPredicateInChange(const UCiFPredicate* pred,
 	                                 const UCiFGameObject* x,
 	                                 const UCiFGameObject* y,

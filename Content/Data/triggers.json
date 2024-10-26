@@ -16,7 +16,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -219,7 +219,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -257,7 +257,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                     ]
             },
@@ -346,7 +346,7 @@
                         "_window": 10,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -384,7 +384,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -450,7 +450,7 @@
                         "_window": 4,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -734,7 +734,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "RELATIONSHIP",
@@ -798,7 +798,7 @@
                         "_window": 4,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -849,7 +849,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -900,7 +900,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -1182,7 +1182,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -1849,7 +1849,7 @@
                         "_window": 9,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -1912,7 +1912,7 @@
                         "_window": 9,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2230,7 +2230,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2293,7 +2293,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2434,7 +2434,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2630,7 +2630,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2681,7 +2681,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 1,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -2745,7 +2745,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -2821,7 +2821,7 @@
                         "_window": 1,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -2838,7 +2838,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -2876,7 +2876,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -2914,7 +2914,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -2993,7 +2993,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3044,7 +3044,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3097,7 +3097,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3174,70 +3174,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 66,
-            "PerformanceRealization": "Want to pick on if enemy and any interaction and jerk",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "ENEMIES",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "TRAIT",
-                        "_trait": "CAT:_JERK",
-                        "_first": "initiator",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "WANTS_TO_PICK_ON",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3258,7 +3195,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "RELATIONSHIP",
@@ -3301,7 +3238,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3322,7 +3259,7 @@
                         "_window": 8,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "RELATIONSHIP",
@@ -3365,7 +3302,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3386,7 +3323,7 @@
                         "_window": 4,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 4,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -3403,7 +3340,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3454,7 +3391,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3492,7 +3429,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3556,7 +3493,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3619,7 +3556,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3682,7 +3619,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3741,7 +3678,7 @@
                         "_window": 5,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             },
@@ -3758,7 +3695,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3809,7 +3746,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3860,7 +3797,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3881,7 +3818,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -3924,7 +3861,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -3945,7 +3882,7 @@
                         "_window": 9,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -3988,7 +3925,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4054,7 +3991,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4118,7 +4055,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4169,7 +4106,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4220,7 +4157,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4258,7 +4195,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4296,7 +4233,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4317,7 +4254,7 @@
                         "_window": 15,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -4360,7 +4297,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4410,7 +4347,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4460,7 +4397,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4481,7 +4418,7 @@
                         "_window": 6,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     },
                     {
                         "_type": "SFDB_LABEL",
@@ -4524,7 +4461,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4587,7 +4524,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }
@@ -4652,7 +4589,7 @@
                         "_window": 0,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "first"
+                        "_numTimesRoleSlot": "FIRST"
                     }
                 ]
             }

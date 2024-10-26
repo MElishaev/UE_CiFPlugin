@@ -305,6 +305,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
                                         UCiFGameObject* other,
                                         UCiFEffect* effect)
 {
+	checkf(initiator, TEXT("Initiator must be != nullptr"));
 	UE_LOG(LogTemp, Log, TEXT("move chosen: %s"), *(sgName.ToString()));
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 
@@ -385,8 +386,8 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 		auto sgEffect = sg->getEffectById(sgContext->mEffectId);
 		FString effectStr;
 		sgEffect->toString(effectStr);
-		resultString += "\n" + effectStr + "\n";
-		resultString += "Social state\n";
+		resultString += "\nEffect: " + effectStr + "\n";
+		resultString += "Updated social state:\n";
 
 		for (auto p : sgEffect->mChange->mPredicates) {
 			if (p->mType == EPredicateType::NETWORK) {
@@ -406,6 +407,27 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 				resultString += networkEnum->GetValueAsString(p->mNetworkType) + ": ";
 				resultString += first->mObjectName.ToString() + "-->" + second->mObjectName.ToString() + ": ";
 				resultString += FString::FromInt(mCifManager->getNetworkWeightByType(p->mNetworkType, first->mNetworkId, second->mNetworkId)) + "\n";
+			}
+			else if (p->mType == EPredicateType::STATUS) {
+				UCiFGameObject *first=nullptr, *second=nullptr;
+
+				auto primaryRole = p->getRoleValue(p->mPrimary);
+				if (primaryRole == "initiator") first = initiator->mCifCharacterComp;
+				else if (primaryRole == "responder") first = responder;
+				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				auto secondaryRole = p->getRoleValue(p->mSecondary);
+				if (secondaryRole == "initiator") second = initiator->mCifCharacterComp;
+				else if (secondaryRole == "responder") second = responder;
+				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				auto statusEnum = StaticEnum<EStatus>();
+				resultString += statusEnum->GetValueAsString(p->mStatusType) + ": ";
+				resultString += first->mObjectName.ToString();
+				if (second) {
+					resultString += "-->" + second->mObjectName.ToString();
+				}
+				resultString += ", " + FString::FromInt(p->mStatusDuration) + "\n";
 			}
 		}
 	}

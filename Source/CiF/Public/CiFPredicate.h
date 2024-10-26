@@ -371,10 +371,10 @@ public:
 	EIntentType mIntentType;
 	
 	ETrait mTrait; // TODO - for a TRAIT predicate
+
 	UPROPERTY()
 	int32 mWindowSize; // how long to look back in SFDB (0 means using the whole history until beginning of game, excluding backstory) // TODO - this is also SFDB only param
 	FSFDBLabel mSFDBLabel;
-
 	int32 mSFDBOrder; // TODO - what is this?
 	
 	EStatus mStatusType; // todo- another member relevant only for status predicates

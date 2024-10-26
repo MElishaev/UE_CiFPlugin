@@ -18,11 +18,11 @@ UCiFRule::UCiFRule()
 
 bool UCiFRule::isRoleRequired(const FName role) const
 {
-	bool isThirdCharRequired = false;
+	bool isRoleRequired = false;
 
 	for (const auto pred : mPredicates) {
 		//We can't allow ourselves to be mis-lead by predicates that are 'num times uniquely true'
-		//predicates.  We ONLY want those to count as requiring an other if there is an other specified
+		//predicates.  We ONLY want those to count as requiring a role if there is a role specified
 		//in the role slot that we care about (first, second, or either first or second if 'both' is checked.
 		if (pred->mIsNumTimesUniquelyTruePred) {
 			switch (pred->mNumTimesRoleSlot) {
@@ -30,42 +30,38 @@ bool UCiFRule::isRoleRequired(const FName role) const
 					UE_LOG(LogTemp, Warning, TEXT("Invalid ENumTimesRoleSlot"));
 					break;
 				case ENumTimesRoleSlot::FIRST:
-					//if the first role is an 'other', then return true.  Otherwise, we can move on to the next predicate.
 					if (pred->mPrimary == role) {
 						return true;
 					}
 					break;
 				case ENumTimesRoleSlot::SECOND:
-					//if the second role is an 'other', then return true.  Otherwise, we can move on to the next predicate.
 					if (pred->mSecondary == role) {
 						return true;
 					}
 					break;
 				case ENumTimesRoleSlot::BOTH:
-					//if either the first or second role is an 'other', then return true.  Otherwise we move on to next predicate.
 					if (pred->mPrimary == role || pred->mSecondary == role) {
 						return true;
 					}
 					break;
 			}
+			continue; // continue to the next pred if the input role wasn't found in the role specified role slot in the pred
 		}
 
 		if (pred->mPrimary == role || pred->mSecondary == role || pred->mTertiary == role) {
-			isThirdCharRequired = true;
+			isRoleRequired = true;
 		}
 
-		if (isThirdCharRequired) {
+		if (isRoleRequired) {
 			return true;
 		}
 	}
 
-	return isThirdCharRequired;
+	return isRoleRequired;
 }
 
 bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, UCiFSocialExchange* se)
 {
-	mLastTrueCount = 0;
-	
 	// if there is a time ordering dependency in this rule
 	if (getHighestSFDBOrder() > 0) {
 		return evaluateTimeOrderedRule(initiator, responder, other);
@@ -75,7 +71,6 @@ bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UC
 		if (!pred->evaluate(initiator, responder, other, se)) {
 			return false;
 		}
-		mLastTrueCount++;
 	}
 	
 	return true;
@@ -112,13 +107,19 @@ void UCiFRule::toString(FString& outStr)
 
 int32 UCiFRule::getHighestSFDBOrder()
 {
-	int32 order = 0;
-	for (const auto pred : mPredicates) {
-		if (pred->mSFDBOrder > order) {
-			order = pred->mSFDBOrder;
-		}
+	if (mMaxSFDBOrder > 0) {
+		return mMaxSFDBOrder;	
 	}
-	return order;
+	else {
+		int32 order = 0;
+		for (const auto pred : mPredicates) {
+			if (pred->mSFDBOrder > order) {
+				order = pred->mSFDBOrder;
+			}
+		}
+		mMaxSFDBOrder = order;
+		return mMaxSFDBOrder;	
+	}
 }
 
 bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary)

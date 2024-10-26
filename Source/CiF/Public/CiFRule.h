@@ -43,8 +43,7 @@ public:
 	UCiFRule();
 	
 	/**
-	 * Determines if the rule requires 3rd character to be valuated or evaluated.
-	 * @return True iff 3rd character is required for processing the rule
+	 * @return True iff the input role is required for processing the rule
 	 */
 	UFUNCTION(BlueprintCallable)
 	bool isRoleRequired(const FName role) const;
@@ -121,8 +120,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TArray<UCiFPredicate*> mPredicates; // the array of predicates that comprise this rule
 
-	uint8 mLastTrueCount; // the number of predicate that were true during its last evaluation
-
 private:
 	static UniqueIDGenerator mIDGenerator;
+	int32 mMaxSFDBOrder = 0; // stores the max SFDB order of the predicates. This filled after the first call to getHighestSFDBOrder()
 };

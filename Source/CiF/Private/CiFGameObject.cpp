@@ -131,11 +131,10 @@ void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 
 void UCiFGameObject::updateStatusDurations(const int32 timeElapsed)
 {
-	for (auto it = mStatuses.CreateIterator(); it; ++it) {
-		// loop backwards through the array to remove status to not mess with indices while passing over the array
-		for (int32 i = it.Value().statusArray.Num() - 1; i >= 0; i--) {
-			if (it.Value().statusArray[i]->updateRemainingDuration(timeElapsed) <= 0) {
-				removeStatus(it.Key(), it.Value().statusArray[i]->mDirectedTowards);
+	for (const auto &[k, v] : mStatuses) {
+		for (auto* status : v.statusArray) {
+			if (status->mHasDuration && status->mRemainingDuration > 0) {
+				status->mRemainingDuration--;
 			}
 		}
 	}

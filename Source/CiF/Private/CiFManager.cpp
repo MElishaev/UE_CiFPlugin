@@ -631,14 +631,21 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 
 	auto possibleOthers = otherCast;
 	if (possibleOthers.IsEmpty()) {
-		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+		getAllGameObjectsOfType(possibleOthers, ECiFGameObjectType::CHARACTER);
 	}
 
 	const auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
 	checkf(highestSaliencyEffect != nullptr, TEXT("Effect wasn't found - this shouldn't happen at this stage"));
 	const auto other = getGameObjectByName(sgContext->mOtherName);
-	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 
+	// update status duration before applying current SG changes because they made add
+	// statuses which we don't want to reduce their duration
+	for (auto o : possibleOthers) {
+		o->updateStatusDurations(1);
+	}
+	
+	// apply the social change
+	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 	highestSaliencyEffect->mLastSeenTime = mTime;
 
 	mSFDB->addContext(sgContext);
@@ -646,19 +653,20 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	//update all of the status to be one turn older now that we've chosen salient effects
 	//in other words, the status lives "through" this spot in cif.time
 	//and new statuses are not decremented yet, as they start on the next time step.
-	// statuses that reached the end of their lifetime added as trigger context
-	// to fire the necessary changes when finished.
+	// statuses that reached the end of their lifetime added as trigger context, after
+	// it was valuated by a newly created predicate negating the status, ordering its removal
 	for (auto c : possibleOthers) {
 		//for now, just update the possible others (i.e. people who aren't present don't change)
-		for (auto &[statusType, statusArrWrapper] : c->mStatuses) {
-			for (const UCiFGameObjectStatus* status : statusArrWrapper.statusArray) {
-				if (status->mHasDuration && status->mRemainingDuration <= 1) {
+		for (auto mapIt = c->mStatuses.CreateIterator(); mapIt; ++mapIt) { // todo this pair could be deleted while inside loop
+			// using iterator because it safely allows to delete elements (statuses) while iterating over the array
+			for (auto it = mapIt->Value.statusArray.CreateIterator(); it; ++it) { // todo array element could be deleted while inside loop
+				if ((*it)->mHasDuration && (*it)->mRemainingDuration < 1) {
 					// creating predicate to remove the status
 					auto pred = NewObject<UCiFPredicate>(mWorldContextObject);
-					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, false, true);
+					pred->setStatusPredicate(c->mObjectName, (*it)->mDirectedTowards, (*it)->mType, (*it)->mInitialDuration, false, true);
 
 					// remove the status due to end of duration
-					const auto directedToward = getGameObjectByName(status->mDirectedTowards);
+					const auto directedToward = getGameObjectByName((*it)->mDirectedTowards);
 					pred->valuation(c, directedToward);
 
 					// make trigger context for this change in state
@@ -666,16 +674,14 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 					trigger->mId = UCiFTrigger::mStatusTimeoutTriggerID;
 					const auto changeRule = NewObject<UCiFRule>(mWorldContextObject);
 					changeRule->mPredicates.Add(pred);
-
+					trigger->mChange = changeRule;
+					
 					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward);
 					triggerContext->mStatusTimeoutChange = changeRule;
 					mSFDB->addContext(triggerContext);
 				}
 			}
 		}
-
-		// decrement status counters of all players
-		c->updateStatusDurations(1);
 	}
 
 	//now that we have changed the state, updated statuses, we should run the triggers.
