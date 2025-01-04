@@ -58,6 +58,7 @@ enum class EIntentType : uint8
 UENUM(BlueprintType)
 enum class EComparatorType : uint8
 {
+	INVALID UMETA(DisplayName="INVALID"),
 	LESS_THAN UMETA(DisplayName="LESSTHAN"),
 	GREATER_THAN UMETA(DisplayName="GREATERTHAN"),
 	AVERAGE_OPINION UMETA(DisplayName="AVERAGEOPINION"),

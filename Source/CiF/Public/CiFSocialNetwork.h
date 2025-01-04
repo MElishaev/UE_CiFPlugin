@@ -8,6 +8,7 @@
 UENUM(BlueprintType)
 enum class ESocialNetworkType : uint8
 {
+	INVALID			UMETA(DisplayName="Invalid"),
 	// social networks (SN) are weights of feelings of characters towards each other, bidirectional
 	BUDDY			UMETA(DisplayName="Buddy"),
 	ROMANCE			UMETA(DisplayName="Romance"),
@@ -28,6 +29,7 @@ enum class ESocialNetworkType : uint8
 UENUM(BlueprintType)
 enum class ERelationshipType : uint8
 {
+	INVALID			UMETA(DisplayName="Invalid"),
 	FRIENDS			UMETA(DisplayName="Friends"),
 	DATING			UMETA(DisplayName="Dating"),
 	ENEMIES			UMETA(DisplayName="Enemies"), 

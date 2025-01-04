@@ -13,6 +13,8 @@ class UCiFGameObjectStatus;
 UENUM(BlueprintType)
 enum class ETrait : uint8
 {
+	INVALID			UMETA(DisplayName="Invalid"),
+	
 	// positive traits
 	KIND			UMETA(DisplayName="Kind"),
 	HUMBLE			UMETA(DisplayName="Humble"),

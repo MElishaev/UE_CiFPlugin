@@ -803,7 +803,6 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) const
 {
 	const auto statusEnum = StaticEnum<EStatus>();
-	checkf(statusEnum->GetValueAsName(mStatusType) != "None", TEXT("Not found the specified status"));
 	if (mIsNegated) {
 		if (second) {
 			UE_LOG(LogTemp,
@@ -1465,6 +1464,9 @@ void UCiFPredicate::clear()
 	mIsNegated = false;
 	mType = EPredicateType::INVALID;
 	mStatusType = EStatus::INVALID;
+	mComparatorType = EComparatorType::INVALID;
+	mNetworkType = ESocialNetworkType::INVALID;
+	mRelationshipType = ERelationshipType::INVALID;
 	mWindowSize = 0;
 	mSFDBOrder = 0;
 	mIsNumTimesUniquelyTruePred = false; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
@@ -1532,8 +1534,11 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				const auto first = FName(predJson->GetStringField("_first"));
 				const auto second = FName(predJson->GetStringField("_second"));
 				const UEnum* statusEnum = StaticEnum<EStatus>();
-				const auto status = static_cast<EStatus>(statusEnum->
+				auto status = EStatus::INVALID;
+				status = static_cast<EStatus>(statusEnum->
 					GetValueByName(FName(predJson->GetStringField("_status"))));
+
+				checkf(status != EStatus::INVALID, TEXT("Status predicate but loaded invalid status type from json"));
 
 				int32 duration = 0;
 				predJson->TryGetNumberField("_duration", duration);

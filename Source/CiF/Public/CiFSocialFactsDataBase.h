@@ -13,6 +13,8 @@ class UCiFSFDBContext;
 UENUM(BlueprintType)
 enum class ESFDBLabelType : uint8
 {
+	INVALID,
+	
 	// Example for categories of social facts - can expand on this
 	CAT_POSITIVE,
 	CAT_NEGATIVE,
@@ -53,7 +55,7 @@ struct FSFDBLabel
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Test Variables")
 	FName from;
 	FName to = "";
-	ESFDBLabelType type;
+	ESFDBLabelType type = ESFDBLabelType::INVALID;
 
 	bool operator==(const FSFDBLabel& other) const
 	{
