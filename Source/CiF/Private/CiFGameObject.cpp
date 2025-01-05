@@ -68,6 +68,10 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 				FStatusArrayWrapper statusArrayWrapper;
 				statusArrayWrapper.statusArray.Add(newStatus);
 				mStatuses.Add(statusType, statusArrayWrapper);
+				UE_LOG(LogTemp,
+				   Log,
+				   TEXT("Added status: %s %s"),
+				   *(mObjectName.ToString()), *(newStatus->toString()));
 			}
 
 			// setup the partner status if it has a partner and the status reciprocal - for now not sure about
@@ -98,6 +102,10 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 			FStatusArrayWrapper statusArrayWrapper;
 			statusArrayWrapper.statusArray.Add(newStatus);
 			mStatuses.Add(statusType, statusArrayWrapper);
+			UE_LOG(LogTemp,
+				   Log,
+				   TEXT("Added status: %s %s"),
+				   *(mObjectName.ToString()), *(newStatus->toString()));
 		}
 
 		// TODO --	if this is a reciprocal status, like dating, i think it is also
@@ -118,6 +126,7 @@ void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 	if (statusArrWrapper) {
 		for (int32 i = statusArrWrapper->statusArray.Num() - 1; i >= 0; i--) {
 			if (statusArrWrapper->statusArray[i]->mDirectedTowards == towards) {
+				UE_LOG(LogTemp, Log, TEXT("%s removing status %s"), *(mObjectName.ToString()), *(statusArrWrapper->statusArray[i]->toString()));
 				statusArrWrapper->statusArray.RemoveAt(i);
 				break;
 			}

@@ -51,6 +51,9 @@ public:
 	UPROPERTY()
 	UCiFRule* mDefinition; // the condition we want to represent with influence rule. often just one Predicate
 
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mInitiatorIR;
+
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mResponderIR;
 };

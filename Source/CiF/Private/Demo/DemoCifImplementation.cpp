@@ -37,12 +37,15 @@ FGameScore UDemoCifImplementation::selectSocialGameFromList(const TArray<FGameSc
 		totalScore += sg.mScore;
 	}
 
-	auto selectedIndex = FMath::RandRange(0, totalScore - 1);
+	const auto selectedIndex = FMath::RandRange(0, totalScore - 1);
 	int32 currentPos = 0;
 	for (int i = 0; i < sgs.Num(); i++) {
 		currentPos += sgs[i].mScore;
 		if (selectedIndex < currentPos) {
-			UE_LOG(LogTemp, Log, TEXT("Selected social game: %s"), *(sgs[i].mName.ToString()));
+			UE_LOG(LogTemp, Log, TEXT("Selected social game: %s (r: %s, o: %s)"),
+				*(sgs[i].mName.ToString()),
+				*(sgs[i].mResponder.ToString()),
+				*(sgs[i].mOther.ToString()));
 			return sgs[i];
 		}
 	}

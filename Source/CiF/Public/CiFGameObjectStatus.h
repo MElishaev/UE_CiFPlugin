@@ -88,6 +88,7 @@ enum class EStatus : uint8
 	GRATEFUL_TOWARD			UMETA(DisplayName="Greatful toward"),
 	RESENTFUL_TOWARD		UMETA(DisplayName="Resentful toward"),
 	ANGRY_AT				UMETA(DisplayName="Angry at"),
+	ANNOYED_WITH			UMETA(DisplayName="Annoyed with"),
 	ENVIES					UMETA(DisplayName="Envies"),
 	AFRAID_OF				UMETA(DisplayName="Afraid of"),
 	LOVES					UMETA(DisplayName="Loves"),
@@ -158,6 +159,9 @@ public:
 	void init(const EStatus type, const int32 initialDuration=0, const FName towards = "");
 
 	static TMap<EStatus, FStatusTypesArrayWrapper> initializeStatusCategoriesMap();
+
+	/*********** UTILITY FUNCTIONS **************/
+	FString toString() const;
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

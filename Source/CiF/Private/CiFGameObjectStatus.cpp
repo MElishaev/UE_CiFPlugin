@@ -95,3 +95,19 @@ TMap<EStatus, FStatusTypesArrayWrapper> UCiFGameObjectStatus::initializeStatusCa
 
 	return outMap;
 }
+
+FString UCiFGameObjectStatus::toString() const
+{
+	auto statusEnum = StaticEnum<EStatus>();
+	auto statusStr = statusEnum->GetValueAsString(mType);
+
+	if (mBinary) {
+		statusStr.Append(" ").Append(mDirectedTowards.ToString());
+	}
+
+	if (mHasDuration) {
+		statusStr.Append(" for duration ").Append(FString::FromInt(mInitialDuration));
+	}
+
+	return statusStr;
+}

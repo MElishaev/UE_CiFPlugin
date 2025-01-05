@@ -29,12 +29,12 @@ void UCiFSocialNetwork::setWeight(const uint8 c1, const uint8 c2, const uint8 w)
 
 void UCiFSocialNetwork::addWeight(const uint8 c1, const uint8 c2, const int addition)
 {
-	mNetwork[c1][c2] = (mNetwork[c1][c2] + addition) <= mMaxVal ? mNetwork[c1][c2] + addition : mMaxVal;
+	mNetwork[c1][c2] = FMath::Clamp(mNetwork[c1][c2] + addition, 0, mMaxVal);
 }
 
 void UCiFSocialNetwork::multiplyWeight(const uint8 c1, const uint8 c2, const float multiplier)
 {
-	mNetwork[c1][c2] = (mNetwork[c1][c2] * multiplier) <= mMaxVal ? mNetwork[c1][c2] * multiplier : mMaxVal;
+	mNetwork[c1][c2] = FMath::Clamp(mNetwork[c1][c2] * multiplier, 0, mMaxVal);
 }
 
 uint8 UCiFSocialNetwork::getWeight(const uint8 c1, const uint8 c2)

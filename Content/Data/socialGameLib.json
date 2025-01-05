@@ -3885,7 +3885,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(4)]",
                             "_intent": false,
@@ -3907,7 +3907,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_RUDE",
+                            "_label": "RUDE",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(4)]",
                             "_intent": false,
@@ -4369,7 +4369,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -4413,7 +4413,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -5517,7 +5517,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(6)]",
                             "_intent": false,
@@ -5539,7 +5539,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_EMBARRASSING",
+                            "_label": "EMBARRASSING",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(embarrassing,initiator,responder,0) window(6)]",
                             "_intent": false,
@@ -5820,7 +5820,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(6)]",
                             "_intent": false,
@@ -5842,7 +5842,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_RUDE",
+                            "_label": "RUDE",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                             "_intent": false,
@@ -12194,822 +12194,6 @@
             ]
         },
         {
-            "_name": "Revelation (3-person)",
-            "_requiresOther": true,
-            "_type": 0,
-            "_othertype": 0,
-            "Intents": [
-                {
-                    "_name": "intent-network down: familybond (responder toward other)",
-                    "_id": 0,
-                    "_description": "",
-                    "Predicate": [
-                        {
-                            "_type": "NETWORK",
-                            "_type#number": 2,
-                            "_networkType": "FAMILY_BOND",
-                            "_first": "responder",
-                            "_second": "other",
-                            "_comparator": "DECREASE",
-                            "_value": 0,
-                            "_negated": false,
-                            "_name": "intent-network down: familybond (responder toward other)",
-                            "_intent": true,
-                            "_intentType": 1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                }
-            ],
-            "Preconditions": [],
-            "InitiatorInfluenceRuleSet": [],
-            "ResponderInfluenceRuleSet": [],
-            "Effects": [
-                {
-                    "_id": 0,
-                    "_accept": true,
-                    "_instantiationID": 0,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {},
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "DECREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) - 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "ANGRY_AT",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_negated": false,
-                                "_duration": 0,
-                                "_name": "status(responder, other, angry at, 0)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 1,
-                    "_accept": false,
-                    "_instantiationID": 1,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {},
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "INCREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) + 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "DECREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) - 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 2,
-                    "_accept": true,
-                    "_instantiationID": 2,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 40,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) greaterthan 40",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "honest",
-                                "_first": "initiator",
-                                "_negated": false,
-                                "_name": "trait(initiator, honest)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "confident",
-                                "_first": "initiator",
-                                "_negated": false,
-                                "_name": "trait(initiator, confident)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "loyal",
-                                "_first": "responder",
-                                "_negated": false,
-                                "_name": "trait(responder, loyal)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "DECREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) - 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 3,
-                    "_accept": false,
-                    "_instantiationID": 3,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "LESS_THAN",
-                                "_value": 55,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) lessthan 55",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "observant",
-                                "_first": "responder",
-                                "_negated": false,
-                                "_name": "trait(responder, observant)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "dishonest",
-                                "_first": "initiator",
-                                "_negated": false,
-                                "_name": "trait(initiator, dishonest)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "INCREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) + 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "DECREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) - 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 4,
-                    "_accept": true,
-                    "_instantiationID": 4,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "LESS_THAN",
-                                "_value": 50,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) lessthan 50",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 40,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) greaterthan 40",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "impulsive",
-                                "_first": "responder",
-                                "_negated": false,
-                                "_name": "trait(responder, impulsive)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "DECREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) - 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "ESTRANGED_FROM",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_negated": false,
-                                "_duration": 0,
-                                "_name": "status(responder, other, estranged from, 0)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 6,
-                    "_accept": false,
-                    "_instantiationID": 5,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 30,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) greaterthan 30",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "TRUST",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "LESS_THAN",
-                                "_value": 70,
-                                "_negated": false,
-                                "_name": "trustNetwork(responder, initiator) lessthan 70",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "loyal",
-                                "_first": "responder",
-                                "_negated": false,
-                                "_name": "trait(responder, loyal)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "FAMILY_BOND",
-                                "_first": "responder",
-                                "_second": "other",
-                                "_comparator": "INCREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "familybondNetwork(responder, other) + 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                }
-            ],
-            "Instantiations": [
-                {
-                    "_id": 0,
-                    "_name": "script1",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% tells %r% about what %o% has done. %r% is aghast.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 1,
-                    "_name": "script2",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% attempts to tell %r% what %o% has done but %r% won't listen.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 2,
-                    "_name": "script3",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% persuades %r% regarding what %o% has done, despite %r% being loyal.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 3,
-                    "_name": "script4",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% tells %r% about %o%, but %r% believes that %i% is just being dishonest.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 4,
-                    "_name": "script5",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% tells %r% about %o% and %r% immediately decides to estrange themself from %o%.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 5,
-                    "_name": "script6",
-                    "LineOfDialogue": {
-                        "_lineNumber": 0,
-                        "_initiatorLine": "%i% tells %r% about %o% but %r% is so loyal that they refuse to believe what %i% has said.",
-                        "_responderLine": "",
-                        "_otherLine": "",
-                        "_primarySpeaker": "initiator",
-                        "_initiatorBodyAnimation": "",
-                        "_initiatorFaceAnimation": "",
-                        "_initiatorFaceState": "neutral",
-                        "_responderBodyAnimation": "",
-                        "_responderFaceAnimation": "",
-                        "_responderFaceState": "neutral",
-                        "_otherBodyAnimation": "",
-                        "_otherFaceAnimation": "",
-                        "_otherFaceState": "neutral",
-                        "_time": 0,
-                        "_initiatorIsThought": false,
-                        "_responderIsThought": false,
-                        "_otherIsThought": false,
-                        "_initiatorIsDelayed": false,
-                        "_responderIsDelayed": false,
-                        "_otherIsDelayed": false,
-                        "_initiatorIsPicture": false,
-                        "_responderIsPicture": false,
-                        "_otherIsPicture": false,
-                        "_initiatorAddressing": "responder",
-                        "_responderAddressing": "initiator",
-                        "_otherAddressing": "initiator",
-                        "_otherApproach": false,
-                        "_otherExit": false,
-                        "_isOtherChorus": false,
-                        "PartialChange": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        },
-                        "ChorusRule": {
-                            "Rule": {
-                                "_name": "Anonymous Rule",
-                                "_id": -1,
-                                "_description": ""
-                            }
-                        }
-                    },
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                }
-            ]
-        },
-        {
             "_name": "Share Feelings",
             "_requiresOther": false,
             "_type": 0,
@@ -13144,7 +12328,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
@@ -13335,7 +12519,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -13357,7 +12541,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_FAILED_ROMANCE",
+                            "_label": "FAILED_ROMANCE",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -13379,7 +12563,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
@@ -13440,7 +12624,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_ROMANTIC",
+                                "_label": "ROMANTIC",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -13516,7 +12700,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -19250,7 +18434,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -19272,7 +18456,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,other,responder,0) window(0)]",
                             "_intent": false,
@@ -24434,7 +23618,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
@@ -24495,7 +23679,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
@@ -24589,7 +23773,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
@@ -24681,7 +23865,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
@@ -24792,7 +23976,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "other",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,other,0) window(0)]",
                                 "_intent": false,
@@ -25984,7 +25168,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -26028,7 +25212,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -35206,7 +34390,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "initiator",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,responder,initiator,0) window(0)]",
                                 "_intent": false,
@@ -39274,1622 +38458,6 @@
             ]
         },
         {
-            "_name": "Court",
-            "_requiresOther": false,
-            "_type": 0,
-            "_othertype": 0,
-            "Intents": [
-                {
-                    "_name": "intent-network up: romance (responder toward initiator)",
-                    "_id": 1,
-                    "_description": "",
-                    "Predicate": [
-                        {
-                            "_type": "NETWORK",
-                            "_type#number": 2,
-                            "_networkType": "ROMANCE",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_comparator": "INCREASE",
-                            "_value": 0,
-                            "_negated": false,
-                            "_name": "intent-network up: romance (responder toward initiator)",
-                            "_intent": true,
-                            "_intentType": 0,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                }
-            ],
-            "Preconditions": [],
-            "InitiatorInfluenceRuleSet": [
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 2,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "promiscuous",
-                            "_first": "initiator",
-                            "_negated": false,
-                            "_name": "trait(initiator, promiscuous)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 3,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "outgoing",
-                            "_first": "initiator",
-                            "_negated": false,
-                            "_name": "trait(initiator, outgoing)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": -1,
-                    "_name": "",
-                    "_id": 4,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "SHY",
-                            "_first": "initiator",
-                            "_negated": false,
-                            "_name": "trait(initiator, shy)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 5,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "impulsive",
-                            "_first": "initiator",
-                            "_negated": false,
-                            "_name": "trait(initiator, impulsive)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 6,
-                    "Predicate": [
-                        {
-                            "_type": "NETWORK",
-                            "_type#number": 2,
-                            "_networkType": "ROMANCE",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_comparator": "GREATER_THAN",
-                            "_value": 49,
-                            "_negated": false,
-                            "_name": "romanceNetwork(initiator, responder) greaterthan 49",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 7,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "CAT_FEELING_GOOD_ABOUT_SOMEONE",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(initiator, responder, cat: feeling good about someone, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": -1,
-                    "_name": "",
-                    "_id": 8,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "CAT_FEELING_BAD_ABOUT_SOMEONE",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(initiator, responder, cat: feeling bad about someone, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 9,
-                    "Predicate": [
-                        {
-                            "_type": "NETWORK",
-                            "_type#number": 2,
-                            "_networkType": "ROMANCE",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_comparator": "GREATER_THAN",
-                            "_value": 75,
-                            "_negated": false,
-                            "_name": "romanceNetwork(initiator, responder) greaterthan 75",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 10,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "IS_DATING",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(initiator, responder, is dating, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 11,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "CAT_FEELING_GOOD",
-                            "_first": "initiator",
-                            "_second": "",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(initiator, cat: feeling good, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 12,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "LOVES",
-                            "_first": "initiator",
-                            "_second": "responder",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(initiator, responder, loves, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                }
-            ],
-            "ResponderInfluenceRuleSet": [
-                {
-                    "_weight": -1,
-                    "_name": "",
-                    "_id": 2,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "SHY",
-                            "_first": "responder",
-                            "_negated": false,
-                            "_name": "trait(responder, shy)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 3,
-                    "Predicate": [
-                        {
-                            "_type": "TRAIT",
-                            "_type#number": 1,
-                            "_trait": "promiscuous",
-                            "_first": "responder",
-                            "_negated": false,
-                            "_name": "trait(responder, promiscuous)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 4,
-                    "Predicate": [
-                        {
-                            "_type": "NETWORK",
-                            "_type#number": 2,
-                            "_networkType": "ROMANCE",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_comparator": "GREATER_THAN",
-                            "_value": 74,
-                            "_negated": false,
-                            "_name": "romanceNetwork(responder, initiator) greaterthan 74",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": -2,
-                    "_name": "",
-                    "_id": 5,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "CAT_FEELING_BAD_ABOUT_SOMEONE",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(responder, initiator, cat: feeling bad about someone, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 6,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "CAT_FEELING_GOOD_ABOUT_SOMEONE",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(responder, initiator, cat: feeling good about someone, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": -1,
-                    "_name": "",
-                    "_id": 7,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "HEARTBROKEN",
-                            "_first": "responder",
-                            "_second": "",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(responder, heartbroken, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 1,
-                    "_name": "",
-                    "_id": 8,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "IS_DATING",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(responder, initiator, is dating, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                },
-                {
-                    "_weight": 2,
-                    "_name": "",
-                    "_id": 9,
-                    "Predicate": [
-                        {
-                            "_type": "STATUS",
-                            "_status": "LOVES",
-                            "_first": "responder",
-                            "_second": "initiator",
-                            "_negated": false,
-                            "_duration": -1,
-                            "_name": "status(responder, initiator, loves, -1)",
-                            "_intent": false,
-                            "_intentType": -1,
-                            "_isSFDB": false,
-                            "_window": 0,
-                            "_numTimesUniquelyTrueFlag": false,
-                            "_numTimesUniquelyTrue": 0,
-                            "_numTimesRoleSlot": ""
-                        }
-                    ]
-                }
-            ],
-            "Effects": [
-                {
-                    "_id": 24,
-                    "_accept": true,
-                    "_instantiationID": 10,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {},
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 25,
-                    "_accept": false,
-                    "_instantiationID": 11,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {},
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "DECREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) - 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 24,
-                    "_accept": true,
-                    "_instantiationID": 14,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 74,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) greaterthan 74",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "LOVES",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_negated": false,
-                                "_duration": 4,
-                                "_name": "status(responder, initiator, loves, 4)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 25,
-                    "_accept": false,
-                    "_instantiationID": 15,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "STATUS",
-                                "_status": "CAT_FEELING_BAD_ABOUT_SOMEONE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_negated": false,
-                                "_duration": -1,
-                                "_name": "status(responder, initiator, cat: feeling bad about someone, -1)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "DECREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) - 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "DECREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) - 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "ANGRY_AT",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_negated": false,
-                                "_duration": 2,
-                                "_name": "status(responder, initiator, angry at, 2)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 26,
-                    "_accept": true,
-                    "_instantiationID": 12,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "LESS_THAN",
-                                "_value": 75,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) lessthan 75",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "promiscuous",
-                                "_first": "initiator",
-                                "_negated": false,
-                                "_name": "trait(initiator, promiscuous)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "INCREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) + 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "EMBARRASSED",
-                                "_first": "initiator",
-                                "_second": "",
-                                "_negated": false,
-                                "_duration": 4,
-                                "_name": "status(initiator, embarrassed, 4)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 27,
-                    "_accept": false,
-                    "_instantiationID": 13,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "TRAIT",
-                                "_trait": "SHY",
-                                "_first": "responder",
-                                "_negated": false,
-                                "_name": "trait(responder, shy)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "DECREASE",
-                                "_value": 5,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) - 5",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 29,
-                    "_accept": true,
-                    "_instantiationID": 10,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 65,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) greaterthan 65",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "IS_DATING",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_negated": true,
-                                "_duration": -1,
-                                "_name": "~status(initiator, responder, is dating, -1)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "IS_DATING",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_negated": false,
-                                "_duration": 0,
-                                "_name": "status(responder, initiator, is dating, 0)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                },
-                {
-                    "_id": 30,
-                    "_accept": true,
-                    "_instantiationID": 10,
-                    "_rejectID": -1,
-                    "PerformanceRealization": "",
-                    "ConditionRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_comparator": "GREATER_THAN",
-                                "_value": 75,
-                                "_negated": false,
-                                "_name": "romanceNetwork(initiator, responder) greaterthan 75",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "IS_DATING",
-                                "_first": "initiator",
-                                "_second": "responder",
-                                "_negated": false,
-                                "_duration": -1,
-                                "_name": "status(initiator, responder, is dating, -1)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    },
-                    "ChangeRule": {
-                        "Predicate": [
-                            {
-                                "_type": "NETWORK",
-                                "_networkType": "ROMANCE",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_comparator": "INCREASE",
-                                "_value": 10,
-                                "_negated": false,
-                                "_name": "romanceNetwork(responder, initiator) + 10",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            },
-                            {
-                                "_type": "STATUS",
-                                "_status": "ELOPED_WITH",
-                                "_first": "responder",
-                                "_second": "initiator",
-                                "_negated": false,
-                                "_duration": 0,
-                                "_name": "status(responder, initiator, eloped with, 0)",
-                                "_intent": false,
-                                "_intentType": -1,
-                                "_isSFDB": false,
-                                "_window": 0,
-                                "_numTimesUniquelyTrueFlag": false,
-                                "_numTimesUniquelyTrue": 0,
-                                "_numTimesRoleSlot": ""
-                            }
-                        ]
-                    }
-                }
-            ],
-            "Instantiations": [
-                {
-                    "_id": 10,
-                    "_name": "default accept",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% attempts to formally court %r%. %r% has similar feelings, so welcomes the advances.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$like$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 11,
-                    "_name": "default reject",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% attempts to formally court %r%. However, %r% is not interested, so politely turns down %i%.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$neutral$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 14,
-                    "_name": "very effective accept",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% formally courts %r%. %r% has very strong feelings for %i%, so is a very willing participant.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$love$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 15,
-                    "_name": "angry reject",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% attempts to woo %r%. However, %r% is upset at %i%, and gets angry at %i% for attempting to court %gender(r, him, her)%.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$hate$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 12,
-                    "_name": "promiscuous accept",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% begins to woo %r%. %r% very emphatically returns the affections of %i%, which embarasses %i%.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$neutral$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                },
-                {
-                    "_id": 13,
-                    "_name": "shy reject",
-                    "LineOfDialogue": [
-                        {
-                            "_lineNumber": 0,
-                            "_initiatorLine": "%i% begins to woo %r%. However, %r% is very shy and becomes embarassed by the affection.",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        },
-                        {
-                            "_lineNumber": 1,
-                            "_initiatorLine": "$like$",
-                            "_responderLine": "",
-                            "_otherLine": "",
-                            "_primarySpeaker": "initiator",
-                            "_initiatorBodyAnimation": "",
-                            "_initiatorFaceAnimation": "",
-                            "_initiatorFaceState": "neutral",
-                            "_responderBodyAnimation": "",
-                            "_responderFaceAnimation": "",
-                            "_responderFaceState": "neutral",
-                            "_otherBodyAnimation": "",
-                            "_otherFaceAnimation": "",
-                            "_otherFaceState": "neutral",
-                            "_time": 0,
-                            "_initiatorIsThought": false,
-                            "_responderIsThought": false,
-                            "_otherIsThought": false,
-                            "_initiatorIsDelayed": false,
-                            "_responderIsDelayed": false,
-                            "_otherIsDelayed": false,
-                            "_initiatorIsPicture": false,
-                            "_responderIsPicture": false,
-                            "_otherIsPicture": false,
-                            "_initiatorAddressing": "responder",
-                            "_responderAddressing": "initiator",
-                            "_otherAddressing": "initiator",
-                            "_otherApproach": false,
-                            "_otherExit": false,
-                            "_isOtherChorus": false,
-                            "PartialChange": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            },
-                            "ChorusRule": {
-                                "Rule": {
-                                    "_name": "Anonymous Rule",
-                                    "_id": -1,
-                                    "_description": ""
-                                }
-                            }
-                        }
-                    ],
-                    "ToC1": [],
-                    "ToC2": [],
-                    "ToC3": [],
-                    "ConditionalRules": []
-                }
-            ]
-        },
-        {
             "_name": "Ask Out",
             "_requiresOther": false,
             "_type": 0,
@@ -41569,7 +39137,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -41629,7 +39197,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_ROMANTIC",
+                                "_label": "ROMANTIC",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -41705,7 +39273,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -41798,7 +39366,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -41813,7 +39381,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "initiator",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(0)]",
                                 "_intent": false,
@@ -41908,7 +39476,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -41986,7 +39554,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_ROMANTIC",
+                                "_label": "ROMANTIC",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -44096,7 +41664,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,responder,initiator,0) window(0)]",
                             "_intent": false,
@@ -44288,7 +41856,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -44310,7 +41878,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,other,responder,0) window(0)]",
                             "_intent": false,
@@ -44332,7 +41900,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -44354,7 +41922,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "other",
                             "_second": "responder",
-                            "_label": "LABEL_ROMANTIC",
+                            "_label": "ROMANTIC",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(romantic,other,responder,0) window(0)]",
                             "_intent": false,
@@ -50252,7 +47820,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "LABEL_RUDE",
+                            "_label": "RUDE",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                             "_intent": false,
@@ -50890,7 +48458,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_NICE",
+                                "_label": "NICE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(nice,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -51208,7 +48776,7 @@
                             "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "LABEL_MEAN",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDB_LABEL(mean,responder,initiator,0) window(6)]",
                             "_intent": false,
@@ -51843,7 +49411,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_EMBARRASSING",
+                                "_label": "EMBARRASSING",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(embarrassing,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -51858,7 +49426,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_RUDE",
+                                "_label": "RUDE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -51937,7 +49505,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_RUDE",
+                                "_label": "RUDE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -51981,7 +49549,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_RUDE",
+                                "_label": "RUDE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -52025,7 +49593,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_RUDE",
+                                "_label": "RUDE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(rude,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -53250,7 +50818,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": true,
                                 "_name": "[~SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -53310,7 +50878,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -53403,7 +50971,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -53418,7 +50986,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -53511,7 +51079,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -53657,7 +51225,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,initiator,responder,0) window(6)]",
                                 "_intent": false,
@@ -56918,7 +54486,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": true,
                                 "_name": "[~SFDB_LABEL(failed romance,responder,other,0) window(6)]",
                                 "_intent": false,
@@ -56960,7 +54528,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
-                                "_label": "LABEL_ROMANTIC",
+                                "_label": "ROMANTIC",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(romantic,responder,other,0) window(6)]",
                                 "_intent": false,
@@ -57039,7 +54607,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,responder,other,0) window(6)]",
                                 "_intent": false,
@@ -57119,7 +54687,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -57198,7 +54766,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "responder",
                                 "_second": "other",
-                                "_label": "LABEL_FAILED_ROMANCE",
+                                "_label": "FAILED_ROMANCE",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(failed romance,responder,other,0) window(0)]",
                                 "_intent": false,
@@ -57289,7 +54857,7 @@
                                 "_type": "SFDB_LABEL",
                                 "_first": "initiator",
                                 "_second": "responder",
-                                "_label": "LABEL_MEAN",
+                                "_label": "MEAN",
                                 "_negated": false,
                                 "_name": "[SFDB_LABEL(mean,initiator,responder,0) window(0)]",
                                 "_intent": false,
@@ -64673,6 +62241,9 @@
         },
         {
             "_name": "TriggerGame",
+            "_requiresOther": false,
+            "_type": 0,
+            "_othertype": 0,
             "Intents": [],
             "Preconditions": [
                 {

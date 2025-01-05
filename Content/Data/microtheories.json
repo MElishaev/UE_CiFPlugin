@@ -9423,7 +9423,7 @@
             "ResponderInfluenceRuleSet": []
         },
         {
-            "Name": "Embarassed",
+            "Name": "Embarrassed",
             "Definition": {
                 "_name": "is embarrassed",
                 "_id": -1,
@@ -9450,7 +9450,7 @@
             "InitiatorInfluenceRuleSet": [
                 {
                     "_weight": -1,
-                    "_name": "embarassemnt makes it very hard to believe that one can improve friendship",
+                    "_name": "embarrassment makes it very hard to believe that one can improve friendship",
                     "_id": 0,
                     "Predicate": [
                         {

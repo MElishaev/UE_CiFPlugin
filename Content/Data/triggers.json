@@ -318,110 +318,8 @@
             }
         },
         {
-            "_id": 11,
-            "PerformanceRealization": "Bully if doing a lot of mean things",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "MEAN",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "MEAN",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 10,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "BULLY",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 12,
-            "PerformanceRealization": "Lose Bully if doing positive things",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT_POSITIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 6,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 2,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT_POSITIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "BULLY",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
             "_id": 13,
-            "PerformanceRealization": "Lovestruck is high romance and received several romantic actions",
+            "PerformanceRealization": "Lovestruck if high romance and received several romantic actions",
             "ConditionRule": {
                 "Predicate": [
                     {
@@ -708,57 +606,6 @@
                         "_first": "initiator",
                         "_second": "",
                         "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 19,
-            "PerformanceRealization": "Excited if making lots of friends",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "FRIENDS",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "FRIENDS",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "EXCITED",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
                         "_intent": false,
                         "_isSFDB": false,
                         "_window": 0,
@@ -1154,70 +1001,6 @@
             }
         },
         {
-            "_id": 28,
-            "PerformanceRealization": "Anxious if a bully is bothering you",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "BULLY",
-                        "_first": "responder",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 6,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "ANXIOUS",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
             "_id": 29,
             "PerformanceRealization": "Lose anxious if someone is romantic to you",
             "ConditionRule": {
@@ -1280,108 +1063,6 @@
                     {
                         "_type": "STATUS",
                         "_status": "ANXIOUS",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 33,
-            "PerformanceRealization": "Looking for trouble if done many socially undesireable things lately",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "GROSS",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 8,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "RUDE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 8,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "LOOKING_FOR_TROUBLE",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 34,
-            "PerformanceRealization": "Not looking for trouble if do a positive thing",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "CAT_POSITIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "LOOKING_FOR_TROUBLE",
                         "_first": "initiator",
                         "_second": "",
                         "_negated": true,
@@ -1811,69 +1492,6 @@
                         "_first": "initiator",
                         "_second": "",
                         "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 42,
-            "PerformanceRealization": "Feels out of place if been lame lately",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "TRAIT",
-                        "_trait": "OBLIVIOUS",
-                        "_first": "initiator",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "LAME",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 9,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "LAME",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "FEELS_OUT_OF_PLACE",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
                         "_intent": false,
                         "_isSFDB": false,
                         "_window": 0,
@@ -2602,70 +2220,6 @@
             }
         },
         {
-            "_id": 55,
-            "PerformanceRealization": "Confused if a friend is consistently negative to you",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "FRIENDS",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 8,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_NEGATIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "CONFUSED",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            }
-        },
-        {
             "_id": 56,
             "PerformanceRealization": "Lonely if no interactions with only friend in a while",
             "ConditionRule": {
@@ -3103,83 +2657,6 @@
             }
         },
         {
-            "_id": 65,
-            "PerformanceRealization": "Want to pick on if bully and r does something lame",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "BULLY",
-                        "_first": "initiator",
-                        "_second": "initiator",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "",
-                        "_label": "LAME",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "FRIENDS",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "RELATIONSHIP",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_relationship": "DATING",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "WANTS_TO_PICK_ON",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "FIRST"
-                    }
-                ]
-            }
-        },
-        {
             "_id": 68,
             "PerformanceRealization": "Annoyed with if friend and keeps being lame",
             "ConditionRule": {
@@ -3323,7 +2800,7 @@
                         "_window": 4,
                         "_numTimesUniquelyTrueFlag": true,
                         "_numTimesUniquelyTrue": 4,
-                        "_numTimesRoleSlot": "FIRST"
+                        "_numTimesRoleSlot": "BOTH"
                     }
                 ]
             },
@@ -3804,7 +3281,7 @@
         },
         {
             "_id": 79,
-            "PerformanceRealization": "Lose trust if consistent ly mean",
+            "PerformanceRealization": "Lose trust if consistently mean",
             "ConditionRule": {
                 "Predicate": [
                     {
@@ -3867,70 +3344,6 @@
             }
         },
         {
-            "_id": 80,
-            "PerformanceRealization": "Envy someone who is cooler than you",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "",
-                        "_label": "COOL",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 9,
-                        "_numTimesUniquelyTrueFlag": true,
-                        "_numTimesUniquelyTrue": 3,
-                        "_numTimesRoleSlot": "FIRST"
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "COOL",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "initiator",
-                        "_second": "",
-                        "_label": "COOL",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 10,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "ENVIES",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "FIRST"
-                    }
-                ]
-            }
-        },
-        {
             "_id": 81,
             "PerformanceRealization": "Envy someone who is dating someone you like and think is hot",
             "ConditionRule": {
@@ -3972,70 +3385,6 @@
                         "_intent": false,
                         "_isSFDB": false,
                         "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "ENVIES",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "FIRST"
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 82,
-            "PerformanceRealization": "Envy someone who is popular (when you aren't) and is nice to you",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "POPULAR",
-                        "_first": "responder",
-                        "_second": "responder",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "STATUS",
-                        "_status": "POPULAR",
-                        "_first": "initiator",
-                        "_second": "initiator",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "initiator",
-                        "_label": "CAT_POSITIVE",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
                         "_numTimesUniquelyTrueFlag": false,
                         "_numTimesUniquelyTrue": 0,
                         "_numTimesRoleSlot": ""
@@ -4456,69 +3805,6 @@
                         "_first": "initiator",
                         "_second": "responder",
                         "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": "FIRST"
-                    }
-                ]
-            }
-        },
-        {
-            "_id": 91,
-            "PerformanceRealization": "Feel superior to someone if they're lame and you're popular and not nice",
-            "ConditionRule": {
-                "Predicate": [
-                    {
-                        "_type": "SFDB_LABEL",
-                        "_first": "responder",
-                        "_second": "",
-                        "_label": "LAME",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": true,
-                        "_window": 1,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "STATUS",
-                        "_status": "POPULAR",
-                        "_first": "initiator",
-                        "_second": "initiator",
-                        "_negated": false,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    },
-                    {
-                        "_type": "TRAIT",
-                        "_trait": "CAT:_NICE",
-                        "_first": "initiator",
-                        "_negated": true,
-                        "_intent": false,
-                        "_isSFDB": false,
-                        "_window": 0,
-                        "_numTimesUniquelyTrueFlag": false,
-                        "_numTimesUniquelyTrue": 0,
-                        "_numTimesRoleSlot": ""
-                    }
-                ]
-            },
-            "ChangeRule": {
-                "Predicate": [
-                    {
-                        "_type": "STATUS",
-                        "_status": "FEELS_SUPERIOR_TO",
-                        "_first": "initiator",
-                        "_second": "responder",
-                        "_negated": false,
                         "_intent": false,
                         "_isSFDB": false,
                         "_window": 0,

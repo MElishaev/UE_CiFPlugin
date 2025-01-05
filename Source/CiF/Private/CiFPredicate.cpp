@@ -175,10 +175,10 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 			UE_LOG(LogTemp, Warning, TEXT("CKBENTRIES cannot be subject to valuation"));
 			break;
 		case EPredicateType::SFDB_LABEL:
-			UE_LOG(LogTemp, Warning, TEXT("SFDBLABELs cannot be subject to valuation by itself"));
+			// SFDB_LABEL cannot be subject to valuation by itself - they are added into the social game context's SFDBLabels
 			break;
 		default:
-			UE_LOG(LogTemp, Error, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
+			UE_LOG(LogTemp, Error, TEXT("preforming valuation a predicate without a recognized type %d"), mType);
 	}
 }
 
@@ -805,41 +805,17 @@ void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) 
 	const auto statusEnum = StaticEnum<EStatus>();
 	if (mIsNegated) {
 		if (second) {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("%s removing status %s from %s"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       *(second->mObjectName.ToString()));
 			first->removeStatus(mStatusType, second->mObjectName);
 		}
 		else {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("%s removing status %s"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)));
 			first->removeStatus(mStatusType);
 		}
 	}
 	else {
 		if (second) {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("Added status: %s %s %s for duration %d"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       *(second->mObjectName.ToString()),
-			       mStatusDuration);
 			first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
 		}
 		else {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("Added status: %s is %s for duration %d"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       mStatusDuration);
 			first->addStatus(mStatusType, mStatusDuration);
 		}
 	}
