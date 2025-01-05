@@ -291,7 +291,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFGameObject* responder,
                                        const TArray<UCiFGameObject*>& possibleOthers)
 {
-	int8 score = initiator->mProspectiveMemory->getDefaultIntentScore();
+	Score_t score = initiator->mProspectiveMemory->getDefaultIntentScore();
 	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
@@ -301,17 +301,14 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 
 		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
 		// if not, score and cache
-		const auto intentType = socialExchange->getSocialExchangeIntentType();
-		const auto intentIndex = static_cast<uint8>(intentType);
-		if (initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex] ==
-			initiator->mProspectiveMemory->getDefaultIntentScore()) {
-			
+		const auto extendedIntentType = socialExchange->getSocialExchangeExtendedIntentType();
+		if (not initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Contains(extendedIntentType)) {
 			const auto singleScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
-			initiator->mProspectiveMemory->cacheIntentScore(responder, intentType, singleScore);
+			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, singleScore);
 			score += singleScore;
 		}
 		else {
-			score += initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex];
+			score += *(initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType));
 		}
 	}
 	else {
@@ -466,15 +463,14 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	}
 
 	UCiFGameObject* discard;
-	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
+	Score_t score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
 
 	// score MT - look up responder's intent to play social game with initiator
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {
 		const auto r = static_cast<UCiFCharacter*>(responder);
-		if (r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
-			getIntentType())] != r->mProspectiveMemory->getDefaultIntentScore()) {
-			score += r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
-				getIntentType())];
+		const auto extendedIntentIndex = sg->mIntents[0]->mPredicates[0]->getExtendedIntentType();
+		if (r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Contains(extendedIntentIndex)) {
+			score += *(r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Find(extendedIntentIndex));
 		}
 	}
 

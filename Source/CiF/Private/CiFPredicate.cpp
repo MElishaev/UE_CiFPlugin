@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "CiFGameObjectStatus.h"
 #include "CiFCulturalKnowledgeBase.h"
+#include "CiFProspectiveMemory.h"
 #include "CiFRelationshipNetwork.h"
 #include "CiFSocialNetwork.h"
 
@@ -84,6 +85,12 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 					else if (mType == EPredicateType::NETWORK) {
 						bMatch = (pred->mNetworkType == mNetworkType) &&
 							(pred->mComparatorType == mComparatorType) &&
+							(pred->mPrimary == mPrimary) &&
+							(pred->mSecondary == mSecondary) &&
+							(pred->mIsNegated == mIsNegated);
+					}
+					else if (mType == EPredicateType::RELATIONSHIP) {
+						bMatch = (pred->mRelationshipType == mRelationshipType) &&
 							(pred->mPrimary == mPrimary) &&
 							(pred->mSecondary == mSecondary) &&
 							(pred->mIsNegated == mIsNegated);
@@ -588,39 +595,62 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 	return true;
 }
 
-EIntentType UCiFPredicate::getIntentType()
+EIntentType UCiFPredicate::getIntentType() const
 {
 	if (!mIsIntent) {
 		return EIntentType::INVALID;
 	}
 
-	if (mType == EPredicateType::NETWORK) {
-		switch (mNetworkType) {
-			case ESocialNetworkType::BUDDY:
-				{
-					if (mComparatorType == EComparatorType::INCREASE) {
-						return EIntentType::BUDDY_UP;
-					}
-					return EIntentType::BUDDY_DOWN;
-				}
-			case ESocialNetworkType::ROMANCE:
-				{
-					if (mComparatorType == EComparatorType::INCREASE) {
-						return EIntentType::ROMANCE_UP;
-					}
-					return EIntentType::ROMANCE_DOWN;
-				}
-		}
-	}
-	else if (mType == EPredicateType::RELATIONSHIP) {
-		switch (mRelationshipType) {
-			case ERelationshipType::FRIENDS: return mIsNegated ? EIntentType::FRIENDS : EIntentType::END_FRIENDS;
-			case ERelationshipType::DATING: return mIsNegated ? EIntentType::DATING : EIntentType::END_DATING;
-			case ERelationshipType::ENEMIES: return mIsNegated ? EIntentType::ENEMIES : EIntentType::END_ENEMIES;
-		}
+	switch (mType) {
+		case EPredicateType::NETWORK:
+			return (mComparatorType == EComparatorType::INCREASE) ? EIntentType::INCREASE_NET : EIntentType::DECREASE_NET;
+		case EPredicateType::RELATIONSHIP:
+			return !mIsNegated ? EIntentType::START_RELATIONSHIP : EIntentType::END_RELATIONSHIP;
+		case EPredicateType::STATUS:
+			return !mIsNegated ? EIntentType::ADD_STATUS : EIntentType::REMOVE_STATUS;
+		case EPredicateType::CKBENTRY:
+		case EPredicateType::SFDB_LABEL:
+		case EPredicateType::INVALID:
+		case EPredicateType::SIZE:
+			break;
 	}
 
 	return EIntentType::INVALID;
+}
+
+FCacheKey UCiFPredicate::getExtendedIntentType() const
+{
+	FCacheKey key;
+	key.mIntentType = EIntentType::INVALID;
+	key.IntentBasedEnum.mNetworkType = ESocialNetworkType::INVALID;
+	key.IntentBasedEnum.mRelationshipType = ERelationshipType::INVALID;
+	key.IntentBasedEnum.mStatusType = EStatus::INVALID;
+
+	if (!mIsIntent) {
+		return key;
+	}
+
+	switch (mType) {
+		case EPredicateType::NETWORK:
+			key.mIntentType = (mComparatorType == EComparatorType::INCREASE) ? EIntentType::INCREASE_NET : EIntentType::DECREASE_NET;
+			key.IntentBasedEnum.mNetworkType = mNetworkType;
+			break;
+		case EPredicateType::RELATIONSHIP:
+			key.mIntentType = !mIsNegated ? EIntentType::START_RELATIONSHIP : EIntentType::END_RELATIONSHIP;
+			key.IntentBasedEnum.mRelationshipType = mRelationshipType;
+			break;
+		case EPredicateType::STATUS:
+			key.mIntentType = !mIsNegated ? EIntentType::ADD_STATUS : EIntentType::REMOVE_STATUS;
+			key.IntentBasedEnum.mStatusType = mStatusType;
+			break;
+		case EPredicateType::CKBENTRY:
+		case EPredicateType::SFDB_LABEL:
+		case EPredicateType::INVALID:
+		case EPredicateType::SIZE:
+			break;
+	}
+
+	return key;
 }
 
 FName UCiFPredicate::getRoleValue(const FName val) const
@@ -1205,40 +1235,6 @@ FString UCiFPredicate::numTimesUniquelyTruePredToNLG(const FName initiatorName, 
 										else {
 											outStr = heroName + " is head over heels gaga for at least" + mNumTimesUniquelyTrue +
 												" people.";
-										}
-									}
-									else {
-										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
-									}
-									break;
-								case ESocialNetworkType::TRUST:
-									if (isLow) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are pretty darn lame.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
-												" people are pretty darn lame.";
-										}
-									}
-									else if (isMed) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are actually kinda cool.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
-												" people are actually kinda cool.";
-										}
-									}
-									else if (isHigh) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are wicked cool.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue + " people are wicked cool.";
 										}
 									}
 									else {

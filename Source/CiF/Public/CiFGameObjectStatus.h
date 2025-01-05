@@ -112,12 +112,6 @@ enum class EStatus : uint8
 	// directed concerning items
 	HELD_BY					UMETA(DisplayName="held by"),
 	WORN_BY					UMETA(DisplayName="worn by"),
-
-	// relationships
-	IS_DATING				UMETA(DisplayName="is dating"),
-	IS_FRIENDS_WITH			UMETA(DisplayName="is friends with"),
-	IS_ENEMIES_WITH			UMETA(DisplayName="is enemies with"),
-
 };
 
 USTRUCT(BlueprintType)

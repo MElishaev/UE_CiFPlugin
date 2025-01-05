@@ -4,13 +4,34 @@
 
 #include "CoreMinimal.h"
 #include "CiFGameScore.h"
+#include "Utilities.h"
 #include "UObject/Object.h"
 #include "CiFProspectiveMemory.generated.h"
 
+enum class ESocialNetworkType : uint8;
+enum class ERelationshipType : uint8;
+enum class EStatus : uint8;
 class UCiFGameObject;
 enum class EIntentType : uint8;
 class UCiFCharacter;
 class UCiFRuleRecord;
+
+struct FCacheKey
+{
+	EIntentType mIntentType;
+
+	union
+	{
+		EStatus mStatusType;
+		ERelationshipType mRelationshipType;
+		ESocialNetworkType mNetworkType;
+	} IntentBasedEnum;
+
+	bool operator==(const FCacheKey& Other) const;
+	bool operator!=(const FCacheKey& Other) const { return !(*this == Other); }
+	friend uint32 GetTypeHash(const FCacheKey& Key);
+};
+
 /**
  * Character specific prospective memory. This needs to be cleared each round.
  */
@@ -18,15 +39,15 @@ UCLASS()
 class CIF_API UCiFProspectiveMemory : public UObject
 {
 	GENERATED_BODY()
-public:
 
+public:
 	void init();
 	void initializeIntentScoreCache();
 
-	void cacheIntentScore(const UCiFGameObject* responder, const EIntentType intentType, const int8 score);
-	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const int8 score);
+	void cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const Score_t score);
+	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const Score_t score);
 
-	int8 getIntentScore(const UCiFCharacter* responder, EIntentType intentType);
+	Score_t getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType);
 
 	/**
 	 * Returns the N highest scored games in prospective memory.
@@ -44,8 +65,8 @@ public:
 	 *						Don't want to do those stuff
 	 * @return	The returned scores.
 	 */
-	TArray<FGameScore> getHighestGameScoresTo(const FName responderName, uint8 count = 5, const int8 minVolition = -100);
-	
+	TArray<FGameScore> getHighestGameScoresTo(const FName responderName, uint8 count = 5, const Score_t minVolition = -100);
+
 	/**
 	 * Fills output param game score with the score of the matching input params
 	 * @param gameName The social exchange name
@@ -55,25 +76,25 @@ public:
 	 */
 	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore);
 
-	int8 getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
+	Score_t getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
 
 	UFUNCTION(BlueprintCallable)
 	void printGameScores(UPARAM(ref) const TArray<FGameScore>& scores);
-	
+
 	/* Resets the object to its default state */
 	void clear();
-public:
 
+public:
 	bool mIsCleared; // indicates if the prospective memory is clear before starting forming scores and storing here
-	
+
 	TArray<FGameScore> mScores;
 	TArray<UCiFRuleRecord*> mRuleRecords; // array of all rules that evaluated to true while forming intent
 	TArray<UCiFRuleRecord*> mResponseSeRuleRecords;
 
-	/* A two dimensional array where intentScoreCache[x][y] where x is a character id and y refers to the intent id */
-	TArray<TArray<int8>> mIntentScoreCache;
-	TArray<TArray<int8>> mIntentPosScoreCache;
-	TArray<TArray<int8>> mIntentNegScoreCache;
-	
-	int8 DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
+	/* A array of maps where each map represents the cache of calculated intents.
+	 * each map holds scores for each combinations of keys of intentType*secondaryValue (for example, ADD_STATUS*STATUS_TYPE; INCREASE_NET*NETWORK_TYPE etc)
+	 */
+	TArray<TMap<FCacheKey, Score_t>> mIntentScoreCacheNew;
+
+	Score_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
 };

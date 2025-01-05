@@ -25,26 +25,12 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 		return;
 	}
 	
-	mIntentScoreCache.SetNum(numCharacters);
-	mIntentNegScoreCache.SetNum(numCharacters);
-	mIntentPosScoreCache.SetNum(numCharacters);
-
-	for (int i = 0; i < numCharacters; i++) {
-		mIntentScoreCache[i].SetNum(static_cast<uint8>(EPredicateType::SIZE));
-		mIntentNegScoreCache[i].SetNum(static_cast<uint8>(EPredicateType::SIZE));
-		mIntentPosScoreCache[i].SetNum(static_cast<uint8>(EPredicateType::SIZE));
-
-		for (int j = 0; j < static_cast<uint8>(EPredicateType::SIZE); j++) {
-			mIntentScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-			mIntentNegScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-			mIntentPosScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-		}
-	}
+	mIntentScoreCacheNew.SetNum(numCharacters);
 }
 
-void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const EIntentType intentType, const int8 score)
+void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const Score_t score)
 {
-	mIntentScoreCache[responder->mNetworkId][static_cast<uint8>(intentType)] = score;
+	mIntentScoreCacheNew[responder->mNetworkId].Add(extendedIntentType, score);
 	mIsCleared = false; // todo - should it be here? in what cases we cache and does this needs to be reset before forming intents?
 }
 
@@ -58,9 +44,13 @@ void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
 	mIsCleared = false;
 }
 
-int8 UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, EIntentType intentType)
+Score_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType)
 {
-	return mIntentScoreCache[responder->mNetworkId][static_cast<uint8>(intentType)];
+	auto scorePtr = mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType); 
+	if (scorePtr) {
+		return *scorePtr;
+	}
+	return DEFAULT_INTENT_SCORE;
 }
 
 TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
@@ -136,12 +126,8 @@ void UCiFProspectiveMemory::clear()
 
 	const auto numCharacters = cifManager->mCast->mCharacters.Num();
 
-	for (int i = 0; i < mIntentScoreCache.Num(); i++) {
-		for (int j = 0; j < mIntentScoreCache[0].Num(); j++) {
-			mIntentScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-			mIntentNegScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-			mIntentPosScoreCache[i][j] = DEFAULT_INTENT_SCORE;
-		}
+	for (int i = 0; i < mIntentScoreCacheNew.Num(); i++) {
+		mIntentScoreCacheNew[i].Reset();
 	}
 
 	// TODO- reset the rest of the members - but need to make sure that this makes sense for the purpose of this function
@@ -152,4 +138,37 @@ void UCiFProspectiveMemory::clear()
 	mScores.Reset();
 
 	mIsCleared = true;
+}
+
+bool FCacheKey::operator==(const FCacheKey& Other) const
+{
+	if (mIntentType != Other.mIntentType) return false;
+	switch (mIntentType) {
+		case EIntentType::INCREASE_NET:
+		case EIntentType::DECREASE_NET:
+			return IntentBasedEnum.mNetworkType == Other.IntentBasedEnum.mNetworkType;
+		case EIntentType::ADD_STATUS:
+		case EIntentType::REMOVE_STATUS:
+			return IntentBasedEnum.mStatusType == Other.IntentBasedEnum.mStatusType;
+		case EIntentType::START_RELATIONSHIP:
+		case EIntentType::END_RELATIONSHIP:
+			return IntentBasedEnum.mRelationshipType == Other.IntentBasedEnum.mRelationshipType;
+	}
+	return false;
+}
+
+uint32 GetTypeHash(const FCacheKey& Key)
+{
+	switch (Key.mIntentType) {
+		case EIntentType::INCREASE_NET:
+		case EIntentType::DECREASE_NET:
+			return HashCombine(GetTypeHash(Key.mIntentType), GetTypeHash(Key.IntentBasedEnum.mNetworkType));
+		case EIntentType::ADD_STATUS:
+		case EIntentType::REMOVE_STATUS:
+			return HashCombine(GetTypeHash(Key.mIntentType), GetTypeHash(Key.IntentBasedEnum.mStatusType));
+		case EIntentType::START_RELATIONSHIP:
+		case EIntentType::END_RELATIONSHIP:
+			return HashCombine(GetTypeHash(Key.mIntentType), GetTypeHash(Key.IntentBasedEnum.mRelationshipType));
+	}
+	return 0;
 }

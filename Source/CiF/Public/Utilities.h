@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 typedef int32_t IdType;
+typedef int8 Score_t;
 static constexpr int32_t CIF_INVALID_ID = -1;
 
 class UniqueIDGenerator

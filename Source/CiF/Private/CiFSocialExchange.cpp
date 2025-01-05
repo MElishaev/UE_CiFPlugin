@@ -12,6 +12,7 @@
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
 #include "CiFItem.h"
+#include "CiFProspectiveMemory.h"
 #include "CiFRule.h"
 
 void UCiFSocialExchange::addEffect(UCiFEffect* effect)
@@ -266,10 +267,10 @@ void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, c
 	}
 }
 
-EIntentType UCiFSocialExchange::getSocialExchangeIntentType() const
+FCacheKey UCiFSocialExchange::getSocialExchangeExtendedIntentType() const
 {
 	// for now, intents of a SG have 1 rule in them with 1 predicate, so accessing it like this is ok.
-	return mIntents[0]->mPredicates[0]->getIntentType(); 
+	return mIntents[0]->mPredicates[0]->getExtendedIntentType(); 
 }
 
 UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject)
