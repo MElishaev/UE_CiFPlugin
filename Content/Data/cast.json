@@ -237,11 +237,6 @@
                     "_to": ""
                 },
                 {
-                    "_type": "IS_DATING",
-                    "_from": "Violet",
-                    "_to": "James"
-                },
-                {
                     "_type": "IS_HOLDING",
                     "_from": "Violet",
                     "_to": "Violet's Diary"
@@ -302,11 +297,6 @@
                 }
             ],
             "Status": [
-                {
-                    "_type": "IS_DATING",
-                    "_from": "James",
-                    "_to": "Violet"
-                },
                 {
                     "_type": "AFRAID_OF",
                     "_from": "James",

@@ -17,6 +17,7 @@ UCiFMicrotheory::UCiFMicrotheory()
 	mDefinition = nullptr; // will be loaded by the loadFromJson
 }
 
+// TODO: change float type to FScore_t
 float UCiFMicrotheory::score(UCiFCharacter* initiator,
                              UCiFGameObject* responder,
                              UCiFSocialExchange* se,
@@ -24,7 +25,7 @@ float UCiFMicrotheory::score(UCiFCharacter* initiator,
 {
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	const TArray<UCiFGameObject*> possibleOthers = others.Num() > 0 ? others : static_cast<TArray<UCiFGameObject*>>(cifManager->mCast->mCharacters);
-	float totalScore = 0;
+	float totalScore = 0; // TODO: change float type to FScore_t
 
 	if (mDefinition->isRoleRequired("other")) {
 		// TODO: there is no micro-theory definition that requires other or any IR inside a MT that requires it... can be deleted

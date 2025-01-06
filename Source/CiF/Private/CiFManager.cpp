@@ -291,7 +291,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFGameObject* responder,
                                        const TArray<UCiFGameObject*>& possibleOthers)
 {
-	Score_t score = initiator->mProspectiveMemory->getDefaultIntentScore();
+	FScore_t score = initiator->mProspectiveMemory->getDefaultIntentScore();
 	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
@@ -322,14 +322,14 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	                                                      bestOther ? bestOther->mObjectName : "",
 	                                                      score);
 }
-
+// todo change type to FScore_t
 int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
                                                UCiFCharacter* initiator,
                                                UCiFGameObject* responder,
                                                const TArray<UCiFGameObject*>& possibleOthers)
 {
 	TArray<UCiFGameObject*> others = possibleOthers.Num() > 0 ? possibleOthers : static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters);
-	int8 totalScore = 0;
+	int8 totalScore = 0; // todo change type to FScore_t
 
 	for (const auto [name, microTheory] : mMicrotheoriesLib) {
 		totalScore += microTheory->score(initiator, responder, se, others);
@@ -463,7 +463,7 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	}
 
 	UCiFGameObject* discard;
-	Score_t score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
+	FScore_t score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
 
 	// score MT - look up responder's intent to play social game with initiator
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {

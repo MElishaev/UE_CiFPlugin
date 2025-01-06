@@ -44,10 +44,10 @@ public:
 	void init();
 	void initializeIntentScoreCache();
 
-	void cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const Score_t score);
-	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const Score_t score);
+	void cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const FScore_t score);
+	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const FScore_t& score);
 
-	Score_t getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType);
+	FScore_t getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType);
 
 	/**
 	 * Returns the N highest scored games in prospective memory.
@@ -65,7 +65,7 @@ public:
 	 *						Don't want to do those stuff
 	 * @return	The returned scores.
 	 */
-	TArray<FGameScore> getHighestGameScoresTo(const FName responderName, uint8 count = 5, const Score_t minVolition = -100);
+	TArray<FGameScore> getHighestGameScoresTo(const FName responderName, uint8 count = 5, const FScore_t& minVolition = -100);
 
 	/**
 	 * Fills output param game score with the score of the matching input params
@@ -76,7 +76,7 @@ public:
 	 */
 	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore);
 
-	Score_t getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
+	FScore_t getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
 
 	UFUNCTION(BlueprintCallable)
 	void printGameScores(UPARAM(ref) const TArray<FGameScore>& scores);
@@ -94,7 +94,7 @@ public:
 	/* A array of maps where each map represents the cache of calculated intents.
 	 * each map holds scores for each combinations of keys of intentType*secondaryValue (for example, ADD_STATUS*STATUS_TYPE; INCREASE_NET*NETWORK_TYPE etc)
 	 */
-	TArray<TMap<FCacheKey, Score_t>> mIntentScoreCacheNew;
+	TArray<TMap<FCacheKey, FScore_t>> mIntentScoreCacheNew;
 
-	Score_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
+	FScore_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
 };

@@ -82,7 +82,7 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 
 	return score;
 }
-
+// todo change type to FScore_t
 float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator,
                                                         UCiFGameObject* responder,
                                                         UCiFGameObject* other,
@@ -91,6 +91,7 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
                                                         FName microtheoryName,
                                                         bool isResponder)
 {
+	// todo change type to FScore_t
 	float score = 0; // todo - why the score is global and not per other?
 
 	TArray<UCiFGameObject*> possibleOthers;

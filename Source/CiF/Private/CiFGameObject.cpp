@@ -189,8 +189,13 @@ void UCiFGameObject::loadFromJson(const TSharedPtr<FJsonObject> json, const UObj
 			const auto statusEnum = StaticEnum<EStatus>();
 			const auto statusType = static_cast<EStatus>(statusEnum->
 				GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
-			const FName towardsName(statusJson->AsObject()->GetStringField("_to"));
-			addStatus(statusType, 0, towardsName); // TODO - why the status in the json doesn't have duration?
+			FString to;
+			if (statusJson->AsObject()->TryGetStringField("_to", to)) {
+				addStatus(statusType, 0, FName(to)); // TODO - why the status in the json doesn't have duration?
+			}
+			else {
+				addStatus(statusType); // TODO - why the status in the json doesn't have duration?
+			}
 		}
 	}
 	

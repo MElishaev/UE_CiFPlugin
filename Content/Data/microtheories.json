@@ -3361,10 +3361,10 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDB label",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "embarrassing",
+                            "_label": "EMBARRASSING",
                             "_negated": false,
                             "_name": "[SFDBLabel(embarrassing,initiator,responder,0) window(4)]",
                             "_intent": false,
@@ -3398,10 +3398,10 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDB label",
+                            "_type": "SFDB_LABEL",
                             "_first": "initiator",
                             "_second": "responder",
-                            "_label": "embarrassing",
+                            "_label": "EMBARRASSING",
                             "_negated": false,
                             "_name": "[SFDBLabel(embarrassing,initiator,responder,0) window(4)]",
                             "_intent": false,
@@ -4856,7 +4856,7 @@
         {
             "Name": "Charismatic",
             "Definition": {
-                "_name": "What it means for the initiator to be charimatic. Note: very similar to Tactful; must find a way to differentiate the two.",
+                "_name": "What it means for the initiator to be charismatic. Note: very similar to Tactful; must find a way to differentiate the two.",
                 "_id": -1,
                 "_description": "",
                 "Predicate": [
@@ -28326,10 +28326,10 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDB label",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "nice",
+                            "_label": "NICE",
                             "_negated": false,
                             "_name": "[SFDBLabel(nice,responder,initiator,0) window(4)]",
                             "_intent": false,
@@ -28365,10 +28365,10 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDB label",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "mean",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDBLabel(mean,responder,initiator,0) window(4)]",
                             "_intent": false,
@@ -28456,10 +28456,10 @@
                             "_numTimesRoleSlot": ""
                         },
                         {
-                            "_type": "SFDB label",
+                            "_type": "SFDB_LABEL",
                             "_first": "responder",
                             "_second": "initiator",
-                            "_label": "mean",
+                            "_label": "MEAN",
                             "_negated": false,
                             "_name": "[SFDBLabel(mean,responder,initiator,0) window(4)]",
                             "_intent": false,

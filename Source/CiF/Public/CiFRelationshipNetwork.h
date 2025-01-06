@@ -40,6 +40,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool getRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b);
 
+	UFUNCTION(BlueprintCallable)
+	bool getRelationshipByNetworkIds(const ERelationshipType relationship, const uint8 idA, const uint8 idB);
 
 	/** 
 	 * Removes a relationship from the character playing role A to the

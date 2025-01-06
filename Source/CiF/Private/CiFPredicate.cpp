@@ -1451,8 +1451,12 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 
 	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
 	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
-	p->mName = FName(predJson->GetStringField("_name"));
-	UE_LOG(LogTemp, Log, TEXT("Parsing predicate: %s"), *(p->mName.ToString()));
+	p->mName = NAME_None;
+	FString name;
+	if (predJson->TryGetStringField("_name", name)) {
+		p->mName = FName(name);
+	}
+	
 	auto isSFDB = false;
 	auto isNegated = false;
 

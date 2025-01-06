@@ -64,7 +64,8 @@ bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UC
 {
 	// if there is a time ordering dependency in this rule
 	if (getHighestSFDBOrder() > 0) {
-		return evaluateTimeOrderedRule(initiator, responder, other);
+		bool val = evaluateTimeOrderedRule(initiator, responder, other);
+		return val;
 	}
 
 	for (const auto pred : mPredicates) {
@@ -110,16 +111,15 @@ int32 UCiFRule::getHighestSFDBOrder()
 	if (mMaxSFDBOrder > 0) {
 		return mMaxSFDBOrder;	
 	}
-	else {
-		int32 order = 0;
-		for (const auto pred : mPredicates) {
-			if (pred->mSFDBOrder > order) {
-				order = pred->mSFDBOrder;
-			}
+
+	int32 order = 0;
+	for (const auto pred : mPredicates) {
+		if (pred->mSFDBOrder > order) {
+			order = pred->mSFDBOrder;
 		}
-		mMaxSFDBOrder = order;
-		return mMaxSFDBOrder;	
 	}
+	mMaxSFDBOrder = order;
+	return mMaxSFDBOrder;	
 }
 
 bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary)

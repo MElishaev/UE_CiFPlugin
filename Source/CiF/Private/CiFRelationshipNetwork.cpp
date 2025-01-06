@@ -14,7 +14,12 @@ void UCiFRelationshipNetwork::initialize(const uint8 numOfCharacters, const uint
 
 bool UCiFRelationshipNetwork::getRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b)
 {
-	return ((1u << static_cast<uint8>(relationship)) & getWeight(a->mNetworkId, b->mNetworkId)) > 0;
+	return getRelationshipByNetworkIds(relationship, a->mNetworkId, b->mNetworkId);
+}
+
+bool UCiFRelationshipNetwork::getRelationshipByNetworkIds(const ERelationshipType relationship, const uint8 idA, const uint8 idB)
+{
+	return ((1u << static_cast<uint8>(relationship)) & getWeight(idA, idB)) > 0;
 }
 
 void UCiFRelationshipNetwork::removeRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b)
@@ -43,7 +48,7 @@ UCiFRelationshipNetwork* UCiFRelationshipNetwork::loadFromJson(const TSharedPtr<
 	const auto rsJson = json->GetArrayField("Relationships");
 	for (const auto rJson : rsJson) {
 		const auto rnEnum = StaticEnum<ERelationshipType>();
-		const auto rnType = static_cast<ERelationshipType>(rnEnum->GetValueByName(FName(json->GetStringField("_type"))));
+		const auto rnType = static_cast<ERelationshipType>(rnEnum->GetValueByName(FName(rJson->AsObject()->GetStringField("_type"))));
 		const auto from = FName(rJson->AsObject()->GetStringField("_from"));
 		const auto to = FName(rJson->AsObject()->GetStringField("_to"));
 		const auto fromObject = static_cast<UCiFCharacter*>(cifManager->getGameObjectByName(from));

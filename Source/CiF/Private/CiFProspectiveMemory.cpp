@@ -28,7 +28,7 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 	mIntentScoreCacheNew.SetNum(numCharacters);
 }
 
-void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const Score_t score)
+void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const FScore_t score)
 {
 	mIntentScoreCacheNew[responder->mNetworkId].Add(extendedIntentType, score);
 	mIsCleared = false; // todo - should it be here? in what cases we cache and does this needs to be reset before forming intents?
@@ -38,13 +38,13 @@ void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
                                                    const FName initator,
                                                    const FName responder,
                                                    const FName other,
-                                                   const int8 score)
+                                                   const FScore_t& score)
 {
 	mScores.Emplace(seName, initator, responder, other, score);
 	mIsCleared = false;
 }
 
-Score_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType)
+FScore_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType)
 {
 	auto scorePtr = mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType); 
 	if (scorePtr) {
@@ -67,7 +67,7 @@ TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
 	return topNScores;
 }
 
-TArray<FGameScore> UCiFProspectiveMemory::getHighestGameScoresTo(const FName responderName, uint8 count, const int8 minVolition)
+TArray<FGameScore> UCiFProspectiveMemory::getHighestGameScoresTo(const FName responderName, uint8 count, const FScore_t& minVolition)
 {
 	TArray<FGameScore> allMatchingScoresAboveMinVolition;
 	uint8 amountAdded = 0;
@@ -112,7 +112,7 @@ void UCiFProspectiveMemory::printGameScores(const TArray<FGameScore>& scores)
 	for (const auto& gs : scores) {
 		UE_LOG(LogTemp, Log, TEXT("%s: %s -> %s (%s) == %d"),
 			*(gs.mName.ToString()), *(gs.mInitiator.ToString()), *(gs.mResponder.ToString()),
-			*(gs.mOther.ToString()), gs.mScore);
+			*(gs.mOther.ToString()), gs.mScore.val);
 	}
 }
 
