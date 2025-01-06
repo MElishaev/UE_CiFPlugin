@@ -1343,8 +1343,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -1359,8 +1359,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -14910,8 +14910,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -14926,8 +14926,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": true,
@@ -15031,8 +15031,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -15047,8 +15047,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": true,
@@ -17123,8 +17123,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "initiator",
                 "_second": "other",
                 "_negated": true,
@@ -18539,8 +18539,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -18555,8 +18555,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -18747,8 +18747,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -18763,8 +18763,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "other",
                 "_second": "responder",
                 "_negated": true,
@@ -18779,8 +18779,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -18795,8 +18795,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -19005,8 +19005,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -19021,8 +19021,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "other",
                 "_second": "responder",
                 "_negated": true,
@@ -19037,8 +19037,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -19053,8 +19053,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -25354,8 +25354,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_FRIENDS_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "FRIENDS",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -26102,8 +26102,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -26139,8 +26139,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -28904,8 +28904,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_FRIENDS_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "FRIENDS",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -30706,8 +30706,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "other",
                 "_second": "responder",
                 "_negated": true,
@@ -30771,8 +30771,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_FRIENDS_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "FRIENDS",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -32434,8 +32434,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -32471,8 +32471,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -37254,8 +37254,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -37291,8 +37291,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -39140,8 +39140,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -39156,8 +39156,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -39513,8 +39513,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -40816,8 +40816,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -40853,8 +40853,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -40897,8 +40897,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -42057,8 +42057,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -42073,8 +42073,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -42244,8 +42244,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -42260,8 +42260,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -42435,8 +42435,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -42451,8 +42451,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -42467,8 +42467,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -42483,8 +42483,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "other",
                 "_second": "responder",
                 "_negated": true,
@@ -42644,8 +42644,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -42660,8 +42660,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "other",
                 "_second": "responder",
                 "_negated": true,
@@ -42676,8 +42676,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "initiator",
                 "_second": "responder",
                 "_negated": false,
@@ -42692,8 +42692,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": false,
@@ -47240,8 +47240,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -50759,8 +50759,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -50928,8 +50928,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "initiator",
                 "_negated": true,
@@ -52273,8 +52273,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_ENEMIES_WITH",
+                "_type": "RELATIONSHIP",
+                "_relationship": "ENEMIES",
                 "_first": "initiator",
                 "_second": "other",
                 "_negated": false,
@@ -54443,8 +54443,8 @@
           "ChangeRule": {
             "Predicate": [
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -54564,8 +54564,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -54723,8 +54723,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -59989,8 +59989,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": true,
@@ -60026,8 +60026,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
@@ -60070,8 +60070,8 @@
                 "_numTimesRoleSlot": ""
               },
               {
-                "_type": "STATUS",
-                "_status": "IS_DATING",
+                "_type": "RELATIONSHIP",
+                "_relationship": "DATING",
                 "_first": "responder",
                 "_second": "other",
                 "_negated": false,
