@@ -21,7 +21,7 @@ public:
 	 * @param numOfCharacters	The number of characters in the game
 	 * @param maxVal			The maximum value of a weight in the matrix
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void initialize(const uint8 numOfCharacters, const uint8 maxVal);
 	
 	/**
@@ -37,10 +37,10 @@ public:
 	 * @return True if the relationship is present from a to b. False if it is
 	 * not.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool getRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool getRelationshipByNetworkIds(const ERelationshipType relationship, const uint8 idA, const uint8 idB);
 
 	/** 
@@ -54,7 +54,7 @@ public:
 	 * @param	a The Character for which the relationship is modified.
 	 * @param	b The Character that is the object of the relationship change.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void removeRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b);
 	
 	/**
@@ -68,7 +68,7 @@ public:
 	 * @param	a The Character for which the Relationship is true.
 	 * @param	b The Character that is the object of the Relationship.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void setRelationship(const ERelationshipType relationship, const UCiFCharacter* a, const UCiFCharacter* b);
 
 	static UCiFRelationshipNetwork* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);

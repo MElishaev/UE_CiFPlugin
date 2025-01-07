@@ -19,13 +19,13 @@ class CIF_API UCiFSubsystem : public UGameInstanceSubsystem
 
 public:
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFManager* getInstance();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCifImplementationBase* getImplementation() const;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void setImplementation(UCifImplementationBase* impl);
 	
 private:

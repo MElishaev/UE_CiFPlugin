@@ -13,7 +13,7 @@ struct FScore_t
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	int32 val;
 	
 	FScore_t() : val(0) {}

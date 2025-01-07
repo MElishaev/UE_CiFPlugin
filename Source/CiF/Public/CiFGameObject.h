@@ -91,7 +91,7 @@ struct FStatusArrayWrapper
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	TArray<UCiFGameObjectStatus*> statusArray;	
 };
 
@@ -110,10 +110,10 @@ public:
 
 	// TODO-- need to add init method, but i have a problem that i can't overload this method in the child classes when using UFUNCTION
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void addTrait(const ETrait trait);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool hasTrait(const ETrait trait) const;	
 
 	/**
@@ -123,7 +123,7 @@ public:
 	 * @param	towards			The character the status is directed to. null if not looking for directed status
 	 * @return	True if the character has the status, false if he does not.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool hasStatus(const EStatus statusType, const UCiFGameObject* towards = nullptr) const;
 
 	/**
@@ -132,7 +132,7 @@ public:
 	 * @param duration			Initial duration of the status
 	 * @param towards			The character the status is directed to.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void addStatus(const EStatus statusType, const int32 duration=0, const FName towards = "");
 
 	/**
@@ -142,7 +142,7 @@ public:
 	 * @param statusType	The type of status to remove.
 	 * @param towards		Optional parameter for directed statuses
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void removeStatus(const EStatus statusType, const FName towards = "");
 
 	/**
@@ -151,13 +151,13 @@ public:
 	 * TODO: add the status removal to the SFDB.
 	 * @param	timeElapsed	The amount of time to remove from the statuses.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void updateStatusDurations(const int32 timeElapsed=1); 
 	
 	/**
 	 * @return The status or null if doesn't exists 
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFGameObjectStatus* getStatus(const EStatus statusType, const FName towards = "");
 
 	void loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
@@ -172,18 +172,18 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(BlueprintReadOnly, meta = (ExposeOnSpawn="true"))
+	UPROPERTY(BlueprintReadOnly, meta = (ExposeOnSpawn="true", Category = "CiF"))
 	FName mObjectName;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CiF")
 	TSet<ETrait> mTraits; // Set of traits of this game object
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CiF")
 	TMap<EStatus, FStatusArrayWrapper> mStatuses; // Map of statuses that currently the object has
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CiF")
 	ECiFGameObjectType mGameObjectType; // This game object's type 
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CiF")
 	uint8 mNetworkId; // The ID that this character is represented by in a social network.
 };

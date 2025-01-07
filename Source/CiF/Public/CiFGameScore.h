@@ -11,19 +11,19 @@ struct FGameScore
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	FName mName; // the name of the scored social exchange
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	FName mInitiator; // the potential initiator of the social exchange
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	FName mResponder;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	FName mOther;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	FScore_t mScore;
 
 	bool operator<(const FGameScore& o) const

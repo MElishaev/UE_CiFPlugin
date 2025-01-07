@@ -53,7 +53,7 @@ public:
 	 * @param numOfCharacters	The number of characters in the game
 	 * @param maxVal			The maximum value of a weight in the matrix
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void init(const ESocialNetworkType networkType, const uint8 numOfCharacters, const uint8 maxVal);
 
 
@@ -61,21 +61,23 @@ public:
 	 * Methods to manipulate the weight at a specific element.
 	 * This is clamped to the max value if overflows
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void setWeight(const uint8 c1, const uint8 c2, const uint8 w);
-	UFUNCTION(BlueprintCallable)
+
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void addWeight(const uint8 c1, const uint8 c2, const int addition);
-	UFUNCTION(BlueprintCallable)
+
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void multiplyWeight(const uint8 c1, const uint8 c2, const float multiplier);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	uint8 getWeight(const uint8 c1, const uint8 c2);
 
 	/**
 	 * @param c The character in question
 	 * @return The average weight of all characters toward this character
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	float getAverageOpinion(const uint8 c);
 
 	/**
@@ -83,10 +85,10 @@ public:
 	 * @param th The threshold of which we want the relationships to be above
 	 * @return Array of character IDs which @c has relationship higher than threshold towards them
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	TArray<uint8> getRelationshipsAboveThreshold(const uint8 c, const uint8 th);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	TArray<uint8> getReverseRelationshipsAboveThreshold(const uint8 c, const uint8 th);
 
 	static UCiFSocialNetwork* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
@@ -98,7 +100,7 @@ public:
 
 	TArray<TArray<uint8>> mNetwork; // represents 2d array of relationship value where Network[x][y] is the opinion of x towards y
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiF")
 	ESocialNetworkType mType;
 
 	uint8 mMaxVal; // the max value a network edge can hold

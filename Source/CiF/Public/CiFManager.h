@@ -49,13 +49,13 @@ public:
 	 *								from inside the game sends itself (*this) as the world context object
 	 *								such that he is the one "knowing" about the world he is in
 	 */
-	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"))
+	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject", Category = "CiF"))
 	void init(const UObject* worldContextObject);
 
-	UPROPERTY(BlueprintAssignable, Category = "Events")
+	UPROPERTY(BlueprintAssignable, Category = "CiF")
 	FOnSocialNetworkUpdated OnSocialNetworkUpdated;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void formIntentForAll();
 
 	/**
@@ -65,7 +65,7 @@ public:
 	 * 
 	 * @param initiator The subject of the intent formation process.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void formIntent(UCiFCharacter* initiator);
 
 	/**
@@ -186,13 +186,13 @@ public:
 	FName pickAGoodCKBObject(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFPredicate* ckbPredicate) const;
 
 	/********************************** Getters ********************************/
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFGameObject* getGameObjectByName(const FName name) const;
 	
 	UCiFItem* getItemByName(const FName name) const;
 	UCiFKnowledge* getKnowledgeByName(const FName name) const;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
 
 	UCiFMicrotheory* getMicrotheoryByName(const FName mtName);
@@ -200,7 +200,7 @@ public:
 	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const;
 	void getAllGameObjectsNames(TArray<FName>& outObjNames) const;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const;
 
 	void clearProspectiveMemory();
@@ -236,7 +236,7 @@ public:
 	UPROPERTY()
 	UObject* mWorldContextObject;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	UCiFCast* mCast;
 
 	UPROPERTY()
@@ -254,13 +254,13 @@ public:
 	UPROPERTY()
 	UCiFCulturalKnowledgeBase* mCKB;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	TMap<ESocialNetworkType, UCiFSocialNetwork*> mSocialNetworks;
 
 	UPROPERTY()
 	TMap<FName, UCiFMicrotheory*> mMicrotheoriesLib;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	UCiFRelationshipNetwork* mRelationshipNetworks;
 
 	/**

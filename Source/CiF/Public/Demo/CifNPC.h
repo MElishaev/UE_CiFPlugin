@@ -32,7 +32,7 @@ public:
 
 	bool isSocialGameInHistory(const FName sg) const;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = "true", Category = "CiF"))
 	UCiFCharacter* mCifCharacterComp; // cif character component
 	
 	TArray<FName> mLastSocialMoves; // the last @mNumOfLastMoves moves

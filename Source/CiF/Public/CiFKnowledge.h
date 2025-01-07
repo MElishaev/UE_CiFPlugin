@@ -35,16 +35,16 @@ class CIF_API UCiFKnowledge : public UCiFGameObject
 public:
 	UCiFKnowledge();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void init(const EKnowledgeType knowledgeType, UCiFGameObject* learnedFrom=nullptr);
 
 	static UCiFKnowledge* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "CiF")
 	UCiFGameObject* mLearnedFrom; // the game object that this knowledge was learned from
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CiF")
 	EKnowledgeType mKnowledgeType;
 	
 };
