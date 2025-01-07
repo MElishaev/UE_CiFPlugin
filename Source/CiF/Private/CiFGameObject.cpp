@@ -43,42 +43,8 @@ bool UCiFGameObject::hasStatus(const EStatus statusType, const UCiFGameObject* t
 void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, const FName towards)
 {
 	// if the type of the status is category
-	if (statusType < EStatus::FIRST_NOT_DIRECTED_STATUS) {
-		// apply all statuses in that category
-		const auto statusCat = UCiFGameObjectStatus::mStatusCategories.Find(statusType);
-		if (!statusCat) {
-			UE_LOG(LogTemp, Error, TEXT("Didn't find status category %d"), statusType);	
-			return;
-		}
-		
-		for (const auto type : (*statusCat).mStatusTypes) {
-			// see if character has status already
-			const auto status = getStatus(type, towards);
-			if (status) {
-				continue;
-			}
-
-			// status not found, add it to character
-			auto newStatus = NewObject<UCiFGameObjectStatus>();
-			newStatus->init(statusType, duration, towards);
-			if (mStatuses.Contains(statusType)) {
-				mStatuses.Find(statusType)->statusArray.Add(newStatus);
-			}
-			else {
-				FStatusArrayWrapper statusArrayWrapper;
-				statusArrayWrapper.statusArray.Add(newStatus);
-				mStatuses.Add(statusType, statusArrayWrapper);
-				UE_LOG(LogTemp,
-				   Log,
-				   TEXT("Added status: %s %s"),
-				   *(mObjectName.ToString()), *(newStatus->toString()));
-			}
-
-			// setup the partner status if it has a partner and the status reciprocal - for now not sure about
-			// which types are reciprocal, TODO maybe implement later
-		}
-
-		return;
+	if (statusType < EStatus::LAST_CATEGORY_COUNT) {
+		return addCategoryStatus(statusType, duration, towards);
 	}
 
 	// not a category status
@@ -107,16 +73,6 @@ void UCiFGameObject::addStatus(const EStatus statusType, const int32 duration, c
 				   TEXT("Added status: %s %s"),
 				   *(mObjectName.ToString()), *(newStatus->toString()));
 		}
-
-		// TODO --	if this is a reciprocal status, like dating, i think it is also
-		//			needed to call towards->addStatus(statusType, duration, this)
-		//			but this is risky because we can get into a infinite loop - so maybe i need to check first
-		//			if the other side already has the status and the addStatus call should happen in the
-		//			end of the function so the other call would terminate because it will see it was already added here
-		//			but other than that, i don't know why this is needed when we have
-		//			social networks, where this data resides there, why it is also
-		//			needed to be represented in statuses?
-		
 	}
 }
 
@@ -124,6 +80,7 @@ void UCiFGameObject::removeStatus(const EStatus statusType, const FName towards)
 {
 	auto statusArrWrapper = mStatuses.Find(statusType);
 	if (statusArrWrapper) {
+		// loop backwards because removing elements while moving forwards messes with the indices of the array
 		for (int32 i = statusArrWrapper->statusArray.Num() - 1; i >= 0; i--) {
 			if (statusArrWrapper->statusArray[i]->mDirectedTowards == towards) {
 				UE_LOG(LogTemp, Log, TEXT("%s removing status %s"), *(mObjectName.ToString()), *(statusArrWrapper->statusArray[i]->toString()));
@@ -216,6 +173,40 @@ void UCiFGameObject::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+}
+
+void UCiFGameObject::addCategoryStatus(const EStatus statusType, const int32 duration, const FName towards)
+{
+	// apply all statuses in that category
+	const auto statusCat = UCiFGameObjectStatus::mStatusCategories.Find(statusType);
+	if (!statusCat) {
+		UE_LOG(LogTemp, Error, TEXT("Didn't find status category %d"), statusType);	
+		return;
+	}
+		
+	for (const auto type : (*statusCat).mStatusTypes) {
+		// see if character has status already
+		const auto status = getStatus(type, towards);
+		if (status) {
+			continue;
+		}
+
+		// status not found, add it to character
+		auto newStatus = NewObject<UCiFGameObjectStatus>();
+		newStatus->init(statusType, duration, towards);
+		if (mStatuses.Contains(statusType)) {
+			mStatuses.Find(statusType)->statusArray.Add(newStatus);
+		}
+		else {
+			FStatusArrayWrapper statusArrayWrapper;
+			statusArrayWrapper.statusArray.Add(newStatus);
+			mStatuses.Add(statusType, statusArrayWrapper);
+			UE_LOG(LogTemp,
+			   Log,
+			   TEXT("Added status: %s %s"),
+			   *(mObjectName.ToString()), *(newStatus->toString()));
+		}
+	}
 }
 
 

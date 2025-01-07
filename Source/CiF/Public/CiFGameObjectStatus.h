@@ -14,13 +14,6 @@ class UCiFGameObject;
 UENUM(BlueprintType)
 enum class EStatus : uint8
 {
-	// TODO-	the category statuses can be used when we want to remove or
-	//			maybe add all the statuses of the same category to a character.
-	//			to add support for this the add/remove statuses in gameObject
-	//			should be modified to accomodate it
-
-	INVALID,
-	
 	// positive category statuses
 	CAT_FEELING_GOOD,
 	CAT_FEELING_GOOD_ABOUT_SOMEONE,
@@ -29,7 +22,6 @@ enum class EStatus : uint8
 	// negative category statuses
 	CAT_FEELING_BAD,
 	CAT_FEELING_BAD_ABOUT_SOMEONE,
-	CAT_REPUTATION_BAD,
 	LAST_NEGATIVE_CATEGORY_STATUS,
 
 	// item category statuses
@@ -112,6 +104,8 @@ enum class EStatus : uint8
 	// directed concerning items
 	HELD_BY					UMETA(DisplayName="held by"),
 	WORN_BY					UMETA(DisplayName="worn by"),
+
+	INVALID					UMETA(DisplayName="INVALID"),
 };
 
 USTRUCT(BlueprintType)

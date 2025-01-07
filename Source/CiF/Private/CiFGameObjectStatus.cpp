@@ -73,9 +73,6 @@ TMap<EStatus, FStatusTypesArrayWrapper> UCiFGameObjectStatus::initializeStatusCa
 		           .mStatusTypes = {EStatus::GRATEFUL_TOWARD}
 	           });
 
-	outMap.Add(EStatus::CAT_REPUTATION_BAD,
-	           FStatusTypesArrayWrapper{.mStatusTypes = {}});
-
 	outMap.Add(EStatus::CAT_HAS_DURATION,
 	           FStatusTypesArrayWrapper{
 		           .mStatusTypes = {EStatus::SHAKEN, EStatus::HEARTBROKEN, EStatus::DRUNK, EStatus::TIPSY, EStatus::OFFENDED}

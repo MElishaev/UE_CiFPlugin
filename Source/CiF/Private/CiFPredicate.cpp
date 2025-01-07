@@ -832,7 +832,6 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 
 void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) const
 {
-	const auto statusEnum = StaticEnum<EStatus>();
 	if (mIsNegated) {
 		if (second) {
 			first->removeStatus(mStatusType, second->mObjectName);
