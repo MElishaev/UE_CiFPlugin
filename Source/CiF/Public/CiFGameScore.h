@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Utilities.h"
 #include "CiFGameScore.generated.h"
 
 USTRUCT(BlueprintType)
@@ -22,8 +23,8 @@ struct FGameScore
 	UPROPERTY(BlueprintReadOnly)
 	FName mOther;
 
-	UPROPERTY()
-	int8 mScore;
+	UPROPERTY(BlueprintReadOnly)
+	FScore_t mScore;
 
 	bool operator<(const FGameScore& o) const
 	{

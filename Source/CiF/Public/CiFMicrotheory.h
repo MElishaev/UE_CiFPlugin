@@ -13,7 +13,7 @@ class UCiFSocialExchange;
 /**
  * Microtheory holds influence rules of initiator and responder for a specific type of rule.
  * The point of this class is to hold repetitive influence rules that makes common sense.
- * The theories that their rule evaluates to true is taken into account in the current social context
+ * The theories that their rule (definition) evaluates to true is taken into account in the current social context
  * when forming volitions. Initiator's rules considered in his volitions and the responder's in the
  * his response.
  * 
@@ -51,6 +51,9 @@ public:
 	UPROPERTY()
 	UCiFRule* mDefinition; // the condition we want to represent with influence rule. often just one Predicate
 
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mInitiatorIR;
+
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mResponderIR;
 };

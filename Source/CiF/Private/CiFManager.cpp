@@ -291,7 +291,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFGameObject* responder,
                                        const TArray<UCiFGameObject*>& possibleOthers)
 {
-	int8 score = initiator->mProspectiveMemory->getDefaultIntentScore();
+	FScore_t score = initiator->mProspectiveMemory->getDefaultIntentScore();
 	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
@@ -301,17 +301,14 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 
 		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
 		// if not, score and cache
-		const auto intentType = socialExchange->getSocialExchangeIntentType();
-		const auto intentIndex = static_cast<uint8>(intentType);
-		if (initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex] ==
-			initiator->mProspectiveMemory->getDefaultIntentScore()) {
-			
+		const auto extendedIntentType = socialExchange->getSocialExchangeExtendedIntentType();
+		if (not initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Contains(extendedIntentType)) {
 			const auto singleScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
-			initiator->mProspectiveMemory->cacheIntentScore(responder, intentType, singleScore);
+			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, singleScore);
 			score += singleScore;
 		}
 		else {
-			score += initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId][intentIndex];
+			score += *(initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType));
 		}
 	}
 	else {
@@ -325,14 +322,14 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	                                                      bestOther ? bestOther->mObjectName : "",
 	                                                      score);
 }
-
+// todo change type to FScore_t
 int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
                                                UCiFCharacter* initiator,
                                                UCiFGameObject* responder,
                                                const TArray<UCiFGameObject*>& possibleOthers)
 {
 	TArray<UCiFGameObject*> others = possibleOthers.Num() > 0 ? possibleOthers : static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters);
-	int8 totalScore = 0;
+	int8 totalScore = 0; // todo change type to FScore_t
 
 	for (const auto [name, microTheory] : mMicrotheoriesLib) {
 		totalScore += microTheory->score(initiator, responder, se, others);
@@ -466,15 +463,14 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	}
 
 	UCiFGameObject* discard;
-	float score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
+	FScore_t score = sg->scoreSocialExchange(static_cast<UCiFCharacter*>(initiator), responder, discard, possibleOthers, true);
 
 	// score MT - look up responder's intent to play social game with initiator
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {
 		const auto r = static_cast<UCiFCharacter*>(responder);
-		if (r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
-			getIntentType())] != r->mProspectiveMemory->getDefaultIntentScore()) {
-			score += r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId][static_cast<uint8>(sg->mIntents[0]->mPredicates[0]->
-				getIntentType())];
+		const auto extendedIntentIndex = sg->mIntents[0]->mPredicates[0]->getExtendedIntentType();
+		if (r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Contains(extendedIntentIndex)) {
+			score += *(r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Find(extendedIntentIndex));
 		}
 	}
 
@@ -631,14 +627,21 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 
 	auto possibleOthers = otherCast;
 	if (possibleOthers.IsEmpty()) {
-		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
+		getAllGameObjectsOfType(possibleOthers, ECiFGameObjectType::CHARACTER);
 	}
 
 	const auto highestSaliencyEffect = sg->getEffectById(sgContext->mEffectId);
 	checkf(highestSaliencyEffect != nullptr, TEXT("Effect wasn't found - this shouldn't happen at this stage"));
 	const auto other = getGameObjectByName(sgContext->mOtherName);
-	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 
+	// update status duration before applying current SG changes because they made add
+	// statuses which we don't want to reduce their duration
+	for (auto o : possibleOthers) {
+		o->updateStatusDurations(1);
+	}
+	
+	// apply the social change
+	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 	highestSaliencyEffect->mLastSeenTime = mTime;
 
 	mSFDB->addContext(sgContext);
@@ -646,19 +649,20 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	//update all of the status to be one turn older now that we've chosen salient effects
 	//in other words, the status lives "through" this spot in cif.time
 	//and new statuses are not decremented yet, as they start on the next time step.
-	// statuses that reached the end of their lifetime added as trigger context
-	// to fire the necessary changes when finished.
+	// statuses that reached the end of their lifetime added as trigger context, after
+	// it was valuated by a newly created predicate negating the status, ordering its removal
 	for (auto c : possibleOthers) {
 		//for now, just update the possible others (i.e. people who aren't present don't change)
-		for (auto &[statusType, statusArrWrapper] : c->mStatuses) {
-			for (const UCiFGameObjectStatus* status : statusArrWrapper.statusArray) {
-				if (status->mHasDuration && status->mRemainingDuration <= 1) {
+		for (auto mapIt = c->mStatuses.CreateIterator(); mapIt; ++mapIt) { // todo this pair could be deleted while inside loop
+			// using iterator because it safely allows to delete elements (statuses) while iterating over the array
+			for (auto it = mapIt->Value.statusArray.CreateIterator(); it; ++it) { // todo array element could be deleted while inside loop
+				if ((*it)->mHasDuration && (*it)->mRemainingDuration < 1) {
 					// creating predicate to remove the status
 					auto pred = NewObject<UCiFPredicate>(mWorldContextObject);
-					pred->setStatusPredicate(c->mObjectName, status->mDirectedTowards, status->mType, status->mInitialDuration, false, true);
+					pred->setStatusPredicate(c->mObjectName, (*it)->mDirectedTowards, (*it)->mType, (*it)->mInitialDuration, false, true);
 
 					// remove the status due to end of duration
-					const auto directedToward = getGameObjectByName(status->mDirectedTowards);
+					const auto directedToward = getGameObjectByName((*it)->mDirectedTowards);
 					pred->valuation(c, directedToward);
 
 					// make trigger context for this change in state
@@ -666,16 +670,14 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 					trigger->mId = UCiFTrigger::mStatusTimeoutTriggerID;
 					const auto changeRule = NewObject<UCiFRule>(mWorldContextObject);
 					changeRule->mPredicates.Add(pred);
-
+					trigger->mChange = changeRule;
+					
 					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward);
 					triggerContext->mStatusTimeoutChange = changeRule;
 					mSFDB->addContext(triggerContext);
 				}
 			}
 		}
-
-		// decrement status counters of all players
-		c->updateStatusDurations(1);
 	}
 
 	//now that we have changed the state, updated statuses, we should run the triggers.

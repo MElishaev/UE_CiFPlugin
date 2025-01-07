@@ -180,7 +180,7 @@ public:
 	 */
 	void getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName);
 
-	EIntentType getSocialExchangeIntentType() const;
+	FCacheKey getSocialExchangeExtendedIntentType() const;
 
 	static UCiFSocialExchange* loadFromJson(const TSharedPtr<FJsonObject> sgJson, const UObject* worldContextObject);
 

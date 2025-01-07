@@ -7,6 +7,7 @@
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+struct FGameScore;
 class UCiFCharacter;
 class UCiFSocialExchangeContext;
 class UCiFGameObject;
@@ -18,6 +19,12 @@ USTRUCT(BlueprintType)
 struct FSocialGameIntentPair
 {
 	GENERATED_BODY()
+	FSocialGameIntentPair() : socialGameName(NAME_None), intentString(TEXT("")), score(0) {}
+
+	FSocialGameIntentPair(const FName& sg, const FString& intent, const FScore_t& sc) :
+		socialGameName(sg),
+		intentString(intent),
+		score(sc) {}
 
 	UPROPERTY(BlueprintReadWrite)
 	FName socialGameName;
@@ -26,7 +33,7 @@ struct FSocialGameIntentPair
 	FString intentString;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 score;
+	FScore_t score;
 };
 
 /**
@@ -46,7 +53,15 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	UCiFCharacter* chooseNPCInitiatorForSocialGame();
-	
+
+	/**
+	 * Given a list of social games and their scores, selects a social game based on the implemented selection method
+	 * @param sgs The social games array
+	 * @return the selected social game name
+	 */
+	UFUNCTION(BlueprintCallable)
+	FGameScore selectSocialGameFromList(UPARAM(ref) const TArray<FGameScore> sgs) const;
+
 	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
 	/**
 	 * Prepares the available social games options when interacting with a character for a social game.
@@ -114,10 +129,14 @@ public:
 	 * otherChosen signals the use of this inside a character move (instead of an item)
 	 */
 	UFUNCTION(BlueprintCallable)
-	void offerEffects(TArray<UCiFEffect*>& outEffects, const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* otherChosen = nullptr);
+	void offerEffects(TArray<UCiFEffect*>& outEffects,
+	                  const FName sgName,
+	                  ACifNPC* initiator,
+	                  UCiFGameObject* responder,
+	                  UCiFGameObject* otherChosen = nullptr);
 
 	void itemMoveChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPCPlaying, UCiFEffect* effect);
-	
+
 	// TODO - what this function returns?
 	UFUNCTION(BlueprintCallable)
 	void moveChosen(const FName sgName,
@@ -130,7 +149,12 @@ public:
 	// Only should be called after offerOthers()
 	// e is the effect.referenceAsNaturalLanguage
 	UFUNCTION(BlueprintCallable)
-	void effectChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPC, UCiFEffect* effect, UCiFGameObject* other);
+	void effectChosen(const FName sgName,
+	                  ACifNPC* initiator,
+	                  UCiFGameObject* responder,
+	                  const bool isNPC,
+	                  UCiFEffect* effect,
+	                  UCiFGameObject* other);
 
 	/**
 	 * Should be called in any situation where social moves including items will be played

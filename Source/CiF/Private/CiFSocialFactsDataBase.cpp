@@ -35,7 +35,7 @@ int UCiFSocialFactsDataBase::timeOfPredicateInHistory(const UCiFPredicate* pred,
 		                   : latestTimeInSFDB + 1;
 
 	int32 i = mContexts.Num() - 1;
-	while ((i >= 0) && mContexts[i]->mTime > latestTimeInSFDB - window) {
+	while ((i >= 0) && (mContexts[i]->mTime > latestTimeInSFDB - window)) {
 		if (mContexts[i]->isPredicateInChange(pred, x, y, z)) {
 			return mContexts[i]->mTime;
 		}
@@ -62,42 +62,38 @@ void UCiFSocialFactsDataBase::findLabelFromValues(TArray<int32>& outMatchingIndi
                                                   const UCiFPredicate* pred) const
 {
 	if (mContexts.IsEmpty()) {
-		UE_LOG(LogTemp, Warning, TEXT("Contexts is empty"));
+		UE_LOG(LogTemp, Error, TEXT("Contexts is empty"));
 		return;
 	}
 
 	const int32 timeToStopSearch = (window <= 0) ? getLowestContextTime() - 1 : getLatestContextTime() - window;
 
 	//NOTE: this assumes that all entries are in order such that the most recent action is last in contexts
-	for (int i = 0; i < mContexts.Num(); i++) {
-		if ((mContexts[i]->getType() == ESFDBContextType::SOCIAL_GAME) || (mContexts[i]->getType() == ESFDBContextType::TRIGGER) &&
-			(mContexts[i]->mTime > timeToStopSearch)) {
-
-			if (mContexts[i]->getType() == ESFDBContextType::SOCIAL_GAME) {
-				const auto sgc = static_cast<UCiFSocialExchangeContext*>(mContexts[i]);
-				if (pred && pred->mIsNumTimesUniquelyTruePred) {
-					//Call a strict version of this. Which requires a from because it is numTimesUniquelyTrue
-					if (sgc->doesSFDBLabelMatchStrict(label, c1, c2, c3, pred)) {
-						outMatchingIndices.Add(sgc->mTime);
-					}
+	for (int i = mContexts.Num() - 1; i >= 0 && mContexts[i]->mTime > timeToStopSearch; i--) {
+		if (mContexts[i]->getType() == ESFDBContextType::SOCIAL_GAME) {
+			const auto sgc = static_cast<UCiFSocialExchangeContext*>(mContexts[i]);
+			if (pred && pred->mIsNumTimesUniquelyTruePred) {
+				//Call a strict version of this. Which requires a from because it is numTimesUniquelyTrue
+				if (sgc->doesSFDBLabelMatchStrict(label, c1, c2, c3, pred)) {
+					outMatchingIndices.Add(sgc->mTime);
 				}
-				else {
-					if (sgc->doesSFDBLabelMatch(label, c1, c2, c3, pred)) {
-						outMatchingIndices.Add(sgc->mTime);
-					}
-				}	
 			}
-			else if (mContexts[i]->getType() == ESFDBContextType::TRIGGER) {
-				const auto tc = static_cast<UCiFTriggerContext*>(mContexts[i]);
-				if (pred && pred->mIsNumTimesUniquelyTruePred) {
-					if (tc->doesSFDBLabelMatchStrict(label, c1, c2, c3, pred)) {
-						outMatchingIndices.Add(tc->mTime);
-					}
+			else {
+				if (sgc->doesSFDBLabelMatch(label, c1, c2, c3, pred)) {
+					outMatchingIndices.Add(sgc->mTime);
 				}
-				else {
-					if (tc->doesSFDBLabelMatch(label, c1, c2, c3, pred)) {
-						outMatchingIndices.Add(tc->mTime);
-					}
+			}	
+		}
+		else if (mContexts[i]->getType() == ESFDBContextType::TRIGGER) {
+			const auto tc = static_cast<UCiFTriggerContext*>(mContexts[i]);
+			if (pred && pred->mIsNumTimesUniquelyTruePred) {
+				if (tc->doesSFDBLabelMatchStrict(label, c1, c2, c3, pred)) {
+					outMatchingIndices.Add(tc->mTime);
+				}
+			}
+			else {
+				if (tc->doesSFDBLabelMatch(label, c1, c2, c3, pred)) {
+					outMatchingIndices.Add(tc->mTime);
 				}
 			}
 		}
@@ -142,7 +138,7 @@ TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> UCiFSocialFactsDataBase::initia
 
 	outMap.Add(ESFDBLabelType::CAT_POSITIVE, FLabelCategoryArrayWrapper{
 		.mCategoryLabels = {
-			ESFDBLabelType::COOL, ESFDBLabelType::FUNNY
+			ESFDBLabelType::COOL, ESFDBLabelType::FUNNY, ESFDBLabelType::NICE
 		}
 	});
 
@@ -158,11 +154,14 @@ void UCiFSocialFactsDataBase::addContext(UCiFSFDBContext* context)
 	// todo - this is for now not optimized because we sort it on every addition. (i think this can be done with heapsort and heappush methods of array)
 	// it would better be to store the context in a heap to be able to insert in O(logn) instead of O(nlogn)
 	mContexts.Add(context);
+
+	// todo - why do we even need to sort if new created contexts are always will be the latest?
 	mContexts.Sort([](UCiFSFDBContext& c1, UCiFSFDBContext& c2) { return c1.mTime <= c2.mTime; });
 }
 
 void UCiFSocialFactsDataBase::runTriggers(TArray<UCiFGameObject*> cast)
 {
+	UE_LOG(LogTemp, Log, TEXT("Running triggers"));
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 
 	TArray<UCiFGameObject*> potentialChars;

@@ -14,13 +14,6 @@ class UCiFGameObject;
 UENUM(BlueprintType)
 enum class EStatus : uint8
 {
-	// TODO-	the category statuses can be used when we want to remove or
-	//			maybe add all the statuses of the same category to a character.
-	//			to add support for this the add/remove statuses in gameObject
-	//			should be modified to accomodate it
-
-	INVALID,
-	
 	// positive category statuses
 	CAT_FEELING_GOOD,
 	CAT_FEELING_GOOD_ABOUT_SOMEONE,
@@ -29,7 +22,6 @@ enum class EStatus : uint8
 	// negative category statuses
 	CAT_FEELING_BAD,
 	CAT_FEELING_BAD_ABOUT_SOMEONE,
-	CAT_REPUTATION_BAD,
 	LAST_NEGATIVE_CATEGORY_STATUS,
 
 	// item category statuses
@@ -88,6 +80,7 @@ enum class EStatus : uint8
 	GRATEFUL_TOWARD			UMETA(DisplayName="Greatful toward"),
 	RESENTFUL_TOWARD		UMETA(DisplayName="Resentful toward"),
 	ANGRY_AT				UMETA(DisplayName="Angry at"),
+	ANNOYED_WITH			UMETA(DisplayName="Annoyed with"),
 	ENVIES					UMETA(DisplayName="Envies"),
 	AFRAID_OF				UMETA(DisplayName="Afraid of"),
 	LOVES					UMETA(DisplayName="Loves"),
@@ -112,11 +105,7 @@ enum class EStatus : uint8
 	HELD_BY					UMETA(DisplayName="held by"),
 	WORN_BY					UMETA(DisplayName="worn by"),
 
-	// relationships
-	IS_DATING				UMETA(DisplayName="is dating"),
-	IS_FRIENDS_WITH			UMETA(DisplayName="is friends with"),
-	IS_ENEMIES_WITH			UMETA(DisplayName="is enemies with"),
-
+	INVALID					UMETA(DisplayName="INVALID"),
 };
 
 USTRUCT(BlueprintType)
@@ -158,6 +147,9 @@ public:
 	void init(const EStatus type, const int32 initialDuration=0, const FName towards = "");
 
 	static TMap<EStatus, FStatusTypesArrayWrapper> initializeStatusCategoriesMap();
+
+	/*********** UTILITY FUNCTIONS **************/
+	FString toString() const;
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

@@ -57,7 +57,7 @@ public:
 
 public:
 	TArray<UCiFInfluenceRule*> mInfluenceRules;
-	TArray<float> mLastScore; // scores of the last evaluation of the IRS
+	TArray<float> mLastScore; // scores of the last evaluation of the IRS // todo maybe change to FScore_t
 	TArray<bool> mLastTruthValues; // truth values of the last evaluation of the IRS
 	int32 mTruthCount; // number of true rules in the last scoring of the IRS
 };

@@ -75,6 +75,8 @@ UCiFCharacter* UCiFCharacter::loadFromJson(TSharedPtr<FJsonObject> json, const U
 	// c->init(const_cast<UObject*>(worldContextObject)); // TODO - this should be moved after all characters and cast were added
 
 	c->UCiFGameObject::loadFromJson(json, worldContextObject);
+
+	c->mGender = c->hasTrait(ETrait::MALE) ? ECiFGender::MALE : ECiFGender::FEMALE;
 	
 	return c;
 }

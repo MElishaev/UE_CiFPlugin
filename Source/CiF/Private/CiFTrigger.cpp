@@ -10,7 +10,7 @@ IdType UCiFTrigger::mStatusTimeoutTriggerID = -1;
 
 UCiFTriggerContext* UCiFTrigger::makeTriggerContext(const int32 time, UCiFGameObject* x, UCiFGameObject* y, UCiFGameObject* z) const
 {
-	const auto tc = NewObject<UCiFTriggerContext>();
+	const auto tc = NewObject<UCiFTriggerContext>(GetOuter()); // outer acts as a world object context because this trigger was initialized with one
 	
 	tc->mTime = time;
 	tc->mId = mId;

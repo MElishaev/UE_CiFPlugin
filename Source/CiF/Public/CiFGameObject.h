@@ -13,6 +13,8 @@ class UCiFGameObjectStatus;
 UENUM(BlueprintType)
 enum class ETrait : uint8
 {
+	INVALID			UMETA(DisplayName="Invalid"),
+	
 	// positive traits
 	KIND			UMETA(DisplayName="Kind"),
 	HUMBLE			UMETA(DisplayName="Humble"),
@@ -163,6 +165,9 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+	void addCategoryStatus(const EStatus statusType, const int32 duration, const FName towards);
+	
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

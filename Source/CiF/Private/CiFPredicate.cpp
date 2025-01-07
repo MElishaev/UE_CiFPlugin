@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "CiFGameObjectStatus.h"
 #include "CiFCulturalKnowledgeBase.h"
+#include "CiFProspectiveMemory.h"
 #include "CiFRelationshipNetwork.h"
 #include "CiFSocialNetwork.h"
 
@@ -84,6 +85,12 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 					else if (mType == EPredicateType::NETWORK) {
 						bMatch = (pred->mNetworkType == mNetworkType) &&
 							(pred->mComparatorType == mComparatorType) &&
+							(pred->mPrimary == mPrimary) &&
+							(pred->mSecondary == mSecondary) &&
+							(pred->mIsNegated == mIsNegated);
+					}
+					else if (mType == EPredicateType::RELATIONSHIP) {
+						bMatch = (pred->mRelationshipType == mRelationshipType) &&
 							(pred->mPrimary == mPrimary) &&
 							(pred->mSecondary == mSecondary) &&
 							(pred->mIsNegated == mIsNegated);
@@ -175,10 +182,10 @@ void UCiFPredicate::valuation(UCiFGameObject* x, UCiFGameObject* y, UCiFGameObje
 			UE_LOG(LogTemp, Warning, TEXT("CKBENTRIES cannot be subject to valuation"));
 			break;
 		case EPredicateType::SFDB_LABEL:
-			UE_LOG(LogTemp, Warning, TEXT("SFDBLABELs cannot be subject to valuation"));
+			// SFDB_LABEL cannot be subject to valuation by itself - they are added into the social game context's SFDBLabels
 			break;
 		default:
-			UE_LOG(LogTemp, Warning, TEXT("preforming valuation a predicate without a recoginzed type %d"), mType);
+			UE_LOG(LogTemp, Error, TEXT("preforming valuation a predicate without a recognized type %d"), mType);
 	}
 }
 
@@ -243,11 +250,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 	bool predTrue = false;
 	const UCiFGameObject* primaryCharacterOfConsideration;
 	const UCiFGameObject* secondaryCharacterOfConsideration = nullptr;
-
-	if (mNumTimesRoleSlot == ENumTimesRoleSlot::INVALID) {
-		mNumTimesRoleSlot = ENumTimesRoleSlot::FIRST;
-	}
-
+	
 	switch (mNumTimesRoleSlot) {
 		case ENumTimesRoleSlot::FIRST:
 			primaryCharacterOfConsideration = c1;
@@ -262,7 +265,7 @@ bool UCiFPredicate::evalForNumberUniquelyTrue(const UCiFGameObject* c1,
 		default:
 			mNumTimesRoleSlot = ENumTimesRoleSlot::FIRST;
 			primaryCharacterOfConsideration = c1;
-			UE_LOG(LogTemp, Warning, TEXT("Role slot is not recognized %d"), uint8(mNumTimesRoleSlot));
+			UE_LOG(LogTemp, Warning, TEXT("Role slot is not recognized or invalid %d"), uint8(mNumTimesRoleSlot));
 	}
 
 	if (mNumTimesRoleSlot == ENumTimesRoleSlot::BOTH) {
@@ -592,39 +595,62 @@ bool UCiFPredicate::equalsValuationStructure(const UCiFPredicate* p1, const UCiF
 	return true;
 }
 
-EIntentType UCiFPredicate::getIntentType()
+EIntentType UCiFPredicate::getIntentType() const
 {
 	if (!mIsIntent) {
 		return EIntentType::INVALID;
 	}
 
-	if (mType == EPredicateType::NETWORK) {
-		switch (mNetworkType) {
-			case ESocialNetworkType::BUDDY:
-				{
-					if (mComparatorType == EComparatorType::INCREASE) {
-						return EIntentType::BUDDY_UP;
-					}
-					return EIntentType::BUDDY_DOWN;
-				}
-			case ESocialNetworkType::ROMANCE:
-				{
-					if (mComparatorType == EComparatorType::INCREASE) {
-						return EIntentType::ROMANCE_UP;
-					}
-					return EIntentType::ROMANCE_DOWN;
-				}
-		}
-	}
-	else if (mType == EPredicateType::RELATIONSHIP) {
-		switch (mRelationshipType) {
-			case ERelationshipType::FRIENDS: return mIsNegated ? EIntentType::FRIENDS : EIntentType::END_FRIENDS;
-			case ERelationshipType::DATING: return mIsNegated ? EIntentType::DATING : EIntentType::END_DATING;
-			case ERelationshipType::ENEMIES: return mIsNegated ? EIntentType::ENEMIES : EIntentType::END_ENEMIES;
-		}
+	switch (mType) {
+		case EPredicateType::NETWORK:
+			return (mComparatorType == EComparatorType::INCREASE) ? EIntentType::INCREASE_NET : EIntentType::DECREASE_NET;
+		case EPredicateType::RELATIONSHIP:
+			return !mIsNegated ? EIntentType::START_RELATIONSHIP : EIntentType::END_RELATIONSHIP;
+		case EPredicateType::STATUS:
+			return !mIsNegated ? EIntentType::ADD_STATUS : EIntentType::REMOVE_STATUS;
+		case EPredicateType::CKBENTRY:
+		case EPredicateType::SFDB_LABEL:
+		case EPredicateType::INVALID:
+		case EPredicateType::SIZE:
+			break;
 	}
 
 	return EIntentType::INVALID;
+}
+
+FCacheKey UCiFPredicate::getExtendedIntentType() const
+{
+	FCacheKey key;
+	key.mIntentType = EIntentType::INVALID;
+	key.IntentBasedEnum.mNetworkType = ESocialNetworkType::INVALID;
+	key.IntentBasedEnum.mRelationshipType = ERelationshipType::INVALID;
+	key.IntentBasedEnum.mStatusType = EStatus::INVALID;
+
+	if (!mIsIntent) {
+		return key;
+	}
+
+	switch (mType) {
+		case EPredicateType::NETWORK:
+			key.mIntentType = (mComparatorType == EComparatorType::INCREASE) ? EIntentType::INCREASE_NET : EIntentType::DECREASE_NET;
+			key.IntentBasedEnum.mNetworkType = mNetworkType;
+			break;
+		case EPredicateType::RELATIONSHIP:
+			key.mIntentType = !mIsNegated ? EIntentType::START_RELATIONSHIP : EIntentType::END_RELATIONSHIP;
+			key.IntentBasedEnum.mRelationshipType = mRelationshipType;
+			break;
+		case EPredicateType::STATUS:
+			key.mIntentType = !mIsNegated ? EIntentType::ADD_STATUS : EIntentType::REMOVE_STATUS;
+			key.IntentBasedEnum.mStatusType = mStatusType;
+			break;
+		case EPredicateType::CKBENTRY:
+		case EPredicateType::SFDB_LABEL:
+		case EPredicateType::INVALID:
+		case EPredicateType::SIZE:
+			break;
+	}
+
+	return key;
 }
 
 FName UCiFPredicate::getRoleValue(const FName val) const
@@ -806,44 +832,19 @@ void UCiFPredicate::updateNetwork(UCiFGameObject* first, UCiFGameObject* second)
 
 void UCiFPredicate::updateStatus(UCiFGameObject* first, UCiFGameObject* second) const
 {
-	const auto statusEnum = StaticEnum<EStatus>();
-	checkf(statusEnum->GetValueAsName(mStatusType) != "None", TEXT("Not found the specified status"));
 	if (mIsNegated) {
 		if (second) {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("%s removing status %s from %s"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       *(second->mObjectName.ToString()));
 			first->removeStatus(mStatusType, second->mObjectName);
 		}
 		else {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("%s removing status %s"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)));
 			first->removeStatus(mStatusType);
 		}
 	}
 	else {
 		if (second) {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("Added status: %s %s %s"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       *(second->mObjectName.ToString()));
 			first->addStatus(mStatusType, mStatusDuration, second->mObjectName);
 		}
 		else {
-			UE_LOG(LogTemp,
-			       Log,
-			       TEXT("Added status: %s is %s for duration %d"),
-			       *(first->mObjectName.ToString()),
-			       *(statusEnum->GetValueAsString(mStatusType)),
-			       mStatusDuration);
 			first->addStatus(mStatusType, mStatusDuration);
 		}
 	}
@@ -1239,40 +1240,6 @@ FString UCiFPredicate::numTimesUniquelyTruePredToNLG(const FName initiatorName, 
 										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
 									}
 									break;
-								case ESocialNetworkType::TRUST:
-									if (isLow) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are pretty darn lame.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
-												" people are pretty darn lame.";
-										}
-									}
-									else if (isMed) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are actually kinda cool.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue +
-												" people are actually kinda cool.";
-										}
-									}
-									else if (isHigh) {
-										if (mIsNegated) {
-											outStr = heroName + " does not think that at least " + mNumTimesUniquelyTrue +
-												" people are wicked cool.";
-										}
-										else {
-											outStr = heroName + " thinks at least " + mNumTimesUniquelyTrue + " people are wicked cool.";
-										}
-									}
-									else {
-										outStr = "problem with numTimesUniqelyTrue network predicate to Natural Language";
-									}
-									break;
 								case ESocialNetworkType::SIZE:
 									break;
 							}
@@ -1468,6 +1435,9 @@ void UCiFPredicate::clear()
 	mIsNegated = false;
 	mType = EPredicateType::INVALID;
 	mStatusType = EStatus::INVALID;
+	mComparatorType = EComparatorType::INVALID;
+	mNetworkType = ESocialNetworkType::INVALID;
+	mRelationshipType = ERelationshipType::INVALID;
 	mWindowSize = 0;
 	mSFDBOrder = 0;
 	mIsNumTimesUniquelyTruePred = false; // Flag that specifies if this is a "number of times this pred is uniquely true" type pred
@@ -1480,8 +1450,12 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 
 	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
 	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
-	p->mName = FName(predJson->GetStringField("_name"));
-	UE_LOG(LogTemp, Log, TEXT("Parsing predicate: %s"), *(p->mName.ToString()));
+	p->mName = NAME_None;
+	FString name;
+	if (predJson->TryGetStringField("_name", name)) {
+		p->mName = FName(name);
+	}
+	
 	auto isSFDB = false;
 	auto isNegated = false;
 
@@ -1535,8 +1509,11 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				const auto first = FName(predJson->GetStringField("_first"));
 				const auto second = FName(predJson->GetStringField("_second"));
 				const UEnum* statusEnum = StaticEnum<EStatus>();
-				const auto status = static_cast<EStatus>(statusEnum->
+				auto status = EStatus::INVALID;
+				status = static_cast<EStatus>(statusEnum->
 					GetValueByName(FName(predJson->GetStringField("_status"))));
+
+				checkf(status != EStatus::INVALID, TEXT("Status predicate but loaded invalid status type from json"));
 
 				int32 duration = 0;
 				predJson->TryGetNumberField("_duration", duration);
@@ -1573,8 +1550,17 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				const auto first = FName(predJson->GetStringField("_first"));
 				const auto second = FName(predJson->GetStringField("_second"));
 				const UEnum* sfdbLabelEnum = StaticEnum<ESFDBLabelType>();
-				const auto sfdbLabel = static_cast<ESFDBLabelType>(sfdbLabelEnum->
-					GetValueByName(FName(predJson->GetStringField("_label"))));
+				// todo - what to do if this is none
+				const auto sfdbLabelJson = FName(predJson->GetStringField("_label"));
+				ESFDBLabelType sfdbLabel;
+				if (sfdbLabelJson == "") { // todo should it be really wildcard if it is empty?
+					sfdbLabel = ESFDBLabelType::WILDCARD;
+				}
+				else {
+					sfdbLabel = static_cast<ESFDBLabelType>(sfdbLabelEnum->GetValueByName(sfdbLabelJson));
+				}
+				
+				
 				const auto window = predJson->GetNumberField("_window");
 				p->setSFDBLabelPredicate(first, second, sfdbLabel, window, isNegated);
 			}

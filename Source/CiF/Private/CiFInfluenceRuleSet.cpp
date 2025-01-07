@@ -19,10 +19,8 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
                                        bool isResponder)
 {
 	int8 score = 0;
-	UE_LOG(LogTemp, Log, TEXT("START, %s, %s, %s, %s"), *(se->mName.ToString()), *(initiator->mObjectName.ToString()), *(responder->mObjectName.ToString()), *(other->mObjectName.ToString()));
 	
 	for (auto ir : mInfluenceRules) {
-		UE_LOG(LogTemp, Log, TEXT("ir %s, %d"), *(ir->mPredicates[0]->mName.ToString()), ir->mWeight);
 		if (ir->mWeight != 0) {
 			if (ir->isRoleRequired("other")) {
 				if (!other) {
@@ -48,7 +46,6 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					mTruthCount++;
 				}
 				else {
-					UE_LOG(LogTemp, Warning, TEXT("Evaluated to false"));
 					mLastTruthValues.Add(false);
 					mLastScore.Add(0);					
 				}
@@ -76,18 +73,16 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					mTruthCount++;
 				}
 				else {
-					UE_LOG(LogTemp, Warning, TEXT("Evaluated to false"));
 					mLastTruthValues.Add(false);
 					mLastScore.Add(0);					
 				}
 			}
 		}
 	}
-	UE_LOG(LogTemp, Log, TEXT("END, %d"), score);
 
 	return score;
 }
-
+// todo change type to FScore_t
 float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator,
                                                         UCiFGameObject* responder,
                                                         UCiFGameObject* other,
@@ -96,6 +91,7 @@ float UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initiator
                                                         FName microtheoryName,
                                                         bool isResponder)
 {
+	// todo change type to FScore_t
 	float score = 0; // todo - why the score is global and not per other?
 
 	TArray<UCiFGameObject*> possibleOthers;

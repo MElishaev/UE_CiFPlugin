@@ -15,7 +15,7 @@ class UCiFProspectiveMemory;
 
 /* Types */
 UENUM(BlueprintType)
-enum class EGender : uint8
+enum class ECiFGender : uint8
 {
 	MALE		UMETA(DisplayName="Male"),
 	FEMALE		UMETA(DisplayName="Female")
@@ -77,7 +77,7 @@ public:
 	TMap<ECiFItemType, UCiFItem*> mItemMap; // the items owned by the character
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	EGender mGender;
+	ECiFGender mGender;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UCiFProspectiveMemory* mProspectiveMemory; // prospective memory of the character

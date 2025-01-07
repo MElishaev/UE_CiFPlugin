@@ -13,6 +13,8 @@ class UCiFSFDBContext;
 UENUM(BlueprintType)
 enum class ESFDBLabelType : uint8
 {
+	INVALID,
+	
 	// Example for categories of social facts - can expand on this
 	CAT_POSITIVE,
 	CAT_NEGATIVE,
@@ -53,7 +55,7 @@ struct FSFDBLabel
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Test Variables")
 	FName from;
 	FName to = "";
-	ESFDBLabelType type;
+	ESFDBLabelType type = ESFDBLabelType::INVALID;
 
 	bool operator==(const FSFDBLabel& other) const
 	{
@@ -121,7 +123,7 @@ public:
 	/**
 	 * Returns an array of indices by looking at all the social exchanges
 	 * or trigger contexts in the @window, ones that matching the arguments
-	 * @type, @c1, @c2
+	 * @label, @c1, @c2
 	 * @param outMatchingIndices  Vector of timestamps of matching social facts data base context entries 
 	 * @param label		SFDB type to locate
 	 * @param c1		First character (from) slot
@@ -172,9 +174,15 @@ public:
 	
 	static UCiFSocialFactsDataBase* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
+	UPROPERTY()
 	TArray<UCiFSFDBContext*> mContexts; // contexts in ascending order - the latest is the last in the array
+
+	UPROPERTY()
 	TArray<UCiFTrigger*> mTriggers; // triggers that are derived from the overall social status and not a specific social game
+
+	UPROPERTY()
 	TArray<UCiFTrigger*> mStoryTriggers;
+
 	static TMap<ESFDBLabelType, FLabelCategoryArrayWrapper> mSFDBLabelCategories;
 	inline static int32 INVALID_TIME = -999;
 };

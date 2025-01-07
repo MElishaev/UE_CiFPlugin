@@ -11,6 +11,7 @@
 #include "CiFSocialNetwork.h"
 #include "CiFPredicate.generated.h"
 
+struct FCacheKey;
 class UCiFCharacter;
 enum class ETruthLabel;
 enum class ESubjectiveLabel : uint8;
@@ -24,7 +25,6 @@ class UCiFSocialExchange;
 UENUM(BlueprintType)
 enum class EPredicateType : uint8
 {
-	INVALID UMETA(DisplayName="Invalid"),
 	TRAIT UMETA(DisplayName="Trait"),
 	NETWORK UMETA(DisplayName="Network"),
 	RELATIONSHIP UMETA(DisplayName="Relationship"),
@@ -32,26 +32,23 @@ enum class EPredicateType : uint8
 	STATUS UMETA(DisplayName="Status"),
 	CKBENTRY UMETA(DisplayName="CBKEntry"),
 	SFDB_LABEL UMETA(DisplayName="SFDBLabel"),
-	SIZE
+	
+	SIZE,
+	INVALID UMETA(DisplayName="INVALID")
 };
 
 UENUM(BlueprintType)
 enum class EIntentType : uint8
 {
-	INVALID,
-	BUDDY_UP = 0,
-	BUDDY_DOWN,
-	ROMANCE_UP,
-	ROMANCE_DOWN,
-	COOL_UP,
-	COOL_DOWN,
-	FRIENDS,
-	END_FRIENDS,
-	DATING,
-	END_DATING,
-	ENEMIES,
-	END_ENEMIES,
-	SIZE
+	INCREASE_NET,
+	DECREASE_NET,
+	ADD_STATUS,
+	REMOVE_STATUS,
+	START_RELATIONSHIP,
+	END_RELATIONSHIP,
+	
+	SIZE,
+	INVALID UMETA(DisplayName="INVALID")
 };
 
 /* Network comparision operators (a.k.a. comparators) */
@@ -68,7 +65,8 @@ enum class EComparatorType : uint8
 	INCREASE,
 	///< for increasing network value
 	DECREASE,
-	SIZE
+	SIZE,
+	INVALID UMETA(DisplayName="INVALID")
 };
 
 // todo what is that?
@@ -213,8 +211,9 @@ public:
      */
 	static bool equalsValuationStructure(const UCiFPredicate* p1, const UCiFPredicate* p2);
 
-	/* if it is an intent, return the intent ID, other wise returns -1 // TODO-modify it because we wont with ENUMS */
-	EIntentType getIntentType();
+	/* if it is an intent, return the intent ID, other wise returns -1 */
+	EIntentType getIntentType() const;
+	FCacheKey getExtendedIntentType() const; // more elaborate type of intent
 
 	/**
 	 * Determines the value class of the primary property and returns a
@@ -371,10 +370,10 @@ public:
 	EIntentType mIntentType;
 	
 	ETrait mTrait; // TODO - for a TRAIT predicate
+
 	UPROPERTY()
 	int32 mWindowSize; // how long to look back in SFDB (0 means using the whole history until beginning of game, excluding backstory) // TODO - this is also SFDB only param
 	FSFDBLabel mSFDBLabel;
-
 	int32 mSFDBOrder; // TODO - what is this?
 	
 	EStatus mStatusType; // todo- another member relevant only for status predicates
