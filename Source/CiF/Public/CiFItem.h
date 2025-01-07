@@ -27,16 +27,16 @@ public:
 	// Sets default values for this component's properties
 	UCiFItem();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void init(const ECiFItemType itemType, UCiFGameObject* receivedFrom=nullptr);
 
 	static UCiFItem* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="CiF")
 	UCiFGameObject* mReceivedFrom; // game object that the item was received from. null if didn't receive from anyone
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="CiF")
 	ECiFItemType mItemType;
 
 };

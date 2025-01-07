@@ -2,6 +2,8 @@
 
 
 #include "CiFCast.h"
+
+#include "Dom/JsonObject.h"
 #include "CiFCharacter.h"
 
 void UCiFCast::init(UObject* worldContextObject)

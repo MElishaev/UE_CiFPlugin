@@ -7,6 +7,7 @@
 #include "CiFCast.generated.h"
 
 class UCiFCharacter;
+class FJsonObject;
 /**
  * A class that stores the characters participating in the CiF system
  */
@@ -24,22 +25,22 @@ public:
 	/**
 	 * @return pointer to the character or nullptr if not exists 
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFCharacter* getCharByName(const FName name) const;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFCharacter* getCharByNetworkId(const uint8 id) const;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void addCharacter(UCiFCharacter* c);	
 
 	static UCiFCast* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CiF")
 	TArray<UCiFCharacter*> mCharacters;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	TMap<FName, UCiFCharacter*> mCharactersByName; // for fast lookup - represents the same characters in @mCharacters
 
 	

@@ -3,6 +3,7 @@
 
 #include "CiFGameObject.h"
 
+#include "Dom/JsonObject.h"
 #include "CiFGameObjectStatus.h"
 
 // Sets default values for this component's properties

@@ -9,7 +9,6 @@
 #include "CiFSubsystem.h"
 #include "CiFTrigger.h"
 #include "ReadWriteFiles.h"
-#include "Json.h"
 
 void UCiFSocialExchangesLibrary::addSocialExchange(UCiFSocialExchange* se)
 {

@@ -45,7 +45,7 @@ public:
 	/**
 	 * @return True iff the input role is required for processing the rule
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool isRoleRequired(const FName role) const;
 
 	/**
@@ -117,7 +117,7 @@ public:
 	IdType mID; // the unique identifier of this rule - TODO not sure this is needed
 	
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CiF")
 	TArray<UCiFPredicate*> mPredicates; // the array of predicates that comprise this rule
 
 private:

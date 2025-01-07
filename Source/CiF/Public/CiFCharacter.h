@@ -38,7 +38,7 @@ class CIF_API UCiFCharacter : public UCiFGameObject
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, meta = (WorldContext = "worldContextObject"))
+	UFUNCTION(BlueprintCallable, meta = (WorldContext = "worldContextObject"), Category="CiFCharacter Methods")
 	void init(UObject* worldContextObject);
 
 	/**
@@ -46,7 +46,7 @@ public:
 	 * @param learnedFrom The character this knowledge was learned from - nullptr if this doesn't matter for the query
 	 * @return True if this knowledge known to the character
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiFCharacter Methods")
 	bool hasKnowledge(const UCiFKnowledge* knowledge, const UCiFCharacter* learnedFrom=nullptr) const;	
 	
 	/**
@@ -54,37 +54,37 @@ public:
 	 * @param receivedFrom The character this item was received from - nullptr if this doesn't matter for the query
 	 * @return True if character has this item
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiFCharacter Methods")
 	bool hasItem(const UCiFItem* item, const UCiFCharacter* receivedFrom=nullptr) const;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiFCharacter Methods")
 	void addKnowledge(const EKnowledgeType knowledgeType, UCiFGameObject* learnedFrom=nullptr);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiFCharacter Methods")
 	void addItem(const ECiFItemType itemType, UCiFGameObject* recievedFrom=nullptr);
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiFCharacter Methods")
 	void removeItem(const ECiFItemType itemType);
 
 	void resetProspectiveMemory();
 
 	static UCiFCharacter* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiFCharacter Properties")
 	TMap<EKnowledgeType, UCiFKnowledge*> mKnowledgeMap; // the knowledge known by the character
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiFCharacter Properties")
 	TMap<ECiFItemType, UCiFItem*> mItemMap; // the items owned by the character
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiFCharacter Properties")
 	ECiFGender mGender;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="CiFCharacter Properties")
 	UCiFProspectiveMemory* mProspectiveMemory; // prospective memory of the character
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiFCharacter Properties")
 	TMap<ELocutionType, FText> mDefaultLocutions; // TODO-initialize with default values - this is relevant only if your game realizes the CiF with dialogue
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiFCharacter Properties")
 	TMap<ELocutionType, FText> mLocutions; // character specific mix-ins that are used in performance realization
 };

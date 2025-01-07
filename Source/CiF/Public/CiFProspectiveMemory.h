@@ -54,7 +54,7 @@ public:
 	 * 
 	 * @param	count The number of the highest scored games to return.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	TArray<FGameScore> getNHighestGameScores(uint8 count = 5);
 
 	/**
@@ -78,7 +78,7 @@ public:
 
 	FScore_t getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void printGameScores(UPARAM(ref) const TArray<FGameScore>& scores);
 
 	/* Resets the object to its default state */

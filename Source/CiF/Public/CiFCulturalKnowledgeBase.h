@@ -38,10 +38,10 @@ public:
 	static UCiFCulturalKnowledgeBase* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiFCKB Properties")
 	TArray<UCiFCKBEntry*> mSubjectiveEntries;
 	// example: john likes pizza //TODO: maybe think of a better structure for faster lookup of knowledge
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiFCKB Properties")
 	TArray<UCiFCKBEntry*> mGeneralTruthEntries; // example: pizza is tasty
 };

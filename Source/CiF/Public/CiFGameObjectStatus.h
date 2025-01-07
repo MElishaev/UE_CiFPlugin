@@ -113,7 +113,7 @@ struct FStatusTypesArrayWrapper
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category="CiF")
 	TArray<EStatus> mStatusTypes;
 };
 
@@ -132,7 +132,7 @@ public:
 	/**
 	 * Sets duration to the status only if @mHasDuration set to true
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void setDuration(const int32 newDuration);
 
 	/**
@@ -140,10 +140,10 @@ public:
 	 * @param timeElapsed The amount of time to update by
 	 * @returns The remaining duration
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	int32 updateRemainingDuration(const int32 timeElapsed);
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="CiF")
 	void init(const EStatus type, const int32 initialDuration=0, const FName towards = "");
 
 	static TMap<EStatus, FStatusTypesArrayWrapper> initializeStatusCategoriesMap();
@@ -152,22 +152,22 @@ public:
 	FString toString() const;
 public:
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	EStatus mType; // type of the status
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	bool mBinary; // indicates if the status involves 2 actors
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	FName mDirectedTowards = ""; // the CIF game object name that the status directed towards (!= "" iff mBinary==true)
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	bool mHasDuration; // if this status has duration - sad character can't be happy forever
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	int32 mRemainingDuration; // remaining duration of the status
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiF")
 	int32 mInitialDuration; // what is the duration this status starts with
 
 	static TMap<EStatus, FStatusTypesArrayWrapper> mStatusCategories;

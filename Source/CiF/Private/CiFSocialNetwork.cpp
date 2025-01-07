@@ -2,6 +2,8 @@
 
 
 #include "CiFSocialNetwork.h"
+
+#include "Dom/JsonObject.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
 

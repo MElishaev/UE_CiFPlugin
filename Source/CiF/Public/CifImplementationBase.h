@@ -23,6 +23,6 @@ protected:
 
 	friend UCiFSubsystem;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category="CiF")
 	UCiFManager* mCifManager = nullptr;
 };

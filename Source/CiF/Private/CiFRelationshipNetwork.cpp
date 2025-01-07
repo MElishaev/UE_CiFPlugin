@@ -2,6 +2,8 @@
 
 
 #include "CiFRelationshipNetwork.h"
+
+#include "Dom/JsonObject.h"
 #include "CiFCharacter.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"

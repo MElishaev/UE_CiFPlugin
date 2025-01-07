@@ -2,6 +2,8 @@
 
 
 #include "CiFInfluenceRule.h"
+
+#include "Dom/JsonObject.h"
 #include "CiFPredicate.h"
 
 void UCiFInfluenceRule::toNLG(FString& outStr, const FName initiatorName, const FName responderName, const FName otherName)

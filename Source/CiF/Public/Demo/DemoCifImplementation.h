@@ -26,13 +26,13 @@ struct FSocialGameIntentPair
 		intentString(intent),
 		score(sc) {}
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "CiF")
 	FName socialGameName;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "CiF")
 	FString intentString;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "CiF")
 	FScore_t score;
 };
 
@@ -51,7 +51,7 @@ public:
 	 * for now, this is just iterating in a sequence over the cast of characters which are not player)
 	 * @return the chosen initiator
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFCharacter* chooseNPCInitiatorForSocialGame();
 
 	/**
@@ -59,7 +59,7 @@ public:
 	 * @param sgs The social games array
 	 * @return the selected social game name
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	FGameScore selectSocialGameFromList(UPARAM(ref) const TArray<FGameScore> sgs) const;
 
 	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
@@ -73,7 +73,7 @@ public:
 	 * @param isShowIntent			True if we want to show how the social game influences the social state (e.g. "increases romance network")
 	 * @param isNPC					True if the initiator is an NPC and not the player (so for this case of course we doesn't open UI or show anything)
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void prepareSocialGameOptionsWithCharacter(TArray<FSocialGameIntentPair>& outSocialGamesNames,
 	                                           ACifNPC* initiator,
 	                                           UCiFGameObject* responder,
@@ -92,7 +92,7 @@ public:
 	 * @param gameObjectCompRef The game object's component that will be filled with the matching component that was initialized in the CiF subsystem
 	 * @return True if successfully found and initialized the component
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	bool registerAsGameObject(const FName objectName, UCiFGameObject*& gameObjectCompRef);
 
 
@@ -108,7 +108,7 @@ public:
 	 * @param responder Responder of the social game
 	 * @param isNPC True iff the initiator is an NPC
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void offerOthers(TArray<UCiFGameObject*>& outOthers,
 	                 const FName sgName,
 	                 ACifNPC* initiator,
@@ -120,7 +120,7 @@ public:
 	 * This method calls the moveChosen with the other that was chosen.
 	 * If it is a move of type USE ITEM or GIVE ITEM etc, it calls offerEffects instead
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void otherChosen(ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* other, const FName sgName, const bool isNPC);
 
 	/**
@@ -128,7 +128,7 @@ public:
 	 * Allows the player to select what specific effect they want to enact with a move
 	 * otherChosen signals the use of this inside a character move (instead of an item)
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void offerEffects(TArray<UCiFEffect*>& outEffects,
 	                  const FName sgName,
 	                  ACifNPC* initiator,
@@ -138,7 +138,7 @@ public:
 	void itemMoveChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPCPlaying, UCiFEffect* effect);
 
 	// TODO - what this function returns?
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void moveChosen(const FName sgName,
 	                ACifNPC* initiator,
 	                UCiFGameObject* responder,
@@ -148,7 +148,7 @@ public:
 
 	// Only should be called after offerOthers()
 	// e is the effect.referenceAsNaturalLanguage
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void effectChosen(const FName sgName,
 	                  ACifNPC* initiator,
 	                  UCiFGameObject* responder,

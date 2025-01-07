@@ -23,7 +23,7 @@ public:
 	 * @param outString The read string will be stored here
 	 * @return True if was successful reading the file or false otherwise
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="File System Utilities")
 	static bool readStringFromFile(const FString& filePath, FString& outString);
 
 	/**
@@ -32,7 +32,7 @@ public:
 	 * @param data The data to write into the file
 	 * @return True if was successful writing the file or false otherwise
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="File System Utilities")
 	static bool writeStringToFile(const FString& filePath, FString& data);
 
 	/**

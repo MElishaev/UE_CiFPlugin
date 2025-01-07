@@ -21,6 +21,7 @@ enum class ESocialNetworkType : uint8;
 enum class EStatus : uint8;
 class UCiFGameObject;
 class UCiFSocialExchange;
+class FJsonObject;
 
 UENUM(BlueprintType)
 enum class EPredicateType : uint8
