@@ -2,13 +2,14 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Json.h"
 #include "CiFGameObject.generated.h"
 
 enum class EStatus : uint8;
 class UCiFGameObjectStatus;
+class FJsonObject;
 
 UENUM(BlueprintType)
 enum class ETrait : uint8

@@ -7,6 +7,7 @@
 #include "CiFRelationshipNetwork.generated.h"
 
 class UCiFCharacter;
+class FJsonObject;
 /**
  * 
  */

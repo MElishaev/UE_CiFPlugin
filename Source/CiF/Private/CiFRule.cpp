@@ -7,7 +7,6 @@
 #include "CiFPredicate.h"
 #include "CiFSubsystem.h"
 #include "Kismet/GameplayStatics.h"
-#include "Json.h"
 
 UniqueIDGenerator UCiFRule::mIDGenerator = UniqueIDGenerator();
 

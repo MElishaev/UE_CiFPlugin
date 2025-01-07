@@ -6,6 +6,8 @@
 #include "CiFRule.h"
 #include "CiFInfluenceRule.generated.h"
 
+class FJsonObject;
+
 /**
  * 
  */

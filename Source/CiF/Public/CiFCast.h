@@ -7,6 +7,7 @@
 #include "CiFCast.generated.h"
 
 class UCiFCharacter;
+class FJsonObject;
 /**
  * A class that stores the characters participating in the CiF system
  */

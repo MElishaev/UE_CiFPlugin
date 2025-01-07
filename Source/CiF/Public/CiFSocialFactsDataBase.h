@@ -9,6 +9,7 @@ class UCiFTrigger;
 class UCiFPredicate;
 class UCiFGameObject;
 class UCiFSFDBContext;
+class FJsonObject;
 
 UENUM(BlueprintType)
 enum class ESFDBLabelType : uint8

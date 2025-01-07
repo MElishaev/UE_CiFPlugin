@@ -3,6 +3,7 @@
 
 #include "CiFPredicate.h"
 
+#include "Dom/JsonObject.h"
 #include "CiFCast.h"
 #include "CiFManager.h"
 #include "CiFRule.h"

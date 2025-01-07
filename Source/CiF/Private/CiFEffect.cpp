@@ -3,6 +3,7 @@
 
 #include "CiFEffect.h"
 
+#include "Engine/World.h"
 #include "CiFManager.h"
 #include "CiFPredicate.h"
 #include "CiFRule.h"

@@ -2,6 +2,8 @@
 
 
 #include "CiFManager.h"
+
+#include "Misc/Paths.h"
 #include "CiFCast.h"
 #include "CiFCharacter.h"
 #include "CiFCulturalKnowledgeBase.h"

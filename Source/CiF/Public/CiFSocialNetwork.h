@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "CiFSocialNetwork.generated.h"
 
+class FJsonObject;
+
 UENUM(BlueprintType)
 enum class ESocialNetworkType : uint8
 {

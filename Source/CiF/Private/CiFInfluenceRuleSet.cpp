@@ -2,14 +2,14 @@
 
 
 #include "CiFInfluenceRuleSet.h"
+#include "Engine/World.h"
+#include "Engine/GameInstance.h"
 #include "CiFManager.h"
 #include "CiFInfluenceRule.h"
-#include "CiFPredicate.h"
 #include "CiFProspectiveMemory.h"
 #include "CiFRuleRecord.h"
 #include "CiFSocialExchange.h"
 #include "CiFSubsystem.h"
-#include "Kismet/GameplayStatics.h"
 
 float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
                                        UCiFGameObject* responder,

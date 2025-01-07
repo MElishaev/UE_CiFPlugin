@@ -3,6 +3,7 @@
 
 #include "CiFSocialFactsDataBase.h"
 
+#include "Dom/JsonObject.h"
 #include "CiFManager.h"
 #include "CiFPredicate.h"
 #include "CiFRule.h"

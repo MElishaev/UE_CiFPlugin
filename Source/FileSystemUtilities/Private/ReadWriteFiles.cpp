@@ -2,7 +2,12 @@
 
 
 #include "ReadWriteFiles.h"
-#include "Json.h"
+#include "HAL/PlatformFileManager.h"
+#include "GenericPlatform/GenericPlatformFile.h"
+#include "Misc/FileHelper.h"
+#include "Serialization/JsonSerializer.h"
+#include "Serialization/JsonReader.h"
+
 
 bool UReadWriteFiles::readStringFromFile(const FString& filePath, FString& outString)
 {
