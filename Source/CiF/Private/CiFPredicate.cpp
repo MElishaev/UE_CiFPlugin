@@ -1136,6 +1136,7 @@ FString UCiFPredicate::sfdbPredToNLG(const FName initiatorName, const FName resp
 FString UCiFPredicate::numTimesUniquelyTruePredToNLG(const FName initiatorName, const FName responderName, const FName otherName)
 {
 	return "please god im not built for doing this right now";
+	/*
 	FString notStr = mIsNegated ? " not" : "";
 
 	FString heroName;
@@ -1265,6 +1266,7 @@ FString UCiFPredicate::numTimesUniquelyTruePredToNLG(const FName initiatorName, 
 	}
 
 	return outStr;
+	*/
 }
 
 FString UCiFPredicate::sfdbOrderToNLG()
