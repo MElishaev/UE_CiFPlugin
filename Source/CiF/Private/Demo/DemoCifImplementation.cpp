@@ -336,6 +336,8 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 
 	// skipped maintaining plot point related stuff for now
 
+	// todo for some reason the temp string comes out always empty... this shouldn't happen because we must always find some rules
+	//  that lead to the accept/reject of the social game.
 	FString temp;
 	if (sgContext->mResponderScore >= 0) {
 		// store the most influential rule record for this move
@@ -384,7 +386,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 	mCifManager->changeSocialState(sgContext);
 	handleItemMoveEffects(sgContext);
 
-	// no longer waiting for player input to finish social move
+	// no longer waiting for player input to finish social move todo the below section need to be looked at and decided if it is needed here or what exactly it does
 	if (isNPC && sgContext) {
 		auto sgEffect = sg->getEffectById(sgContext->mEffectId);
 		FString effectStr;

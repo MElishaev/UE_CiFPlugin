@@ -18,9 +18,11 @@ struct FEffectSaliencyValues
 	GENERATED_BODY()
 
 	inline static constexpr int8 EFFECT_TOO_SOON = 6;
-	inline static constexpr int8 LOW_NETWORK_SALIENCE = 2;
-	inline static constexpr int8 MEDIUM_NETWORK_SALIENCE = 2;
-	inline static constexpr int8 HIGH_NETWORK_SALIENCE = 2;
+	inline static constexpr int8 VERY_LOW_SALIENCE = 1;
+	inline static constexpr int8 LOW_SALIENCE = 2;
+	inline static constexpr int8 MEDIUM_SALIENCE = 3;
+	inline static constexpr int8 HIGH_SALIENCE = 4;
+	inline static constexpr int8 VERY_HIGH_SALIENCE = 5;
 	inline static constexpr int8 UNRECOGNIZED_NETWORK_SALIENCE = 2;
 };
 
@@ -35,7 +37,18 @@ class CIF_API UCiFEffect : public UObject
 public:
 	UCiFEffect();
 
-	/** Scores, stores and returns the salience of this effect */
+	/**
+	 * Stores and returns the salience of this effect.
+	 * The saliency used when we have several effects for a social exchange - then we
+	 * need to choose which effect is the most suitable to be played out.
+	 * For now, the predicates in the condition rule of the effect are the ones that
+	 * impacts the score the most - this because we assume that the "stricter" the condition
+	 * rule (stricter is subjective by how we choose to score each type of predicate),
+	 * the more "rare/special/interesting" this effect's change rule is.
+	 *
+	 * NOTE: the score numbers may be needed to be rebalanced if some effects are too
+	 * dominant and getting chosen all the time
+	 */
 	int8 scoreSalience();
 
 	/**

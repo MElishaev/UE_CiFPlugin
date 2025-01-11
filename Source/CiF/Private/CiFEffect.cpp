@@ -21,42 +21,46 @@ int8 UCiFEffect::scoreSalience()
 {
 	int8 salience = 0;
 
+	// +6 is maybe to impactful
 	for (const auto pred : mChange->mPredicates) {
 		if (pred->mType == EPredicateType::SFDB_LABEL) {
-			salience += 6;
+			salience += FEffectSaliencyValues::VERY_HIGH_SALIENCE;
 		}
 	}
 
+	/* for a quick explanation - if some predicate is negated, it means that
+	 * the predicate doesn't hold. By itself, it is more likely that something doesn't hold
+	 * and more rare for some status/trait/relationship be present, thus, if it holds
+	 * it results in HIGHER score contribution
+	 * */
 	for (const auto pred : mCondition->mPredicates) {
 		switch (pred->mType) {
 			case EPredicateType::INVALID:
+			case EPredicateType::SIZE:
 				break;
 			case EPredicateType::TRAIT:
-				if (pred->mIsNegated) {
-					salience += 1;
-				}
-				else {
-					salience += 4;
-				}
+				salience += pred->mIsNegated ? FEffectSaliencyValues::VERY_LOW_SALIENCE : FEffectSaliencyValues::HIGH_SALIENCE;
 				break;
 			case EPredicateType::NETWORK:
 				switch (pred->mComparatorType) {
+					/* if we are looking at a LESS_THAN comparator, then the higher the network value,
+					 * the easier/more probable that the predicate will hold - hence, less saliency score.
+					 * vice-versa regarding the GREATER_THAN comparator.
+					 */
 					case EComparatorType::LESS_THAN:
-						if (pred->mNetworkValue == 34) {
-							// TODO - change the hardcoded value to some
-							salience += FEffectSaliencyValues::LOW_NETWORK_SALIENCE;
+						if (pred->mNetworkValue <= 40) { // <=40 just to check if it is in the lower 1/3 of the range
+							salience += FEffectSaliencyValues::MEDIUM_SALIENCE;
 						}
-						else if (pred->mNetworkValue == 66) {
-							salience += FEffectSaliencyValues::HIGH_NETWORK_SALIENCE;
+						else if (pred->mNetworkValue <= 70) {
+							salience += FEffectSaliencyValues::LOW_SALIENCE;
 						}
 						break;
 					case EComparatorType::GREATER_THAN:
-						if (pred->mNetworkValue == 33) {
-							// TODO - change the hardcoded value to some
-							salience += FEffectSaliencyValues::MEDIUM_NETWORK_SALIENCE;
+						if (pred->mNetworkValue >= 60) {
+							salience += FEffectSaliencyValues::MEDIUM_SALIENCE;
 						}
-						else if (pred->mNetworkValue == 66) {
-							salience += FEffectSaliencyValues::HIGH_NETWORK_SALIENCE;
+						else if (pred->mNetworkValue >= 30) {
+							salience += FEffectSaliencyValues::LOW_SALIENCE;
 						}
 						break;
 					default:
@@ -64,17 +68,11 @@ int8 UCiFEffect::scoreSalience()
 				}
 				break;
 			case EPredicateType::RELATIONSHIP:
-				salience += pred->mIsNegated ? 1 : 3;
-				break;
 			case EPredicateType::STATUS:
-				if (pred->mIsNegated) {
-					salience += 1;
-				}
-				else {
-					salience += 3;
-				}
+				salience += pred->mIsNegated ? FEffectSaliencyValues::VERY_LOW_SALIENCE : FEffectSaliencyValues::MEDIUM_SALIENCE;
 				break;
 			case EPredicateType::CKBENTRY:
+				// TODO - there is no effect with CKBEntry predicate in the condition for now...
 				if (pred->mPrimary == "" || pred->mSecondary == "") {
 					if (pred->mTruthLabel == ETruthLabel::INVALID) {
 						salience += 3;
@@ -91,25 +89,22 @@ int8 UCiFEffect::scoreSalience()
 				}
 				break;
 			case EPredicateType::SFDB_LABEL:
+				// TODO - there is no effect with SFDB_LABEL predicate in the condition for now...
 				if (pred->mPrimary == "" || pred->mSecondary == "") {
-					if (static_cast<int>(pred->mSFDBLabel.type) < 0) {
+					if (pred->mSFDBLabel.type == ESFDBLabelType::INVALID) {
 						salience += 3;
 					}
 					else {
 						salience += 4;
 					}
 				}
-				else if (static_cast<int>(pred->mSFDBLabel.type) < 0) {
+				else if (pred->mSFDBLabel.type == ESFDBLabelType::INVALID) {
 					salience += 4;
 				}
 				else {
 					salience += 5; // this means all entries were specified
 				}
 				break;
-		}
-
-		if (pred->mRelationshipType == ERelationshipType::ENEMIES || pred->mRelationshipType == ERelationshipType::DATING) {
-			salience += 3;
 		}
 	}
 
@@ -118,7 +113,7 @@ int8 UCiFEffect::scoreSalience()
 		const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 		const auto howLongBeforeItWasSeen = cifManager->mTime - mLastSeenTime;
 		if (howLongBeforeItWasSeen < FEffectSaliencyValues::EFFECT_TOO_SOON) {
-			salience -= FEffectSaliencyValues::EFFECT_TOO_SOON * 2.5 - 2 * howLongBeforeItWasSeen;
+			salience -= FEffectSaliencyValues::EFFECT_TOO_SOON * 2 - 2 * howLongBeforeItWasSeen;
 		}
 	}
 

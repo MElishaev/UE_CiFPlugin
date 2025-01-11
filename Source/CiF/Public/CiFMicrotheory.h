@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Utilities.h"
 #include "CiFMicrotheory.generated.h"
 
 class UCiFGameObject;
@@ -38,10 +39,10 @@ public:
 	 * 
 	 * @return The total weight of the influence rules
 	 */
-	float score(UCiFCharacter* initiator,
-	            UCiFGameObject* responder,
-	            UCiFSocialExchange* se,
-	            const TArray<UCiFGameObject*>& others) const;
+	FScore_t score(UCiFCharacter* initiator,
+	               UCiFGameObject* responder,
+	               UCiFSocialExchange* se,
+	               const TArray<UCiFGameObject*>& others) const;
 
 	static UCiFMicrotheory* loadFromJson(TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 

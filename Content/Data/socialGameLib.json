@@ -7,19 +7,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network down: buddy (responder toward initiator)",
+          "_name": "intent-network down: trust (responder toward initiator)",
           "_id": 8,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "DECREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network down: buddy (responder toward initiator)",
+              "_name": "intent-network down: trust (responder toward initiator)",
               "_intent": true,
               "_intentType": "DECREASE_NET",
               "_isSFDB": false,
@@ -46,7 +46,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -91,7 +91,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -154,7 +154,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -296,7 +296,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -340,7 +340,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "LESS_THAN",
@@ -375,7 +375,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -801,7 +801,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -918,7 +917,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -943,7 +941,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -968,8 +965,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -987,7 +983,7 @@
           ]
         },
         {
-          "_weight": -1,
+          "_weight": -3,
           "_name": "",
           "_id": 33,
           "Predicate": [
@@ -1039,7 +1035,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -1061,7 +1056,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "initiator",
               "_negated": false,
@@ -1121,7 +1115,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -1146,8 +1139,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -1217,7 +1209,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -1242,7 +1233,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -1267,8 +1257,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -1350,22 +1339,6 @@
                 "_negated": false,
                 "_duration": 0,
                 "_name": "status(initiator, responder, is enemies with, 0)",
-                "_intent": false,
-                "_intentType": "INVALID",
-                "_isSFDB": false,
-                "_window": 0,
-                "_numTimesUniquelyTrueFlag": false,
-                "_numTimesUniquelyTrue": 0,
-                "_numTimesRoleSlot": ""
-              },
-              {
-                "_type": "RELATIONSHIP",
-                "_relationship": "ENEMIES",
-                "_first": "responder",
-                "_second": "initiator",
-                "_negated": false,
-                "_duration": 0,
-                "_name": "status(responder, initiator, is enemies with, 0)",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": false,
@@ -1705,13 +1678,12 @@
       "InitiatorInfluenceRuleSet": [
         {
           "_weight": 1,
-          "_name": "If the initiator and the responder don't buddy each other enough, the responder is more likely to be fine with making the initiator feel awkward about something s/he said.",
+          "_name": "If the initiator and the responder don't trust each other enough, the responder is more likely to be fine with making the initiator feel awkward about something s/he said.",
           "_id": 3,
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -1781,7 +1753,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charming",
               "_first": "initiator",
               "_negated": false,
@@ -1803,7 +1774,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charismatic",
               "_first": "initiator",
               "_negated": false,
@@ -1825,7 +1795,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "tactful",
               "_first": "initiator",
               "_negated": false,
@@ -1847,7 +1816,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "confident",
               "_first": "initiator",
               "_negated": false,
@@ -1869,7 +1837,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "outgoing",
               "_first": "initiator",
               "_negated": false,
@@ -1891,7 +1858,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "initiator",
               "_negated": false,
@@ -1913,7 +1879,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "gabby",
               "_first": "initiator",
               "_negated": false,
@@ -2006,7 +1971,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "responder",
               "_negated": false,
@@ -2028,7 +1992,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "responder",
               "_negated": false,
@@ -2050,7 +2013,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -2072,7 +2034,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charming",
               "_first": "responder",
               "_negated": false,
@@ -2094,7 +2055,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "tactful",
               "_first": "responder",
               "_negated": false,
@@ -2116,7 +2076,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "confident",
               "_first": "responder",
               "_negated": false,
@@ -2138,7 +2097,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "outgoing",
               "_first": "responder",
               "_negated": false,
@@ -2160,7 +2118,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -2182,7 +2139,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "irritable",
               "_first": "responder",
               "_negated": false,
@@ -2204,7 +2160,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "responder",
               "_negated": false,
@@ -2226,7 +2181,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "responder",
               "_negated": false,
@@ -2248,7 +2202,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "vengeful",
               "_first": "responder",
               "_negated": false,
@@ -2270,7 +2223,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -2292,7 +2244,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "snide",
               "_first": "responder",
               "_negated": false,
@@ -2314,7 +2265,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "responder",
               "_negated": false,
@@ -2336,7 +2286,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -2361,7 +2310,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -2386,8 +2334,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -2411,8 +2358,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -3591,19 +3537,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network up: buddy (responder toward initiator)",
+          "_name": "intent-network up: trust (responder toward initiator)",
           "_id": 1,
-          "_description": "The intent of this move is to have the buddy network between the responder and the initiator to go up.",
+          "_description": "The intent of this move is to have the trust network between the responder and the initiator to go up.",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "INCREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network up: buddy (responder toward initiator)",
+              "_name": "intent-network up: trust (responder toward initiator)",
               "_intent": true,
               "_intentType": "INCREASE_NET",
               "_isSFDB": false,
@@ -3648,7 +3594,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -3673,8 +3618,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -3973,8 +3917,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -3998,7 +3941,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -4023,7 +3965,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -4276,7 +4217,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -4301,8 +4241,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -4332,7 +4271,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -4392,7 +4331,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -4900,7 +4839,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "holdable",
               "_first": "other",
               "_negated": false,
@@ -4924,7 +4862,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -4951,7 +4888,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -5277,7 +5213,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -5325,8 +5260,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -5671,7 +5605,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -5696,8 +5629,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -6157,7 +6089,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "other",
@@ -6769,7 +6700,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "other",
@@ -6819,7 +6749,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -6841,7 +6770,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -6863,7 +6791,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "tactful",
               "_first": "initiator",
               "_negated": false,
@@ -6885,7 +6812,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -6910,7 +6836,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -6935,8 +6860,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -6960,7 +6884,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "other",
@@ -7025,7 +6948,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -7111,7 +7034,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "initiator",
               "_negated": false,
@@ -7133,7 +7055,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -7158,8 +7079,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -7300,7 +7220,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -7322,7 +7241,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "responder",
               "_negated": false,
@@ -7344,7 +7262,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "responder",
               "_negated": false,
@@ -7366,7 +7283,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -7388,7 +7304,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "vengeful",
               "_first": "responder",
               "_negated": false,
@@ -7410,7 +7325,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -7432,7 +7346,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -7457,7 +7370,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -7482,8 +7394,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -7507,8 +7418,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -7532,8 +7442,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -7557,7 +7466,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -7812,7 +7720,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -10302,7 +10209,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "item",
               "_first": "other",
               "_negated": false,
@@ -10395,7 +10301,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "outgoing",
               "_first": "initiator",
               "_negated": false,
@@ -10417,7 +10322,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -10442,7 +10346,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -10667,7 +10570,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -10692,7 +10594,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -10719,7 +10620,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -10736,7 +10637,7 @@
             },
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -10760,7 +10661,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -10785,7 +10685,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -10902,7 +10801,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -10927,7 +10825,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -10952,8 +10849,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -10977,7 +10873,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "impulsive",
               "_first": "responder",
               "_negated": false,
@@ -11081,7 +10976,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -11204,7 +11099,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -11756,7 +11651,7 @@
             },
             {
               "_lineNumber": 4,
-              "_initiatorLine": "That's just fine, buddy me. Bottoms up!",
+              "_initiatorLine": "That's just fine, trust me. Bottoms up!",
               "_responderLine": "",
               "_otherLine": "",
               "_primarySpeaker": "initiator",
@@ -12340,7 +12235,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -12367,7 +12261,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -12392,8 +12285,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -14410,19 +14302,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network down: buddy (other toward initiator)",
+          "_name": "intent-network down: trust (other toward initiator)",
           "_id": 15,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "other",
               "_second": "initiator",
               "_comparator": "DECREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network down: buddy (other toward initiator)",
+              "_name": "intent-network down: trust (other toward initiator)",
               "_intent": true,
               "_intentType": "DECREASE_NET",
               "_isSFDB": false,
@@ -14449,7 +14341,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -14478,7 +14370,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -14524,7 +14416,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -14541,7 +14433,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "responder",
                 "_comparator": "DECREASE",
@@ -14587,7 +14479,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -14604,7 +14496,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -16528,7 +16420,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -16553,8 +16444,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -16647,7 +16537,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "initiator",
               "_negated": false,
@@ -16669,7 +16558,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "initiator",
               "_negated": false,
@@ -16783,7 +16671,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -16808,8 +16695,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -16833,7 +16719,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -16860,7 +16745,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -16885,8 +16769,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -16933,7 +16816,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -17093,8 +16975,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -17969,8 +17850,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -18017,7 +17897,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -18042,8 +17921,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -18182,7 +18060,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -18254,7 +18131,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "initiator",
               "_negated": false,
@@ -18276,7 +18152,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -18301,7 +18176,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -18326,8 +18200,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -18351,8 +18224,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -18512,7 +18384,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -18667,7 +18538,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "DECREASE",
@@ -18953,7 +18824,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "GREATER_THAN",
@@ -19098,7 +18969,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "GREATER_THAN",
@@ -22200,19 +22071,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network down: buddy (other toward initiator)",
+          "_name": "intent-network down: trust (other toward initiator)",
           "_id": 3,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "other",
               "_second": "initiator",
               "_comparator": "DECREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network down: buddy (other toward initiator)",
+              "_name": "intent-network down: trust (other toward initiator)",
               "_intent": true,
               "_intentType": "DECREASE_NET",
               "_isSFDB": false,
@@ -22239,7 +22110,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -22268,7 +22139,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -22316,7 +22187,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -22360,7 +22231,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "LESS_THAN",
@@ -22414,7 +22285,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -22537,7 +22408,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "other",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -22970,7 +22841,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -22997,7 +22867,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -23019,7 +22888,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -23041,7 +22909,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -23063,7 +22930,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -23085,7 +22951,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -23107,7 +22972,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "initiator",
               "_negated": false,
@@ -23129,7 +22993,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -23154,7 +23017,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -23179,8 +23041,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -23264,7 +23125,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "nagging",
               "_first": "initiator",
               "_negated": false,
@@ -23286,7 +23146,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "snide",
               "_first": "initiator",
               "_negated": false,
@@ -23310,7 +23169,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -23332,7 +23190,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "nagging",
               "_first": "responder",
               "_negated": false,
@@ -23390,7 +23247,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -23415,8 +23271,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -23440,7 +23295,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "responder",
               "_negated": false,
@@ -23462,7 +23316,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -23484,7 +23337,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "responder",
               "_negated": false,
@@ -23506,7 +23358,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -23531,8 +23382,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -23556,7 +23406,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -24597,7 +24446,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "outgoing",
               "_first": "initiator",
               "_negated": false,
@@ -24619,7 +24467,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charming",
               "_first": "initiator",
               "_negated": false,
@@ -24641,7 +24488,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -24663,7 +24509,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -24685,7 +24530,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "SHY",
               "_first": "initiator",
               "_negated": false,
@@ -24707,7 +24551,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -24732,7 +24575,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -24757,7 +24599,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "initiator",
               "_second": "responder",
@@ -24899,7 +24740,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -25013,7 +24853,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "humble",
               "_first": "responder",
               "_negated": false,
@@ -25035,7 +24874,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "responder",
               "_negated": false,
@@ -25057,7 +24895,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -25082,8 +24919,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -28296,7 +28132,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -28323,7 +28158,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -28345,7 +28179,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -28464,7 +28297,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -28489,8 +28321,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -29217,7 +29048,7 @@
             {
               "_lineNumber": 1,
               "_initiatorLine": "",
-              "_responderLine": "%i%, normally I buddy in your opinion, but in this matter I must disagree.",
+              "_responderLine": "%i%, normally I trust in your opinion, but in this matter I must disagree.",
               "_otherLine": "",
               "_primarySpeaker": "responder",
               "_initiatorBodyAnimation": "",
@@ -30167,7 +29998,7 @@
             {
               "_lineNumber": 7,
               "_initiatorLine": "",
-              "_responderLine": "... Alright, %i%. But only because I buddy you.",
+              "_responderLine": "... Alright, %i%. But only because I trust you.",
               "_otherLine": "",
               "_primarySpeaker": "responder",
               "_initiatorBodyAnimation": "",
@@ -31139,7 +30970,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -31164,7 +30994,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -31189,7 +31018,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -31211,7 +31039,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -31236,7 +31063,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "irritable",
               "_first": "initiator",
               "_negated": false,
@@ -31258,7 +31084,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -31280,7 +31105,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "SHY",
               "_first": "initiator",
               "_negated": false,
@@ -31302,7 +31126,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "tactful",
               "_first": "initiator",
               "_negated": false,
@@ -31894,7 +31717,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -31916,7 +31738,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -31938,7 +31759,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "nagging",
               "_first": "initiator",
               "_negated": false,
@@ -31960,7 +31780,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -31985,7 +31804,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -32010,7 +31828,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -32106,7 +31923,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -32128,7 +31944,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -32150,7 +31965,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -32175,7 +31989,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -32344,7 +32157,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -33046,7 +32859,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -33071,7 +32883,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -33096,7 +32907,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -33118,7 +32928,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -33143,7 +32952,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -33168,8 +32976,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -33218,7 +33025,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "SHY",
               "_first": "responder",
               "_negated": false,
@@ -33378,7 +33184,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -33403,7 +33208,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -33428,7 +33232,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -33476,7 +33279,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -33815,19 +33617,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network up: buddy (responder toward initiator)",
+          "_name": "intent-network up: trust (responder toward initiator)",
           "_id": 9,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "INCREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network up: buddy (responder toward initiator)",
+              "_name": "intent-network up: trust (responder toward initiator)",
               "_intent": true,
               "_intentType": "INCREASE_NET",
               "_isSFDB": false,
@@ -33848,7 +33650,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "initiator",
               "_negated": false,
@@ -33870,7 +33671,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -33895,7 +33695,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -34054,7 +33853,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -34076,7 +33874,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -34121,7 +33918,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -34146,8 +33942,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -34217,13 +34012,13 @@
           "_accept": true,
           "_instantiationID": 31,
           "_rejectID": -1,
-          "PerformanceRealization": "",
+          "PerformanceRealization": "Default accept",
           "ConditionRule": {},
           "ChangeRule": {
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -34246,13 +34041,13 @@
           "_accept": false,
           "_instantiationID": 32,
           "_rejectID": -1,
-          "PerformanceRealization": "",
+          "PerformanceRealization": "Default reject",
           "ConditionRule": {},
           "ChangeRule": {
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "DECREASE",
@@ -34275,7 +34070,7 @@
           "_accept": true,
           "_instantiationID": 33,
           "_rejectID": -1,
-          "PerformanceRealization": "",
+          "PerformanceRealization": "Accept: initiator relying on relatively good buddy when feeling bad",
           "ConditionRule": {
             "Predicate": [
               {
@@ -34334,7 +34129,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -34388,7 +34183,7 @@
           "_accept": true,
           "_instantiationID": 34,
           "_rejectID": -1,
-          "PerformanceRealization": "",
+          "PerformanceRealization": "Accept: responder is sympathetic",
           "ConditionRule": {
             "Predicate": [
               {
@@ -34411,7 +34206,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -34491,7 +34286,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -34556,7 +34351,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "DECREASE",
@@ -34619,7 +34414,7 @@
               },
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "initiator",
                 "_second": "responder",
                 "_comparator": "DECREASE",
@@ -34645,7 +34440,7 @@
           "LineOfDialogue": [
             {
               "_lineNumber": 0,
-              "_initiatorLine": "%i% confides in %r% and %r% is accepting of what %i% says, increasing their buddy.",
+              "_initiatorLine": "%i% confides in %r% and %r% is accepting of what %i% says, increasing their trust.",
               "_responderLine": "",
               "_otherLine": "",
               "_primarySpeaker": "initiator",
@@ -35244,7 +35039,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -35271,7 +35065,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -35296,7 +35089,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -35321,7 +35113,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -35346,7 +35137,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charming",
               "_first": "initiator",
               "_negated": false,
@@ -35368,7 +35158,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "charismatic",
               "_first": "initiator",
               "_negated": false,
@@ -35390,7 +35179,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "SHY",
               "_first": "initiator",
               "_negated": false,
@@ -35826,8 +35614,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -35853,7 +35640,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -35878,7 +35664,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -35995,7 +35780,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -38498,7 +38282,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -38523,8 +38306,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -38548,7 +38330,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -38573,8 +38354,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -38759,7 +38539,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "independent",
               "_first": "initiator",
               "_negated": false,
@@ -38783,7 +38562,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -38808,8 +38586,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -39063,7 +38840,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -39088,8 +38864,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -40052,7 +39827,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -40112,7 +39886,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "outgoing",
               "_first": "initiator",
               "_negated": false,
@@ -40134,7 +39907,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -40159,7 +39931,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -40247,7 +40018,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -40269,7 +40039,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -40291,7 +40060,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -40316,7 +40084,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -40343,7 +40110,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -41349,7 +41115,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -41374,8 +41139,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -41399,7 +41163,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "initiator",
               "_second": "responder",
@@ -41424,8 +41187,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -41449,7 +41211,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -41589,7 +41350,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -41614,8 +41374,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -41663,7 +41422,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "responder",
               "_negated": false,
@@ -41685,7 +41443,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -41710,7 +41467,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -41735,7 +41491,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -41806,8 +41561,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -41919,7 +41673,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -41941,7 +41694,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "dishonest",
               "_first": "responder",
               "_negated": false,
@@ -41986,8 +41738,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -42011,7 +41762,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -46803,7 +46553,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "other",
@@ -46874,7 +46623,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -46899,7 +46647,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -46924,7 +46671,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -46949,7 +46695,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -46974,7 +46719,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -47070,7 +46814,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -47118,7 +46861,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -47143,8 +46885,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -47168,7 +46909,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -47193,7 +46933,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -47817,7 +47556,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -47839,7 +47577,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "humble",
               "_first": "initiator",
               "_negated": false,
@@ -47861,7 +47598,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -47883,7 +47619,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -47908,7 +47643,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -48002,7 +47736,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -48026,7 +47759,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "responder",
               "_negated": false,
@@ -48048,7 +47780,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -48070,7 +47801,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -48092,7 +47822,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "vengeful",
               "_first": "responder",
               "_negated": false,
@@ -48114,7 +47843,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -48139,7 +47867,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -48164,7 +47891,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "initiator",
@@ -48372,7 +48098,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "persuasive",
               "_first": "initiator",
               "_negated": false,
@@ -48400,7 +48125,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -48694,19 +48419,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network down: buddy (responder toward initiator)",
+          "_name": "intent-network down: trust (responder toward initiator)",
           "_id": 3,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "DECREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network down: buddy (responder toward initiator)",
+              "_name": "intent-network down: trust (responder toward initiator)",
               "_intent": true,
               "_intentType": "DECREASE_NET",
               "_isSFDB": false,
@@ -48772,7 +48497,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -48935,7 +48659,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -49052,8 +48775,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -49077,7 +48799,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "initiator",
               "_negated": false,
@@ -49099,7 +48820,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "initiator",
               "_negated": false,
@@ -49121,7 +48841,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -49145,7 +48864,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -49167,7 +48885,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "responder",
               "_negated": false,
@@ -49212,7 +48929,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "stubborn",
               "_first": "responder",
               "_negated": false,
@@ -49234,7 +48950,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "indecisive",
               "_first": "responder",
               "_negated": false,
@@ -49256,8 +48971,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -49352,7 +49066,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -49506,7 +49220,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "DECREASE",
@@ -50057,7 +49771,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -50079,7 +49792,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "initiator",
               "_negated": false,
@@ -50101,7 +49813,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "initiator",
               "_negated": false,
@@ -50123,7 +49834,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -50148,7 +49858,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -50173,8 +49882,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -50198,7 +49906,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -50223,7 +49930,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -50365,7 +50071,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "independent",
               "_first": "responder",
               "_negated": false,
@@ -50387,7 +50092,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "responder",
               "_negated": false,
@@ -50409,7 +50113,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -50431,7 +50134,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "responder",
               "_negated": false,
@@ -50453,7 +50155,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "responder",
               "_negated": false,
@@ -50475,7 +50176,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -50500,7 +50200,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -50525,8 +50224,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -50550,7 +50248,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -50575,7 +50272,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -51860,7 +51556,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "initiator",
               "_negated": false,
@@ -51974,7 +51669,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -51999,8 +51693,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -52024,7 +51717,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -52051,7 +51743,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -52076,8 +51767,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -52101,7 +51791,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -52126,7 +51815,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -52151,8 +51839,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -52623,7 +52310,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -52648,7 +52334,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -52673,7 +52358,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "gabby",
               "_first": "initiator",
               "_negated": false,
@@ -52695,7 +52379,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "observant",
               "_first": "initiator",
               "_negated": false,
@@ -52717,7 +52400,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "impulsive",
               "_first": "initiator",
               "_negated": false,
@@ -52810,7 +52492,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "gabby",
               "_first": "responder",
               "_negated": false,
@@ -52832,7 +52513,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "observant",
               "_first": "responder",
               "_negated": false,
@@ -52854,7 +52534,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "oblivious",
               "_first": "responder",
               "_negated": false,
@@ -53197,8 +52876,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -53222,7 +52900,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -53293,7 +52970,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "impulsive",
               "_first": "initiator",
               "_negated": false,
@@ -53315,8 +52991,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -53411,8 +53086,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -53436,8 +53110,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -53890,7 +53563,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -53935,7 +53607,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "initiator",
               "_negated": false,
@@ -53957,7 +53628,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -54005,7 +53675,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -54099,7 +53768,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -54121,7 +53789,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -54146,7 +53813,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -54173,7 +53839,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -54198,7 +53863,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -54223,7 +53887,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -54248,14 +53911,13 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
               "_value": 74,
               "_negated": false,
-              "_name": "trustNetwork(responder, initiator) greaterthan 74",
+              "_name": "buddyNetwork(responder, initiator) greaterthan 74",
               "_intent": false,
               "_intentType": "INVALID",
               "_isSFDB": false,
@@ -54388,7 +54050,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -54413,7 +54074,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -54438,7 +54098,7 @@
           "_accept": true,
           "_instantiationID": 0,
           "_rejectID": -1,
-          "PerformanceRealization": "Default break up (accept) - just means that the two are no longer dating.",
+          "PerformanceRealization": "Default break up (accept) - the two will no longer date",
           "ConditionRule": {},
           "ChangeRule": {
             "Predicate": [
@@ -54449,7 +54109,7 @@
                 "_second": "other",
                 "_negated": true,
                 "_duration": 0,
-                "_name": "~status(responder, other, is dating, 0)",
+                "_name": "~relationship(responder, other, dating)",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": false,
@@ -54464,11 +54124,11 @@
                 "_second": "other",
                 "_label": "FAILED_ROMANCE",
                 "_negated": true,
-                "_name": "[~SFDB_LABEL(failed romance,responder,other,0) window(6)]",
+                "_name": "[~SFDB_LABEL(failed romance,responder,other)]",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": true,
-                "_window": 6,
+                "_window": 0,
                 "_numTimesUniquelyTrueFlag": false,
                 "_numTimesUniquelyTrue": 0,
                 "_numTimesRoleSlot": ""
@@ -54489,28 +54149,13 @@
                 "_type": "SFDB_LABEL",
                 "_first": "responder",
                 "_second": "other",
-                "_label": "",
+                "_label": "ROMANTIC",
                 "_negated": false,
-                "_name": "SFDB_LABEL(,responder,other,0)",
+                "_name": "[SFDB_LABEL(romantic,responder,other,0)]",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": true,
                 "_window": 0,
-                "_numTimesUniquelyTrueFlag": false,
-                "_numTimesUniquelyTrue": 0,
-                "_numTimesRoleSlot": ""
-              },
-              {
-                "_type": "SFDB_LABEL",
-                "_first": "responder",
-                "_second": "other",
-                "_label": "ROMANTIC",
-                "_negated": false,
-                "_name": "[SFDB_LABEL(romantic,responder,other,0) window(6)]",
-                "_intent": false,
-                "_intentType": "INVALID",
-                "_isSFDB": true,
-                "_window": 6,
                 "_numTimesUniquelyTrueFlag": false,
                 "_numTimesUniquelyTrue": 0,
                 "_numTimesRoleSlot": ""
@@ -54528,7 +54173,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "GREATER_THAN",
@@ -54570,7 +54215,7 @@
                 "_second": "other",
                 "_negated": true,
                 "_duration": 0,
-                "_name": "~status(responder, other, is dating, 0)",
+                "_name": "~relationship(responder, other, dating, 0)",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": false,
@@ -54585,11 +54230,11 @@
                 "_second": "other",
                 "_label": "FAILED_ROMANCE",
                 "_negated": false,
-                "_name": "[SFDB_LABEL(failed romance,responder,other,0) window(6)]",
+                "_name": "[SFDB_LABEL(failed romance,responder,other,0)]",
                 "_intent": false,
                 "_intentType": "INVALID",
                 "_isSFDB": true,
-                "_window": 6,
+                "_window": 0,
                 "_numTimesUniquelyTrueFlag": false,
                 "_numTimesUniquelyTrue": 0,
                 "_numTimesRoleSlot": ""
@@ -54707,7 +54352,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "initiator",
                 "_comparator": "INCREASE",
@@ -55470,19 +55115,19 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-network up: buddy (responder toward other)",
+          "_name": "intent-network up: trust (responder toward other)",
           "_id": 1,
           "_description": "",
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "INCREASE",
               "_value": 0,
               "_negated": false,
-              "_name": "intent-network up: buddy (responder toward other)",
+              "_name": "intent-network up: trust (responder toward other)",
               "_intent": true,
               "_intentType": "INCREASE_NET",
               "_isSFDB": false,
@@ -55503,7 +55148,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "observant",
               "_first": "initiator",
               "_negated": false,
@@ -55525,7 +55169,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -55550,7 +55193,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -55575,8 +55217,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -55669,7 +55310,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "oblivious",
               "_first": "initiator",
               "_negated": false,
@@ -55691,7 +55331,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -55713,7 +55352,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -55786,7 +55424,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -55808,7 +55445,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -55833,8 +55469,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -55858,7 +55493,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -55883,8 +55517,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -55977,7 +55610,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "irritable",
               "_first": "responder",
               "_negated": false,
@@ -55999,7 +55631,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -56024,8 +55655,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -56101,7 +55731,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "other",
                 "_comparator": "INCREASE",
@@ -56130,7 +55760,7 @@
             "Predicate": [
               {
                 "_type": "NETWORK",
-                "_networkType": "BUDDY",
+                "_networkType": "TRUST",
                 "_first": "responder",
                 "_second": "other",
                 "_comparator": "DECREASE",
@@ -56300,7 +55930,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -56322,7 +55951,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "initiator",
               "_negated": false,
@@ -56344,7 +55972,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "humble",
               "_first": "initiator",
               "_negated": false,
@@ -56366,7 +55993,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -56391,8 +56017,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -56439,7 +56064,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "initiator",
               "_negated": false,
@@ -56461,7 +56085,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -56506,7 +56129,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "initiator",
               "_second": "responder",
@@ -56533,7 +56155,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "initiator",
               "_negated": false,
@@ -56555,7 +56176,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "initiator",
               "_negated": false,
@@ -56577,7 +56197,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -56625,7 +56244,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "humble",
               "_first": "responder",
               "_negated": false,
@@ -56647,7 +56265,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -56996,7 +56613,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "initiator",
               "_negated": false,
@@ -57018,7 +56634,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "observant",
               "_first": "initiator",
               "_negated": false,
@@ -57040,7 +56655,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -57062,7 +56676,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "domineering",
               "_first": "initiator",
               "_negated": false,
@@ -57084,7 +56697,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "oblivious",
               "_first": "initiator",
               "_negated": false,
@@ -57195,7 +56807,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -57217,7 +56828,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "responder",
               "_negated": false,
@@ -57239,7 +56849,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "vengeful",
               "_first": "responder",
               "_negated": false,
@@ -57261,7 +56870,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -57283,7 +56891,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -57305,7 +56912,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -57330,7 +56936,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -57783,7 +57388,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "dishonest",
               "_first": "initiator",
               "_negated": false,
@@ -57805,7 +57409,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -57827,7 +57430,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "hostile",
               "_first": "initiator",
               "_negated": false,
@@ -57849,7 +57451,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "initiator",
               "_negated": false,
@@ -57871,7 +57472,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "initiator",
               "_negated": false,
@@ -57893,7 +57493,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "honest",
               "_first": "initiator",
               "_negated": false,
@@ -57915,7 +57514,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -57940,8 +57538,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -58013,7 +57610,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -58035,7 +57631,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "oblivious",
               "_first": "responder",
               "_negated": false,
@@ -58057,7 +57652,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "loyal",
               "_first": "responder",
               "_negated": false,
@@ -58079,7 +57673,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "honest",
               "_first": "responder",
               "_negated": false,
@@ -58101,7 +57694,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -58126,8 +57718,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -58151,7 +57742,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -58176,7 +57766,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -58201,8 +57790,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -58226,7 +57814,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -58251,7 +57838,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "initiator",
@@ -58276,8 +57862,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -58626,7 +58211,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -58651,8 +58235,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -58676,7 +58259,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -58701,8 +58283,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "LESS_THAN",
@@ -58795,7 +58376,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "dishonest",
               "_first": "initiator",
               "_negated": false,
@@ -58888,7 +58468,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "initiator",
@@ -58913,8 +58492,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -58961,7 +58539,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "impulsive",
               "_first": "responder",
               "_negated": false,
@@ -58983,7 +58560,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "unforgiving",
               "_first": "responder",
               "_negated": false,
@@ -59005,7 +58581,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "forgiving",
               "_first": "responder",
               "_negated": false,
@@ -59050,7 +58625,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "responder",
@@ -59121,8 +58695,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "LESS_THAN",
@@ -59528,7 +59101,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "gabby",
               "_first": "initiator",
               "_negated": false,
@@ -59550,7 +59122,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -59575,7 +59146,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "other",
@@ -59623,7 +59193,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -59648,7 +59217,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "jealous",
               "_first": "responder",
               "_negated": false,
@@ -59670,7 +59238,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "other",
@@ -59695,7 +59262,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -59722,7 +59288,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
@@ -59747,7 +59312,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "ARROGANT",
               "_first": "responder",
               "_negated": false,
@@ -59769,7 +59333,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "SHY",
               "_first": "responder",
               "_negated": false,
@@ -59837,8 +59400,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -59862,7 +59424,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -60373,7 +59934,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "kind",
               "_first": "initiator",
               "_negated": false,
@@ -60395,7 +59955,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "initiator",
               "_negated": false,
@@ -60480,7 +60039,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "disapproving",
               "_first": "responder",
               "_negated": false,
@@ -60502,7 +60060,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -60527,8 +60084,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -60552,7 +60108,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -60577,7 +60132,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "initiator",
@@ -60625,7 +60179,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "sympathetic",
               "_first": "responder",
               "_negated": false,
@@ -60647,7 +60200,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
@@ -60672,8 +60224,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "other",
               "_comparator": "GREATER_THAN",
@@ -61084,7 +60635,6 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_type#number": 1,
               "_trait": "holdable",
               "_first": "other",
               "_negated": false,
@@ -61154,7 +60704,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -61202,7 +60751,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -61227,7 +60775,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "initiator",
               "_second": "responder",
@@ -61252,7 +60799,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "initiator",
               "_second": "responder",
@@ -61277,8 +60823,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "initiator",
               "_second": "responder",
               "_comparator": "GREATER_THAN",
@@ -61302,7 +60847,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "initiator",
               "_second": "responder",
@@ -61398,7 +60942,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "initiator",
@@ -61423,7 +60966,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "initiator",
@@ -61448,8 +60990,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
-              "_networkType": "BUDDY",
+              "_networkType": "TRUST",
               "_first": "responder",
               "_second": "initiator",
               "_comparator": "GREATER_THAN",
@@ -61473,7 +61014,6 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              
               "_networkType": "FAMILY_BOND",
               "_first": "responder",
               "_second": "initiator",

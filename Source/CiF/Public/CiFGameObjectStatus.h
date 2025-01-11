@@ -90,6 +90,7 @@ enum class EStatus : uint8
 	PITIES					UMETA(DisplayName="Pities"),
 	ELOPED_WITH				UMETA(DisplayName="Eloped with"),
 	IS_RELATED_TO			UMETA(DisplayName="is related to"),
+	TRUSTS					UMETA(DisplayName="Trusts"),
 
 	// people statuses concerning items
 	WANTS					UMETA(DisplayName="wants"),

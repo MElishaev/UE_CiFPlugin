@@ -20,7 +20,7 @@ void UCiFRuleRecord::init(const FName name,
 	mInfluenceRule = ir;
 }
 
-void UCiFRuleRecord::toNLG(FString& outStr)
+void UCiFRuleRecord::toNLG(FString& outStr) const
 {
 	mInfluenceRule->toNLG(outStr, mInitiator, mResponder, mOther);
 }

@@ -65,10 +65,10 @@ float UCiFSocialExchange::getResponderScore(UCiFCharacter* initiator,
 float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
                                               UCiFGameObject* responder,
                                               UCiFGameObject*& bestOther,
-                                              TArray<UCiFGameObject*> activeOtherCast,
+                                              const TArray<UCiFGameObject*>& activeOtherCast,
                                               bool isResponder)
 {
-	int8 totalScore = -100;
+	FScore_t totalScore;
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
 	const auto influenceRuleSet = isResponder ? mResponderIR : mInitiatorIR;
@@ -79,7 +79,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
 				if (checkPreconditions(initiator, responder, other, this)) {
 						
-					const float localScore = influenceRuleSet->scoreRules(initiator,
+					const FScore_t localScore = influenceRuleSet->scoreRules(initiator,
 																		  responder,
 																		  other,
 																		  this,
@@ -88,7 +88,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 					if (localScore >= totalScore) {
 						// if the score is the same, just randomly pick between the 2 so the
 						// behavior will be more dynamic
-						if (localScore == totalScore) {
+						if (totalScore == localScore) {
 							bestOther = FMath::RandRange(0, 1) == 1 ? other : bestOther;
 						}
 						else {
@@ -103,12 +103,12 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 	else {
 		if (checkPreconditions(initiator, responder, nullptr, this)) {
 			totalScore = influenceRuleSet->scoreRulesWithVariableOther(initiator,
-																		responder,
-																		nullptr,
-																		this,
-																		possibleOthers,
-																		"",
-																		isResponder);
+			                                                           responder,
+			                                                           nullptr,
+			                                                           this,
+			                                                           possibleOthers,
+			                                                           "",
+			                                                           isResponder);
 		}
 	}
 	
@@ -117,7 +117,7 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 
 bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiator,
                                                          UCiFGameObject* responder,
-                                                         TArray<UCiFGameObject*> activeOtherCast)
+                                                         const TArray<UCiFGameObject*>& activeOtherCast)
 {
 	if (mPreconditions.IsEmpty()) {
 		return true; // no preconditions means it is automatically true

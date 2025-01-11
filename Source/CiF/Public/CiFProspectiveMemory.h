@@ -32,6 +32,24 @@ struct FCacheKey
 	friend uint32 GetTypeHash(const FCacheKey& Key);
 };
 
+struct FRRMapKey
+{
+	FName sgName;
+	FName initiator;
+	FName responder;
+
+	FRRMapKey(const FName _sgName, const FName _init, const FName _res) :
+		sgName(_sgName), initiator(_init), responder(_res) {}
+	bool operator==(const FRRMapKey& Other) const;
+	bool operator!=(const FRRMapKey& Other) const { return !(*this == Other); }
+	friend uint32 GetTypeHash(const FRRMapKey& Key);
+};
+
+struct FRuleRecordsArrayWrapper
+{
+	TArray<UCiFRuleRecord*> mRuleRecords;
+};
+
 /**
  * Character specific prospective memory. This needs to be cleared each round.
  */
@@ -46,6 +64,14 @@ public:
 
 	void cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const FScore_t score);
 	void addSocialExchangeScore(const FName seName, const FName initator, const FName responder, const FName other, const FScore_t& score);
+
+	/**
+	 * Stores the rule record into the rule records map
+	 * 
+	 * @param rrKey Social exchange name that the rule is relevant for
+	 * @param rr Rule record to store
+	 */
+	void storeRuleRecord(const FRRMapKey& rrKey, const UCiFRuleRecord* rr);
 
 	FScore_t getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType);
 
@@ -70,11 +96,11 @@ public:
 	/**
 	 * Fills output param game score with the score of the matching input params
 	 * @param gameName The social exchange name
-	 * @param responder The responder of the social exchange TODO-why specifically the responder and not also the initiator or other?
+	 * @param responder The responder of the social exchange
 	 * @param outputScore Output param to be filled in
 	 * @return True if found a game score matches the input params, false otherwise
 	 */
-	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore);
+	bool getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore& outputScore);
 
 	FScore_t getDefaultIntentScore() const { return DEFAULT_INTENT_SCORE; }
 
@@ -88,13 +114,13 @@ public:
 	bool mIsCleared; // indicates if the prospective memory is clear before starting forming scores and storing here
 
 	TArray<FGameScore> mScores;
-	TArray<UCiFRuleRecord*> mRuleRecords; // array of all rules that evaluated to true while forming intent
-	TArray<UCiFRuleRecord*> mResponseSeRuleRecords;
+	// map of all rule records evaluated to true for each <sg, init, res> given by the FGameScores in the mScore array
+	TMap<FRRMapKey, FRuleRecordsArrayWrapper> mRuleRecordsMap; 
 
-	/* A array of maps where each map represents the cache of calculated intents.
+	/* A array of maps where each map represents the cache of calculated intents of MICROTHEORIES.
 	 * each map holds scores for each combinations of keys of intentType*secondaryValue (for example, ADD_STATUS*STATUS_TYPE; INCREASE_NET*NETWORK_TYPE etc)
 	 */
-	TArray<TMap<FCacheKey, FScore_t>> mIntentScoreCacheNew;
+	TArray<TMap<FCacheKey, FScore_t>> mIntentScoreCache;
 
 	FScore_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
 };

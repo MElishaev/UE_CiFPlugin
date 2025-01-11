@@ -24,13 +24,13 @@ void UCiFProspectiveMemory::initializeIntentScoreCache()
 		UE_LOG(LogTemp, Warning, TEXT("Number of characters is %d"), numCharacters);
 		return;
 	}
-	
-	mIntentScoreCacheNew.SetNum(numCharacters);
+
+	mIntentScoreCache.SetNum(numCharacters);
 }
 
 void UCiFProspectiveMemory::cacheIntentScore(const UCiFGameObject* responder, const FCacheKey extendedIntentType, const FScore_t score)
 {
-	mIntentScoreCacheNew[responder->mNetworkId].Add(extendedIntentType, score);
+	mIntentScoreCache[responder->mNetworkId].Add(extendedIntentType, score);
 	mIsCleared = false; // todo - should it be here? in what cases we cache and does this needs to be reset before forming intents?
 }
 
@@ -44,9 +44,21 @@ void UCiFProspectiveMemory::addSocialExchangeScore(const FName seName,
 	mIsCleared = false;
 }
 
+void UCiFProspectiveMemory::storeRuleRecord(const FRRMapKey& rrKey, const UCiFRuleRecord* rr)
+{
+	if (mRuleRecordsMap.Contains(rrKey)) {
+		mRuleRecordsMap.Find(rrKey)->mRuleRecords.Add(const_cast<UCiFRuleRecord*>(rr));
+	}
+	else {
+		FRuleRecordsArrayWrapper arr;
+		arr.mRuleRecords.Add(const_cast<UCiFRuleRecord*>(rr));
+		mRuleRecordsMap.Add(rrKey, arr);
+	}
+}
+
 FScore_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType)
 {
-	auto scorePtr = mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType); 
+	auto scorePtr = mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType);
 	if (scorePtr) {
 		return *scorePtr;
 	}
@@ -56,7 +68,7 @@ FScore_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, F
 TArray<FGameScore> UCiFProspectiveMemory::getNHighestGameScores(uint8 count)
 {
 	mScores.Sort();
-	
+
 	TArray<FGameScore> topNScores;
 	count = mScores.Num() < count ? mScores.Num() : count;
 
@@ -93,7 +105,7 @@ TArray<FGameScore> UCiFProspectiveMemory::getHighestGameScoresTo(const FName res
 	return highestNScores;
 }
 
-bool UCiFProspectiveMemory::getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore outputScore)
+bool UCiFProspectiveMemory::getGameScoreByName(const FName gameName, const UCiFCharacter* responder, FGameScore& outputScore)
 {
 	auto gs = mScores.FindByPredicate([=](const FGameScore g) {
 		return gameName == g.mName && responder->mObjectName == g.mResponder;
@@ -121,20 +133,15 @@ void UCiFProspectiveMemory::clear()
 	if (mIsCleared) {
 		return;
 	}
-	
-	auto cifManager = UGameplayStatics::GetGameInstance(GetWorld())->GetSubsystem<UCiFSubsystem>()->getInstance();
 
-	const auto numCharacters = cifManager->mCast->mCharacters.Num();
-
-	for (int i = 0; i < mIntentScoreCacheNew.Num(); i++) {
-		mIntentScoreCacheNew[i].Reset();
+	for (int i = 0; i < mIntentScoreCache.Num(); i++) {
+		mIntentScoreCache[i].Reset();
 	}
 
 	// TODO- reset the rest of the members - but need to make sure that this makes sense for the purpose of this function
 	//			and this class. because maybe i want to still hold the container of the same size, like in the intent
 	//			caches above.
-	mResponseSeRuleRecords.Reset();
-	mRuleRecords.Reset();
+	mRuleRecordsMap.Reset();
 	mScores.Reset();
 
 	mIsCleared = true;
@@ -171,4 +178,15 @@ uint32 GetTypeHash(const FCacheKey& Key)
 			return HashCombine(GetTypeHash(Key.mIntentType), GetTypeHash(Key.IntentBasedEnum.mRelationshipType));
 	}
 	return 0;
+}
+
+uint32 GetTypeHash(const FRRMapKey& Key)
+{
+	return HashCombine(HashCombine(GetTypeHash(Key.sgName), GetTypeHash(Key.initiator)),
+	                   GetTypeHash(Key.responder));
+}
+
+bool FRRMapKey::operator==(const FRRMapKey& Other) const
+{
+	return sgName == Other.sgName && initiator == Other.initiator && responder == Other.responder;
 }

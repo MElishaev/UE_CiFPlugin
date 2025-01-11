@@ -16,12 +16,13 @@ struct FScore_t
 	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	int32 val;
 	
-	FScore_t() : val(0) {}
+	FScore_t() : val(-100) {}
 	FScore_t(const int32 v) : val(v) {}
 	FScore_t(const FScore_t& o) : val(o.val) {}
 
 	bool operator<(const FScore_t &o) const { return val < o.val; }
 	bool operator>=(const FScore_t &o) const { return !(*this < o); }
+	bool operator>=(const int32 o) const { return val > o; }
 	bool operator>(const FScore_t &o) const { return val > o.val; }
 	bool operator<=(const FScore_t &o) const { return !((*this > o)); }
 	bool operator==(const FScore_t &o) const { return val == o.val; }
