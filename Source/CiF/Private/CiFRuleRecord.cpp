@@ -10,14 +10,14 @@ void UCiFRuleRecord::init(const FName name,
                           const FName responderName,
                           const FName otherName,
                           const ERuleRecordType type,
-                          UCiFInfluenceRule* ir)
+                          const UCiFInfluenceRule* ir)
 {
 	mName = name;
 	mInitiator = initiatorName;
 	mResponder = responderName;
 	mOther = otherName;
 	mType = type;
-	mInfluenceRule = ir;
+	mInfluenceRule = const_cast<UCiFInfluenceRule*>(ir);
 }
 
 void UCiFRuleRecord::toNLG(FString& outStr) const

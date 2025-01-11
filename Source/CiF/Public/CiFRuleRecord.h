@@ -29,7 +29,7 @@ public:
 	          const FName responderName,
 	          const FName otherName,
 	          const ERuleRecordType type,
-	          UCiFInfluenceRule* ir);
+	          const UCiFInfluenceRule* ir);
 
 	/**
 	 * @param outStr Fills the string representing the rule record in natural language

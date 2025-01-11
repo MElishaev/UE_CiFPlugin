@@ -175,7 +175,7 @@ public:
 	 * an CharacterC. CharacterC is not a possible other, because in this case the possible other for this social
 	 * exchange should be ITEMS only.
 	 */
-	void getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName);
+	void getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName) const;
 
 	FCacheKey getSocialExchangeExtendedIntentType() const;
 

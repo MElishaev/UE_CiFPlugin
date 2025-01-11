@@ -58,7 +58,7 @@ public:
 	 * @return True if all the predicates in the rules are true. Otherwise,
 	 * false.
 	 */
-	bool evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other = nullptr, UCiFSocialExchange* se = nullptr);
+	bool evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other = nullptr, const UCiFSocialExchange* se = nullptr);
 
 	/**
 	 * Performs valuation (aka updating the social state according to
