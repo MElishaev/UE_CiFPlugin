@@ -31,7 +31,7 @@ UCiFStatusContext* UCiFStatusContext::loadFromJson(const TSharedPtr<FJsonObject>
 
 	sc->UCiFSFDBContext::loadFromJson(json, worldContextObject);
 
-	const auto predsJson = json->GetObjectField("Predicate");
+	const auto predsJson = json->GetObjectField(TEXT("Predicate"));
 	sc->mPredicate = UCiFPredicate::loadFromJson(predsJson, worldContextObject);
 
 	return sc;

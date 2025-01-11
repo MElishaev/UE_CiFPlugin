@@ -182,7 +182,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 	}
 
 	// Dont load backstory context for now, they include characters not available in game.
-	// const auto backstoryJson = jsonObject->GetArrayField("BackstoryContext");
+	// const auto backstoryJson = jsonObject->GetArrayField(TEXT("BackstoryContext"));
 	// for (const auto bsJson : backstoryJson) {
 	// 	auto bsc = UCiFSocialExchangeContext::loadFromJson(bsJson->AsObject(), worldContextObject);
 	// 	if (bsc) {

@@ -88,19 +88,19 @@ UCiFSocialNetwork* UCiFSocialNetwork::loadFromJson(const TSharedPtr<FJsonObject>
 	const auto sn = NewObject<UCiFSocialNetwork>(const_cast<UObject*>(worldContextObject));
 
 	const auto snEnum = StaticEnum<ESocialNetworkType>();
-	const auto snType = static_cast<ESocialNetworkType>(snEnum->GetValueByName(FName(json->GetStringField("_type"))));
-	const auto numChars = json->GetNumberField("_numChars");
+	const auto snType = static_cast<ESocialNetworkType>(snEnum->GetValueByName(FName(json->GetStringField(TEXT("_type")))));
+	const auto numChars = json->GetNumberField(TEXT("_numChars"));
 	const int8 maxVal = 100;
 	
 	sn->init(snType, numChars, maxVal);
 
 	// now load the values from the json
 	const auto cifManager = sn->GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	const auto edgesJson = json->GetArrayField("edge");
+	const auto edgesJson = json->GetArrayField(TEXT("edge"));
 	for (const auto edgeJson : edgesJson) {
-		const auto weight = edgeJson->AsObject()->GetNumberField("_value");
-		const auto from = FName(edgeJson->AsObject()->GetStringField("_from"));
-		const auto to = FName(edgeJson->AsObject()->GetStringField("_to"));
+		const auto weight = edgeJson->AsObject()->GetNumberField(TEXT("_value"));
+		const auto from = FName(edgeJson->AsObject()->GetStringField(TEXT("_from")));
+		const auto to = FName(edgeJson->AsObject()->GetStringField(TEXT("_to")));
 		const auto fromObject = cifManager->getGameObjectByName(from);
 		const auto toObject = cifManager->getGameObjectByName(to);
 		if (fromObject && toObject) {

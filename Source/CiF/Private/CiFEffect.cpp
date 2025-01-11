@@ -184,14 +184,14 @@ UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json, const U
 {
 	auto e = NewObject<UCiFEffect>(const_cast<UObject*>(worldContextObject));
 	
-	e->mRejectId = json->GetNumberField("_rejectID");
-	e->mIsAccept = json->GetBoolField("_accept");
-	e->mInstantiationId = json->GetNumberField("_instantiationID");
-	e->mReferenceAsNLG = FName(json->GetStringField("PerformanceRealization"));
+	e->mRejectId = json->GetNumberField(TEXT("_rejectID"));
+	e->mIsAccept = json->GetBoolField(TEXT("_accept"));
+	e->mInstantiationId = json->GetNumberField(TEXT("_instantiationID"));
+	e->mReferenceAsNLG = FName(json->GetStringField(TEXT("PerformanceRealization")));
 
 
-	e->mCondition = UCiFRule::loadFromJson(json->GetObjectField("ConditionRule"), worldContextObject);
-	e->mChange = UCiFRule::loadFromJson(json->GetObjectField("ChangeRule"), worldContextObject);
+	e->mCondition = UCiFRule::loadFromJson(json->GetObjectField(TEXT("ConditionRule")), worldContextObject);
+	e->mChange = UCiFRule::loadFromJson(json->GetObjectField(TEXT("ChangeRule")), worldContextObject);
 
 	e->scoreSalience();
 

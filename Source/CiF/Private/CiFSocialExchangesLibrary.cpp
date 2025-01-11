@@ -40,7 +40,7 @@ void UCiFSocialExchangesLibrary::loadSocialGamesLibFromJson(const FString& jsonP
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 	
 	// iterate over the all the social games
-	const auto socialGames = jsonObject->GetArrayField("SocialGamesLib");
+	const auto socialGames = jsonObject->GetArrayField(TEXT("SocialGamesLib"));
 
 	for (const auto sgJson : socialGames) {
 		auto sg = UCiFSocialExchange::loadFromJson(sgJson->AsObject(), worldContextObject);

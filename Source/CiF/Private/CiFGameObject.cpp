@@ -124,31 +124,31 @@ UCiFGameObjectStatus* UCiFGameObject::getStatus(const EStatus statusType, const 
 
 void UCiFGameObject::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
 {
-	mObjectName = FName(json->GetStringField("_name"));
-	json->TryGetNumberField("_networkID", mNetworkId);
+	mObjectName = FName(json->GetStringField(TEXT("_name")));
+	json->TryGetNumberField(TEXT("_networkID"), mNetworkId);
 
 	const TArray<TSharedPtr<FJsonValue>>* traitsJson;
-	if (json->TryGetArrayField("Trait", traitsJson)) {
+	if (json->TryGetArrayField(TEXT("Trait"), traitsJson)) {
 		for (const auto traitJson : *traitsJson) {
 			const auto traitEnum = StaticEnum<ETrait>();
 			mTraits.Add(static_cast<ETrait>(traitEnum->GetValueByName(FName(traitJson->AsString()))));
 		}	
 	}
 	
-	// const auto traitsJson = json->GetArrayField("Trait");
+	// const auto traitsJson = json->GetArrayField(TEXT("Trait"));
 	// for (const auto traitJson : traitsJson) {
 	// 	const auto traitEnum = StaticEnum<ETrait>();
 	// 	mTraits.Add(static_cast<ETrait>(traitEnum->GetValueByName(FName(traitJson->AsString()))));
 	// }
 
 	const TArray<TSharedPtr<FJsonValue>>* statusesJson;
-	if (json->TryGetArrayField("Status", statusesJson)) {
+	if (json->TryGetArrayField(TEXT("Status"), statusesJson)) {
 		for (const auto statusJson : *statusesJson) {
 			const auto statusEnum = StaticEnum<EStatus>();
 			const auto statusType = static_cast<EStatus>(statusEnum->
-				GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
+				GetValueByName(FName(statusJson->AsObject()->GetStringField(TEXT("_type")))));
 			FString to;
-			if (statusJson->AsObject()->TryGetStringField("_to", to)) {
+			if (statusJson->AsObject()->TryGetStringField(TEXT("_to"), to)) {
 				addStatus(statusType, 0, FName(to)); // TODO - why the status in the json doesn't have duration?
 			}
 			else {
@@ -157,12 +157,12 @@ void UCiFGameObject::loadFromJson(const TSharedPtr<FJsonObject> json, const UObj
 		}
 	}
 	
-	// const auto statusesJson = json->GetArrayField("Status");
+	// const auto statusesJson = json->GetArrayField(TEXT("Status"));
 	// for (const auto statusJson : statusesJson) {
 	// 	const auto statusEnum = StaticEnum<EStatus>();
 	// 	const auto statusType = static_cast<EStatus>(statusEnum->
-	// 		GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
-	// 	const FName towardsName(statusJson->AsObject()->GetStringField("_to"));
+	// 		GetValueByName(FName(statusJson->AsObject()->GetStringField(TEXT("_type")))));
+	// 	const FName towardsName(statusJson->AsObject()->GetStringField(TEXT("_to")));
 	// 	addStatus(statusType, 0, towardsName); // TODO - why the status in the json doesn't have duration?
 	// }
 }

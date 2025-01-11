@@ -18,7 +18,7 @@ UCiFInfluenceRule* UCiFInfluenceRule::loadFromJson(TSharedPtr<FJsonObject> ruleJ
 	auto ir = NewObject<UCiFInfluenceRule>(const_cast<UObject*>(worldContextObject));
 	ir = static_cast<UCiFInfluenceRule*>(Super::loadFromJson(ruleJson, worldContextObject, ir));
 
-	ir->mWeight = ruleJson->GetNumberField("_weight");
+	ir->mWeight = ruleJson->GetNumberField(TEXT("_weight"));
 
 	return ir;
 }

@@ -42,17 +42,17 @@ UCiFRelationshipNetwork* UCiFRelationshipNetwork::loadFromJson(const TSharedPtr<
 {
 	const auto rn = NewObject<UCiFRelationshipNetwork>(const_cast<UObject*>(worldContextObject));
 
-	const auto numChars = json->GetNumberField("_numChars");
+	const auto numChars = json->GetNumberField(TEXT("_numChars"));
 	const int8 maxVal = 100;
 	rn->initialize(numChars, maxVal);
 
 	const auto cifManager = rn->GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	const auto rsJson = json->GetArrayField("Relationships");
+	const auto rsJson = json->GetArrayField(TEXT("Relationships"));
 	for (const auto rJson : rsJson) {
 		const auto rnEnum = StaticEnum<ERelationshipType>();
-		const auto rnType = static_cast<ERelationshipType>(rnEnum->GetValueByName(FName(rJson->AsObject()->GetStringField("_type"))));
-		const auto from = FName(rJson->AsObject()->GetStringField("_from"));
-		const auto to = FName(rJson->AsObject()->GetStringField("_to"));
+		const auto rnType = static_cast<ERelationshipType>(rnEnum->GetValueByName(FName(rJson->AsObject()->GetStringField(TEXT("_type")))));
+		const auto from = FName(rJson->AsObject()->GetStringField(TEXT("_from")));
+		const auto to = FName(rJson->AsObject()->GetStringField(TEXT("_to")));
 		const auto fromObject = static_cast<UCiFCharacter*>(cifManager->getGameObjectByName(from));
 		const auto toObject = static_cast<UCiFCharacter*>(cifManager->getGameObjectByName(to));
 		if (fromObject && toObject) {

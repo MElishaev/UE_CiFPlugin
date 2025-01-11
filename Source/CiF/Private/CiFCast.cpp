@@ -42,7 +42,7 @@ UCiFCast* UCiFCast::loadFromJson(const TSharedPtr<FJsonObject> json, const UObje
 {
 	const auto cast = NewObject<UCiFCast>(const_cast<UObject*>(worldContextObject));
 
-	const auto castJson = json->GetArrayField("Cast");
+	const auto castJson = json->GetArrayField(TEXT("Cast"));
 	for (const auto charJson : castJson) {
 		const auto c = UCiFCharacter::loadFromJson(charJson->AsObject(), worldContextObject);
 		cast->addCharacter(c);
@@ -52,14 +52,14 @@ UCiFCast* UCiFCast::loadFromJson(const TSharedPtr<FJsonObject> json, const UObje
 	// doing it while parsing characters is crashing because some statuses can
 	// depend on characters not loaded yet.
 	// for (const auto charJson : castJson) {
-	// 	const FName charName(charJson->AsObject()->GetStringField("_name"));
+	// 	const FName charName(charJson->AsObject()->GetStringField(TEXT("_name")));
 	// 	const auto c = cast->getCharByName(charName);
-	// 	const auto statusesJson = charJson->AsObject()->GetArrayField("Status");
+	// 	const auto statusesJson = charJson->AsObject()->GetArrayField(TEXT("Status"));
 	// 	for (const auto statusJson : statusesJson) {
 	// 		const auto statusEnum = StaticEnum<EStatus>();
 	// 		const auto statusType = static_cast<EStatus>(statusEnum->
-	// 			GetValueByName(FName(statusJson->AsObject()->GetStringField("_type"))));
-	// 		const FName towardsName(statusJson->AsObject()->GetStringField("_to"));
+	// 			GetValueByName(FName(statusJson->AsObject()->GetStringField(TEXT("_type")))));
+	// 		const FName towardsName(statusJson->AsObject()->GetStringField(TEXT("_to")));
 	// 		c->addStatus(statusType, 5, towardsName); // TODO - why the status in the json doesn't have duration?
 	// 	}
 	// }
