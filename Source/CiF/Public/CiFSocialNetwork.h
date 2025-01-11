@@ -13,6 +13,7 @@ enum class ESocialNetworkType : uint8
 	// social networks (SN) are weights of feelings of characters towards each other, bidirectional
 	BUDDY			UMETA(DisplayName="Buddy"),
 	ROMANCE			UMETA(DisplayName="Romance"),
+	TRUST			UMETA(DisplayName="Trust"),
 	FAMILY_BOND		UMETA(DisplayName="Family Bond"),
 	LAST_SN_TYPE, // borders the social network types - can be used for comparisons to check if enum represent a social network or relationship
 

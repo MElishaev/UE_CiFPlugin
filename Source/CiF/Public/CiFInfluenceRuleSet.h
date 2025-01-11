@@ -6,6 +6,7 @@
 #include "UObject/Object.h"
 #include "CiFInfluenceRuleSet.generated.h"
 
+struct FScore_t;
 class UCiFSocialExchange;
 class UCiFGameObject;
 class UCiFCharacter;
@@ -47,17 +48,17 @@ public:
 	 * @return The sum of the weight values associated with true influence
 	 * rules.
 	 */
-	float scoreRulesWithVariableOther(UCiFCharacter* initiator,
-	                                  UCiFGameObject* responder,
-	                                  UCiFGameObject* other = nullptr,
-	                                  UCiFSocialExchange* se = nullptr,
-	                                  TArray<UCiFGameObject*> activeOtherCast = {},
-	                                  FName microtheoryName = "",
-	                                  bool isResponder = false);
+	FScore_t scoreRulesWithVariableOther(UCiFCharacter* initiator,
+	                                     UCiFGameObject* responder,
+	                                     UCiFGameObject* other = nullptr,
+	                                     UCiFSocialExchange* se = nullptr,
+	                                     TArray<UCiFGameObject*> activeOtherCast = {},
+	                                     FName microtheoryName = "",
+	                                     bool isResponder = false);
 
 public:
 	TArray<UCiFInfluenceRule*> mInfluenceRules;
-	TArray<float> mLastScore; // scores of the last evaluation of the IRS // todo maybe change to FScore_t
+	TArray<FScore_t> mLastScore; // scores of the last evaluation of the IRS
 	TArray<bool> mLastTruthValues; // truth values of the last evaluation of the IRS
 	int32 mTruthCount; // number of true rules in the last scoring of the IRS
 };

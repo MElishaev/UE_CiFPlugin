@@ -104,7 +104,7 @@ public:
 	float scoreSocialExchange(UCiFCharacter* initiator,
 	                          UCiFGameObject* responder,
 	                          UCiFGameObject*& bestOther,
-	                          TArray<UCiFGameObject*> activeOtherCast = {},
+	                          const TArray<UCiFGameObject*>& activeOtherCast = {},
 	                          bool isResponder = false);
 
 
@@ -121,7 +121,7 @@ public:
 	 * @return True if all precondition rules evaluate to true. False if 
 	 * they do not.
 	 */
-	bool checkPreconditionsVariableOther(UCiFCharacter* initiator, UCiFGameObject* responder, TArray<UCiFGameObject*> activeOtherCast = {});
+	bool checkPreconditionsVariableOther(UCiFCharacter* initiator, UCiFGameObject* responder, const TArray<UCiFGameObject*>& activeOtherCast = {});
 
 	/**
 	 * Evaluates the preconditions of the social game with respect to 
@@ -166,10 +166,7 @@ public:
 	 * @return True if a third character is needed, false if not.
 	 */
 	bool isThirdForSocialExchangePlay();
-
-	// todo - what is the difference between this and the above?
-	bool isThirdParty() const { return mIsTalkAboutSomeone || mIsGetSomeoneToDoSomethingForYou; }
-
+	
 	void updateRequiresOther();
 	
 	/* this method is more appropriate for mismanor than prom week because in mismanor you have items which
@@ -194,14 +191,21 @@ public:
 	bool mIsRequiresOther;
 	ECiFGameObjectType mOtherType;
 	ECiFGameObjectType mResponderType;
+	
+	UPROPERTY()
 	TArray<UCiFRule*> mIntents;       // NOTE: it seems that intents array will only consist 1 Rule with 1 Predicate
+
+	UPROPERTY()
 	TArray<UCiFRule*> mPreconditions; // specify under which conditions any given social exchange is possible
+
 	// Initiator influence rules are used to determine the volition (desire) for a character to initiate a social exchange with other characters
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mInitiatorIR;
+
 	// Responder influence rules are used to determine whether a responder accepts or rejects the social exchange
+	UPROPERTY()
 	UCiFInfluenceRuleSet* mResponderIR;
+
 	TArray<UCiFEffect*> mEffects;               // the effects of the social exchange
 	TArray<UCiFInstantiation*> mInstantiations; // the realization of the outcome of the this social exchange
-	bool mIsTalkAboutSomeone;
-	bool mIsGetSomeoneToDoSomethingForYou;
 };

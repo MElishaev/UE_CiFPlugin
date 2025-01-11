@@ -103,10 +103,10 @@ public:
 	                          const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	/* Scores all micro-theories for either initiator or responder */
-	int8 scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
-	                                  UCiFCharacter* initiator,
-	                                  UCiFGameObject* responder,
-	                                  const TArray<UCiFGameObject*>& possibleOthers = {});
+	FScore_t scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
+	                                      UCiFCharacter* initiator,
+	                                      UCiFGameObject* responder,
+	                                      const TArray<UCiFGameObject*>& possibleOthers = {});
 
 	UCiFSocialExchangeContext* playGame(UCiFSocialExchange* sg,
 	                                    UCiFGameObject* initiator,
@@ -116,21 +116,20 @@ public:
 	                                    TArray<UCiFGameObject*> levelCast = {},
 	                                    UCiFEffect* chosenEffect = nullptr);
 
-	float getResponderScore(UCiFSocialExchange* sg,
-	                        UCiFGameObject* initiator,
-	                        UCiFGameObject* responder,
-	                        const TArray<UCiFGameObject*>& activeOtherCast = {});
+	FScore_t getResponderScore(UCiFSocialExchange* sg,
+	                           UCiFGameObject* initiator,
+	                           UCiFGameObject* responder,
+	                           const TArray<UCiFGameObject*>& activeOtherCast = {});
 
 	/**
-	 * Returns a third character that makes the highest number of effect
-	 * condition predicates evaluate true.
+	 * Returns the most salient/appropriate effect and the other if the effects needs one
 	 * @param	outOther	The output param for the third character
 	 * @param	outEffect	The output param for the chosen effect
 	 * @param	sg			The social game to reason over.
 	 * @param 	isSgAccepted	Whether the game was accepted or rejected
 	 * @param	initiator	The character in the initiator role.
 	 * @param	responder	The character in the responder role.
-	 * @return	The most salient other.
+	 * @return	The most salient other (if any) and effect.
 	 */
 	void getSalientOtherAndEffect(UCiFGameObject*& outOther,
 	                              UCiFEffect*& outEffect,
@@ -164,6 +163,11 @@ public:
 	
 	/**
 	 * Figures out how important each predicate was in the initiator's desire to play a game
+	 *
+	 * @param forRole	For what role we want the most relevant rule records (rules that made the initiator
+	 *					choose this game or rules that made the responder accept/reject this game)
+	 * @param mode		What type of rule records we want? the ones that donated for initiating/accepting this game
+	 *					or the ones that tried to preventing/rejecting this game.
 	 * @return A vector of influence rules where each rule has only one predicate and weight
 	 * on the rule is the percent that the rule contributed to the initiator wanting to play that game
 	 */
@@ -203,6 +207,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const;
 
+	/**
+	 * Clears all of the prospective memory fields.
+	 * This is called once and before the intent formation
+	 */
 	void clearProspectiveMemory();
 
 	//TODO-fix bug where the type could be relationship but then we search it as social network and not relationship net
@@ -210,6 +218,10 @@ public:
 private:
 
 	void notifySocialStateChange(const UCiFEffect* effect);
+
+	UCiFSocialExchangeContext* createSgContext(const UCiFSocialExchange* sg, const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFGameObject* other, const
+	                                           UCiFEffect* chosenEffect,
+	                                           const FScore_t& score) const;
 	
 	/* Clears all characters' prospective memory */
 

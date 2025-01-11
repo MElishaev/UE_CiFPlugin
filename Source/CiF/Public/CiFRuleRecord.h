@@ -34,9 +34,10 @@ public:
 	/**
 	 * @param outStr Fills the string representing the rule record in natural language
 	 */
-	void toNLG(FString& outStr);
+	void toNLG(FString& outStr) const;
 
 public:
+	UPROPERTY()
 	UCiFInfluenceRule* mInfluenceRule;
 	ERuleRecordType mType;
 	FName mName;

@@ -33,7 +33,7 @@ UCiFManager::UCiFManager()
 void UCiFManager::init(const UObject* worldContextObject)
 {
 	mWorldContextObject = const_cast<UObject*>(worldContextObject);
-	
+
 	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>(const_cast<UObject*>(worldContextObject));
 	mSFDB = NewObject<UCiFSocialFactsDataBase>(const_cast<UObject*>(worldContextObject));
 	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
@@ -297,20 +297,19 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
-
 		// score the SG and if requires other, fills in the other that results in the best score
 		score = socialExchange->scoreSocialExchange(initiator, responder, bestOther, possibleOthers);
 
 		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
 		// if not, score and cache
 		const auto extendedIntentType = socialExchange->getSocialExchangeExtendedIntentType();
-		if (not initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Contains(extendedIntentType)) {
-			const auto singleScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
-			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, singleScore);
-			score += singleScore;
+		if (not initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Contains(extendedIntentType)) {
+			const auto mtsScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
+			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, mtsScore);
+			score += mtsScore;
 		}
 		else {
-			score += *(initiator->mProspectiveMemory->mIntentScoreCacheNew[responder->mNetworkId].Find(extendedIntentType));
+			score += *(initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType));
 		}
 	}
 	else {
@@ -321,17 +320,17 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	initiator->mProspectiveMemory->addSocialExchangeScore(socialExchange->mName,
 	                                                      initiator->mObjectName,
 	                                                      responder->mObjectName,
-	                                                      bestOther ? bestOther->mObjectName : "",
+	                                                      bestOther ? bestOther->mObjectName : NAME_None,
 	                                                      score);
 }
-// todo change type to FScore_t
-int8 UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
-                                               UCiFCharacter* initiator,
-                                               UCiFGameObject* responder,
-                                               const TArray<UCiFGameObject*>& possibleOthers)
+
+FScore_t UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
+                                                   UCiFCharacter* initiator,
+                                                   UCiFGameObject* responder,
+                                                   const TArray<UCiFGameObject*>& possibleOthers)
 {
 	TArray<UCiFGameObject*> others = possibleOthers.Num() > 0 ? possibleOthers : static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters);
-	int8 totalScore = 0; // todo change type to FScore_t
+	FScore_t totalScore = 0;
 
 	for (const auto [name, microTheory] : mMicrotheoriesLib) {
 		totalScore += microTheory->score(initiator, responder, se, others);
@@ -348,25 +347,24 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
                                                  TArray<UCiFGameObject*> levelCast,
                                                  UCiFEffect* chosenEffect)
 {
-	//The fact that other was ever passed in at all is an artifact of cif from days long gone.  
-	//NOW we figure out who the other is in THIS function, when we call 'getSalientOtherAndEffect'
+	//we figure out who the other is in THIS function, when we call 'getSalientOtherAndEffect'
 	//Since other part of this function depend on other being null, we are going
 	//to just set it to null here explicitly (since passing in, say, an instantiated yet 'blank' character with no name
-	//will cause issues and heartbreak).
+	//will cause issues).
 	other = nullptr;
 
 	if (levelCast.IsEmpty()) {
 		UE_LOG(LogTemp, Warning, TEXT("Level cast is empty, this is not allowed - but why?"));
 	}
-	
+
 	TArray<UCiFGameObject*> possibleOthers = otherCast;
 	if (possibleOthers.IsEmpty()) {
 		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
 	}
 
-	const float score = getResponderScore(sg, initiator, responder, possibleOthers);
+	const auto responderScore = getResponderScore(sg, initiator, responder, possibleOthers);
 
-	const bool isAcceptGameIntent = (score >= 0) ? true : false;
+	const bool isAcceptGameIntent = (responderScore >= 0);
 
 	UCiFGameObject* mostSalientOther = nullptr;
 	UCiFEffect* mostSalientEffect = nullptr;
@@ -419,45 +417,15 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	mLastResponderOther = trueOther;
 
 	/* Preparing social game context for output */
-	const auto socialGameContext = NewObject<UCiFSocialExchangeContext>(mWorldContextObject);
-
-	if (mostSalientEffect->hasCKBReference()) {
-		socialGameContext->mChosenItemCKB = pickAGoodCKBObject(initiator, responder, mostSalientEffect->getCKBReferencePredicate());
-	}
-
-	socialGameContext->mGameName = sg->mName;
-	socialGameContext->mEffectId = mostSalientEffect->mId;
-	socialGameContext->mInitiatorName = initiator->mObjectName;
-	socialGameContext->mResponderName = responder->mObjectName;
-
-	if (mostSalientEffect->hasSFDBLabel()) {
-		for (const auto p : mostSalientEffect->mChange->mPredicates) {
-			if (p->mType == EPredicateType::SFDB_LABEL) {
-				FSFDBLabel label;
-				label.to = p->getSecondaryCharacterNameFromVariables(initiator, responder, other);
-				label.from = p->getPrimaryCharacterNameFromVariables(initiator, responder, other);
-				label.type = p->mSFDBLabel.type;
-				socialGameContext->mSFDBLabels.Add(label);
-			}
-		}
-	}
-
-	socialGameContext->mOtherName = trueOther ? trueOther->mObjectName : "";
-	socialGameContext->mTime = mTime;
-	if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-	}
-	else {
-		socialGameContext->mInitiatorScore = 0;
-	}
-	socialGameContext->mResponderScore = score;
+	const auto socialGameContext = createSgContext(sg, initiator, responder, trueOther, mostSalientEffect, responderScore);
 
 	return socialGameContext;
 }
 
-float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
-                                     UCiFGameObject* initiator,
-                                     UCiFGameObject* responder,
-                                     const TArray<UCiFGameObject*>& activeOtherCast)
+FScore_t UCiFManager::getResponderScore(UCiFSocialExchange* sg,
+                                        UCiFGameObject* initiator,
+                                        UCiFGameObject* responder,
+                                        const TArray<UCiFGameObject*>& activeOtherCast)
 {
 	TArray<UCiFGameObject*> possibleOthers = activeOtherCast;
 	if (possibleOthers.IsEmpty()) {
@@ -471,8 +439,8 @@ float UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {
 		const auto r = static_cast<UCiFCharacter*>(responder);
 		const auto extendedIntentIndex = sg->mIntents[0]->mPredicates[0]->getExtendedIntentType();
-		if (r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Contains(extendedIntentIndex)) {
-			score += *(r->mProspectiveMemory->mIntentScoreCacheNew[initiator->mNetworkId].Find(extendedIntentIndex));
+		if (r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId].Contains(extendedIntentIndex)) {
+			score += *(r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId].Find(extendedIntentIndex));
 		}
 	}
 
@@ -525,8 +493,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 						// TODO - continue
 						if (isCastMemberPresentInArea) {
 							// check to see if this i,r,o group satisfied the condition
-							if (effect->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, o, sg) &&
-								sg->mOtherType == o->mGameObjectType) {
+							if (effect->mCondition->evaluate(initiator, responder, o, sg) && (sg->mOtherType == o->mGameObjectType)) {
 								possibleSalientEffects.Add(effect);
 								possibleSalientOthers.Add(o);
 							}
@@ -535,7 +502,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 				}
 			}
 			else {
-				if (effect->mCondition->evaluate(static_cast<UCiFCharacter*>(initiator), responder, nullptr, sg)) {
+				if (effect->mCondition->evaluate(initiator, responder, nullptr, sg)) {
 					possibleSalientEffects.Add(effect);
 					possibleSalientOthers.Add(nullptr);
 				}
@@ -543,9 +510,9 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 		}
 	}
 
-	//go through all valid effects and choose the ones that have the highest salience score
-	//at this point, we know all effects and others are valid
-	float maxSaliency = -9999;
+	/* after storing all the possible effects and their others (if any)
+	 * choose the most appropriate effect to be played */
+	int32 maxSaliency = -9999;
 	for (int i = 0; i < possibleSalientEffects.Num(); i++) {
 		possibleSalientEffects[i]->scoreSalience();
 		if (maxSaliency < possibleSalientEffects[i]->mSalienceScore) {
@@ -641,7 +608,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	for (auto o : possibleOthers) {
 		o->updateStatusDurations(1);
 	}
-	
+
 	// apply the social change
 	highestSaliencyEffect->mChange->valuation(initiator, responder, other);
 	highestSaliencyEffect->mLastSeenTime = mTime;
@@ -655,9 +622,11 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	// it was valuated by a newly created predicate negating the status, ordering its removal
 	for (auto c : possibleOthers) {
 		//for now, just update the possible others (i.e. people who aren't present don't change)
-		for (auto mapIt = c->mStatuses.CreateIterator(); mapIt; ++mapIt) { // todo this pair could be deleted while inside loop
+		for (auto mapIt = c->mStatuses.CreateIterator(); mapIt; ++mapIt) {
+			// todo this pair could be deleted while inside loop
 			// using iterator because it safely allows to delete elements (statuses) while iterating over the array
-			for (auto it = mapIt->Value.statusArray.CreateIterator(); it; ++it) { // todo array element could be deleted while inside loop
+			for (auto it = mapIt->Value.statusArray.CreateIterator(); it; ++it) {
+				// todo array element could be deleted while inside loop
 				if ((*it)->mHasDuration && (*it)->mRemainingDuration < 1) {
 					// creating predicate to remove the status
 					auto pred = NewObject<UCiFPredicate>(mWorldContextObject);
@@ -673,7 +642,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 					const auto changeRule = NewObject<UCiFRule>(mWorldContextObject);
 					changeRule->mPredicates.Add(pred);
 					trigger->mChange = changeRule;
-					
+
 					UCiFTriggerContext* triggerContext = trigger->makeTriggerContext(mTime, c, directedToward);
 					triggerContext->mStatusTimeoutChange = changeRule;
 					mSFDB->addContext(triggerContext);
@@ -695,7 +664,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	//  go through all the matrices again to update the UI, this feels very un-optimized.
 	//  i could start with partial optimization of only notifying for a specific type of social state change
 	notifySocialStateChange(highestSaliencyEffect);
-	
+
 	//increment system time after the context has been added
 	mTime++;
 }
@@ -709,6 +678,7 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
                                                            const FName mode)
 {
 	if (initiator->mGameObjectType != ECiFGameObjectType::CHARACTER || responder->mGameObjectType != ECiFGameObjectType::CHARACTER) {
+		UE_LOG(LogTemp, Error, TEXT("Doesn't make sense that non the initiator neither the responder are characters in the SG"));
 		return {};
 	}
 
@@ -716,27 +686,32 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 	if (possibleOthers.IsEmpty()) {
 		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
 	}
-	const auto initAsChar = static_cast<UCiFCharacter*>(initiator);
-	const auto resAsChar = static_cast<UCiFCharacter*>(responder);
+	
+	const UCiFCharacter* role = nullptr;
+	if (forRole == "initiator") {
+		role = static_cast<UCiFCharacter*>(initiator);
+	}
+	else if (forRole == "responder") {
+		role = static_cast<UCiFCharacter*>(responder);
+	}
 
 	float totalNegScore = 0, totalPosScore = 0, totalScore = 0;
 	TArray<UCiFRuleRecord*> relevantNegRR, relevantPosRR, relevantRR;
 
-	// look through the rule records and pull out the important once. Also add MT definitions to the influence rules
-	UCiFCharacter* role = nullptr;
-	if (forRole == "initiator") {
-		role = initAsChar;
-	}
-	else if (forRole == "responder") {
-		role = resAsChar;
-	}
-
+	// look through the rule records and pull out the important ones. Also add MT definitions to the influence rules
 	if (role) {
-		for (const auto rr : role->mProspectiveMemory->mRuleRecords) {
-			if ((rr->mInitiator == role->mObjectName) && (rr->mResponder == resAsChar->mObjectName)) {
+		const auto ruleRecordsWrapper = role->mProspectiveMemory->mRuleRecordsMap.Find(FRRMapKey(sg->mName,
+			                                                                               initiator->mObjectName,
+			                                                                               responder->mObjectName));
+		if (!ruleRecordsWrapper) {
+			UE_LOG(LogTemp, Warning, TEXT("Debug this! no rule records was found when looking for relevant RRs of this SG"));
+			return {};
+		}
+		for (const auto rr : ruleRecordsWrapper->mRuleRecords) {
+			if ((rr->mInitiator == initiator->mObjectName) && (rr->mResponder == responder->mObjectName)) {
 				if (rr->mType == ERuleRecordType::SOCIAL_EXCHANGE) {
 					if (rr->mName == sg->mName) {
-						auto rrWeight = rr->mInfluenceRule->mWeight;
+						const auto rrWeight = rr->mInfluenceRule->mWeight;
 						if (rrWeight < 0) {
 							totalNegScore += rrWeight;
 							relevantNegRR.Add(rr);
@@ -750,13 +725,15 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 					}
 				}
 				else if (rr->mType == ERuleRecordType::MICROTHEORY) {
-					auto rrIntentIndex = rr->mInfluenceRule->findIntentIndex();
+					// if the MT has the same intent of the SG, create a new rule record
+					// that holds the 
+					const auto rrIntentIndex = rr->mInfluenceRule->findIntentIndex();
 					if (rrIntentIndex < 0) {
 						UE_LOG(LogTemp, Error, TEXT("Microtheory %s has a rule record without an intent"), *(rr->mName.ToString()));
 					}
 					else {
-						auto rrIntentType = rr->mInfluenceRule->mPredicates[rrIntentIndex]->getIntentType();
-						if (sg->mIntents[0]->mPredicates[0]->getIntentType() == rrIntentType) {
+						const auto rrIntentType = rr->mInfluenceRule->mPredicates[rrIntentIndex]->getExtendedIntentType();
+						if (sg->mIntents[0]->mPredicates[0]->getExtendedIntentType() == rrIntentType) {
 							auto mt = getMicrotheoryByName(rr->mName);
 							auto newRR = NewObject<UCiFRuleRecord>();
 							newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, rr->mInfluenceRule);
@@ -764,7 +741,7 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 								newRR->mInfluenceRule->mPredicates.Add(p);
 							}
 
-							auto rrWeight = newRR->mInfluenceRule->mWeight;
+							const auto rrWeight = newRR->mInfluenceRule->mWeight;
 							if (rrWeight < 0) {
 								totalNegScore += rrWeight;
 								relevantNegRR.Add(newRR);
@@ -783,40 +760,40 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 	}
 
 	// at this point we have 2 vectors of the relevant pos and neg IRs
-	//If we are interested in why the responder rejected...
-	//if (mode == "reject" && forRole == "responder")
-	//{
-	//relevantRuleRecords = relevantNegRuleRecords;
-	//totalScore = Math.abs(totalNegScore);
-	//for each (ruleRecord in relevantRuleRecords)
-	//{
-	//ir = ruleRecord.influenceRule;
-	//Debug.debug(this,"reject rule: " + ir.toString())
-	//ir.weight = Math.abs(ir.weight);
-	//}
-	//}
-	//else
-	//{
-	//otherwise, we are only interested in the positive reasons why someone did something
-	//relevantRuleRecords = relevantPosRuleRecords;
-	//totalScore = totalPosScore;
-	//}
+
+	// If we are interested in why the responder rejected...
+	// TODO this for now commented out because we gonna take all the rule records and not only the positive or negative ones
+	// if (mode == "reject" && forRole == "responder") {
+	// 	relevantRR = relevantNegRR;
+	// 	totalScore = FMath::Abs(totalNegScore);
+	// 	for (const auto ruleRecord : relevantRR) {
+	// 		auto ir = ruleRecord->mInfluenceRule;
+	// 		ir->mWeight = FMath::Abs(ir->mWeight);
+	// 	}
+	// }
+	// else {
+	// 	//otherwise, we are only interested in the positive reasons why someone did something
+	// 	relevantRR = relevantPosRR;
+	// 	totalScore = totalPosScore;
+	// }
 
 	// at this point relevantRR holds all the info we are interested in
 	// now go over all the relevantRR and break them into their predicate pieces (each as its own rule record)
 	TArray<UCiFRuleRecord*> uniquePredicateRuleRecords;
 	for (const auto rr : relevantRR) {
-		// before we can determine the number of predicates in relevant rulerecord we need to know how many
-		// intent type preds to not include in the count
+		// before we can determine the number of predicates in relevant rule records we need to know how many
+		// intent type preds to not include in the count - because intent type predicates doesn't really
+		// indicate of a social state but of the intent of the exchange
 		int numIntents = 0;
 		for (const auto p : rr->mInfluenceRule->mPredicates) {
 			if (p->mIsIntent) {
 				numIntents++;
 			}
 		}
+		
 		for (const auto p : rr->mInfluenceRule->mPredicates) {
-			bool presentInUniquePredicateRuleRecords = false;
 			if (!p->mIsIntent) {
+				bool presentInUniquePredicateRuleRecords = false;
 				// do not count preds that are the second half of medium networks?????
 				if (!((p->mComparatorType == EComparatorType::LESS_THAN) && (p->mNetworkValue == 67))) {
 					// if this predicate has not been seen yet. to determine this, we need to go through all of the uniquePredicateRuleRecords
@@ -934,7 +911,48 @@ void UCiFManager::notifySocialStateChange(const UCiFEffect* effect)
 	}
 
 	// TODO - always notify status changes because they are more dynamic and can change without intentional play from the player
-	
+}
+
+UCiFSocialExchangeContext* UCiFManager::createSgContext(const UCiFSocialExchange* sg,
+                                                        const UCiFGameObject* initiator,
+                                                        const UCiFGameObject* responder,
+                                                        const UCiFGameObject* other,
+                                                        const UCiFEffect* chosenEffect,
+                                                        const FScore_t& score) const
+{
+	const auto sgContext = NewObject<UCiFSocialExchangeContext>(mWorldContextObject);
+
+	// TODO: for now this never happens because there is no CKB in any of the effects of a social game...
+	//  so, I'm even not sure yet how this is used
+	if (chosenEffect->hasCKBReference()) {
+		sgContext->mChosenItemCKB = pickAGoodCKBObject(initiator, responder, chosenEffect->getCKBReferencePredicate());
+	}
+
+	sgContext->mGameName = sg->mName;
+	sgContext->mEffectId = chosenEffect->mId;
+	sgContext->mInitiatorName = initiator->mObjectName;
+	sgContext->mResponderName = responder->mObjectName;
+
+	if (chosenEffect->hasSFDBLabel()) {
+		for (const auto p : chosenEffect->mChange->mPredicates) {
+			if (p->mType == EPredicateType::SFDB_LABEL) {
+				FSFDBLabel label;
+				label.to = p->getSecondaryCharacterNameFromVariables(initiator, responder, other);
+				label.from = p->getPrimaryCharacterNameFromVariables(initiator, responder, other);
+				label.type = p->mSFDBLabel.type;
+				sgContext->mSFDBLabels.Add(label);
+			}
+		}
+	}
+
+	sgContext->mOtherName = other ? other->mObjectName : NAME_None;
+	sgContext->mTime = mTime;
+	if (initiator->mGameObjectType != ECiFGameObjectType::CHARACTER) {
+		sgContext->mInitiatorScore = 0;
+	}
+	sgContext->mResponderScore = score;
+
+	return sgContext;
 }
 
 FName UCiFManager::pickAGoodCKBObject(const UCiFGameObject* initiator,

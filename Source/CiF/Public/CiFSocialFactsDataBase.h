@@ -14,8 +14,6 @@ class FJsonObject;
 UENUM(BlueprintType)
 enum class ESFDBLabelType : uint8
 {
-	INVALID,
-	
 	// Example for categories of social facts - can expand on this
 	CAT_POSITIVE,
 	CAT_NEGATIVE,
@@ -34,7 +32,8 @@ enum class ESFDBLabelType : uint8
 	EMBARRASSING,
 	FAILED_ROMANCE,
 	FUNNY,
-	SIZE
+	SIZE,
+	INVALID
 };
 
 /**
