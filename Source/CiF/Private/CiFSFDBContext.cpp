@@ -20,7 +20,7 @@ bool UCiFSFDBContext::isPredicateInChange(const UCiFPredicate* pred,
 
 void UCiFSFDBContext::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
 {
-	mTime = json->GetNumberField("_time");
+	mTime = json->GetNumberField(TEXT("_time"));
 }
 
 bool UCiFSFDBContext::operator<(const UCiFSFDBContext& o) const

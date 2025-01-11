@@ -59,19 +59,19 @@ UCiFMicrotheory* UCiFMicrotheory::loadFromJson(TSharedPtr<FJsonObject> json, con
 {
 	auto mt = NewObject<UCiFMicrotheory>(const_cast<UObject*>(worldContextObject));
 
-	mt->mName = FName(json->GetStringField("Name"));
+	mt->mName = FName(json->GetStringField(TEXT("Name")));
 	UE_LOG(LogTemp, Log, TEXT("Parsing microtheory: %s"), *(mt->mName.ToString()))
 
-	const auto definitionJson = json->GetObjectField("Definition");
+	const auto definitionJson = json->GetObjectField(TEXT("Definition"));
 	mt->mDefinition = UCiFRule::loadFromJson(definitionJson, worldContextObject);
 	
-	auto irsJson = json->GetArrayField("InitiatorInfluenceRuleSet");
+	auto irsJson = json->GetArrayField(TEXT("InitiatorInfluenceRuleSet"));
 	for (const auto irJson : irsJson) {
 		const auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
 		mt->mInitiatorIR->mInfluenceRules.Add(ir);
 	}
 
-	auto rirsJson = json->GetArrayField("ResponderInfluenceRuleSet");
+	auto rirsJson = json->GetArrayField(TEXT("ResponderInfluenceRuleSet"));
 	for (const auto irJson : rirsJson) {
 		const auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
 		mt->mResponderIR->mInfluenceRules.Add(ir);

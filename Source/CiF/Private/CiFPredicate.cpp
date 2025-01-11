@@ -1452,10 +1452,10 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 	auto p = NewObject<UCiFPredicate>(const_cast<UObject*>(worldContextObject));
 
 	const UEnum* predicateEnum = StaticEnum<EPredicateType>();
-	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField("_type"))));
+	p->mType = static_cast<EPredicateType>(predicateEnum->GetValueByName(FName(predJson->GetStringField(TEXT("_type")))));
 	p->mName = NAME_None;
 	FString name;
-	if (predJson->TryGetStringField("_name", name)) {
+	if (predJson->TryGetStringField(TEXT("_name"), name)) {
 		p->mName = FName(name);
 	}
 	
@@ -1468,93 +1468,93 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 		case EPredicateType::TRAIT:
 			{
 				const UEnum* traitEnum = StaticEnum<ETrait>();
-				const auto trait = static_cast<ETrait>(traitEnum->GetValueByName(FName(predJson->GetStringField("_trait"))));
-				isSFDB = predJson->GetBoolField("_isSFDB");
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
+				const auto trait = static_cast<ETrait>(traitEnum->GetValueByName(FName(predJson->GetStringField(TEXT("_trait")))));
+				isSFDB = predJson->GetBoolField(TEXT("_isSFDB"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
 				p->setTraitPredicate(first, trait, isNegated, isSFDB);
 				break;
 			}
 		case EPredicateType::NETWORK:
 			{
-				isSFDB = predJson->GetBoolField("_isSFDB");
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
-				const auto second = FName(predJson->GetStringField("_second"));
+				isSFDB = predJson->GetBoolField(TEXT("_isSFDB"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
+				const auto second = FName(predJson->GetStringField(TEXT("_second")));
 				const UEnum* comparatorEnum = StaticEnum<EComparatorType>();
 				const auto comparator = static_cast<EComparatorType>(comparatorEnum->
-					GetValueByName(FName(predJson->GetStringField("_comparator"))));
-				const auto netVal = predJson->GetNumberField("_value");
+					GetValueByName(FName(predJson->GetStringField(TEXT("_comparator")))));
+				const auto netVal = predJson->GetNumberField(TEXT("_value"));
 				const UEnum* netTypeEnum = StaticEnum<ESocialNetworkType>();
 				const auto netType = static_cast<ESocialNetworkType>(netTypeEnum->
-					GetValueByName(FName(predJson->GetStringField("_networkType"))));
+					GetValueByName(FName(predJson->GetStringField(TEXT("_networkType")))));
 
 				p->setNetworkPredicate(first, second, comparator, netVal, netType, isNegated, isSFDB);
 				break;
 			}
 		case EPredicateType::RELATIONSHIP:
 			{
-				isSFDB = predJson->GetBoolField("_isSFDB");
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
-				const auto second = FName(predJson->GetStringField("_second"));
+				isSFDB = predJson->GetBoolField(TEXT("_isSFDB"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
+				const auto second = FName(predJson->GetStringField(TEXT("_second")));
 				const UEnum* relTypeEnum = StaticEnum<ERelationshipType>();
 				const auto relType = static_cast<ERelationshipType>(relTypeEnum->
-					GetValueByName(FName(predJson->GetStringField("_relationship"))));
+					GetValueByName(FName(predJson->GetStringField(TEXT("_relationship")))));
 
 				p->setRelationshipPredicate(first, second, relType, isNegated, isSFDB);
 			}
 			break;
 		case EPredicateType::STATUS:
 			{
-				isSFDB = predJson->GetBoolField("_isSFDB");
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
-				const auto second = FName(predJson->GetStringField("_second"));
+				isSFDB = predJson->GetBoolField(TEXT("_isSFDB"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
+				const auto second = FName(predJson->GetStringField(TEXT("_second")));
 				const UEnum* statusEnum = StaticEnum<EStatus>();
 				auto status = EStatus::INVALID;
 				status = static_cast<EStatus>(statusEnum->
-					GetValueByName(FName(predJson->GetStringField("_status"))));
+					GetValueByName(FName(predJson->GetStringField(TEXT("_status")))));
 
 				checkf(status != EStatus::INVALID, TEXT("Status predicate but loaded invalid status type from json"));
 
 				int32 duration = 0;
-				predJson->TryGetNumberField("_duration", duration);
+				predJson->TryGetNumberField(TEXT("_duration"), duration);
 
 				p->setStatusPredicate(first, second, status, duration, isSFDB, isNegated);
 			}
 			break;
 		case EPredicateType::CKBENTRY:
 			{
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
-				const auto second = FName(predJson->GetStringField("_second"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
+				const auto second = FName(predJson->GetStringField(TEXT("_second")));
 
 				const auto connectionTypeEnum = StaticEnum<ESubjectiveLabel>();
-				auto connectionTypeName = FName(predJson->GetStringField("_firstSubjective"));
+				auto connectionTypeName = FName(predJson->GetStringField(TEXT("_firstSubjective")));
 				const auto firstSubjective = connectionTypeName == ""
 					                             ? ESubjectiveLabel::INVALID
 					                             : static_cast<ESubjectiveLabel>(connectionTypeEnum->GetValueByName(connectionTypeName));
 
-				connectionTypeName = FName(predJson->GetStringField("_secondSubjective"));
+				connectionTypeName = FName(predJson->GetStringField(TEXT("_secondSubjective")));
 				const auto secondSubjective = connectionTypeName == ""
 					                              ? ESubjectiveLabel::INVALID
 					                              : static_cast<ESubjectiveLabel>(connectionTypeEnum->GetValueByName(connectionTypeName));
 
 				const auto truthEnum = StaticEnum<ETruthLabel>();
-				const auto labelName = FName(predJson->GetStringField("_label"));
+				const auto labelName = FName(predJson->GetStringField(TEXT("_label")));
 				const auto label = labelName == "" ? ETruthLabel::INVALID : static_cast<ETruthLabel>(truthEnum->GetValueByName(labelName));
 				p->setCKBPredicate(first, second, firstSubjective, secondSubjective, label, isNegated);
 			}
 			break;
 		case EPredicateType::SFDB_LABEL:
 			{
-				isNegated = predJson->GetBoolField("_negated");
-				const auto first = FName(predJson->GetStringField("_first"));
-				const auto second = FName(predJson->GetStringField("_second"));
+				isNegated = predJson->GetBoolField(TEXT("_negated"));
+				const auto first = FName(predJson->GetStringField(TEXT("_first")));
+				const auto second = FName(predJson->GetStringField(TEXT("_second")));
 				const UEnum* sfdbLabelEnum = StaticEnum<ESFDBLabelType>();
 				// todo - what to do if this is none
-				const auto sfdbLabelJson = FName(predJson->GetStringField("_label"));
+				const auto sfdbLabelJson = FName(predJson->GetStringField(TEXT("_label")));
 				ESFDBLabelType sfdbLabel;
 				if (sfdbLabelJson == "") { // todo should it be really wildcard if it is empty?
 					sfdbLabel = ESFDBLabelType::WILDCARD;
@@ -1564,7 +1564,7 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 				}
 				
 				
-				const auto window = predJson->GetNumberField("_window");
+				const auto window = predJson->GetNumberField(TEXT("_window"));
 				p->setSFDBLabelPredicate(first, second, sfdbLabel, window, isNegated);
 			}
 			break;
@@ -1572,23 +1572,23 @@ UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, con
 			break;
 	}
 
-	p->mIsIntent = predJson->GetBoolField("_intent");
+	p->mIsIntent = predJson->GetBoolField(TEXT("_intent"));
 	if (p->mIsIntent) {
 		const UEnum* intentTypeEnum = StaticEnum<EIntentType>();
-		p->mIntentType = static_cast<EIntentType>(intentTypeEnum->GetValueByName(FName(predJson->GetStringField("_intentType"))));
+		p->mIntentType = static_cast<EIntentType>(intentTypeEnum->GetValueByName(FName(predJson->GetStringField(TEXT("_intentType")))));
 	}
 
-	p->mIsNumTimesUniquelyTruePred = predJson->GetBoolField("_numTimesUniquelyTrueFlag");
+	p->mIsNumTimesUniquelyTruePred = predJson->GetBoolField(TEXT("_numTimesUniquelyTrueFlag"));
 	p->mNumTimesUniquelyTrue = 0;
 	if (p->mIsNumTimesUniquelyTruePred) {
-		p->mNumTimesUniquelyTrue = predJson->GetNumberField("_numTimesUniquelyTrue");
+		p->mNumTimesUniquelyTrue = predJson->GetNumberField(TEXT("_numTimesUniquelyTrue"));
 		const UEnum* roleSlotEnum = StaticEnum<ENumTimesRoleSlot>();
 		p->mNumTimesRoleSlot = static_cast<ENumTimesRoleSlot>(roleSlotEnum->
-			GetValueByName(FName(predJson->GetStringField("_numTimesRoleSlot"))));
+			GetValueByName(FName(predJson->GetStringField(TEXT("_numTimesRoleSlot")))));
 	}
 
 	p->mSFDBOrder = 0;
-	predJson->TryGetNumberField("_sfdbOrder", p->mSFDBOrder);
+	predJson->TryGetNumberField(TEXT("_sfdbOrder"), p->mSFDBOrder);
 
 	return p;
 }

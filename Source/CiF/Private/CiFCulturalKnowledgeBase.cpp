@@ -58,18 +58,18 @@ UCiFCulturalKnowledgeBase* UCiFCulturalKnowledgeBase::loadFromJson(const TShared
 {
 	auto ckb = NewObject<UCiFCulturalKnowledgeBase>(const_cast<UObject*>(worldContextObject));
 
-	const auto ckbJson = json->GetArrayField("CKB");
+	const auto ckbJson = json->GetArrayField(TEXT("CKB"));
 	for (const auto ckbEntryJson : ckbJson) {
 		auto ckbEntry = NewObject<UCiFCKBEntry>(const_cast<UObject*>(worldContextObject));
 		const auto entryTypeEnum = StaticEnum<ECKBLabelType>();
-		const auto entryTypeName = FName(ckbEntryJson->AsObject()->GetStringField("_type"));
+		const auto entryTypeName = FName(ckbEntryJson->AsObject()->GetStringField(TEXT("_type")));
 		const auto entryType = entryTypeName == "" ? ECKBLabelType::INVALID :
 			static_cast<ECKBLabelType>(entryTypeEnum->GetValueByName(entryTypeName));
 
-		const auto head = FName(ckbEntryJson->AsObject()->GetStringField("_head"));
-		const auto tail = FName(ckbEntryJson->AsObject()->GetStringField("_tail"));
+		const auto head = FName(ckbEntryJson->AsObject()->GetStringField(TEXT("_head")));
+		const auto tail = FName(ckbEntryJson->AsObject()->GetStringField(TEXT("_tail")));
 		const auto connectionTypeEnum = StaticEnum<ESubjectiveLabel>();
-		const auto connectionTypeName = FName(ckbEntryJson->AsObject()->GetStringField("_connection"));
+		const auto connectionTypeName = FName(ckbEntryJson->AsObject()->GetStringField(TEXT("_connection")));
 		const auto connectionType = connectionTypeName == ""
 			                            ? ESubjectiveLabel::INVALID
 			                            : static_cast<ESubjectiveLabel>(connectionTypeEnum->GetValueByName(connectionTypeName));

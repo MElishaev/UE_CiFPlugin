@@ -214,11 +214,11 @@ UCiFTriggerContext* UCiFTriggerContext::loadFromJson(const TSharedPtr<FJsonObjec
 	tc->UCiFSFDBContext::loadFromJson(json, worldContextObject);
 
 	FString name;
-	tc->mInitiatorName = json->TryGetStringField("_initiator", name) ? FName(name) : ""; 
-	tc->mResponderName = json->TryGetStringField("_responder", name) ? FName(name) : ""; 
-	tc->mOtherName = json->TryGetStringField("_other", name) ? FName(name) : "";
+	tc->mInitiatorName = json->TryGetStringField(TEXT("_initiator"), name) ? FName(name) : ""; 
+	tc->mResponderName = json->TryGetStringField(TEXT("_responder"), name) ? FName(name) : ""; 
+	tc->mOtherName = json->TryGetStringField(TEXT("_other"), name) ? FName(name) : "";
 
-	const auto ruleJson = json->GetObjectField("Rule");
+	const auto ruleJson = json->GetObjectField(TEXT("Rule"));
 	tc->mStatusTimeoutChange = UCiFRule::loadFromJson(ruleJson, worldContextObject);
 	
 	return tc;

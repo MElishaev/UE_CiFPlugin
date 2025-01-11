@@ -189,16 +189,16 @@ UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject
 	}
 	
 	FString name;
-	if (!ruleJson->TryGetStringField("_name", name)) {
+	if (!ruleJson->TryGetStringField(TEXT("_name"), name)) {
 		localRule->mName = "part of a condition/change rule";
 	}
 	localRule->mName = FName(name);
 	
 	localRule->mDescription = "";
-	ruleJson->TryGetStringField("_description", localRule->mDescription);
+	ruleJson->TryGetStringField(TEXT("_description"), localRule->mDescription);
 	
 	// load predicate
-	auto predicateJson = ruleJson->GetArrayField("Predicate");
+	auto predicateJson = ruleJson->GetArrayField(TEXT("Predicate"));
 	for (const auto predJson : predicateJson) {
 		auto predicate = UCiFPredicate::loadFromJson(predJson->AsObject(), worldContextObject);
 		localRule->mPredicates.Add(predicate);

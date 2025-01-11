@@ -23,7 +23,7 @@ UCiFItem* UCiFItem::loadFromJson(const TSharedPtr<FJsonObject> json, const UObje
 	const auto item = NewObject<UCiFItem>(const_cast<UObject*>(worldContextObject));
 
 	const auto itemEnum = StaticEnum<ECiFItemType>();
-	const FName typeName(json->GetStringField("_type"));
+	const FName typeName(json->GetStringField(TEXT("_type")));
 	const ECiFItemType itemType = static_cast<ECiFItemType>(itemEnum->GetValueByName(typeName));
 
 	item->init(itemType);

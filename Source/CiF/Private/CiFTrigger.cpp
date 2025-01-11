@@ -35,12 +35,12 @@ UCiFTrigger* UCiFTrigger::loadFromJson(const TSharedPtr<FJsonObject> json, const
 	auto t = NewObject<UCiFTrigger>(const_cast<UObject*>(worldContextObject));
 
 	FString strContainer;
-	t->mReferenceAsNLG = json->TryGetStringField("PerformanceRealization", strContainer) ? FName(strContainer) : "";
+	t->mReferenceAsNLG = json->TryGetStringField(TEXT("PerformanceRealization"), strContainer) ? FName(strContainer) : "";
 
-	const auto conditionJson = json->GetObjectField("ConditionRule");
+	const auto conditionJson = json->GetObjectField(TEXT("ConditionRule"));
 	t->mCondition = UCiFRule::loadFromJson(conditionJson, worldContextObject);
 
-	const auto changeJson = json->GetObjectField("ChangeRule");
+	const auto changeJson = json->GetObjectField(TEXT("ChangeRule"));
 	t->mChange = UCiFRule::loadFromJson(changeJson, worldContextObject);
 
 	// TODO - not sure yet why this is needed - there is an explanation for this somewhere in comments

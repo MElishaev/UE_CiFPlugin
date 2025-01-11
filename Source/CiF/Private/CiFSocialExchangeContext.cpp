@@ -139,29 +139,29 @@ UCiFSocialExchangeContext* UCiFSocialExchangeContext::loadFromJson(const TShared
 	sgc->mIsBackstory = sgc->mTime < 0;
 
 	FString name;
-	sgc->mInitiatorName = json->TryGetStringField("_initiator", name) ? FName(name) : "";
-	sgc->mResponderName = json->TryGetStringField("_responder", name) ? FName(name) : "";
-	sgc->mOtherName = json->TryGetStringField("_other", name) ? FName(name) : "";
+	sgc->mInitiatorName = json->TryGetStringField(TEXT("_initiator"), name) ? FName(name) : "";
+	sgc->mResponderName = json->TryGetStringField(TEXT("_responder"), name) ? FName(name) : "";
+	sgc->mOtherName = json->TryGetStringField(TEXT("_other"), name) ? FName(name) : "";
 
 	sgc->mInitiatorScore = 0;
 	sgc->mResponderScore = 0;
 
 
 	if (sgc->mIsBackstory && false) { // TODO - i use backstory of promweek characters while my chars are of mismanor
-		sgc->mPerformanceRealization = json->TryGetStringField("_PerformanceRealizationString", name) ? FName(name) : "";
+		sgc->mPerformanceRealization = json->TryGetStringField(TEXT("_PerformanceRealizationString"), name) ? FName(name) : "";
 		auto sfdbLblEnum = StaticEnum<ESFDBLabelType>();
 		sgc->mSFDBLabel = {
 			.from = sgc->mInitiatorName, .to = sgc->mResponderName,
-			.type = static_cast<ESFDBLabelType>(sfdbLblEnum->GetValueByName(FName(json->GetStringField("_SFDBLabel"))))
+			.type = static_cast<ESFDBLabelType>(sfdbLblEnum->GetValueByName(FName(json->GetStringField(TEXT("_SFDBLabel")))))
 		};
 	}
 	else {
-		json->TryGetNumberField("_initiatorScore", sgc->mInitiatorScore);
-		json->TryGetNumberField("_responderScore", sgc->mInitiatorScore);
-		sgc->mChosenItemCKB = json->TryGetStringField("_chosenItemCKB", name) ? FName(name) : "";
+		json->TryGetNumberField(TEXT("_initiatorScore"), sgc->mInitiatorScore);
+		json->TryGetNumberField(TEXT("_responderScore"), sgc->mInitiatorScore);
+		sgc->mChosenItemCKB = json->TryGetStringField(TEXT("_chosenItemCKB"), name) ? FName(name) : "";
 		sgc->mEffectId = CIF_INVALID_ID;
-		json->TryGetNumberField("_effectID", sgc->mEffectId);
-		sgc->mGameName = json->TryGetStringField("_gameName", name) ? FName(name) : "";
+		json->TryGetNumberField(TEXT("_effectID"), sgc->mEffectId);
+		sgc->mGameName = json->TryGetStringField(TEXT("_gameName"), name) ? FName(name) : "";
 	}
 
 	// TODO - below are stuff that i'm not gonna implement yet because i'm not sure they are relevant.
