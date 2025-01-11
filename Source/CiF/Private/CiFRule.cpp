@@ -59,7 +59,7 @@ bool UCiFRule::isRoleRequired(const FName role) const
 	return isRoleRequired;
 }
 
-bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, UCiFSocialExchange* se)
+bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, const UCiFSocialExchange* se)
 {
 	// if there is a time ordering dependency in this rule
 	if (getHighestSFDBOrder() > 0) {

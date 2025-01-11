@@ -91,7 +91,7 @@ void UCiFManager::loadMicrotheories(const FString& filePath, const UObject* worl
 		return;
 	}
 
-	const auto microtheoriesJson = jsonObject->GetArrayField("Microtheories");
+	const auto microtheoriesJson = jsonObject->GetArrayField(TEXT("Microtheories"));
 	for (const auto mtJson : microtheoriesJson) {
 		auto mt = UCiFMicrotheory::loadFromJson(mtJson->AsObject(), worldContextObject);
 		mMicrotheoriesLib.Add(mt->mName, mt);
@@ -116,7 +116,7 @@ void UCiFManager::loadItemList(const FString& filePath, const UObject* worldCont
 		return;
 	}
 
-	const auto itemsJson = jsonObject->GetArrayField("Items");
+	const auto itemsJson = jsonObject->GetArrayField(TEXT("Items"));
 	for (const auto itemJson : itemsJson) {
 		auto item = UCiFItem::loadFromJson(itemJson->AsObject(), worldContextObject);
 		mItemArray.Add(item);
@@ -130,7 +130,7 @@ void UCiFManager::loadKnowledgeList(const FString& filePath, const UObject* worl
 		return;
 	}
 
-	const auto knowledgeJson = jsonObject->GetArrayField("Knowledge");
+	const auto knowledgeJson = jsonObject->GetArrayField(TEXT("Knowledge"));
 	for (const auto kJson : knowledgeJson) {
 		auto knowledge = UCiFKnowledge::loadFromJson(kJson->AsObject(), worldContextObject);
 		mKnowledgeArray.Add(knowledge);
@@ -154,7 +154,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 		return;
 	}
 
-	const auto scsJson = jsonObject->GetArrayField("StatusContext");
+	const auto scsJson = jsonObject->GetArrayField(TEXT("StatusContext"));
 	for (const auto scJson : scsJson) {
 		auto sc = UCiFStatusContext::loadFromJson(scJson->AsObject(), worldContextObject);
 		if (sc) {
@@ -162,7 +162,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 		}
 	}
 
-	const auto tcsJson = jsonObject->GetArrayField("TriggerContext");
+	const auto tcsJson = jsonObject->GetArrayField(TEXT("TriggerContext"));
 	for (const auto tcJson : tcsJson) {
 		auto tc = UCiFTriggerContext::loadFromJson(tcJson->AsObject(), worldContextObject);
 		if (tc) {
@@ -170,7 +170,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 		}
 	}
 
-	const auto sgcsJson = jsonObject->GetArrayField("SocialGameContext");
+	const auto sgcsJson = jsonObject->GetArrayField(TEXT("SocialGameContext"));
 	for (const auto sgJson : sgcsJson) {
 		auto sgc = UCiFSocialExchangeContext::loadFromJson(sgJson->AsObject(), worldContextObject);
 		if (sgc) {
@@ -205,13 +205,13 @@ void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* wor
 		return;
 	}
 
-	const auto snsJson = jsonObject->GetArrayField("SocialNetworks");
+	const auto snsJson = jsonObject->GetArrayField(TEXT("SocialNetworks"));
 	for (const auto snJson : snsJson) {
 		auto sn = UCiFSocialNetwork::loadFromJson(snJson->AsObject(), worldContextObject);
 		mSocialNetworks.Add(sn->mType, sn);
 	}
 
-	const auto rsJson = jsonObject->GetObjectField("RelationshipNetwork");
+	const auto rsJson = jsonObject->GetObjectField(TEXT("RelationshipNetwork"));
 	mRelationshipNetworks = UCiFRelationshipNetwork::loadFromJson(rsJson, worldContextObject);
 }
 
@@ -232,7 +232,7 @@ void UCiFManager::loadTriggers(const FString& filePath, const UObject* worldCont
 		return;
 	}
 
-	const auto triggersJson = jsonObject->GetArrayField("Triggers");
+	const auto triggersJson = jsonObject->GetArrayField(TEXT("Triggers"));
 	for (const auto triggerJson : triggersJson) {
 		auto t = UCiFTrigger::loadFromJson(triggerJson->AsObject(), worldContextObject);
 		if (t) {
@@ -669,16 +669,21 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	mTime++;
 }
 
-TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* sg,
-                                                           UCiFGameObject* initiator,
-                                                           UCiFGameObject* responder,
-                                                           UCiFGameObject* other,
+TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExchange* sg,
+                                                           const UCiFGameObject* initiator,
+                                                           const UCiFGameObject* responder,
+                                                           const UCiFGameObject* other,
                                                            const FName forRole,
-                                                           TArray<UCiFGameObject*> otherCast,
-                                                           const FName mode)
+                                                           const TArray<UCiFGameObject*>& otherCast,
+                                                           const FName mode) const
 {
 	if (initiator->mGameObjectType != ECiFGameObjectType::CHARACTER || responder->mGameObjectType != ECiFGameObjectType::CHARACTER) {
 		UE_LOG(LogTemp, Error, TEXT("Doesn't make sense that non the initiator neither the responder are characters in the SG"));
+		return {};
+	}
+
+	if (forRole == "initiator" && (mode == "reject" || mode == "negative")) {
+		UE_LOG(LogTemp, Warning, TEXT("We are not interested/should not reach here for a social exchange that the initiator rejected"));
 		return {};
 	}
 
@@ -686,23 +691,23 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 	if (possibleOthers.IsEmpty()) {
 		sg->getPossibleOthers(possibleOthers, initiator->mObjectName, responder->mObjectName);
 	}
-	
+
 	const UCiFCharacter* role = nullptr;
 	if (forRole == "initiator") {
-		role = static_cast<UCiFCharacter*>(initiator);
+		role = static_cast<const UCiFCharacter*>(initiator);
 	}
 	else if (forRole == "responder") {
-		role = static_cast<UCiFCharacter*>(responder);
+		role = static_cast<const UCiFCharacter*>(responder);
 	}
 
-	float totalNegScore = 0, totalPosScore = 0, totalScore = 0;
-	TArray<UCiFRuleRecord*> relevantNegRR, relevantPosRR, relevantRR;
+	float totalNegScore = 0, totalPosScore = 0;
+	TArray<UCiFRuleRecord*> relevantNegRR, relevantPosRR;
 
 	// look through the rule records and pull out the important ones. Also add MT definitions to the influence rules
 	if (role) {
 		const auto ruleRecordsWrapper = role->mProspectiveMemory->mRuleRecordsMap.Find(FRRMapKey(sg->mName,
-			                                                                               initiator->mObjectName,
-			                                                                               responder->mObjectName));
+				                                                                                initiator->mObjectName,
+				                                                                                responder->mObjectName));
 		if (!ruleRecordsWrapper) {
 			UE_LOG(LogTemp, Warning, TEXT("Debug this! no rule records was found when looking for relevant RRs of this SG"));
 			return {};
@@ -720,8 +725,6 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 							totalPosScore += rrWeight;
 							relevantPosRR.Add(rr);
 						}
-						totalScore += rrWeight;
-						relevantRR.Add(rr);
 					}
 				}
 				else if (rr->mType == ERuleRecordType::MICROTHEORY) {
@@ -750,8 +753,6 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 								totalPosScore += rrWeight;
 								relevantPosRR.Add(newRR);
 							}
-							totalScore += rrWeight;
-							relevantRR.Add(newRR);
 						}
 					}
 				}
@@ -759,95 +760,79 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(UCiFSocialExchange* s
 		}
 	}
 
-	// at this point we have 2 vectors of the relevant pos and neg IRs
+	/*
+	 * at this point we have 2 vectors of the relevant pos and neg IRs.
+	 * now we will choose which one of them to use based on request by the input parameters
+	 */
 
-	// If we are interested in why the responder rejected...
-	// TODO this for now commented out because we gonna take all the rule records and not only the positive or negative ones
-	// if (mode == "reject" && forRole == "responder") {
-	// 	relevantRR = relevantNegRR;
-	// 	totalScore = FMath::Abs(totalNegScore);
-	// 	for (const auto ruleRecord : relevantRR) {
-	// 		auto ir = ruleRecord->mInfluenceRule;
-	// 		ir->mWeight = FMath::Abs(ir->mWeight);
-	// 	}
-	// }
-	// else {
-	// 	//otherwise, we are only interested in the positive reasons why someone did something
-	// 	relevantRR = relevantPosRR;
-	// 	totalScore = totalPosScore;
-	// }
+	const float totalScore = (mode == "reject" && forRole == "responder") ? FMath::Abs(totalNegScore) : totalPosScore;
+	const auto& relevantRR = (mode == "reject" && forRole == "responder") ? relevantNegRR : relevantPosRR;
+	if (mode == "reject" && forRole == "responder") {
+		for (const auto ruleRecord : relevantRR) {
+			auto ir = ruleRecord->mInfluenceRule;
+			ir->mWeight = FMath::Abs(ir->mWeight);
+		}
+	}
 
-	// at this point relevantRR holds all the info we are interested in
-	// now go over all the relevantRR and break them into their predicate pieces (each as its own rule record)
-	TArray<UCiFRuleRecord*> uniquePredicateRuleRecords;
+	// todo runtime complexity wise - this doesn't look good when scaled up with numbers
+
+	/*
+	 * at this point relevantRR holds all the info we are interested in.
+	 * now go over all the relevantRR and break them into their predicate pieces
+	 * (each predicate as its own rule record, because some influence rule consist
+	 * of several predicates including intent predicates - you can see this
+	 * especially in the Microtheories influence rules)
+	 */
+	TArray<UCiFRuleRecord*> uniquePredicateRRs;
 	for (const auto rr : relevantRR) {
 		// before we can determine the number of predicates in relevant rule records we need to know how many
 		// intent type preds to not include in the count - because intent type predicates doesn't really
-		// indicate of a social state but of the intent of the exchange
+		// indicate of a social state influencing the exchange but of the intent of the exchange
 		int numIntents = 0;
 		for (const auto p : rr->mInfluenceRule->mPredicates) {
 			if (p->mIsIntent) {
 				numIntents++;
 			}
 		}
-		
+
 		for (const auto p : rr->mInfluenceRule->mPredicates) {
 			if (!p->mIsIntent) {
-				bool presentInUniquePredicateRuleRecords = false;
-				// do not count preds that are the second half of medium networks?????
-				if (!((p->mComparatorType == EComparatorType::LESS_THAN) && (p->mNetworkValue == 67))) {
-					// if this predicate has not been seen yet. to determine this, we need to go through all of the uniquePredicateRuleRecords
-					for (const auto uniqueRR : uniquePredicateRuleRecords) {
-						if (*p == *(uniqueRR->mInfluenceRule->mPredicates[0]) && (rr->mOther == uniqueRR->mOther)) {
-							presentInUniquePredicateRuleRecords = true;
-							uniqueRR->mInfluenceRule->mWeight += float(rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num()
-								- numIntents);
-						}
+				bool isContainedInUniquePredicateRRs = false;
+				// if this predicate has not been seen yet. to determine this, we need to go through all of the uniquePredicateRuleRecords
+				for (const auto uniqueRR : uniquePredicateRRs) {
+					// note on condition - uniqueRR are rules that are generated in the current for-loop and contain only 1 predicate
+					if (*p == *(uniqueRR->mInfluenceRule->mPredicates[0]) && (rr->mOther == uniqueRR->mOther)) {
+						isContainedInUniquePredicateRRs = true;
+						uniqueRR->mInfluenceRule->mWeight += (rr->mInfluenceRule->mWeight) /
+															 (rr->mInfluenceRule->mPredicates.Num() - numIntents);
 					}
+				}
 
-					if (!presentInUniquePredicateRuleRecords) {
-						const auto newRR = NewObject<UCiFRuleRecord>();
-						const auto influenceRule = NewObject<UCiFInfluenceRule>();
-						influenceRule->mPredicates.Add(p);
-						influenceRule->mWeight = float(rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num() - numIntents);
-						newRR->mInfluenceRule = influenceRule;
-						newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, influenceRule);
-					}
+				if (!isContainedInUniquePredicateRRs) {
+					const auto newRR = NewObject<UCiFRuleRecord>();
+					const auto influenceRule = NewObject<UCiFInfluenceRule>();
+					influenceRule->mPredicates.Add(p);
+					influenceRule->mWeight = (rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num() - numIntents);
+					newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, influenceRule);
+					uniquePredicateRRs.Add(newRR);
 				}
 			}
 		}
 	}
 
-	totalScore = 0; // TODO: why were we accumulating the total score while not doing anything with it
-	TArray<UCiFRuleRecord*> outUniqueRRs;
-	for (auto ruleRecord : uniquePredicateRuleRecords) {
-		if (forRole == "responder" && (mode == "reject" || mode == "negative")) {
-			if (ruleRecord->mInfluenceRule->mWeight < 0) {
-				// if we are looking for responder reject rules, we want the highest negative
-				ruleRecord->mInfluenceRule->mWeight = abs(ruleRecord->mInfluenceRule->mWeight);
-				outUniqueRRs.Add(ruleRecord);
-				totalScore += ruleRecord->mInfluenceRule->mWeight;
-			}
-		}
-		else if (ruleRecord->mInfluenceRule->mWeight > 0) {
-			outUniqueRRs.Add(ruleRecord);
-			totalScore += ruleRecord->mInfluenceRule->mWeight;
-		}
-	}
-
-	outUniqueRRs.Sort([](const UCiFRuleRecord& a, const UCiFRuleRecord& b) {
-		return a.mInfluenceRule->mWeight <= b.mInfluenceRule->mWeight;
+	uniquePredicateRRs.Sort([](const UCiFRuleRecord& a, const UCiFRuleRecord& b) {
+		return a.mInfluenceRule->mWeight > b.mInfluenceRule->mWeight; // '>' because we want descending order
 	});
 
 	// now that we have the influence rules we need to normalize the weights
-	for (auto ruleRecord : outUniqueRRs) {
-		ruleRecord->mInfluenceRule->mWeight = round(ruleRecord->mInfluenceRule->mWeight / totalScore * 100);
+	for (const auto rr : uniquePredicateRRs) {
+		rr->mInfluenceRule->mWeight = rr->mInfluenceRule->mWeight / totalScore;
 	}
 
-	return outUniqueRRs;
+	return uniquePredicateRRs;
 }
 
-UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName)
+UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName) const
 {
 	auto mt = mMicrotheoriesLib.Find(mtName);
 	if (mt) {

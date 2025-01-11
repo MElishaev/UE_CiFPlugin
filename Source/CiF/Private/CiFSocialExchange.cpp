@@ -226,7 +226,7 @@ void UCiFSocialExchange::updateRequiresOther()
 	}
 }
 
-void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName)
+void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName) const
 {
 	if (!mIsRequiresOther) return;
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();

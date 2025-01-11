@@ -166,18 +166,18 @@ public:
 	 *
 	 * @param forRole	For what role we want the most relevant rule records (rules that made the initiator
 	 *					choose this game or rules that made the responder accept/reject this game)
-	 * @param mode		What type of rule records we want? the ones that donated for initiating/accepting this game
-	 *					or the ones that tried to preventing/rejecting this game.
+	 * @param mode		What type of rule records we want? the ones that donated for the initiator initiating/accepting this game
+	 *					or the ones that helped the responder reject this game.
 	 * @return A vector of influence rules where each rule has only one predicate and weight
-	 * on the rule is the percent that the rule contributed to the initiator wanting to play that game
+	 * on the rule is the percent that the rule contributed to the role initiating/rejecting/accepting the social exchange
 	 */
-	TArray<UCiFRuleRecord*> getPredicateRelevance(UCiFSocialExchange* sg,
-	                                              UCiFGameObject* initiator,
-	                                              UCiFGameObject* responder,
-	                                              UCiFGameObject* other = nullptr,
+	TArray<UCiFRuleRecord*> getPredicateRelevance(const UCiFSocialExchange* sg,
+	                                              const UCiFGameObject* initiator,
+	                                              const UCiFGameObject* responder,
+	                                              const UCiFGameObject* other = nullptr,
 	                                              const FName forRole = "initiator",
-	                                              TArray<UCiFGameObject*> otherCast = {},
-	                                              const FName mode = "positive");
+	                                              const TArray<UCiFGameObject*>& otherCast = {},
+	                                              const FName mode = "positive") const;
 
 	
 	/**
@@ -199,7 +199,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
 
-	UCiFMicrotheory* getMicrotheoryByName(const FName mtName);
+	UCiFMicrotheory* getMicrotheoryByName(const FName mtName) const;
 	
 	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const;
 	void getAllGameObjectsNames(TArray<FName>& outObjNames) const;

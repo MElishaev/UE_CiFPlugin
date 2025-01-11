@@ -24,7 +24,7 @@ public:
 	static UCiFInfluenceRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject);
 	
 public:
-	int8 mWeight; // the weight associated with the influence rule
-	int8 mEvaluatedWeight; // the weight of the rule evaluated in a microtheory + cast context.
+	float mWeight; // the weight associated with the influence rule
+	float mEvaluatedWeight; // the weight of the rule evaluated in a microtheory + cast context.
 						   // this will only be different than the weight if it is a rule that includes an other role
 };
