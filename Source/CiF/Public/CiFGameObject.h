@@ -61,30 +61,36 @@ enum class ETrait : uint8
 	LAST_NEUTRAL_TRAIT,
 
 	// item traits
-	ITEM			UMETA(DisplayName="ITEM"), // indicates that it is an item
-	HOLDABLE		UMETA(DisplayName="HOLDABLE"),
-	USABLE			UMETA(DisplayName="USABLE"),
-	DRINKABLE		UMETA(DisplayName="DRINKABLE"),
-	EATABLE			UMETA(DisplayName="EATABLE"),
-	HIDEABLE,
+	ITEM			UMETA(DisplayName="Item"), // indicates that it is an item
+	HOLDABLE		UMETA(DisplayName="Holdable"),
+	USABLE			UMETA(DisplayName="Usable"),
+	DRINKABLE		UMETA(DisplayName="Drinkable"),
+	EATABLE			UMETA(DisplayName="Eatable"),
+	HIDEABLE		UMETA(DisplayName="Hideable"),
 	EXAMINABLE,
 
 	// knowledge traits
-	KNOWLEDGE		UMETA(DisplayName="KNOWLEDGE"), // indicates that this GameObject represents knowledge
-	PERSONAL		UMETA(DisplayName="PERSONAL"),
-	SECRET			UMETA(DisplayName="SECRET"),
-	EMOTIONAL		UMETA(DisplayName="EMOTIONAL"),
+	KNOWLEDGE		UMETA(DisplayName="Knowledge"), // indicates that this GameObject represents knowledge
+	PERSONAL		UMETA(DisplayName="Personal"),
+	SECRET			UMETA(DisplayName="Secret"),
+	EMOTIONAL		UMETA(DisplayName="Emotional"),
 
+	// role traits - traits that indicates the role of the NPC
+	SCIENTIST		UMETA(DisplayName="Scientist"),
+	FARMER			UMETA(DisplayName="Farmer"),
+	DOCTOR			UMETA(DisplayName="Doctor"),
+	ENGINEER		UMETA(DisplayName="Engineer"),
+	
 	// plot point
-	PLOT_POINT		UMETA(DisplayName="PLOT_POINT"), // indicates that this GameObject represents a plot point TODO-- is this necessary?
+	PLOT_POINT		UMETA(DisplayName="PLOT_POINT"), // indicates that this GameObject represents a plot point
 };
 
 UENUM(BlueprintType)
 enum class ECiFGameObjectType : uint8
 {
-	CHARACTER		UMETA(DisplayName="CHARACTER"),
-	ITEM			UMETA(DisplayName="ITEM"),
-	KNOWLEDGE		UMETA(DisplayName="KNOWLEDGE")
+	CHARACTER		UMETA(DisplayName="Character"),
+	ITEM			UMETA(DisplayName="Item"),
+	KNOWLEDGE		UMETA(DisplayName="Knowledge")
 };
 
 USTRUCT(BlueprintType)

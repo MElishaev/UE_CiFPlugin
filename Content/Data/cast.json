@@ -15,7 +15,8 @@
                 "JEALOUS",
                 "OBLIVIOUS",
                 "GABBY",
-                "NAGGING"
+                "NAGGING",
+                "DOCTOR"
             ],
             "Locution": [
                 {
@@ -76,7 +77,8 @@
                 "STUBBORN",
                 "VENGEFUL",
                 "TACTFUL",
-                "HUMBLE"
+                "HUMBLE",
+                "ENGINEER"
             ],
             "Locution": [
                 {
@@ -140,7 +142,8 @@
                 "OBLIVIOUS",
                 "NAGGING",
                 "HONEST",
-                "STUBBORN"
+                "STUBBORN",
+                "FARMER"
             ],
             "Locution": [
                 {
@@ -201,7 +204,8 @@
                 "DOMINEERING",
                 "VENGEFUL",
                 "DISHONEST",
-                "HOSTILE"
+                "HOSTILE",
+                "SCIENTIST"
             ],
             "Locution": [
                 {
@@ -272,7 +276,8 @@
                 "SHY",
                 "JEALOUS",
                 "HONEST",
-                "INDECISIVE"
+                "INDECISIVE",
+                "ENGINEER"
             ],
             "Locution": [
                 {
@@ -337,7 +342,8 @@
                 "OBLIVIOUS",
                 "UNFORGIVING",
                 "STUBBORN",
-                "GABBY"
+                "GABBY",
+                "FARMER"
             ],
             "Locution": [
                 {
