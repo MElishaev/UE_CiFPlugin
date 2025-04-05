@@ -136,7 +136,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "confident",
+                "_trait": "CONFIDENT",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, confident)",
@@ -199,7 +199,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "vengeful",
+                "_trait": "VENGEFUL",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, vengeful)",
@@ -261,7 +261,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "forgiving",
+                "_trait": "FORGIVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, forgiving)",
@@ -357,7 +357,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "snide",
+                "_trait": "SNIDE",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, snide)",
@@ -1035,7 +1035,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -1056,7 +1056,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, forgiving)",
@@ -1077,7 +1077,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, vengeful)",
@@ -1753,7 +1753,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charming",
+              "_trait": "CHARMING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, charming)",
@@ -1774,7 +1774,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charismatic",
+              "_trait": "CHARISMATIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, charismatic)",
@@ -1795,7 +1795,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "tactful",
+              "_trait": "TACTFUL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, tactful)",
@@ -1816,7 +1816,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "confident",
+              "_trait": "CONFIDENT",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, confident)",
@@ -1837,7 +1837,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "outgoing",
+              "_trait": "OUTGOING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, outgoing)",
@@ -1858,7 +1858,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, domineering)",
@@ -1879,7 +1879,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "gabby",
+              "_trait": "GABBY",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, gabby)",
@@ -1971,7 +1971,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, kind)",
@@ -1992,7 +1992,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, sympathetic)",
@@ -2013,7 +2013,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -2034,7 +2034,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charming",
+              "_trait": "CHARMING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, charming)",
@@ -2055,7 +2055,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "tactful",
+              "_trait": "TACTFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, tactful)",
@@ -2076,7 +2076,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "confident",
+              "_trait": "CONFIDENT",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, confident)",
@@ -2097,7 +2097,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "outgoing",
+              "_trait": "OUTGOING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, outgoing)",
@@ -2118,7 +2118,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -2139,7 +2139,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "irritable",
+              "_trait": "IRRITABLE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, irritable)",
@@ -2160,7 +2160,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, domineering)",
@@ -2202,7 +2202,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, vengeful)",
@@ -2223,7 +2223,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -2244,7 +2244,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "snide",
+              "_trait": "SNIDE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, snide)",
@@ -2265,7 +2265,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, hostile)",
@@ -2673,7 +2673,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "gabby",
+                "_trait": "GABBY",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, gabby)",
@@ -2735,7 +2735,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "gabby",
+                "_trait": "GABBY",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, gabby)",
@@ -4839,7 +4839,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "holdable",
+              "_trait": "HOLDABLE",
               "_first": "other",
               "_negated": false,
               "_name": "",
@@ -4850,6 +4850,61 @@
               "_numTimesUniquelyTrueFlag": false,
               "_numTimesUniquelyTrue": 0,
               "_numTimesRoleSlot": ""
+            }
+          ]
+        },
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
             }
           ]
         }
@@ -5204,7 +5259,63 @@
           ]
         }
       ],
-      "Preconditions": [],
+      "Preconditions": [
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            }
+          ]
+        }
+      ],
       "InitiatorInfluenceRuleSet": [
         {
           "_weight": 1,
@@ -6195,7 +6306,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "persuasive",
+                "_trait": "PERSUASIVE",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, persuasive)",
@@ -6209,7 +6320,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "vengeful",
+                "_trait": "VENGEFUL",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, vengeful)",
@@ -6288,7 +6399,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "forgiving",
+                "_trait": "FORGIVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, forgiving)",
@@ -6351,7 +6462,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "hostile",
+                "_trait": "HOSTILE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, hostile)",
@@ -6749,7 +6860,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -6770,7 +6881,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -6791,7 +6902,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "tactful",
+              "_trait": "TACTFUL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, tactful)",
@@ -7034,7 +7145,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, unforgiving)",
@@ -7220,7 +7331,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -7241,7 +7352,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, sympathetic)",
@@ -7262,7 +7373,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, loyal)",
@@ -7283,7 +7394,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -7304,7 +7415,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, vengeful)",
@@ -7325,7 +7436,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -10209,7 +10320,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "item",
+              "_trait": "ITEM",
               "_first": "other",
               "_negated": false,
               "_name": "",
@@ -10301,7 +10412,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "outgoing",
+              "_trait": "OUTGOING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, outgoing)",
@@ -10873,7 +10984,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "impulsive",
+              "_trait": "IMPULSIVE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, impulsive)",
@@ -11004,7 +11115,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "dishonest",
+                "_trait": "DISHONEST",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, dishonest)",
@@ -11081,7 +11192,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "dishonest",
+                "_trait": "DISHONEST",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, dishonest)",
@@ -13696,7 +13807,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "disapproving",
+                "_trait": "DISAPPROVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, disapproving)",
@@ -13759,7 +13870,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "irritable",
+                "_trait": "IRRITABLE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, irritable)",
@@ -14398,7 +14509,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "gabby",
+                "_trait": "GABBY",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, gabby)",
@@ -14461,7 +14572,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "disapproving",
+                "_trait": "DISAPPROVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, disapproving)",
@@ -14892,7 +15003,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "tactful",
+                "_trait": "TACTFUL",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, tactful)",
@@ -14906,7 +15017,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "kind",
+                "_trait": "KIND",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, kind)",
@@ -14981,7 +15092,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "trait not declared",
+                "_trait": "TRAIT NOT DECLARED",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, trait not declared)",
@@ -15044,7 +15155,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "nagging",
+                "_trait": "NAGGING",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, nagging)",
@@ -15107,7 +15218,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "hostile",
+                "_trait": "HOSTILE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, hostile)",
@@ -16537,7 +16648,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, forgiving)",
@@ -16558,7 +16669,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, unforgiving)",
@@ -16816,7 +16927,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -18131,7 +18242,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -18384,7 +18495,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -22313,7 +22424,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "disapproving",
+                "_trait": "DISAPPROVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, disapproving)",
@@ -22376,7 +22487,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "confident",
+                "_trait": "CONFIDENT",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, confident)",
@@ -22390,7 +22501,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "tactful",
+                "_trait": "TACTFUL",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, tactful)",
@@ -22867,7 +22978,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -22888,7 +22999,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -22909,7 +23020,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -22930,7 +23041,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -22951,7 +23062,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -22972,7 +23083,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -23104,7 +23215,7 @@
             },
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -23125,7 +23236,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "nagging",
+              "_trait": "NAGGING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, nagging)",
@@ -23146,7 +23257,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "snide",
+              "_trait": "SNIDE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, snide)",
@@ -23169,7 +23280,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -23190,7 +23301,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "nagging",
+              "_trait": "NAGGING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, nagging)",
@@ -23211,7 +23322,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, vengeful)",
@@ -23295,7 +23406,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, sympathetic)",
@@ -23316,7 +23427,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -23337,7 +23448,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, loyal)",
@@ -23557,7 +23668,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "hostile",
+                "_trait": "HOSTILE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, hostile)",
@@ -23651,7 +23762,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "dishonest",
+                "_trait": "DISHONEST",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, dishonest)",
@@ -23665,7 +23776,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "persuasive",
+                "_trait": "PERSUASIVE",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, persuasive)",
@@ -23743,7 +23854,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "loyal",
+                "_trait": "LOYAL",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, loyal)",
@@ -24446,7 +24557,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "outgoing",
+              "_trait": "OUTGOING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, outgoing)",
@@ -24467,7 +24578,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charming",
+              "_trait": "CHARMING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, charming)",
@@ -24488,7 +24599,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -24509,7 +24620,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -24740,7 +24851,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -24853,7 +24964,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "humble",
+              "_trait": "HUMBLE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, humble)",
@@ -25075,7 +25186,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "dishonest",
+                "_trait": "DISHONEST",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, dishonest)",
@@ -25655,7 +25766,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "forgiving",
+                "_trait": "FORGIVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, forgiving)",
@@ -25734,7 +25845,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "unforgiving",
+                "_trait": "UNFORGIVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, unforgiving)",
@@ -25860,7 +25971,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "vengeful",
+                "_trait": "VENGEFUL",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, vengeful)",
@@ -27511,7 +27622,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "persuasive",
+                "_trait": "PERSUASIVE",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, persuasive)",
@@ -27591,7 +27702,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "disapproving",
+                "_trait": "DISAPPROVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, disapproving)",
@@ -27605,7 +27716,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "unforgiving",
+                "_trait": "UNFORGIVING",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, unforgiving)",
@@ -27701,7 +27812,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "observant",
+                "_trait": "OBSERVANT",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, observant)",
@@ -28158,7 +28269,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -31018,7 +31129,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -31063,7 +31174,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "irritable",
+              "_trait": "IRRITABLE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, irritable)",
@@ -31084,7 +31195,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -31126,7 +31237,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "tactful",
+              "_trait": "TACTFUL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, tactful)",
@@ -31717,7 +31828,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -31738,7 +31849,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -31759,7 +31870,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "nagging",
+              "_trait": "NAGGING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, nagging)",
@@ -31923,7 +32034,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -31944,7 +32055,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -32185,7 +32296,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "gabby",
+                "_trait": "GABBY",
                 "_first": "other",
                 "_negated": false,
                 "_name": "trait(other, gabby)",
@@ -32907,7 +33018,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -33279,7 +33390,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -33853,7 +33964,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -33874,7 +33985,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -34188,7 +34299,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "sympathetic",
+                "_trait": "SYMPATHETIC",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, sympathetic)",
@@ -34379,7 +34490,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "oblivious",
+                "_trait": "OBLIVIOUS",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, oblivious)",
@@ -35055,6 +35166,61 @@
               "_numTimesRoleSlot": ""
             }
           ]
+        },
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            }
+          ]
         }
       ],
       "InitiatorInfluenceRuleSet": [
@@ -35137,7 +35303,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charming",
+              "_trait": "CHARMING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, charming)",
@@ -35158,7 +35324,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "charismatic",
+              "_trait": "CHARISMATIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, charismatic)",
@@ -35780,7 +35946,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -36371,7 +36537,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "confident",
+                "_trait": "CONFIDENT",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, confident)",
@@ -38272,6 +38438,61 @@
               "_numTimesRoleSlot": ""
             }
           ]
+        },
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",              
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            }
+          ]
         }
       ],
       "InitiatorInfluenceRuleSet": [
@@ -38539,7 +38760,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "independent",
+              "_trait": "INDEPENDENT",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, independent)",
@@ -39050,7 +39271,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "hostile",
+                "_trait": "HOSTILE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, hostile)",
@@ -39827,7 +40048,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -39865,7 +40086,7 @@
             },
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -39886,7 +40107,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "outgoing",
+              "_trait": "OUTGOING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, outgoing)",
@@ -40018,7 +40239,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -40039,7 +40260,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -40289,7 +40510,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "charming",
+                "_trait": "CHARMING",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, charming)",
@@ -40303,7 +40524,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "tactful",
+                "_trait": "TACTFUL",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, tactful)",
@@ -40366,7 +40587,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "jealous",
+                "_trait": "JEALOUS",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, jealous)",
@@ -40445,7 +40666,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "stubborn",
+                "_trait": "STUBBORN",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, stubborn)",
@@ -40505,7 +40726,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "kind",
+                "_trait": "KIND",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, kind)",
@@ -41105,6 +41326,61 @@
               "_numTimesRoleSlot": ""
             }
           ]
+        },
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "initiator",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            }
+          ]
         }
       ],
       "InitiatorInfluenceRuleSet": [
@@ -41422,7 +41698,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, loyal)",
@@ -41673,7 +41949,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -41694,7 +41970,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "dishonest",
+              "_trait": "DISHONEST",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, dishonest)",
@@ -41977,7 +42253,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "charismatic",
+                "_trait": "CHARISMATIC",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, charismatic)",
@@ -42054,7 +42330,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "charismatic",
+                "_trait": "CHARISMATIC",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, charismatic)",
@@ -46497,6 +46773,61 @@
               "_numTimesRoleSlot": ""
             }
           ]
+        },
+        {
+          "_name": "Initiator must be interested in the responder's gender",
+          "_grouped": true,
+          "_operator": "OR",
+          "Predicate": [
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(initiator, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "other",
+              "_negated": false,
+              "_group": 1,
+              "_name": "trait(responder, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "FEMALE",
+              "_first": "responder",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(initiator, FEMALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            },
+            {
+              "_type": "TRAIT",
+              "_trait": "MALE",
+              "_first": "other",
+              "_negated": false,
+              "_group": 2,
+              "_name": "trait(responder, MALE)",
+              "_intent": false,
+              "_intentType": "INVALID",
+              "_isSFDB": false,
+              "_numTimesUniquelyTrueFlag": false
+            }
+          ]
         }
       ],
       "InitiatorInfluenceRuleSet": [
@@ -47556,7 +47887,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -47577,7 +47908,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "humble",
+              "_trait": "HUMBLE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, humble)",
@@ -47598,7 +47929,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -47736,7 +48067,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -47759,7 +48090,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, sympathetic)",
@@ -47780,7 +48111,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -47801,7 +48132,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -47822,7 +48153,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, vengeful)",
@@ -48098,7 +48429,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "persuasive",
+              "_trait": "PERSUASIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, persuasive)",
@@ -48799,7 +49130,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, forgiving)",
@@ -48820,7 +49151,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, unforgiving)",
@@ -48841,7 +49172,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -48864,7 +49195,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -48885,7 +49216,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, domineering)",
@@ -48929,7 +49260,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "stubborn",
+              "_trait": "STUBBORN",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, stubborn)",
@@ -48950,7 +49281,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "indecisive",
+              "_trait": "INDECISIVE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, indecisive)",
@@ -49771,7 +50102,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -49792,7 +50123,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, unforgiving)",
@@ -49813,7 +50144,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -50071,7 +50402,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "independent",
+              "_trait": "INDEPENDENT",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, independent)",
@@ -50113,7 +50444,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -50134,7 +50465,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, domineering)",
@@ -50155,7 +50486,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, jealous)",
@@ -50574,7 +50905,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "irritable",
+                "_trait": "IRRITABLE",
                 "_first": "initiator",
                 "_negated": false,
                 "_name": "trait(initiator, irritable)",
@@ -50682,7 +51013,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "stubborn",
+                "_trait": "STUBBORN",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, stubborn)",
@@ -51556,7 +51887,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, unforgiving)",
@@ -52358,7 +52689,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "gabby",
+              "_trait": "GABBY",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, gabby)",
@@ -52379,7 +52710,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "observant",
+              "_trait": "OBSERVANT",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, observant)",
@@ -52400,7 +52731,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "impulsive",
+              "_trait": "IMPULSIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, impulsive)",
@@ -52492,7 +52823,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "gabby",
+              "_trait": "GABBY",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, gabby)",
@@ -52513,7 +52844,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "observant",
+              "_trait": "OBSERVANT",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, observant)",
@@ -52534,7 +52865,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "oblivious",
+              "_trait": "OBLIVIOUS",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, oblivious)",
@@ -52970,7 +53301,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "impulsive",
+              "_trait": "IMPULSIVE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, impulsive)",
@@ -53563,7 +53894,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -53607,7 +53938,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, domineering)",
@@ -53768,7 +54099,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -54411,7 +54742,7 @@
             "Predicate": [
               {
                 "_type": "TRAIT",
-                "_trait": "tactful",
+                "_trait": "TACTFUL",
                 "_first": "responder",
                 "_negated": true,
                 "_name": "~trait(responder, tactful)",
@@ -54425,7 +54756,7 @@
               },
               {
                 "_type": "TRAIT",
-                "_trait": "hostile",
+                "_trait": "HOSTILE",
                 "_first": "responder",
                 "_negated": false,
                 "_name": "trait(responder, hostile)",
@@ -55148,7 +55479,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "observant",
+              "_trait": "OBSERVANT",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, observant)",
@@ -55310,7 +55641,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "oblivious",
+              "_trait": "OBLIVIOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, oblivious)",
@@ -55331,7 +55662,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -55424,7 +55755,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -55610,7 +55941,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "irritable",
+              "_trait": "IRRITABLE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, irritable)",
@@ -55930,7 +56261,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -55951,7 +56282,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, forgiving)",
@@ -55972,7 +56303,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "humble",
+              "_trait": "HUMBLE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, humble)",
@@ -56085,7 +56416,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -56176,7 +56507,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -56244,7 +56575,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "humble",
+              "_trait": "HUMBLE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, humble)",
@@ -56613,7 +56944,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -56634,7 +56965,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "observant",
+              "_trait": "OBSERVANT",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, observant)",
@@ -56655,7 +56986,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -56676,7 +57007,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "domineering",
+              "_trait": "DOMINEERING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, domineering)",
@@ -56697,7 +57028,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "oblivious",
+              "_trait": "OBLIVIOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, oblivious)",
@@ -56807,7 +57138,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -56828,7 +57159,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, loyal)",
@@ -56849,7 +57180,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "vengeful",
+              "_trait": "VENGEFUL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, vengeful)",
@@ -56870,7 +57201,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -56891,7 +57222,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -57388,7 +57719,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "dishonest",
+              "_trait": "DISHONEST",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, dishonest)",
@@ -57409,7 +57740,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -57430,7 +57761,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "hostile",
+              "_trait": "HOSTILE",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, hostile)",
@@ -57451,7 +57782,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, sympathetic)",
@@ -57472,7 +57803,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, loyal)",
@@ -57493,7 +57824,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "honest",
+              "_trait": "HONEST",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, honest)",
@@ -57610,7 +57941,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -57631,7 +57962,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "oblivious",
+              "_trait": "OBLIVIOUS",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, oblivious)",
@@ -57652,7 +57983,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "loyal",
+              "_trait": "LOYAL",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, loyal)",
@@ -57673,7 +58004,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "honest",
+              "_trait": "HONEST",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, honest)",
@@ -58376,7 +58707,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "dishonest",
+              "_trait": "DISHONEST",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, dishonest)",
@@ -58539,7 +58870,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "impulsive",
+              "_trait": "IMPULSIVE",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, impulsive)",
@@ -58560,7 +58891,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "unforgiving",
+              "_trait": "UNFORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, unforgiving)",
@@ -58581,7 +58912,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "forgiving",
+              "_trait": "FORGIVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, forgiving)",
@@ -59101,7 +59432,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "gabby",
+              "_trait": "GABBY",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, gabby)",
@@ -59217,7 +59548,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, jealous)",
@@ -59934,7 +60265,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "kind",
+              "_trait": "KIND",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, kind)",
@@ -59955,7 +60286,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, disapproving)",
@@ -60016,7 +60347,7 @@
             },
             {
               "_type": "TRAIT",
-              "_trait": "jealous",
+              "_trait": "JEALOUS",
               "_first": "initiator",
               "_negated": false,
               "_name": "trait(initiator, jealous)",
@@ -60039,7 +60370,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "disapproving",
+              "_trait": "DISAPPROVING",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, disapproving)",
@@ -60179,7 +60510,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "sympathetic",
+              "_trait": "SYMPATHETIC",
               "_first": "responder",
               "_negated": false,
               "_name": "trait(responder, sympathetic)",
@@ -60635,7 +60966,7 @@
           "Predicate": [
             {
               "_type": "TRAIT",
-              "_trait": "holdable",
+              "_trait": "HOLDABLE",
               "_first": "other",
               "_negated": false,
               "_name": "",
