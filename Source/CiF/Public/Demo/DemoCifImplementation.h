@@ -146,7 +146,7 @@ public:
 	                UCiFGameObject* other = nullptr,
 	                UCiFEffect* effect = nullptr);
 
-	// Only should be called after offerOthers()
+	// Only should be called after offerEffects()
 	// e is the effect.referenceAsNaturalLanguage
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void effectChosen(const FName sgName,
