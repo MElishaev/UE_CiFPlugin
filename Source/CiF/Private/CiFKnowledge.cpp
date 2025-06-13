@@ -23,7 +23,7 @@ UCiFKnowledge* UCiFKnowledge::loadFromJson(const TSharedPtr<FJsonObject> json, c
 {
 	const auto knowledge = NewObject<UCiFKnowledge>(const_cast<UObject*>(worldContextObject));
 	// TODO - for now im not yet sure how to handle the knowledge types etc, it seems
-	// to be very long enum names - ill live it like that and fill it when i'll have
+	// to be very long enum names - ill leave it like that and fill it when i'll have
 	// more concrete story or architecture in mind
 	knowledge->init(EKnowledgeType::KNOWLEDGE_A);
 

@@ -1,0 +1,12 @@
+﻿{
+    "dialogue": [
+        {
+            "_id": "what put here??? should be just numbers?",
+            "_speaker": "responder",
+            "_text": [
+                "Oh, by the way, did you notice that the colonel is always absent at around noon?",
+                "I wonder where does he disappear to..."
+            ]
+        }
+    ]
+}

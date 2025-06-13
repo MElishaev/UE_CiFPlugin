@@ -67,10 +67,19 @@ bool UCiFRule::evaluate(UCiFGameObject* initiator, UCiFGameObject* responder, UC
 		return val;
 	}
 
-	for (const auto pred : mPredicates) {
-		if (!pred->evaluate(initiator, responder, other, se)) {
-			return false;
-		}
+	
+	if (mGrouped) {
+		return evaluateGroupedRule(initiator, responder, other, se);
+	}
+	else {
+		for (const auto pred : mPredicates) {
+			if (!pred) {
+				UE_LOG(LogTemp, Error, TEXT("this shouldn't happen but for some reason it does"));
+			}
+			if (!pred->evaluate(initiator, responder, other, se)) {
+				return false;
+			}
+		}	
 	}
 	
 	return true;
@@ -100,7 +109,7 @@ void UCiFRule::toString(FString& outStr)
 		mPredicates[i]->toString(predStr);
 		outStr += predStr;
 		if (i < mPredicates.Num() - 1) {
-			outStr += " ^ ";
+			outStr += " & ";
 		}
 	}
 }
@@ -123,7 +132,11 @@ int32 UCiFRule::getHighestSFDBOrder()
 
 bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary)
 {
-	auto world = GetWorld();
+	auto outer = GetOuter();
+	if (outer) {
+		UE_LOG(LogTemp, Warning, TEXT("found outer for this rule %s"), *(mName.ToString()));
+	}
+	auto world = GetOuter()->GetWorld();
 	if (!world) {
 		UE_LOG(LogTemp, Warning, TEXT("Failed getting world"));
 	}
@@ -176,6 +189,42 @@ bool UCiFRule::evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* 
 	return true;
 }
 
+bool UCiFRule::evaluateGroupedRule(UCiFGameObject* initiator,
+	UCiFGameObject* responder,
+	UCiFGameObject* other,
+	const UCiFSocialExchange* se)
+{
+	int currentGroup = -1;
+	std::vector<bool> groups;
+
+	// go over the predicates and aggregate their evaluations based on the group operator.
+	// NOTE: here assuming that the predicates of the same group are consecutive
+	for (const auto pred : mPredicates) {
+		auto g = pred->mGroup;
+		if (g != currentGroup) {
+			currentGroup = g;
+			groups.push_back(mGroupOperator != "AND");
+		}
+
+		bool eval = pred->evaluate(initiator, responder, other, se);
+		groups[groups.size() - 1] = (mGroupOperator == "AND") ? (groups[groups.size() - 1] || eval) : (groups[groups.size() - 1] && eval);
+	}
+
+	// if operator between groups is AND, go over the groups and return on the first false encountered, otherwise return true
+	if (mGroupOperator == "AND") {
+		for (const auto e : groups) {
+			if (!e) return false; 
+		}
+		return true;
+	}
+
+	// if reached here the operator is OR, go over the elements and if encounter true, return true, else return false
+	for (const auto e : groups) {
+		if (e) return true;
+	}
+	return false;
+}
+
 UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject, UCiFRule* inputRule)
 {
 	
@@ -188,14 +237,18 @@ UCiFRule* UCiFRule::loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject
 		return localRule;
 	}
 	
-	FString name;
-	if (!ruleJson->TryGetStringField(TEXT("_name"), name)) {
-		localRule->mName = "part of a condition/change rule";
-	}
+	FString name = "part of a condition/change rule";
+	ruleJson->TryGetStringField(TEXT("_name"), name);
 	localRule->mName = FName(name);
 	
 	localRule->mDescription = "";
 	ruleJson->TryGetStringField(TEXT("_description"), localRule->mDescription);
+
+	FString op;
+	ruleJson->TryGetStringField(TEXT("_operator"), op);
+	localRule->mGroupOperator = FName(op);
+
+	ruleJson->TryGetBoolField(TEXT("_grouped"), localRule->mGrouped);
 	
 	// load predicate
 	auto predicateJson = ruleJson->GetArrayField(TEXT("Predicate"));

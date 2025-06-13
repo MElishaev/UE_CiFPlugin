@@ -2,10 +2,13 @@
 
 
 #include "CiFSocialExchangeContext.h"
+
+#include "CiFEffect.h"
 #include "CiFGameObject.h"
 #include "CiFManager.h"
 #include "CiFPredicate.h"
 #include "CiFRule.h"
+#include "CiFSocialExchange.h"
 #include "CiFSocialExchangesLibrary.h"
 #include "CiFSubsystem.h"
 
@@ -122,7 +125,7 @@ bool UCiFSocialExchangeContext::doesSFDBLabelMatch(const ESFDBLabelType labelTyp
 UCiFRule* UCiFSocialExchangeContext::getChange() const
 {
 	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	if (mIsBackstory) return NewObject<UCiFRule>(); //make empty rule and bail early if this is a backstory TODO: why?
+	if (mIsBackstory) return NewObject<UCiFRule>(GetOuter()); //make empty rule and bail early if this is a backstory TODO: why?
 	auto sg = cifManager->mSocialExchangesLib->getSocialExchangeByName(mGameName);
 	if (sg) {
 		return sg->getEffectById(mEffectId)->mChange;

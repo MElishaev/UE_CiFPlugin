@@ -58,6 +58,7 @@ enum class ETrait : uint8
 	// neutral traits
 	MALE			UMETA(DisplayName="Male"),
 	FEMALE			UMETA(DisplayName="Female"),
+	STRAIGHT		UMETA(DisplayName="Straight"),
 	LAST_NEUTRAL_TRAIT,
 
 	// item traits
@@ -83,6 +84,11 @@ enum class ETrait : uint8
 	
 	// plot point
 	PLOT_POINT		UMETA(DisplayName="PLOT_POINT"), // indicates that this GameObject represents a plot point
+    FIRST_LINE_TRAIT,
+	MAIN_LINE		UMETA(DisplayName="MAIN_LINE"),
+	COLONEL_LINE	UMETA(DisplayName="COLONEL_LINE"),
+    LAST_LINE_TRAIT,
+	END_GAME		UMETA(DisplayName="END_GAME")
 };
 
 UENUM(BlueprintType)

@@ -36,6 +36,12 @@ public:
 	 */
 	void toNLG(FString& outStr) const;
 
+	/**
+	 * 
+	 * @param outStr Fills the string with additional data about the rule, like is it an MT and SE rule
+	 */
+	void toDebugNLG(FString& outStr) const;
+	
 public:
 	UPROPERTY()
 	UCiFInfluenceRule* mInfluenceRule;

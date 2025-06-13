@@ -37,16 +37,21 @@ struct FRRMapKey
 	FName sgName;
 	FName initiator;
 	FName responder;
+	FName other;
 
-	FRRMapKey(const FName _sgName, const FName _init, const FName _res) :
-		sgName(_sgName), initiator(_init), responder(_res) {}
+	FRRMapKey(const FName _sgName, const FName _init, const FName _res, const FName _other) :
+		sgName(_sgName), initiator(_init), responder(_res), other(_other) {}
 	bool operator==(const FRRMapKey& Other) const;
 	bool operator!=(const FRRMapKey& Other) const { return !(*this == Other); }
 	friend uint32 GetTypeHash(const FRRMapKey& Key);
 };
 
+USTRUCT()
 struct FRuleRecordsArrayWrapper
 {
+	GENERATED_BODY()
+	
+	UPROPERTY()
 	TArray<UCiFRuleRecord*> mRuleRecords;
 };
 
@@ -122,5 +127,5 @@ public:
 	 */
 	TArray<TMap<FCacheKey, FScore_t>> mIntentScoreCache;
 
-	FScore_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
+	const FScore_t DEFAULT_INTENT_SCORE = -100; // TODO - change to static member
 };

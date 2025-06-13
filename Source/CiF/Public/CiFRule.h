@@ -80,7 +80,7 @@ public:
 	void toString(FString& outStr);
 	
 	/* The additional inputRule is for the case where we load a subclass of this class.
-	 * if this case, the input pointer will be filled, otherwise a new object will be filled
+	 * in this case, the input pointer will be filled, otherwise a new object will be filled
 	 * and returned
 	 */
 	static UCiFRule* loadFromJson(TSharedPtr<FJsonObject> ruleJson, const UObject* worldContextObject, UCiFRule* inputRule=nullptr);
@@ -109,13 +109,26 @@ private:
 	 * the time ordering of the Predicates in the rule.
 	 */
 	bool evaluateTimeOrderedRule(UCiFGameObject* primary, UCiFGameObject* secondary, UCiFGameObject* tertiary);
-	
+
+	/*
+	 * Evaluates a rule when mGrouped=true. This is the case where the predicates aren't tested for all of them to
+	 * be true. In this case, predicates are split into groups by their _group json key, where each group will have
+	 * OR/AND between its group predicates, and the opposite AND/OR between the groups themselves. e.g.
+	 * (A || B || C) && (D || E || F) or (A && B) || (C && D)
+	 */
+	bool evaluateGroupedRule(UCiFGameObject* initiator, UCiFGameObject* responder, UCiFGameObject* other, const UCiFSocialExchange* se);
 public:
 
 	FName mName;
 	FString mDescription; // author description of the rule
 	IdType mID; // the unique identifier of this rule - TODO not sure this is needed
-	
+
+	// true if this rule requires more complex evaluation.
+	// for example, if initiator is male AND responder is female OR init is female AND res is male.
+	// in this case we need to do OR between some groups of AND. in this case [mGroupOperator] should be "OR"
+	// to indicate that we AND inside the groups and OR between the groups.
+	bool mGrouped = false; 
+	FName mGroupOperator = "AND";
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CiF")
 	TArray<UCiFPredicate*> mPredicates; // the array of predicates that comprise this rule

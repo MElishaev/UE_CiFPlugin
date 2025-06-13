@@ -700,17 +700,17 @@
 				{
 					"_from": "Thomas",
 					"_to": "James",
-					"_value": 50
+					"_value": 0
 				},
 				{
 					"_from": "Thomas",
 					"_to": "Colonel",
-					"_value": 5
+					"_value": 0
 				},
 				{
 					"_from": "Thomas",
 					"_to": "Player",
-					"_value": 40
+					"_value": 0
 				},
 				{
 					"_from": "Baroness",
@@ -780,7 +780,7 @@
 				{
 					"_from": "James",
 					"_to": "Thomas",
-					"_value": 25
+					"_value": 0
 				},
 				{
 					"_from": "James",
@@ -795,12 +795,12 @@
 				{
 					"_from": "James",
 					"_to": "Colonel",
-					"_value": 5
+					"_value": 0
 				},
 				{
 					"_from": "James",
 					"_to": "Player",
-					"_value": 40
+					"_value": 0
 				},
 				{
 					"_from": "Colonel",
@@ -810,7 +810,7 @@
 				{
 					"_from": "Colonel",
 					"_to": "Thomas",
-					"_value": 5
+					"_value": 0
 				},
 				{
 					"_from": "Colonel",
@@ -825,12 +825,12 @@
 				{
 					"_from": "Colonel",
 					"_to": "James",
-					"_value": 10
+					"_value": 0
 				},
 				{
 					"_from": "Colonel",
 					"_to": "Player",
-					"_value": 40
+					"_value": 0
 				},
 				{
 					"_from": "Player",
@@ -840,7 +840,7 @@
 				{
 					"_from": "Player",
 					"_to": "Thomas",
-					"_value": 40
+					"_value": 0
 				},
 				{
 					"_from": "Player",
@@ -855,12 +855,12 @@
 				{
 					"_from": "Player",
 					"_to": "James",
-					"_value": 40
+					"_value": 0
 				},
 				{
 					"_from": "Player",
 					"_to": "Colonel",
-					"_value": 40
+					"_value": 0
 				}
 			]
 		}

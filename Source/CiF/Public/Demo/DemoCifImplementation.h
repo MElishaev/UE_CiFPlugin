@@ -7,6 +7,7 @@
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+class UCifNarrativeManager;
 struct FGameScore;
 class UCiFCharacter;
 class UCiFSocialExchangeContext;
@@ -45,6 +46,10 @@ class CIF_API UDemoCifImplementation : public UCifImplementationBase
 	GENERATED_BODY()
 
 public:
+
+    UFUNCTION()
+    virtual void init() override;
+    
 	/**
 	 * Chooses an initiator for a social game.
 	 * (this is based on the game logic for how to choose an initiator, maybe at random, maybe the next in queue etc.
@@ -162,8 +167,20 @@ public:
 	 * AND moves with characters concerning items (Give item)
 	 * Please note the order of predicates in the effect rules matters for the game state to change correctly
 	 */
-	void handleItemMoveEffects(UCiFSocialExchangeContext* context);
-
+	void handleItemMoveEffects(const UCiFSocialExchangeContext* context);
+	
+private:
+	/**
+	 * @param sgContext social game context to generate a result string from
+	 * @param isNPC true if the game was played by NPCs
+	 * @param outStr output result string that represents what happened in the social game represented by the context
+	 */
+	void generateResultString(const UCiFSocialExchangeContext* sgContext, const bool isNPC, FString& outStr) const;
+	
 private:
 	uint8_t mCharacterIndexInCast = 0; // this is used to choose the next initiator for a social game
+
+public:
+    UPROPERTY()
+    UCifNarrativeManager* mCifNarrativeManager;
 };

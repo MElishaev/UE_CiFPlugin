@@ -13,6 +13,14 @@
 #include "CiFSocialExchangeContext.h"
 #include "CiFSocialExchangesLibrary.h"
 #include "Demo/CifNPC.h"
+#include "Narrative/CifNarrativeManager.h"
+#include "CiFSocialExchange.h"
+
+void UDemoCifImplementation::init()
+{
+    mCifNarrativeManager = NewObject<UCifNarrativeManager>(this);
+    mCifNarrativeManager->init();
+}
 
 UCiFCharacter* UDemoCifImplementation::chooseNPCInitiatorForSocialGame()
 {
@@ -120,14 +128,7 @@ void UDemoCifImplementation::offerOthers(TArray<UCiFGameObject*>& outOthers,
 	UCiFGameObject* responderComp = mCifManager->getGameObjectByName(responder);
 	if (sg->mIsRequiresOther) {
 		// Find all the possible others (TODO: WILL NEED TO BE UPDATED WITH SEEN/KNOW)
-		TArray<UCiFGameObject*> possibleOthers;
-		sg->getPossibleOthers(possibleOthers, initiator->mCifCharacterComp->mObjectName, responder);
-		for (const auto object : possibleOthers) {
-			// Characters/Items should have been seen by the initiator (player) and know exist
-			// if (object->hasStatus(EStatus::KNOWN_BY, initiator)) {
-			outOthers.Add(object);
-			// }
-		}
+		sg->getPossibleOthers(outOthers, initiator->mCifCharacterComp->mObjectName, responder);
 	}
 	else {
 		// call moveChosen if no others are required
@@ -309,7 +310,8 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
                                         UCiFEffect* effect)
 {
 	checkf(initiator, TEXT("Initiator must be != nullptr"));
-	UE_LOG(LogTemp, Log, TEXT("move chosen: %s"), *(sgName.ToString()));
+	MYLOG(LogTemp, Log, TEXT("move chosen: %s (%s, %s, %s)"), *(sgName.ToString()), *(initiator->mCifCharacterComp->mObjectName.ToString()),
+		*(responder->mObjectName.ToString()), other ? *(other->mObjectName.ToString()) : *FString("None"));
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 
 	// track what move the player chosen
@@ -321,7 +323,7 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 
 	TArray<UCiFGameObject*> allGameObjects;
 	mCifManager->getAllGameObjects(allGameObjects);
-
+	// todo - if other is received in this method, why not send it to playGame?
 	UCiFSocialExchangeContext* sgContext = mCifManager->playGame(sg,
 	                                                             initiator->mCifCharacterComp,
 	                                                             responder,
@@ -336,108 +338,12 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 
 	// skipped maintaining plot point related stuff for now
 
-	// todo for some reason the temp string comes out always empty... this shouldn't happen because we must always find some rules
-	//  that lead to the accept/reject of the social game.
-	FString temp;
-	if (sgContext->mResponderScore >= 0) {
-		// store the most influential rule record for this move
-		auto ruleRecords = mCifManager->getPredicateRelevance(sg,
-		                                                      initiator->mCifCharacterComp,
-		                                                      responder,
-		                                                      mCifManager->getGameObjectByName(sgContext->mOtherName),
-		                                                      "responder",
-		                                                      {},
-		                                                      "positive");
-		if (!ruleRecords.IsEmpty()) {
-			ruleRecords[0]->toNLG(temp);
-		}
-	}
-	else {
-		auto ruleRecords = mCifManager->getPredicateRelevance(sg,
-		                                                      initiator->mCifCharacterComp,
-		                                                      responder,
-		                                                      mCifManager->getGameObjectByName(sgContext->mOtherName),
-		                                                      "responder",
-		                                                      {},
-		                                                      "negative");
-		if (!ruleRecords.IsEmpty()) {
-			ruleRecords[0]->toNLG(temp);
-		}
-	}
-
-	FString resultString;
-	if (sgContext->mResponderScore >= 0) {
-		if (!temp.IsEmpty()) {
-			resultString += sg->mName.ToString() + " accepted by " + responder->mObjectName.ToString() + " because " + temp + "\n";
-		}
-		else {
-			resultString += sg->mName.ToString() + " accepted by " + responder->mObjectName.ToString() + " by default\n";
-		}
-	}
-	else {
-		if (!temp.IsEmpty()) {
-			resultString += sg->mName.ToString() + " rejected by " + responder->mObjectName.ToString() + " because " + temp + "\n";
-		}
-		else {
-			resultString += sg->mName.ToString() + " rejected by " + responder->mObjectName.ToString() + " by default\n";
-		}
-	}
-
 	mCifManager->changeSocialState(sgContext);
 	handleItemMoveEffects(sgContext);
-
-	// no longer waiting for player input to finish social move todo the below section need to be looked at and decided if it is needed here or what exactly it does
-	if (isNPC && sgContext) {
-		auto sgEffect = sg->getEffectById(sgContext->mEffectId);
-		FString effectStr;
-		sgEffect->toString(effectStr);
-		resultString += "\nEffect: " + effectStr + "\n";
-		resultString += "Updated social state:\n";
-
-		for (auto p : sgEffect->mChange->mPredicates) {
-			if (p->mType == EPredicateType::NETWORK) {
-				UCiFGameObject *first=nullptr, *second=nullptr;
-
-				auto primaryRole = p->getRoleValue(p->mPrimary);
-				if (primaryRole == "initiator") first = initiator->mCifCharacterComp;
-				else if (primaryRole == "responder") first = responder;
-				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
-
-				auto secondaryRole = p->getRoleValue(p->mSecondary);
-				if (secondaryRole == "initiator") second = initiator->mCifCharacterComp;
-				else if (secondaryRole == "responder") second = responder;
-				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
-
-				auto networkEnum = StaticEnum<ESocialNetworkType>();
-				resultString += networkEnum->GetValueAsString(p->mNetworkType) + ": ";
-				resultString += first->mObjectName.ToString() + "-->" + second->mObjectName.ToString() + ": ";
-				resultString += FString::FromInt(mCifManager->getNetworkWeightByType(p->mNetworkType, first->mNetworkId, second->mNetworkId)) + "\n";
-			}
-			else if (p->mType == EPredicateType::STATUS) {
-				UCiFGameObject *first=nullptr, *second=nullptr;
-
-				auto primaryRole = p->getRoleValue(p->mPrimary);
-				if (primaryRole == "initiator") first = initiator->mCifCharacterComp;
-				else if (primaryRole == "responder") first = responder;
-				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
-
-				auto secondaryRole = p->getRoleValue(p->mSecondary);
-				if (secondaryRole == "initiator") second = initiator->mCifCharacterComp;
-				else if (secondaryRole == "responder") second = responder;
-				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
-
-				auto statusEnum = StaticEnum<EStatus>();
-				resultString += statusEnum->GetValueAsString(p->mStatusType) + ": ";
-				resultString += first->mObjectName.ToString();
-				if (second) {
-					resultString += "-->" + second->mObjectName.ToString();
-				}
-				resultString += ", " + FString::FromInt(p->mStatusDuration) + "\n";
-			}
-		}
-	}
-
-	UE_LOG(LogTemp, Log, TEXT("move result: %s"), *resultString);
+	
+	FString resultStr;
+	generateResultString(sgContext, isNPC, resultStr);
+	MYLOG(LogTemp, Log, TEXT("move result: %s"), *resultStr);
 }
 
 void UDemoCifImplementation::effectChosen(const FName sgName,
@@ -459,7 +365,7 @@ void UDemoCifImplementation::effectChosen(const FName sgName,
 	// TODO: what this method should return?
 }
 
-void UDemoCifImplementation::handleItemMoveEffects(UCiFSocialExchangeContext* context)
+void UDemoCifImplementation::handleItemMoveEffects(const UCiFSocialExchangeContext* context)
 {
 	auto changeRule = context->getChange();
 	checkf(changeRule != nullptr, TEXT("Change rule is nullptr"));
@@ -512,6 +418,122 @@ void UDemoCifImplementation::handleItemMoveEffects(UCiFSocialExchangeContext* co
 						}
 					}
 				}
+			}
+		}
+	}
+}
+
+void UDemoCifImplementation::generateResultString(const UCiFSocialExchangeContext* sgContext, const bool isNPC, FString& outStr) const
+{
+	const auto initiator = mCifManager->getGameObjectByName(sgContext->mInitiatorName);
+	const auto responder = mCifManager->getGameObjectByName(sgContext->mResponderName);
+	const auto sg = mCifManager->getSocialGameByName(sgContext->mGameName);
+
+	// store the most influential rule record for this move
+	FString rr;
+	if (sgContext->mResponderScore >= 0) {
+		auto ruleRecords = mCifManager->getPredicateRelevance(sg,
+															  initiator,
+															  responder,
+															  mCifManager->getGameObjectByName(sgContext->mOtherName),
+															  "responder",
+															  {},
+															  "positive");
+		if (!ruleRecords.IsEmpty()) {
+			ruleRecords[0]->toNLG(rr);
+		}
+	}
+	else {
+		auto ruleRecords = mCifManager->getPredicateRelevance(sg,
+															  initiator,
+															  responder,
+															  mCifManager->getGameObjectByName(sgContext->mOtherName),
+															  "responder",
+															  {},
+															  "negative");
+		if (!ruleRecords.IsEmpty()) {
+			ruleRecords[0]->toNLG(rr);
+		}
+	}
+
+	const auto sgEffect = sg->getEffectById(sgContext->mEffectId);
+	if (sgEffect->mIsAccept) {
+		if (!rr.IsEmpty()) {
+			outStr += sg->mName.ToString() + " accepted by " + responder->mObjectName.ToString() + " because " + rr + "\n";
+		}
+		else {
+			outStr += sg->mName.ToString() + " accepted by " + responder->mObjectName.ToString() + " by default\n";
+		}
+	}
+	else {
+		if (!rr.IsEmpty()) {
+			outStr += sg->mName.ToString() + " rejected by " + responder->mObjectName.ToString() + " because " + rr + "\n";
+		}
+		else {
+			outStr += sg->mName.ToString() + " rejected by " + responder->mObjectName.ToString() + " by default\n";
+		}
+	}
+
+	if (isNPC && sgContext) {
+		FString effectStr;
+		sgEffect->toString(effectStr);
+		outStr += "\nEffect:" + effectStr + "\n";
+		outStr += "Updated social state:\n";
+
+		for (auto p : sgEffect->mChange->mPredicates) {
+			if (p->mType == EPredicateType::NETWORK) {
+				UCiFGameObject *first=nullptr, *second=nullptr;
+
+				auto primaryRole = p->getRoleValue(p->mPrimary);
+				if (primaryRole == "initiator") first = initiator;
+				else if (primaryRole == "responder") first = responder;
+				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				auto secondaryRole = p->getRoleValue(p->mSecondary);
+				if (secondaryRole == "initiator") second = initiator;
+				else if (secondaryRole == "responder") second = responder;
+				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				outStr += enumToStringNoPrefix(p->mNetworkType) + ": ";
+				outStr += first->mObjectName.ToString() + "-->" + second->mObjectName.ToString() + ": ";
+				outStr += FString::FromInt(mCifManager->getNetworkWeightByType(p->mNetworkType, first->mNetworkId, second->mNetworkId)) + "\n";
+			}
+			else if (p->mType == EPredicateType::STATUS) {
+				UCiFGameObject *first=nullptr, *second=nullptr;
+
+				auto primaryRole = p->getRoleValue(p->mPrimary);
+				if (primaryRole == "initiator") first = initiator;
+				else if (primaryRole == "responder") first = responder;
+				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				auto secondaryRole = p->getRoleValue(p->mSecondary);
+				if (secondaryRole == "initiator") second = initiator;
+				else if (secondaryRole == "responder") second = responder;
+				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				outStr += enumToStringNoPrefix(p->mStatusType) + ": ";
+				outStr += first->mObjectName.ToString();
+				if (second) {
+					outStr += "-->" + second->mObjectName.ToString();
+				}
+				outStr += ", " + FString::FromInt(p->mStatusDuration) + "\n";
+			}
+			else if (p->mType == EPredicateType::RELATIONSHIP) {
+				UCiFGameObject *first=nullptr, *second=nullptr;
+
+				auto primaryRole = p->getRoleValue(p->mPrimary);
+				if (primaryRole == "initiator") first = initiator;
+				else if (primaryRole == "responder") first = responder;
+				else if (primaryRole == "other") first = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				auto secondaryRole = p->getRoleValue(p->mSecondary);
+				if (secondaryRole == "initiator") second = initiator;
+				else if (secondaryRole == "responder") second = responder;
+				else if (secondaryRole == "other") second = mCifManager->getGameObjectByName(sgContext->mOtherName);
+
+				outStr += first->mObjectName.ToString();
+				outStr += " " + enumToStringNoPrefix(p->mRelationshipType) + " with ";
+				outStr += second->mObjectName.ToString();
 			}
 		}
 	}

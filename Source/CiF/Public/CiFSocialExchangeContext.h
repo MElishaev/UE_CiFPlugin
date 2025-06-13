@@ -81,6 +81,7 @@ public:
 	UCiFRule* getChange() const;
 
 	static UCiFSocialExchangeContext* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
+	
 public:
 	FName mGameName; // the social game name
 	FName mChosenItemCKB; // the name of the item brought up in the performance realization that involves a CKB entry
@@ -91,9 +92,7 @@ public:
 	int8 mResponderScore; // score of responder IRS
 	bool mIsBackstory;
 	FSFDBLabel mSFDBLabel; // the SFDB label for this context entry
-	IdType mEffectId; // not sure yet what is this - i think it may be the effect ID that is the result of this social exchange
+	IdType mEffectId; // effect ID that is the result of this social exchange
 	FName mPerformanceRealization; // this describes what happened in this social game in an NLG
-
-	// todo - why is there many labels associated with this context entry? i need an example to understand what does it mean
 	TArray<FSFDBLabel> mSFDBLabels; // the SFDB labels associated with this context entry 
 };
