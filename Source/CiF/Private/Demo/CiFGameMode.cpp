@@ -25,8 +25,9 @@ void ACiFGameMode::initCif()
 {
     const auto cifSubsystem = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>();
     mCifManager = cifSubsystem->getInstance();
-    mCifManager->init(GetWorld());
-    cifSubsystem->setImplementation(NewObject<UDemoCifImplementation>());
+    mCifManager->init(this);
+    cifSubsystem->setImplementation(NewObject<UDemoCifImplementation>(this));
+    cifSubsystem->getImplementation()->init();
 }
 
 ACifNPC* ACiFGameMode::getCifNPCByName(FName name)

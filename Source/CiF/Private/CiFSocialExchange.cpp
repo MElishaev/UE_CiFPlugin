@@ -2,16 +2,12 @@
 
 
 #include "CiFSocialExchange.h"
-
-#include "CiFCast.h"
-#include "CiFInstantiation.h"
+#include "Narrative/CifInstantiation.h"
 #include "CiFEffect.h"
-#include "CiFKnowledge.h"
 #include "CiFInfluenceRule.h"
 #include "CiFInfluenceRuleSet.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
-#include "CiFItem.h"
 #include "CiFProspectiveMemory.h"
 #include "CiFRule.h"
 
@@ -22,7 +18,7 @@ void UCiFSocialExchange::addEffect(UCiFEffect* effect)
 	mEffects.AddUnique(effect);
 }
 
-void UCiFSocialExchange::addInstantiation(UCiFInstantiation* instantiation)
+void UCiFSocialExchange::addInstantiation(UCifInstantiation* instantiation)
 {
 	// todo - same comment as in @addEffect
 	mInstantiations.AddUnique(instantiation);
@@ -37,12 +33,13 @@ UCiFEffect* UCiFSocialExchange::getEffectById(const uint32 id)
 	return nullptr;
 }
 
-UCiFInstantiation* UCiFSocialExchange::getInstantiationById(const uint32 id)
+UCifInstantiation* UCiFSocialExchange::getInstantiationById(const uint32 id)
 {
-	auto inst = mInstantiations.FindByPredicate([=](UCiFInstantiation* i) { return i->mId == id; });
-	if (inst) {
-		return *inst;
-	}
+    // todo fix
+	// auto inst = mInstantiations.FindByPredicate([=](UCifInstantiation* i) { return i->mId == id; });
+	// if (inst) {
+	// 	return *inst;
+	// }
 	return nullptr;
 }
 
@@ -68,17 +65,22 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
                                               const TArray<UCiFGameObject*>& activeOtherCast,
                                               bool isResponder)
 {
-	FScore_t totalScore;
-	const auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
+	/* the totalScore default value is 0. so if the rules for some other score less than 0,
+	 * they will be discarded. this is kind of a weird behaviour, but anyway, others that score
+	 * less than 0 we wouldn't want to play a social game including them */
+	FScore_t totalScore = -100;
 	const auto influenceRuleSet = isResponder ? mResponderIR : mInitiatorIR;
 	bestOther = nullptr;
 
 	if (mIsRequiresOther) {
-		for (auto other : possibleOthers) {
+		if (mOtherType != ECiFGameObjectType::CHARACTER) {
+			UE_LOG(LogTemp, Verbose, TEXT("Social games with other type different than character isn't supported yet"));
+			return totalScore;
+		}
+		for (auto other : activeOtherCast) {
 			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
 				if (checkPreconditions(initiator, responder, other, this)) {
-						
+					UE_LOG(LogTemp, VeryVerbose, TEXT("scoring for other: %s"), *(other->mObjectName.ToString())); // todo - delete?
 					const FScore_t localScore = influenceRuleSet->scoreRules(initiator,
 																		  responder,
 																		  other,
@@ -106,8 +108,9 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 			                                                           responder,
 			                                                           nullptr,
 			                                                           this,
-			                                                           possibleOthers,
-			                                                           "",
+			                                                           // possibleOthers,
+			                                                           activeOtherCast,
+			                                                           NAME_None,
 			                                                           isResponder);
 		}
 	}
@@ -123,18 +126,21 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 		return true; // no preconditions means it is automatically true
 	}
 
-	auto cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
-	auto possibleOthers = activeOtherCast.IsEmpty() ? TArray<UCiFGameObject*>(cifManager->mCast->mCharacters) : activeOtherCast;
-
-	bool requiresOther = false;
-	for (const auto precond : mPreconditions) {
-		if (precond->isRoleRequired("other")) {
-			requiresOther = true;
-		}
+	if (mOtherType != ECiFGameObjectType::CHARACTER) {
+		UE_LOG(LogTemp, Verbose, TEXT("Social games with other type different than character isn't supported yet"));
+		return false;
 	}
 
-	if (requiresOther) {
-		for (const auto other : possibleOthers) {
+	if (activeOtherCast.IsEmpty()) {
+		for (const auto precond : mPreconditions) {
+			if (!precond->evaluate(initiator, responder, nullptr, this)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	else {
+		for (const auto other : activeOtherCast) {
 			bool isOtherSuitable = true;
 
 			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName)) {
@@ -148,18 +154,13 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 
 			if (isOtherSuitable) {
 				return true; // went over all precondition and none failed with the current other
+				// todo - but why not return or flag this other or something? so it can be used in the scoring?
+				//  it seems this method just tells if there is some other.. and then the scoring method will go over
+				//  all the others again and will score... maybe there are more than 1 holding the preconditions
 			}
 		}
 	}
-	else {
-		for (const auto precond : mPreconditions) {
-			if (!precond->evaluate(initiator, responder, nullptr, this)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
+	
 	return false;
 }
 
@@ -278,7 +279,7 @@ UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObjec
 	auto sg = NewObject<UCiFSocialExchange>(const_cast<UObject*>(worldContextObject));
 	
 	sg->mName = FName(sgJson->GetStringField(TEXT("_name")));
-	UE_LOG(LogTemp, Log, TEXT("Parsing social game: %s"), *(sg->mName.ToString()));
+	UE_LOG(LogTemp, VeryVerbose, TEXT("Parsing social game: %s"), *(sg->mName.ToString()));
 	sg->mIsRequiresOther = sgJson->GetBoolField(TEXT("_requiresOther"));
 	sg->mResponderType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField(TEXT("_type")));
 	sg->mOtherType = static_cast<ECiFGameObjectType>(sgJson->GetIntegerField(TEXT("_othertype")));
@@ -298,14 +299,14 @@ UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObjec
 	}
 
 	// load influence rules
-	sg->mInitiatorIR = NewObject<UCiFInfluenceRuleSet>();
+	sg->mInitiatorIR = NewObject<UCiFInfluenceRuleSet>(const_cast<UObject*>(worldContextObject));
 	const auto initiatorIrJson = sgJson->GetArrayField(TEXT("InitiatorInfluenceRuleSet"));
 	for (auto irJson : initiatorIrJson) {
 		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);
 		sg->mInitiatorIR->mInfluenceRules.Add(ir);
 	}
 
-	sg->mResponderIR = NewObject<UCiFInfluenceRuleSet>();
+	sg->mResponderIR = NewObject<UCiFInfluenceRuleSet>(const_cast<UObject*>(worldContextObject));
 	const auto responderIrJson = sgJson->GetArrayField(TEXT("ResponderInfluenceRuleSet"));
 	for (auto irJson : responderIrJson) {
 		auto ir = UCiFInfluenceRule::loadFromJson(irJson->AsObject(), worldContextObject);

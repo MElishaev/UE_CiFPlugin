@@ -168,16 +168,17 @@ UCiFPredicate* UCiFEffect::getCKBReferencePredicate() const
 
 void UCiFEffect::toString(FString& outStr) const
 {
-	outStr = mIsAccept ? "Accept: " : "Reject: ";
+	outStr = mIsAccept ? "Accept\n" : "Reject\n";
 	
 	FString conditionStr;
 	mCondition->toString(conditionStr);
-	outStr += conditionStr;
-	outStr += " | ";
+	outStr += "Condition: " + conditionStr;
+	outStr += "\n";
 
 	FString changeStr;
 	mChange->toString(changeStr);
-	outStr += changeStr;
+	outStr += "Change: " + changeStr;
+	outStr += "\n";
 }
 
 UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)

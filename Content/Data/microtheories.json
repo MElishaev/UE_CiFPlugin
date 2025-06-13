@@ -45794,6 +45794,87 @@
             "ResponderInfluenceRuleSet": []
         },
         {
+            "Name": "Straight",
+            "Definition": {
+                "_name": "Straight NPC interested only in the opposite gender",
+                "Predicate": [
+                    {
+                        "_type": "TRAIT",
+                        "_trait": "STRAIGHT",
+                        "_first": "initiator",
+                        "_negated": false,
+                        "_name": "",
+                        "_intent": false,
+                        "_intentType": "INVALID",
+                        "_isSFDB": false,
+                        "_window": 0,
+                        "_numTimesUniquelyTrueFlag": false,
+                        "_numTimesUniquelyTrue": 0,
+                        "_numTimesRoleSlot": ""
+                    }
+                ]
+            },
+            "InitiatorInfluenceRuleSet": [
+                {
+                    "_weight": -99,
+                    "_name": "Initiator must be interested in the responder's gender",
+                    "_grouped": true,
+                    "_operator": "OR",
+                    "Predicate": [
+                        {
+                            "_type": "TRAIT",
+                            "_trait": "MALE",
+                            "_first": "initiator",
+                            "_negated": false,
+                            "_group": 1,
+                            "_name": "trait(initiator, MALE)",
+                            "_intent": false,
+                            "_intentType": "INVALID",
+                            "_isSFDB": false,
+                            "_numTimesUniquelyTrueFlag": false
+                        },
+                        {
+                            "_type": "TRAIT",
+                            "_trait": "MALE",
+                            "_first": "responder",
+                            "_negated": false,
+                            "_group": 1,
+                            "_name": "trait(responder, MALE)",
+                            "_intent": false,
+                            "_intentType": "INVALID",
+                            "_isSFDB": false,
+                            "_numTimesUniquelyTrueFlag": false
+                        },
+                        {
+                            "_type": "TRAIT",
+                            "_trait": "FEMALE",
+                            "_first": "initiator",
+                            "_negated": false,
+                            "_group": 2,
+                            "_name": "trait(initiator, FEMALE)",
+                            "_intent": false,
+                            "_intentType": "INVALID",
+                            "_isSFDB": false,
+                            "_numTimesUniquelyTrueFlag": false
+                        },
+                        {
+                            "_type": "TRAIT",
+                            "_trait": "FEMALE",
+                            "_first": "responder",
+                            "_negated": false,
+                            "_group": 2,
+                            "_name": "trait(responder, FEMALE)",
+                            "_intent": false,
+                            "_intentType": "INVALID",
+                            "_isSFDB": false,
+                            "_numTimesUniquelyTrueFlag": false
+                        }
+                    ]
+                }
+            ],
+            "ResponderInfluenceRuleSet": []
+        },      
+        {
             "Name": "Tactful",
             "Definition": {
                 "_name": "What it means for the initiator to be tactful",

@@ -2,3 +2,8 @@
 
 
 #include "CifImplementationBase.h"
+
+void UCifImplementationBase::init()
+{
+    // empty base implementation
+}

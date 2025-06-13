@@ -74,7 +74,7 @@ public:
 	TMap<EKnowledgeType, UCiFKnowledge*> mKnowledgeMap; // the knowledge known by the character
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CiFCharacter Properties")
-	TMap<ECiFItemType, UCiFItem*> mItemMap; // the items owned by the character
+	TMap<ECiFItemType, UCiFItem*> mItemMap; // the items held by the character
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CiFCharacter Properties")
 	ECiFGender mGender;

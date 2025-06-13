@@ -18,6 +18,10 @@ UCLASS(Abstract)
 class CIF_API UCifImplementationBase : public UObject
 {
 	GENERATED_BODY()
+
+public:
+
+    virtual void init();
 	
 protected:
 

@@ -8,7 +8,7 @@
 #include "CiFCharacter.h"
 #include "CiFCulturalKnowledgeBase.h"
 #include "CiFInfluenceRule.h"
-#include "CiFInstantiation.h"
+#include "Narrative/CifInstantiation.h"
 #include "CiFItem.h"
 #include "CiFKnowledge.h"
 #include "CiFMicrotheory.h"
@@ -34,8 +34,8 @@ void UCiFManager::init(const UObject* worldContextObject)
 {
 	mWorldContextObject = const_cast<UObject*>(worldContextObject);
 
-	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>(const_cast<UObject*>(worldContextObject));
-	mSFDB = NewObject<UCiFSocialFactsDataBase>(const_cast<UObject*>(worldContextObject));
+	mSocialExchangesLib = NewObject<UCiFSocialExchangesLibrary>(mWorldContextObject);
+	mSFDB = NewObject<UCiFSocialFactsDataBase>(mWorldContextObject);
 	// TODO - its not correct to put it here. it should happen on init but on "start game" or something, because if the
 	// player has already has save game, we need to just load it from the save game, although it should be the same data.
 	// for now i'll put it here
@@ -77,6 +77,7 @@ void UCiFManager::init(const UObject* worldContextObject)
 	loadCKB(ckbPath, worldContextObject);
 
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
+    mbInitialized = true;
 }
 
 void UCiFManager::loadSocialGameLib(const FString& filePath, const UObject* worldContextObject)
@@ -215,11 +216,6 @@ void UCiFManager::loadSocialNetworks(const FString& filePath, const UObject* wor
 	mRelationshipNetworks = UCiFRelationshipNetwork::loadFromJson(rsJson, worldContextObject);
 }
 
-void UCiFManager::loadPlotPoints(const FString& filePath, const UObject* worldContextObject)
-{
-	// TODO - implement
-}
-
 void UCiFManager::loadQuestLib(const FString& filePath, const UObject* worldContextObject)
 {
 	// TODO - implement
@@ -268,7 +264,10 @@ void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
                                            UCiFGameObject* responder,
                                            const TArray<UCiFGameObject*>& possibleOthers)
 {
+	UE_LOG(LogTemp, Verbose, TEXT("Forming intent for %s->%s"),
+		*(initiator->mObjectName.ToString()), *(responder->mObjectName.ToString()));
 	for (auto [name, se] : mSocialExchangesLib->mSocialExchanges) {
+		UE_LOG(LogTemp, Verbose, TEXT("Forming intent for %s"), *(name.ToString()));
 		formIntentForSpecificSocialExchange(se, initiator, responder, possibleOthers);
 	}
 }
@@ -278,13 +277,18 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
                                                       UCiFGameObject* responder,
                                                       const TArray<UCiFGameObject*>& possibleOthers)
 {
-	if (possibleOthers.Num() == 0) {
-		TArray<UCiFGameObject*> calculatedPossibleOthers;
-		socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
-		formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+	if (socialExchange->isThirdNeededForIntentFormation()) {
+		if (possibleOthers.Num() == 0) {
+			TArray<UCiFGameObject*> calculatedPossibleOthers;
+			socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
+			formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+		}
+		else {
+			formIntentThirdParty(socialExchange, initiator, responder, possibleOthers);
+		}
 	}
 	else {
-		formIntentThirdParty(socialExchange, initiator, responder, possibleOthers);
+		formIntentThirdParty(socialExchange, initiator, responder);
 	}
 }
 
@@ -293,12 +297,19 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
                                        UCiFGameObject* responder,
                                        const TArray<UCiFGameObject*>& possibleOthers)
 {
-	FScore_t score = initiator->mProspectiveMemory->getDefaultIntentScore();
+	FScore_t score;
 	UCiFGameObject* bestOther = nullptr; // in case the SE requires other, this will hold the other that resulted in the highest score
 
 	if (socialExchange->checkPreconditionsVariableOther(initiator, responder, possibleOthers)) {
+		/* we get here if preconditions hold. if other is needed, it means that there is at least
+		 * 1 other that holds the precondition, and if other isn't needed then the preconditions hold
+		 * for the initiator and responder. */
+		
 		// score the SG and if requires other, fills in the other that results in the best score
 		score = socialExchange->scoreSocialExchange(initiator, responder, bestOther, possibleOthers);
+		if (bestOther) {
+			UE_LOG(LogTemp, Verbose, TEXT("Social game requires other and other was chosen: %s"), *(bestOther->mObjectName.ToString()));
+		}
 
 		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
 		// if not, score and cache
@@ -307,9 +318,12 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 			const auto mtsScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
 			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, mtsScore);
 			score += mtsScore;
+			UE_LOG(LogTemp, VeryVerbose, TEXT("Microtheories contributed %d"), mtsScore.val);
 		}
 		else {
 			score += *(initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType));
+			UE_LOG(LogTemp, VeryVerbose, TEXT("Cached microtheories contribution %d"),
+				(*(initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType))).val);
 		}
 	}
 	else {
@@ -322,6 +336,23 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 	                                                      responder->mObjectName,
 	                                                      bestOther ? bestOther->mObjectName : NAME_None,
 	                                                      score);
+
+	
+	// todo - debug print all rule that contributed score
+	const auto key = FRRMapKey(socialExchange->mName, initiator->mObjectName,
+		responder->mObjectName, bestOther ? bestOther->mObjectName : NAME_None);
+	auto rrWrapper = initiator->mProspectiveMemory->mRuleRecordsMap.Find(key);
+	if (rrWrapper) {
+		FString rulesStr = "Contributing rules (" + FString::FromInt(rrWrapper->mRuleRecords.Num()) + ") for " + socialExchange->mName.ToString() +
+			"(" + rrWrapper->mRuleRecords[0]->mInitiator.ToString() + "," + rrWrapper->mRuleRecords[0]->mResponder.ToString() + "," +
+				rrWrapper->mRuleRecords[0]->mOther.ToString() + ") score " + FString::FromInt(score) + "\n";
+		for (const auto rule : rrWrapper->mRuleRecords) {
+			FString localRuleStr;
+			rule->toDebugNLG(localRuleStr);
+			rulesStr += localRuleStr + "\n";
+		}
+		UE_LOG(LogTemp, Verbose, TEXT("%s"), *rulesStr);
+	}
 }
 
 FScore_t UCiFManager::scoreAllMicrotheoriesForType(UCiFSocialExchange* se,
@@ -343,8 +374,8 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
                                                  UCiFGameObject* initiator,
                                                  UCiFGameObject* responder,
                                                  UCiFGameObject* other,
-                                                 TArray<UCiFGameObject*> otherCast,
-                                                 TArray<UCiFGameObject*> levelCast,
+                                                 const TArray<UCiFGameObject*>& otherCast,
+                                                 const TArray<UCiFGameObject*>& levelCast,
                                                  UCiFEffect* chosenEffect)
 {
 	//we figure out who the other is in THIS function, when we call 'getSalientOtherAndEffect'
@@ -363,6 +394,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	}
 
 	const auto responderScore = getResponderScore(sg, initiator, responder, possibleOthers);
+	MYLOG(LogTemp, Warning, TEXT("Responder score %d"), responderScore.val);
 
 	const bool isAcceptGameIntent = (responderScore >= 0);
 
@@ -413,9 +445,6 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	// the other to use when all cases of other being passed in a third character being needed when one is not provided
 	UCiFGameObject* trueOther = (!other && sg->isThirdForSocialExchangePlay()) ? mostSalientOther : other;
 
-	//TODO: sort of a hack. I want this in GameEngine... this is part of separating playGame and changeSocialState
-	mLastResponderOther = trueOther;
-
 	/* Preparing social game context for output */
 	const auto socialGameContext = createSgContext(sg, initiator, responder, trueOther, mostSalientEffect, responderScore);
 
@@ -439,6 +468,8 @@ FScore_t UCiFManager::getResponderScore(UCiFSocialExchange* sg,
 	if (responder->mGameObjectType == ECiFGameObjectType::CHARACTER) {
 		const auto r = static_cast<UCiFCharacter*>(responder);
 		const auto extendedIntentIndex = sg->mIntents[0]->mPredicates[0]->getExtendedIntentType();
+		// todo - is there data here? because we don't call formIntentAll, i don't think the responder has
+		//  any intent stored for this game. it may be that he need to run all MTs...
 		if (r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId].Contains(extendedIntentIndex)) {
 			score += *(r->mProspectiveMemory->mIntentScoreCache[initiator->mNetworkId].Find(extendedIntentIndex));
 		}
@@ -472,6 +503,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 
 	// find all valid effects (go through all others)
 	for (const auto effect : sg->mEffects) {
+		// todo - why not searching salient rejection effects?
 		if (effect->mIsAccept == isSgAccepted) {
 			// if its effect of social move accepted
 			if (sg->mIsRequiresOther) {
@@ -705,11 +737,11 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
 
 	// look through the rule records and pull out the important ones. Also add MT definitions to the influence rules
 	if (role) {
-		const auto ruleRecordsWrapper = role->mProspectiveMemory->mRuleRecordsMap.Find(FRRMapKey(sg->mName,
-				                                                                                initiator->mObjectName,
-				                                                                                responder->mObjectName));
+		const auto key = FRRMapKey(sg->mName, initiator->mObjectName, responder->mObjectName, other ? other->mObjectName : NAME_None);
+		const auto ruleRecordsWrapper = role->mProspectiveMemory->mRuleRecordsMap.Find(key);
 		if (!ruleRecordsWrapper) {
-			UE_LOG(LogTemp, Warning, TEXT("Debug this! no rule records was found when looking for relevant RRs of this SG"));
+			UE_LOG(LogTemp, Warning, TEXT("No rule records were found when looking for relevant RRs of %s for this SG"),
+				*(role->mObjectName.ToString()));
 			return {};
 		}
 		for (const auto rr : ruleRecordsWrapper->mRuleRecords) {
@@ -810,7 +842,7 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
 
 				if (!isContainedInUniquePredicateRRs) {
 					const auto newRR = NewObject<UCiFRuleRecord>();
-					const auto influenceRule = NewObject<UCiFInfluenceRule>();
+					const auto influenceRule = NewObject<UCiFInfluenceRule>(mWorldContextObject);
 					influenceRule->mPredicates.Add(p);
 					influenceRule->mWeight = (rr->mInfluenceRule->mWeight) / (rr->mInfluenceRule->mPredicates.Num() - numIntents);
 					newRR->init(rr->mName, rr->mInitiator, rr->mResponder, rr->mOther, rr->mType, influenceRule);
@@ -839,6 +871,12 @@ UCiFMicrotheory* UCiFManager::getMicrotheoryByName(const FName mtName) const
 		return *mt;
 	}
 	return nullptr;
+}
+
+UCiFSocialExchange* UCiFManager::getSocialGameByName(const FName name) const
+{
+	auto sg = mSocialExchangesLib->getSocialExchangeByName(name);
+	return sg;
 }
 
 void UCiFManager::getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const

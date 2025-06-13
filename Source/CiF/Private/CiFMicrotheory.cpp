@@ -12,8 +12,10 @@
 
 UCiFMicrotheory::UCiFMicrotheory()
 {
-	mInitiatorIR = NewObject<UCiFInfluenceRuleSet>();
-	mResponderIR = NewObject<UCiFInfluenceRuleSet>();
+	// using GetOuter() because in every place where allocating micro theory, sending it a world context object
+	// so we can assume that there is an outer for this instance
+	mInitiatorIR = NewObject<UCiFInfluenceRuleSet>(GetOuter());
+	mResponderIR = NewObject<UCiFInfluenceRuleSet>(GetOuter());
 	mDefinition = nullptr; // will be loaded by the loadFromJson
 }
 
@@ -60,7 +62,7 @@ UCiFMicrotheory* UCiFMicrotheory::loadFromJson(TSharedPtr<FJsonObject> json, con
 	auto mt = NewObject<UCiFMicrotheory>(const_cast<UObject*>(worldContextObject));
 
 	mt->mName = FName(json->GetStringField(TEXT("Name")));
-	UE_LOG(LogTemp, Log, TEXT("Parsing microtheory: %s"), *(mt->mName.ToString()))
+	UE_LOG(LogTemp, VeryVerbose, TEXT("Parsing microtheory: %s"), *(mt->mName.ToString()))
 
 	const auto definitionJson = json->GetObjectField(TEXT("Definition"));
 	mt->mDefinition = UCiFRule::loadFromJson(definitionJson, worldContextObject);

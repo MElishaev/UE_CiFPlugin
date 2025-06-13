@@ -11,7 +11,7 @@
 enum class EIntentType : uint8;
 enum class ECiFGameObjectType : uint8;
 class UCiFInfluenceRuleSet;
-class UCiFInstantiation;
+class UCifInstantiation;
 class UCiFEffect;
 class UCiFCharacter;
 class UCiFRule;
@@ -60,11 +60,11 @@ class CIF_API UCiFSocialExchange : public UObject
 public:
 	/* Adds an effect to the effects list and gives it an ID. */
 	void addEffect(UCiFEffect* effect);
-	void addInstantiation(UCiFInstantiation* instantiation);
+	void addInstantiation(UCifInstantiation* instantiation);
 
 	/* returns pointer to the effect or nullptr if doesn't exist */
 	UCiFEffect* getEffectById(const uint32 id);
-	UCiFInstantiation* getInstantiationById(const uint32 id);
+	UCifInstantiation* getInstantiationById(const uint32 id);
 
 	/**
 	 * Returns the initiator's influence rule set score with respect to the
@@ -114,6 +114,8 @@ public:
 	 * and responder while finding an other that fits all precondition 
 	 * rules if a third character is require by any of those rules.
 	 * Upon the first @other that will be found the method will return true.
+	 * This method only tells if there is at least 1 other that holds the
+	 * preconditions but doesn't actually choose one for the scoring process.
 	 * 
 	 * @param	initiator		The initiator of the social game.
 	 * @param	responder		The responder of the social game.
@@ -206,6 +208,9 @@ public:
 	UPROPERTY()
 	UCiFInfluenceRuleSet* mResponderIR;
 
+	UPROPERTY()
 	TArray<UCiFEffect*> mEffects;               // the effects of the social exchange
-	TArray<UCiFInstantiation*> mInstantiations; // the realization of the outcome of the this social exchange
+
+	UPROPERTY()
+	TArray<UCifInstantiation*> mInstantiations; // the realization of the outcome of the this social exchange
 };

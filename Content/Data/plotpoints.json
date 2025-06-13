@@ -1,0 +1,25 @@
+{
+    "Plotpoints": [
+        {
+            "_name": "Colonel is always absent at noon",
+            "_revealedBy": [],
+            "_preconditions": [],
+            "_instantiationFile": "pp_colonel_absent.json"
+        },
+        {
+            "_name": "Colonel has some weird radio in his room",
+            "_revealedBy": [],
+            "_preconditions": [],
+            "_instantiationFile": "pp_colonel_radio.json"
+        },
+        {
+            "_name": "Colonel is a spy",
+            "_revealedBy": [],
+            "_preconditions": [
+                "Colonel is always absent at noon",
+                "Colonel has some weird radio in his room"
+            ],
+            "_instantiationFile": "pp_colonel_spy.json"
+        }
+    ]
+}

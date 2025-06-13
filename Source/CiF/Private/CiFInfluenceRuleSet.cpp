@@ -33,27 +33,16 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					auto name = (microtheoryName != "") ? microtheoryName : se->mName;
 					auto type = (microtheoryName != "") ? ERuleRecordType::MICROTHEORY : ERuleRecordType::SOCIAL_EXCHANGE;
 					rr->init(name, initiator->mObjectName, responder->mObjectName, other->mObjectName, type, ir);
+
+					FRRMapKey key = FRRMapKey(name, initiator->mObjectName, responder->mObjectName, other->mObjectName);
 					if (isResponder && (responder->mGameObjectType == ECiFGameObjectType::CHARACTER)) {
-						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-										  initiator->mObjectName,
-										  responder->mObjectName),
-								 rr);
+						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
 					else if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-						initiator->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-						                                                         initiator->mObjectName,
-						                                                         responder->mObjectName),
-						                                               rr);
+						initiator->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
 
 					score += ir->mWeight;
-					mLastScore.Add(score);
-					mLastTruthValues.Add(true);
-					mTruthCount++;
-				}
-				else {
-					mLastTruthValues.Add(false);
-					mLastScore.Add(0);
 				}
 			}
 			else {
@@ -66,27 +55,15 @@ float UCiFInfluenceRuleSet::scoreRules(UCiFCharacter* initiator,
 					auto otherName = other ? other->mObjectName : "";
 					rr->init(name, initiator->mObjectName, responder->mObjectName, otherName, type, ir);
 
+					FRRMapKey key = FRRMapKey(name, initiator->mObjectName, responder->mObjectName, otherName);
 					if (isResponder && (responder->mGameObjectType == ECiFGameObjectType::CHARACTER)) {
-						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-										  initiator->mObjectName,
-										  responder->mObjectName),
-								 rr);
+						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
 					else if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-						initiator->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-						                                                         initiator->mObjectName,
-						                                                         responder->mObjectName),
-						                                               rr);
+						initiator->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
 
 					score += ir->mWeight;
-					mLastScore.Add(score);
-					mLastTruthValues.Add(true);
-					mTruthCount++;
-				}
-				else {
-					mLastTruthValues.Add(false);
-					mLastScore.Add(0);
 				}
 			}
 		}
@@ -110,20 +87,16 @@ FScore_t UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initia
 		possibleOthers = activeOtherCast;
 	}
 	else {
-		if (!GetWorld()) {
-			UE_LOG(LogTemp, Error, TEXT("Couldn't obtain world"));
-			return 0;
-		}
 		const UCiFManager* cifManager = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>()->getInstance();
 		cifManager->getAllGameObjects(possibleOthers);
 	}
-
+	
 	for (auto ir : mInfluenceRules) {
 		if (ir->mWeight != 0) {
 			if (ir->isRoleRequired("other")) {
 				for (auto o : possibleOthers) {
 					if ((o->mObjectName != initiator->mObjectName) && (o->mObjectName != responder->mObjectName)) {
-						if (ir->evaluate(initiator, responder, other, se)) {
+						if (ir->evaluate(initiator, responder, o, se)) {
 							/* create and store IR that evaluated to true as a rule record in the prospective memory */
 							auto rr = NewObject<UCiFRuleRecord>();
 							const auto name = (microtheoryName != NAME_None) ? microtheoryName : se->mName;
@@ -131,27 +104,16 @@ FScore_t UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initia
 								                  ? ERuleRecordType::MICROTHEORY
 								                  : ERuleRecordType::SOCIAL_EXCHANGE;
 							rr->init(name, initiator->mObjectName, responder->mObjectName, o->mObjectName, type, ir);
+
+							const auto key = FRRMapKey(se->mName, initiator->mObjectName, responder->mObjectName, o->mObjectName);
 							if (isResponder && (responder->mGameObjectType == ECiFGameObjectType::CHARACTER)) {
-								static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-												  initiator->mObjectName,
-												  responder->mObjectName),
-										 rr);
+								static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(key, rr);
 							}
 							else if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-								initiator->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-								                                                         initiator->mObjectName,
-								                                                         responder->mObjectName),
-								                                               rr);
+								initiator->mProspectiveMemory->storeRuleRecord(key, rr);
 							}
 
 							score += ir->mWeight;
-							mLastScore.Add(score);
-							mLastTruthValues.Add(true);
-							mTruthCount++;
-						}
-						else {
-							mLastTruthValues.Add(false);
-							mLastScore.Add(0);
 						}
 					}
 				}
@@ -166,31 +128,19 @@ FScore_t UCiFInfluenceRuleSet::scoreRulesWithVariableOther(UCiFCharacter* initia
 					const auto otherName = other ? other->mObjectName : NAME_None;
 					rr->init(name, initiator->mObjectName, responder->mObjectName, otherName, type, ir);
 
+					const auto key = FRRMapKey(se->mName, initiator->mObjectName, responder->mObjectName, otherName);
 					if (isResponder && (responder->mGameObjectType == ECiFGameObjectType::CHARACTER)) {
-						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-										  initiator->mObjectName,
-										  responder->mObjectName),
-								 rr);
+						static_cast<UCiFCharacter*>(responder)->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
 					else if (initiator->mGameObjectType == ECiFGameObjectType::CHARACTER) {
-						initiator->mProspectiveMemory->storeRuleRecord(FRRMapKey(se->mName,
-						                                                         initiator->mObjectName,
-						                                                         responder->mObjectName),
-						                                               rr);
+						initiator->mProspectiveMemory->storeRuleRecord(key, rr);
 					}
-
+					
 					score += ir->mWeight;
-					mLastScore.Add(score);
-					mLastTruthValues.Add(true);
-					mTruthCount++;
-				}
-				else {
-					mLastTruthValues.Add(false);
-					mLastScore.Add(0);
 				}
 			}
 		}
 	}
-
+		
 	return score;
 }

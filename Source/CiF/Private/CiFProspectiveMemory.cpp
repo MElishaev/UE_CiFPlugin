@@ -4,9 +4,11 @@
 #include "CiFProspectiveMemory.h"
 
 #include "CiFCast.h"
+#include "CiFCharacter.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
 #include "CiFPredicate.h"
+#include "CiFRuleRecord.h"
 #include "Kismet/GameplayStatics.h"
 
 void UCiFProspectiveMemory::init()
@@ -54,6 +56,10 @@ void UCiFProspectiveMemory::storeRuleRecord(const FRRMapKey& rrKey, const UCiFRu
 		arr.mRuleRecords.Add(const_cast<UCiFRuleRecord*>(rr));
 		mRuleRecordsMap.Add(rrKey, arr);
 	}
+	// todo - delete this
+	FString str;
+	rr->toDebugNLG(str);
+	UE_LOG(LogTemp, VeryVerbose, TEXT("Storing %s into %x"), *(str), GetTypeHash(rrKey));
 }
 
 FScore_t UCiFProspectiveMemory::getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType)
@@ -182,11 +188,12 @@ uint32 GetTypeHash(const FCacheKey& Key)
 
 uint32 GetTypeHash(const FRRMapKey& Key)
 {
-	return HashCombine(HashCombine(GetTypeHash(Key.sgName), GetTypeHash(Key.initiator)),
-	                   GetTypeHash(Key.responder));
+	return HashCombine(HashCombine(HashCombine(GetTypeHash(Key.sgName), GetTypeHash(Key.initiator)),
+								GetTypeHash(Key.responder)),
+						GetTypeHash(Key.other));
 }
 
 bool FRRMapKey::operator==(const FRRMapKey& Other) const
 {
-	return sgName == Other.sgName && initiator == Other.initiator && responder == Other.responder;
+	return sgName == Other.sgName && initiator == Other.initiator && responder == Other.responder && other == Other.other;
 }

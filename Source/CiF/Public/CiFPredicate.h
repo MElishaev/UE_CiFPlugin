@@ -360,6 +360,9 @@ public:
 	UPROPERTY()
 	FName mTertiary;
 
+	// this is the group number and used as part of a rule evaluation,
+	// for more complex rules where we want to do other operators than AND between all the predicates
+	int mGroup = -1;  
 
 	//TODO --	is this really the best way to implement this class? won't is be better just to
 	//			create an hierarchy of subclasses which will make this class less monolithic

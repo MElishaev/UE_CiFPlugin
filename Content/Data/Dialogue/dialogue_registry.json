@@ -1,0 +1,12 @@
+﻿{
+    "dialogue_files": [
+        {
+            "dialogue_id_prefix": "npc1_",
+            "file_path": "Content/Data/Dialogue/NPC/NPC1.json"
+        },
+        {
+            "dialogue_id_prefix": "quest1_",
+            "file_path": "Content/Data/Dialogue/Quests/Quest1.json"
+        }
+    ]
+}

@@ -3,27 +3,28 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CiFCharacter.h"
-#include "CiFEffect.h"
-#include "CiFSocialExchange.h"
-#include "CiFSocialNetwork.h"
+#include "Utilities.h"
 #include "UObject/Object.h"
 #include "CiFManager.generated.h"
 
-enum class EPredicateType : uint8;
-class UCiFRuleRecord;
-class UCiFPredicate;
-class UCiFEffect;
-class UCiFSocialExchangeContext;
-class UCiFRelationshipNetwork;
-class UCiFSocialNetwork;
-enum class ESocialNetworkType : uint8;
-class UCiFMicrotheory;
-class UCiFCulturalKnowledgeBase;
-class UCiFSocialFactsDataBase;
-class UCiFSocialExchange;
-class UCiFSocialExchangesLibrary;
+class UCiFCharacter;
+class UCiFGameObject;
 class UCiFCast;
+class UCiFCulturalKnowledgeBase;
+class UCiFEffect;
+class UCiFKnowledge;
+class UCiFItem;
+class UCiFMicrotheory;
+class UCiFPredicate;
+class UCiFRelationshipNetwork;
+class UCiFRuleRecord;
+class UCiFSocialExchange;
+class UCiFSocialExchangeContext;
+class UCiFSocialExchangesLibrary;
+class UCiFSocialFactsDataBase;
+class UCiFSocialNetwork;
+enum class EPredicateType : uint8;
+enum class ESocialNetworkType : uint8;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSocialNetworkUpdated, ESocialNetworkType, type);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRelationshipUpdated, ERelationshipType, type);
@@ -44,14 +45,16 @@ public:
 	/**
 	 * @param worldContextObject	world context for the ability to access the game
 	 *								instance and CiF subsystem in all of the classes inside CiF module
-	 *								see https://forums.unrealengine.com/t/how-to-get-the-current-world-from-a-blueprint/401898/3?u=dakrn1k3
+	 *								see https://forums.unrealengine.com/t/how-to-get-the-current-world-from-a-blueprint/401898/3
 	 *								for explanation about this meta parameter, but overall the caller of this init
 	 *								from inside the game sends itself (*this) as the world context object
 	 *								such that he is the one "knowing" about the world he is in
 	 */
-	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject", Category = "CiF"))
+	UFUNCTION(BlueprintCallable, meta = (WorldContext="WorldContextObject"), Category = "CiF")
 	void init(const UObject* worldContextObject);
 
+    bool isInitialized() const { return mbInitialized; }
+    
 	UPROPERTY(BlueprintAssignable, Category = "CiF")
 	FOnSocialNetworkUpdated OnSocialNetworkUpdated;
 	
@@ -112,8 +115,8 @@ public:
 	                                    UCiFGameObject* initiator,
 	                                    UCiFGameObject* responder,
 	                                    UCiFGameObject* other = nullptr,
-	                                    TArray<UCiFGameObject*> otherCast = {},
-	                                    TArray<UCiFGameObject*> levelCast = {},
+	                                    const TArray<UCiFGameObject*>& otherCast = {},
+	                                    const TArray<UCiFGameObject*>& levelCast = {},
 	                                    UCiFEffect* chosenEffect = nullptr);
 
 	FScore_t getResponderScore(UCiFSocialExchange* sg,
@@ -200,6 +203,7 @@ public:
 	UCiFSocialNetwork* getSocialNetworkByType(const ESocialNetworkType type) const;
 
 	UCiFMicrotheory* getMicrotheoryByName(const FName mtName) const;
+	UCiFSocialExchange* getSocialGameByName(const FName name) const;
 	
 	void getAllGameObjects(TArray<UCiFGameObject*>& outGameObjs) const;
 	void getAllGameObjectsNames(TArray<FName>& outObjNames) const;
@@ -238,7 +242,6 @@ private:
 	void loadCKB(const FString& filePath, const UObject* worldContextObject);
 	void loadSFDB(const FString& filePath, const UObject* worldContextObject);
 	void loadSocialNetworks(const FString& filePath, const UObject* worldContextObject);
-	void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
 	void loadQuestLib(const FString& filePath, const UObject* worldContextObject);
 	void loadTriggers(const FString& filePath, const UObject* worldContextObject);
 
@@ -275,10 +278,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "CiF")
 	UCiFRelationshipNetwork* mRelationshipNetworks;
 
-	/**
-	 * this will always hold the last other that the last responder used while deciding accept/reject
-	 * it should only be referenced immediately after play game
-	 */
-	UPROPERTY()
-	UCiFGameObject* mLastResponderOther;
+private:
+    bool mbInitialized = false;
 };

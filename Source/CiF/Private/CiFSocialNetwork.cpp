@@ -3,6 +3,7 @@
 
 #include "CiFSocialNetwork.h"
 
+#include "CiFGameObject.h"
 #include "Dom/JsonObject.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"

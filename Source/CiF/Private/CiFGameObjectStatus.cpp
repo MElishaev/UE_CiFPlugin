@@ -5,6 +5,7 @@
 #include "CiFGameObject.h"
 #include "CiFManager.h"
 #include "CiFSubsystem.h"
+#include "Utilities.h"
 
 TMap<EStatus, FStatusTypesArrayWrapper> UCiFGameObjectStatus::mStatusCategories = UCiFGameObjectStatus::initializeStatusCategoriesMap();
 
@@ -95,8 +96,7 @@ TMap<EStatus, FStatusTypesArrayWrapper> UCiFGameObjectStatus::initializeStatusCa
 
 FString UCiFGameObjectStatus::toString() const
 {
-	auto statusEnum = StaticEnum<EStatus>();
-	auto statusStr = statusEnum->GetValueAsString(mType);
+	auto statusStr = enumToStringNoPrefix(mType);
 
 	if (mBinary) {
 		statusStr.Append(" ").Append(mDirectedTowards.ToString());
