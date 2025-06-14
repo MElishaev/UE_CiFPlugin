@@ -336,6 +336,14 @@ private:
 	/* clears the member variables to default state */
 	void clear();
 
+    /**
+     * If the predicate is intent, we want to check it against all of the 
+     * intent predicates in the intent rule in the passed-in social game.
+     * If this predicate matches any predicate in any rule of the intent
+     * rule vector of the social game, we return true.
+     */
+    bool matchIntentToSEIntent(const UCiFSocialExchange* se) const;
+
 public:
 
 	UPROPERTY()

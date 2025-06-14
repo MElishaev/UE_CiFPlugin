@@ -281,7 +281,9 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
 		if (possibleOthers.Num() == 0) {
 			TArray<UCiFGameObject*> calculatedPossibleOthers;
 			socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
-			formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+		    if (!calculatedPossibleOthers.IsEmpty()) {
+		        formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+		    }
 		}
 		else {
 			formIntentThirdParty(socialExchange, initiator, responder, possibleOthers);

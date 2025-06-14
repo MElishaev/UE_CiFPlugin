@@ -45817,6 +45817,51 @@
             "InitiatorInfluenceRuleSet": [
                 {
                     "_weight": -99,
+                    "_name": "Rule to allow sexual orientation to influence only in case the intent is romantic",
+                    "_grouped": true,
+                    "_operator": "OR",
+                    "Predicate" : [
+                        {
+                            "_type": "NETWORK",
+                            "_networkType": "ROMANCE",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_comparator": "INCREASE",
+                            "_value": 0,
+                            "_negated": false,
+                            "_group": 1,
+                            "_name": "intent-network up: romance (initiator toward responder)",
+                            "_intent": true,
+                            "_intentType": "INCREASE_NET"
+                        },
+                        {
+                            "_type": "NETWORK",
+                            "_networkType": "ROMANCE",
+                            "_first": "responder",
+                            "_second": "initiator",
+                            "_comparator": "INCREASE",
+                            "_value": 0,
+                            "_negated": false,
+                            "_group": 2,
+                            "_name": "intent-network up: romance (initiator toward responder)",
+                            "_intent": true,
+                            "_intentType": "INCREASE_NET"
+                        },
+                        {
+                            "_type": "RELATIONSHIP",
+                            "_relationship": "DATING",
+                            "_first": "initiator",
+                            "_second": "responder",
+                            "_negated": false,
+                            "_group": 3,
+                            "_name": "intent-add relationship: initiator is dating with responder",
+                            "_intent": true,
+                            "_intentType": "START_RELATIONSHIP"
+                        }
+                    ]
+                },
+                {
+                    "_weight": 0,
                     "_name": "Initiator must be interested in the responder's gender",
                     "_grouped": true,
                     "_operator": "OR",
