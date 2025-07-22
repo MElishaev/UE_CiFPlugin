@@ -60,59 +60,9 @@ bool UCiFPredicate::evaluate(const UCiFGameObject* c1, const UCiFGameObject* c2,
 	if (mIsSFDB && mType != EPredicateType::SFDB_LABEL) {
 		return cifManager->mSFDB->isPredicateInHistory(this, c1, c2, c3);
 	}
-
-	/*
-	 * If the predicate is intent, we want to check it against all of the 
-	 * intent predicates in the intent rule in the passed-in social game.
-	 * If this predicate matches any predicate in any rule of the intent
-	 * rule vector of the social game, we return true.
-	 * 
-	 * Intents can only be networks and relationships.
-	 */
+    
 	if (mIsIntent) {
-		if (se->mIntents.Num() == 0) {
-			UE_LOG(LogTemp, Warning, TEXT("intent predicate evaluation: the social game context has no intent"));
-		}
-		else {
-			for (const auto rule : se->mIntents) {
-				for (const auto pred : rule->mPredicates) {
-					bool bMatch = false;
-					if (mType == EPredicateType::STATUS) {
-						bMatch = (pred->mStatusType == mStatusType) &&
-							(pred->mPrimary == mPrimary) &&
-							(pred->mSecondary == mSecondary) &&
-							(pred->mIsNegated == mIsNegated);
-					}
-					else if (mType == EPredicateType::NETWORK) {
-						bMatch = (pred->mNetworkType == mNetworkType) &&
-							(pred->mComparatorType == mComparatorType) &&
-							(pred->mPrimary == mPrimary) &&
-							(pred->mSecondary == mSecondary) &&
-							(pred->mIsNegated == mIsNegated);
-					}
-					else if (mType == EPredicateType::RELATIONSHIP) {
-						bMatch = (pred->mRelationshipType == mRelationshipType) &&
-							(pred->mPrimary == mPrimary) &&
-							(pred->mSecondary == mSecondary) &&
-							(pred->mIsNegated == mIsNegated);
-					}
-					else if (mType == EPredicateType::SFDB_LABEL) {
-						bMatch = (pred->mSFDBLabel == mSFDBLabel) &&
-							(pred->mPrimary == mPrimary) &&
-							(pred->mSecondary == mSecondary) &&
-							(pred->mIsNegated == mIsNegated);
-					}
-					if (bMatch) {
-						return true;
-					}
-				}
-			}
-		}
-		/* We either have no predicate match to the social exchange's intent rules 
-		 * or we are not a predicate type that can encompass intent. In
-		 * either case, return false.
-		 */
-		return false;
+		return matchIntentToSEIntent(se);
 	}
 
 	if (mIsNumTimesUniquelyTruePred) {
@@ -1441,6 +1391,53 @@ void UCiFPredicate::clear()
 	mNumTimesRoleSlot = ENumTimesRoleSlot::INVALID;
 	mWindowSize = 0;
 	mSFDBOrder = 0;
+}
+
+bool UCiFPredicate::matchIntentToSEIntent(const UCiFSocialExchange* se) const
+{
+    if (se->mIntents.Num() == 0) {
+        UE_LOG(LogTemp, Warning, TEXT("intent predicate evaluation: the social game context has no intent"));
+    }
+    else {
+        for (const auto rule : se->mIntents) {
+            for (const auto pred : rule->mPredicates) {
+                bool bMatch = false;
+                if (mType == EPredicateType::STATUS) {
+                    bMatch = (pred->mStatusType == mStatusType) &&
+                        (pred->mPrimary == mPrimary) &&
+                        (pred->mSecondary == mSecondary) &&
+                        (pred->mIsNegated == mIsNegated);
+                }
+                else if (mType == EPredicateType::NETWORK) {
+                    bMatch = (pred->mNetworkType == mNetworkType) &&
+                        (pred->mComparatorType == mComparatorType) &&
+                        (pred->mPrimary == mPrimary) &&
+                        (pred->mSecondary == mSecondary) &&
+                        (pred->mIsNegated == mIsNegated);
+                }
+                else if (mType == EPredicateType::RELATIONSHIP) {
+                    bMatch = (pred->mRelationshipType == mRelationshipType) &&
+                        (pred->mPrimary == mPrimary) &&
+                        (pred->mSecondary == mSecondary) &&
+                        (pred->mIsNegated == mIsNegated);
+                }
+                else if (mType == EPredicateType::SFDB_LABEL) {
+                    bMatch = (pred->mSFDBLabel == mSFDBLabel) &&
+                        (pred->mPrimary == mPrimary) &&
+                        (pred->mSecondary == mSecondary) &&
+                        (pred->mIsNegated == mIsNegated);
+                }
+                if (bMatch) {
+                    return true;
+                }
+            }
+        }
+    }
+    /* We either have no predicate match to the social exchange's intent rules 
+     * or we are not a predicate type that can encompass intent. In
+     * either case, return false.
+     */
+    return false;
 }
 
 UCiFPredicate* UCiFPredicate::loadFromJson(TSharedPtr<FJsonObject> predJson, const UObject* worldContextObject)

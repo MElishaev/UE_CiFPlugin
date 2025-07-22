@@ -127,7 +127,7 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 	}
 
 	if (mOtherType != ECiFGameObjectType::CHARACTER) {
-		UE_LOG(LogTemp, Verbose, TEXT("Social games with other type different than character isn't supported yet"));
+		UE_LOG(LogTemp, Warning, TEXT("Social games with other type different than character isn't supported yet"));
 		return false;
 	}
 

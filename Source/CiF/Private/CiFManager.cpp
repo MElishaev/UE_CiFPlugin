@@ -281,7 +281,9 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
 		if (possibleOthers.Num() == 0) {
 			TArray<UCiFGameObject*> calculatedPossibleOthers;
 			socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
-			formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+		    if (!calculatedPossibleOthers.IsEmpty()) {
+		        formIntentThirdParty(socialExchange, initiator, responder, calculatedPossibleOthers);
+		    }
 		}
 		else {
 			formIntentThirdParty(socialExchange, initiator, responder, possibleOthers);
@@ -797,9 +799,9 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
 	 * now we will choose which one of them to use based on request by the input parameters
 	 */
 
-	const float totalScore = (mode == "reject" && forRole == "responder") ? FMath::Abs(totalNegScore) : totalPosScore;
-	const auto& relevantRR = (mode == "reject" && forRole == "responder") ? relevantNegRR : relevantPosRR;
-	if (mode == "reject" && forRole == "responder") {
+	const float totalScore = ((mode == "reject" || mode == "negative") && forRole == "responder") ? FMath::Abs(totalNegScore) : totalPosScore;
+	const auto& relevantRR = ((mode == "reject" || mode == "negative") && forRole == "responder") ? relevantNegRR : relevantPosRR;
+	if ((mode == "reject" || mode == "negative") && forRole == "responder") {
 		for (const auto ruleRecord : relevantRR) {
 			auto ir = ruleRecord->mInfluenceRule;
 			ir->mWeight = FMath::Abs(ir->mWeight);
