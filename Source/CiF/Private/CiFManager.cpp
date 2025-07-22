@@ -24,6 +24,7 @@
 #include "CiFTrigger.h"
 #include "CiFTriggerContext.h"
 #include "ReadWriteFiles.h"
+#include "Subsystems/MKUI_LoadingScreenSubsystem.h"
 
 UCiFManager::UCiFManager()
 {
@@ -78,6 +79,11 @@ void UCiFManager::init(const UObject* worldContextObject)
 
 	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
     mbInitialized = true;
+
+    auto loadingScreenSubsystem = worldContextObject->GetWorld()->GetGameInstance()->GetSubsystem<UMKUI_LoadingScreenSubsystem>();
+    if (loadingScreenSubsystem) {
+        loadingScreenSubsystem->notifyStageComplete("cif");
+    }
 }
 
 void UCiFManager::loadSocialGameLib(const FString& filePath, const UObject* worldContextObject)
