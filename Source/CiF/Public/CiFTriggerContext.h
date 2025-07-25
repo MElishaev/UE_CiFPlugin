@@ -132,7 +132,7 @@ public:
 	FName mResponderName; // name of the responder of this social exchange
 	FName mOtherName;         // name of the other of this social exchange
 
-	IdType mId;
+	ID_t mId;
 	
 	UPROPERTY()
 	UCiFRule* mStatusTimeoutChange; // is this a trigger that occurs from a status ending?

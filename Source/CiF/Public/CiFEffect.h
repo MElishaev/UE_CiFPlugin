@@ -93,9 +93,9 @@ public:
 	static UCiFEffect* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 	
 public:
-	IdType mId;
-	IdType mInstantiationId; // ID of the instantiation this effect uses for performance realization
-	IdType mRejectId; // the unique identifier of this effect's reject
+	ID_t mId;
+	ID_t mInstantiationId; // ID of the instantiation this effect uses for performance realization
+	ID_t mRejectId; // the unique identifier of this effect's reject
 	int8 mSalienceScore; // Approximate measure of how "awesome" we think this effect will be
 	UPROPERTY()
 	UCiFRule* mCondition; // condition for if this effect can be happen

@@ -15,6 +15,7 @@
 #include "Demo/CifNPC.h"
 #include "Narrative/CifNarrativeManager.h"
 #include "CiFSocialExchange.h"
+#include <GLSMacroses.h>
 
 void UDemoCifImplementation::init()
 {
@@ -32,7 +33,7 @@ UCiFCharacter* UDemoCifImplementation::chooseNPCInitiatorForSocialGame()
 		mCharacterIndexInCast = (mCharacterIndexInCast + 1) % numOfChars;
 		initiator = mCifManager->mCast->mCharacters[mCharacterIndexInCast];
 	}
-	UE_LOG(LogTemp, Log, TEXT("Chosen initiator: %s"), *(initiator->mObjectName.ToString()));
+	GLS_LOG(LogTemp, Log, TEXT("Chosen initiator: %s"), *(initiator->mObjectName.ToString()));
 	return initiator;
 }
 
@@ -50,7 +51,7 @@ FGameScore UDemoCifImplementation::selectSocialGameFromList(const TArray<FGameSc
 	for (int i = 0; i < sgs.Num(); i++) {
 		currentPos += sgs[i].mScore;
 		if (selectedIndex < currentPos) {
-			UE_LOG(LogTemp, Log, TEXT("Selected social game: %s (r: %s, o: %s)"),
+			GLS_LOG(LogTemp, Log, TEXT("Selected social game: %s (r: %s, o: %s)"),
 				*(sgs[i].mName.ToString()),
 				*(sgs[i].mResponder.ToString()),
 				*(sgs[i].mOther.ToString()));
@@ -104,7 +105,7 @@ void UDemoCifImplementation::prepareSocialGameOptionsWithCharacter(TArray<FSocia
 		}
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("No social moves found"));
+		GLS_LOG(LogTemp, Warning, TEXT("No social moves found"));
 	}
 }
 
@@ -112,7 +113,7 @@ bool UDemoCifImplementation::registerAsGameObject(const FName objectName, UCiFGa
 {
 	gameObjectCompRef = mCifManager->getGameObjectByName(objectName);
 	if (!gameObjectCompRef) {
-		UE_LOG(LogTemp, Error, TEXT("Couldn't find game object with name %s"), *objectName.ToString())
+		GLS_LOG(LogTemp, Error, TEXT("Couldn't find game object with name %s"), *objectName.ToString())
 		return false;
 	}
 	return true;
@@ -126,22 +127,20 @@ void UDemoCifImplementation::offerOthers(TArray<UCiFGameObject*>& outOthers,
 {
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 	UCiFGameObject* responderComp = mCifManager->getGameObjectByName(responder);
-	if (sg->mIsRequiresOther) {
+	if (sg->isOtherRequired()) {
 		// Find all the possible others (TODO: WILL NEED TO BE UPDATED WITH SEEN/KNOW)
 		sg->getPossibleOthers(outOthers, initiator->mCifCharacterComp->mObjectName, responder);
 	}
 	else {
-		// call moveChosen if no others are required
-		UE_LOG(LogTemp, Log, TEXT("No others are required for this interaction"));
-		moveChosen(sgName, initiator, responderComp, isNPC);
+		GLS_LOG(LogTemp, Log, TEXT("No others are required for this interaction"));
 	}
 }
 
-void UDemoCifImplementation::otherChosen(ACifNPC* initiator,
-                                         UCiFGameObject* responder,
-                                         UCiFGameObject* other,
-                                         const FName sgName,
-                                         const bool isNPC)
+UCiFSFDBContext* UDemoCifImplementation::otherChosen(ACifNPC* initiator,
+                                                     UCiFGameObject* responder,
+                                                     UCiFGameObject* other,
+                                                     const FName sgName,
+                                                     const bool isNPC)
 {
 	// Passes the other the player selected to moveChosen
 	// Does this move need to select an effect when handling people? (Giving Gift)
@@ -149,7 +148,7 @@ void UDemoCifImplementation::otherChosen(ACifNPC* initiator,
 	// offerEffects(sgName, initiator, responder, other);
 	// }
 	// else {
-	moveChosen(sgName, initiator, responder, isNPC, other);
+	return handleChosenMove(sgName, initiator, responder, isNPC, other);
 	// }
 }
 
@@ -175,11 +174,11 @@ void UDemoCifImplementation::offerEffects(TArray<UCiFEffect*>& outEffects,
 	}
 }
 
-void UDemoCifImplementation::itemMoveChosen(const FName sgName,
-                                            ACifNPC* initiator,
-                                            UCiFGameObject* responder,
-                                            const bool isNPCPlaying,
-                                            UCiFEffect* effect)
+UCiFSFDBContext* UDemoCifImplementation::itemMoveChosen(const FName sgName,
+                                                        ACifNPC* initiator,
+                                                        UCiFGameObject* responder,
+                                                        const bool isNPCPlaying,
+                                                        UCiFEffect* effect)
 {
 	FString resultString; // todo-this is in mismanor because their game is based on text, and they attach the events to the pressed text, which is not my case
 
@@ -299,31 +298,34 @@ void UDemoCifImplementation::itemMoveChosen(const FName sgName,
 	// no longer waiting for player input to finish the social move todo - im leaving it here so i know that after this, the move is finished and game can continue
 	// gameWaitingForInput = false;
 
-	UE_LOG(LogTemp, Log, TEXT("item move: %s"), *resultString);
+	GLS_LOG(LogTemp, Log, TEXT("item move: %s"), *resultString);
+    return context;
 }
 
-void UDemoCifImplementation::moveChosen(const FName sgName,
-                                        ACifNPC* initiator,
-                                        UCiFGameObject* responder,
-                                        bool isNPC,
-                                        UCiFGameObject* other,
-                                        UCiFEffect* effect)
+UCiFSFDBContext* UDemoCifImplementation::handleChosenMove(const FName sgName,
+                                                          ACifNPC* initiator,
+                                                          UCiFGameObject* responder,
+                                                          bool isNPC,
+                                                          UCiFGameObject* other,
+                                                          UCiFEffect* effect)
 {
 	checkf(initiator, TEXT("Initiator must be != nullptr"));
-	MYLOG(LogTemp, Log, TEXT("move chosen: %s (%s, %s, %s)"), *(sgName.ToString()), *(initiator->mCifCharacterComp->mObjectName.ToString()),
+	GLS_LOG(LogTemp, Log, TEXT("move chosen: %s (%s, %s, %s)"), *(sgName.ToString()), *(initiator->mCifCharacterComp->mObjectName.ToString()),
 		*(responder->mObjectName.ToString()), other ? *(other->mObjectName.ToString()) : *FString("None"));
 	const auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 
 	// track what move the player chosen
 	initiator->addMove(sgName);
+
+    // prepare others array and all cast array
 	TArray<UCiFGameObject*> possibleOthers = {};
 	if (other) {
 		possibleOthers.Add(other);
 	}
-
 	TArray<UCiFGameObject*> allGameObjects;
 	mCifManager->getAllGameObjects(allGameObjects);
-	// todo - if other is received in this method, why not send it to playGame?
+    
+	// todo - if other is received in this method, why not send it to playGame? (it is nullptr instead)
 	UCiFSocialExchangeContext* sgContext = mCifManager->playGame(sg,
 	                                                             initiator->mCifCharacterComp,
 	                                                             responder,
@@ -332,37 +334,42 @@ void UDemoCifImplementation::moveChosen(const FName sgName,
 	                                                             allGameObjects,
 	                                                             effect);
 	
-	// skipped resetting urges - no idea what it is for now
-
-	// skipped realizing dialogue - not sure yet how the realization of SG will be present
-
-	// skipped maintaining plot point related stuff for now
+	// TODO: skipped resetting urges - no idea what it is for now
+    //  but by the name, i can assume that this can be something like ticking variable that increases over time
+    //  or decreases based on if this social game fulfilled the urge, and this will influence the weighting of the
+    //  next chosen SG for this initiator
+    
+	// TODO: skipped maintaining plot point related stuff for now
 
 	mCifManager->changeSocialState(sgContext);
 	handleItemMoveEffects(sgContext);
-	
+
+    // for debugging or could be for in-game log of what happened and why
 	FString resultStr;
 	generateResultString(sgContext, isNPC, resultStr);
-	MYLOG(LogTemp, Log, TEXT("move result: %s"), *resultStr);
+	GLS_LOG(LogTemp, Log, TEXT("move result: %s"), *resultStr);
+
+    return sgContext;
 }
 
-void UDemoCifImplementation::effectChosen(const FName sgName,
-                                          ACifNPC* initiator,
-                                          UCiFGameObject* responder,
-                                          const bool isNPC,
-                                          UCiFEffect* effect,
-                                          UCiFGameObject* other)
+UCiFSFDBContext* UDemoCifImplementation::effectChosen(const FName sgName,
+                                                      ACifNPC* initiator,
+                                                      UCiFGameObject* responder,
+                                                      const bool isNPC,
+                                                      UCiFEffect* effect,
+                                                      UCiFGameObject* other)
 {
 	auto sg = mCifManager->mSocialExchangesLib->getSocialExchangeByName(sgName);
 
 	// Passes the other and effect the player selected to moveChosen()
 	if (sg->mResponderType == ECiFGameObjectType::CHARACTER) {
-		moveChosen(sgName, initiator, responder, isNPC, other, effect);
+		return handleChosenMove(sgName, initiator, responder, isNPC, other, effect);
 	}
 	else if (sg->mResponderType == ECiFGameObjectType::ITEM) {
-		itemMoveChosen(sgName, initiator, responder, isNPC, effect);
+		return itemMoveChosen(sgName, initiator, responder, isNPC, effect);
 	}
-	// TODO: what this method should return?
+    checkf(false, TEXT("Shouldn't get here. Responder should be a character or an item (couldn't be knowledge)"));
+    return nullptr;
 }
 
 void UDemoCifImplementation::handleItemMoveEffects(const UCiFSocialExchangeContext* context)

@@ -121,7 +121,7 @@ public:
 
 	FName mName;
 	FString mDescription; // author description of the rule
-	IdType mID; // the unique identifier of this rule - TODO not sure this is needed
+	ID_t mID; // the unique identifier of this rule - TODO not sure this is needed
 
 	// true if this rule requires more complex evaluation.
 	// for example, if initiator is male AND responder is female OR init is female AND res is male.

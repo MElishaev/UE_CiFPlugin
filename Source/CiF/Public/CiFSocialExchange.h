@@ -63,8 +63,8 @@ public:
 	void addInstantiation(UCifInstantiation* instantiation);
 
 	/* returns pointer to the effect or nullptr if doesn't exist */
-	UCiFEffect* getEffectById(const uint32 id);
-	UCifInstantiation* getInstantiationById(const uint32 id);
+	UCiFEffect* getEffectById(const ID_t id) const;
+	UCifInstantiation* getInstantiationById(const ID_t id) const;
 
 	/**
 	 * Returns the initiator's influence rule set score with respect to the
@@ -155,21 +155,7 @@ public:
 	                  UCiFGameObject* other = nullptr,
 	                  UCiFSocialExchange* se = nullptr);
 	
-	/**
-	 * Determines if we need to find a third character for the intent
-	 * formation process.
-	 * @return True if a third character is needed, false if not.
-	 */
-	bool isThirdNeededForIntentFormation();
-
-	/** todo - don't understand the different between this and @isThirdNeededForIntentFormation
-	 * Determines if we need to find a third character for social game 
-	 * play.
-	 * @return True if a third character is needed, false if not.
-	 */
-	bool isThirdForSocialExchangePlay();
-	
-	void updateRequiresOther();
+    FORCEINLINE bool isOtherRequired() const { return mIsRequiresOther; }
 	
 	/* this method is more appropriate for mismanor than prom week because in mismanor you have items which
 	 * are also game objects, and because of that you need to check that the other is viable for social interactions
@@ -187,10 +173,13 @@ private:
 	/* Returns true if the current other type is appropriate for the social move.
 	 * Makes sure that item moves aren't being used with characters etc. */
 	bool checkOtherType(const UCiFGameObject* other) const;
-	
+
+    void updateRequiresOther();
+
+    bool mIsRequiresOther; // true if other is needed in one of the preconditions / effects 
+
 public:
 	FName mName;
-	bool mIsRequiresOther;
 	ECiFGameObjectType mOtherType;
 	ECiFGameObjectType mResponderType;
 	

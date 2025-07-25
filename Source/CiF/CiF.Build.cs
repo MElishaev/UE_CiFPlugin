@@ -26,6 +26,7 @@ public class CiF : ModuleRules
 			new string[]
 			{
 				"Core",
+				"GLS"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

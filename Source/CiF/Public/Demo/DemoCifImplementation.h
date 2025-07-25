@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CiFEffect.h"
+#include "CiFSFDBContext.h"
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
@@ -126,7 +127,7 @@ public:
 	 * If it is a move of type USE ITEM or GIVE ITEM etc, it calls offerEffects instead
 	 */
 	UFUNCTION(BlueprintCallable, Category = "CiF")
-	void otherChosen(ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* other, const FName sgName, const bool isNPC);
+    UCiFSFDBContext* otherChosen(ACifNPC* initiator, UCiFGameObject* responder, UCiFGameObject* other, const FName sgName, const bool isNPC);
 
 	/**
 	 * Should be called when the move requires choosing an effect (Give Gift, Give Romantic Gift, Use)
@@ -140,26 +141,29 @@ public:
 	                  UCiFGameObject* responder,
 	                  UCiFGameObject* otherChosen = nullptr);
 
-	void itemMoveChosen(const FName sgName, ACifNPC* initiator, UCiFGameObject* responder, const bool isNPCPlaying, UCiFEffect* effect);
+    UCiFSFDBContext* itemMoveChosen(const FName sgName,
+                                    ACifNPC* initiator,
+                                    UCiFGameObject* responder,
+                                    const bool isNPCPlaying,
+                                    UCiFEffect* effect);
 
-	// TODO - what this function returns?
 	UFUNCTION(BlueprintCallable, Category = "CiF")
-	void moveChosen(const FName sgName,
-	                ACifNPC* initiator,
-	                UCiFGameObject* responder,
-	                bool isNPC,
-	                UCiFGameObject* other = nullptr,
-	                UCiFEffect* effect = nullptr);
+    UCiFSFDBContext* handleChosenMove(const FName sgName,
+                                      ACifNPC* initiator,
+                                      UCiFGameObject* responder,
+                                      bool isNPC,
+                                      UCiFGameObject* other = nullptr,
+                                      UCiFEffect* effect = nullptr);
 
 	// Only should be called after offerEffects()
 	// e is the effect.referenceAsNaturalLanguage
 	UFUNCTION(BlueprintCallable, Category = "CiF")
-	void effectChosen(const FName sgName,
-	                  ACifNPC* initiator,
-	                  UCiFGameObject* responder,
-	                  const bool isNPC,
-	                  UCiFEffect* effect,
-	                  UCiFGameObject* other);
+    UCiFSFDBContext* effectChosen(const FName sgName,
+                                  ACifNPC* initiator,
+                                  UCiFGameObject* responder,
+                                  const bool isNPC,
+                                  UCiFEffect* effect,
+                                  UCiFGameObject* other);
 
 	/**
 	 * Should be called in any situation where social moves including items will be played
