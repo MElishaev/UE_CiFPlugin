@@ -25,6 +25,7 @@ class UCiFSocialFactsDataBase;
 class UCiFSocialNetwork;
 enum class EPredicateType : uint8;
 enum class ESocialNetworkType : uint8;
+enum class ECiFGameObjectType : uint8;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSocialNetworkUpdated, ESocialNetworkType, type);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRelationshipUpdated, ERelationshipType, type);

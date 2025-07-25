@@ -56,5 +56,5 @@ public:
 	 * This is used to help know when we are dealing with an actual authored trigger, or a trigger context which has
 	 * no condition, and is the result of the status timing out.
 	 */
-	static IdType mStatusTimeoutTriggerID;
+	static ID_t mStatusTimeoutTriggerID;
 };

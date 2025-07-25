@@ -27,7 +27,7 @@ enum class ESFDBLabelType : uint8;
  * </SFDB>
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CIF_API UCiFSocialExchangeContext : public UCiFSFDBContext
 {
 	GENERATED_BODY()
@@ -92,7 +92,8 @@ public:
 	int8 mResponderScore; // score of responder IRS
 	bool mIsBackstory;
 	FSFDBLabel mSFDBLabel; // the SFDB label for this context entry
-	IdType mEffectId; // effect ID that is the result of this social exchange
-	FName mPerformanceRealization; // this describes what happened in this social game in an NLG
+	ID_t mEffectId; // effect ID that is the result of this social exchange
+    UPROPERTY(BlueprintReadOnly, Category="CiF")
+	FText mPerformanceRealization; // this describes what happened in this social game in an NLG - this could be taken from the instantiation descriptions
 	TArray<FSFDBLabel> mSFDBLabels; // the SFDB labels associated with this context entry 
 };

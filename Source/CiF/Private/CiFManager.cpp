@@ -3,6 +3,8 @@
 
 #include "CiFManager.h"
 
+#include <GLSMacroses.h>
+
 #include "Misc/Paths.h"
 #include "CiFCast.h"
 #include "CiFCharacter.h"
@@ -42,42 +44,42 @@ void UCiFManager::init(const UObject* worldContextObject)
 	// for now i'll put it here
 
 	const FString sgLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialGameLib.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading social games from %s"), *sgLibPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading social games from %s"), *sgLibPath);
 	loadSocialGameLib(sgLibPath, worldContextObject);
 
 	const FString mtLibPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/microtheories.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading microtheories from %s"), *mtLibPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading microtheories from %s"), *mtLibPath);
 	loadMicrotheories(mtLibPath, worldContextObject);
 
 	const FString castPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/cast.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading cast from %s"), *castPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading cast from %s"), *castPath);
 	loadCast(castPath, worldContextObject);
 
 	const FString itemsPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/items.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading items from %s"), *itemsPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading items from %s"), *itemsPath);
 	loadItemList(itemsPath, worldContextObject);
 
 	const FString knowledgePath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/knowledgeList.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading knowledge list from %s"), *knowledgePath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading knowledge list from %s"), *knowledgePath);
 	loadKnowledgeList(knowledgePath, worldContextObject);
 
 	const FString sfdbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/sfdb.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading SFDB from %s"), *sfdbPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading SFDB from %s"), *sfdbPath);
 	loadSFDB(sfdbPath, worldContextObject);
 
 	const FString triggersPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/triggers.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading triggers from %s"), *triggersPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading triggers from %s"), *triggersPath);
 	loadTriggers(triggersPath, worldContextObject);
 
 	const FString socialNetworksPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/socialNetworks.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading social networks from %s"), *socialNetworksPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading social networks from %s"), *socialNetworksPath);
 	loadSocialNetworks(socialNetworksPath, worldContextObject);
 
 	const FString ckbPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/ckb.json"));
-	UE_LOG(LogTemp, Log, TEXT("Reading CKB from %s"), *ckbPath);
+	GLS_LOG(LogTemp, Log, TEXT("Reading CKB from %s"), *ckbPath);
 	loadCKB(ckbPath, worldContextObject);
 
-	UE_LOG(LogTemp, Log, TEXT("Finished loading all"));
+	GLS_LOG(LogTemp, Log, TEXT("Finished loading all"));
     mbInitialized = true;
 
     auto loadingScreenSubsystem = worldContextObject->GetWorld()->GetGameInstance()->GetSubsystem<UMKUI_LoadingScreenSubsystem>();
@@ -184,7 +186,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 			mSFDB->mContexts.Add(sgc);
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
+			GLS_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
 		}
 	}
 
@@ -196,7 +198,7 @@ void UCiFManager::loadSFDB(const FString& filePath, const UObject* worldContextO
 	// 		mSFDB->mContexts.Add(bsc);
 	// 	}
 	// 	else {
-	// 		UE_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
+	// 		GLS_LOG(LogTemp, Warning, TEXT("SocialGmaeContext failed to load from file"));
 	// 	}
 	// }
 
@@ -241,7 +243,7 @@ void UCiFManager::loadTriggers(const FString& filePath, const UObject* worldCont
 			mSFDB->mTriggers.Add(t);
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("Trigger failed to load from file"));
+			GLS_LOG(LogTemp, Warning, TEXT("Trigger failed to load from file"));
 		}
 	}
 }
@@ -270,10 +272,10 @@ void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
                                            UCiFGameObject* responder,
                                            const TArray<UCiFGameObject*>& possibleOthers)
 {
-	UE_LOG(LogTemp, Verbose, TEXT("Forming intent for %s->%s"),
+	GLS_LOG(LogTemp, Verbose, TEXT("Forming intent for %s->%s"),
 		*(initiator->mObjectName.ToString()), *(responder->mObjectName.ToString()));
 	for (auto [name, se] : mSocialExchangesLib->mSocialExchanges) {
-		UE_LOG(LogTemp, Verbose, TEXT("Forming intent for %s"), *(name.ToString()));
+		GLS_LOG(LogTemp, Verbose, TEXT("Forming intent for %s"), *(name.ToString()));
 		formIntentForSpecificSocialExchange(se, initiator, responder, possibleOthers);
 	}
 }
@@ -283,7 +285,7 @@ void UCiFManager::formIntentForSpecificSocialExchange(UCiFSocialExchange* social
                                                       UCiFGameObject* responder,
                                                       const TArray<UCiFGameObject*>& possibleOthers)
 {
-	if (socialExchange->isThirdNeededForIntentFormation()) {
+	if (socialExchange->isOtherRequired()) {
 		if (possibleOthers.Num() == 0) {
 			TArray<UCiFGameObject*> calculatedPossibleOthers;
 			socialExchange->getPossibleOthers(calculatedPossibleOthers, initiator->mObjectName, responder->mObjectName);
@@ -316,7 +318,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 		// score the SG and if requires other, fills in the other that results in the best score
 		score = socialExchange->scoreSocialExchange(initiator, responder, bestOther, possibleOthers);
 		if (bestOther) {
-			UE_LOG(LogTemp, Verbose, TEXT("Social game requires other and other was chosen: %s"), *(bestOther->mObjectName.ToString()));
+			GLS_LOG(LogTemp, Verbose, TEXT("Social game requires other and other was chosen: %s"), *(bestOther->mObjectName.ToString()));
 		}
 
 		// checks if already cached MTs for the current SG intent (some social exchanges has the same intent, e.g. flirt / give romantic gift)
@@ -326,11 +328,11 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 			const auto mtsScore = scoreAllMicrotheoriesForType(socialExchange, initiator, responder, possibleOthers);
 			initiator->mProspectiveMemory->cacheIntentScore(responder, extendedIntentType, mtsScore);
 			score += mtsScore;
-			UE_LOG(LogTemp, VeryVerbose, TEXT("Microtheories contributed %d"), mtsScore.val);
+			GLS_LOG(LogTemp, VeryVerbose, TEXT("Microtheories contributed %d"), mtsScore.val);
 		}
 		else {
 			score += *(initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType));
-			UE_LOG(LogTemp, VeryVerbose, TEXT("Cached microtheories contribution %d"),
+			GLS_LOG(LogTemp, VeryVerbose, TEXT("Cached microtheories contribution %d"),
 				(*(initiator->mProspectiveMemory->mIntentScoreCache[responder->mNetworkId].Find(extendedIntentType))).val);
 		}
 	}
@@ -359,7 +361,7 @@ void UCiFManager::formIntentThirdParty(UCiFSocialExchange* socialExchange,
 			rule->toDebugNLG(localRuleStr);
 			rulesStr += localRuleStr + "\n";
 		}
-		UE_LOG(LogTemp, Verbose, TEXT("%s"), *rulesStr);
+		GLS_LOG(LogTemp, Verbose, TEXT("%s"), *rulesStr);
 	}
 }
 
@@ -393,7 +395,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	other = nullptr;
 
 	if (levelCast.IsEmpty()) {
-		UE_LOG(LogTemp, Warning, TEXT("Level cast is empty, this is not allowed - but why?"));
+		GLS_LOG(LogTemp, Warning, TEXT("Level cast is empty, this is not allowed - but why?"));
 	}
 
 	TArray<UCiFGameObject*> possibleOthers = otherCast;
@@ -402,7 +404,7 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	}
 
 	const auto responderScore = getResponderScore(sg, initiator, responder, possibleOthers);
-	MYLOG(LogTemp, Warning, TEXT("Responder score %d"), responderScore.val);
+	GLS_LOG(LogTemp, Warning, TEXT("Responder score %d"), responderScore.val);
 
 	const bool isAcceptGameIntent = (responderScore >= 0);
 
@@ -446,12 +448,17 @@ UCiFSocialExchangeContext* UCiFManager::playGame(UCiFSocialExchange* sg,
 	}
 
 	if (!mostSalientEffect) {
-		UE_LOG(LogTemp, Error, TEXT("This shouldn't happen. Didn't find effect for a social game, meaning it is meaningless SG"));
+		GLS_LOG(LogTemp, Error, TEXT("This shouldn't happen. Didn't find effect for a social game, meaning it is meaningless SG"));
 		return nullptr;
 	}
+    GLS_LOG(LogTemp,
+            Log,
+            TEXT("Effect with ID %d and other %s were chosen"),
+            mostSalientEffect->mId,
+            mostSalientOther ? *mostSalientOther->mObjectName.ToString() : *FString());
 
 	// the other to use when all cases of other being passed in a third character being needed when one is not provided
-	UCiFGameObject* trueOther = (!other && sg->isThirdForSocialExchangePlay()) ? mostSalientOther : other;
+	UCiFGameObject* trueOther = (!other && sg->isOtherRequired()) ? mostSalientOther : other;
 
 	/* Preparing social game context for output */
 	const auto socialGameContext = createSgContext(sg, initiator, responder, trueOther, mostSalientEffect, responderScore);
@@ -514,7 +521,7 @@ void UCiFManager::getSalientOtherAndEffect(UCiFGameObject*& outOther,
 		// todo - why not searching salient rejection effects?
 		if (effect->mIsAccept == isSgAccepted) {
 			// if its effect of social move accepted
-			if (sg->mIsRequiresOther) {
+			if (sg->isOtherRequired()) {
 				for (const auto o : possibleOthers) {
 					if ((o->mObjectName != initiator->mObjectName) && (o->mObjectName != responder->mObjectName)) {
 						bool isCastMemberPresentInArea = false;
@@ -584,7 +591,7 @@ void UCiFManager::getAllSalientEffects(TArray<UCiFEffect*>& outEffects,
 	// find all valid effects, make sure to go through all others
 	for (const auto e : sg->mEffects) {
 		if (e->mIsAccept == isAccepted) {
-			if (sg->mIsRequiresOther) {
+			if (sg->isOtherRequired()) {
 				for (const auto c : possibleOthers) {
 					bool castMemberPresent = false;
 					if ((c->mObjectName != initiator->mObjectName) && (c->mObjectName == responder->mObjectName)) {
@@ -630,7 +637,7 @@ void UCiFManager::changeSocialState(UCiFSocialExchangeContext* sgContext, TArray
 	const auto initiator = getGameObjectByName(sgContext->mInitiatorName);
 	const auto responder = getGameObjectByName(sgContext->mResponderName);
 	if (!sg) {
-		UE_LOG(LogTemp, Error, TEXT("No social game '%s' found"), *(sgContext->mGameName.ToString()));
+		GLS_LOG(LogTemp, Error, TEXT("No social game '%s' found"), *(sgContext->mGameName.ToString()));
 		return;
 	}
 
@@ -718,12 +725,12 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
                                                            const FName mode) const
 {
 	if (initiator->mGameObjectType != ECiFGameObjectType::CHARACTER || responder->mGameObjectType != ECiFGameObjectType::CHARACTER) {
-		UE_LOG(LogTemp, Error, TEXT("Doesn't make sense that non the initiator neither the responder are characters in the SG"));
+		GLS_LOG(LogTemp, Error, TEXT("Doesn't make sense that non the initiator neither the responder are characters in the SG"));
 		return {};
 	}
 
 	if (forRole == "initiator" && (mode == "reject" || mode == "negative")) {
-		UE_LOG(LogTemp, Warning, TEXT("We are not interested/should not reach here for a social exchange that the initiator rejected"));
+		GLS_LOG(LogTemp, Warning, TEXT("We are not interested/should not reach here for a social exchange that the initiator rejected"));
 		return {};
 	}
 
@@ -748,7 +755,7 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
 		const auto key = FRRMapKey(sg->mName, initiator->mObjectName, responder->mObjectName, other ? other->mObjectName : NAME_None);
 		const auto ruleRecordsWrapper = role->mProspectiveMemory->mRuleRecordsMap.Find(key);
 		if (!ruleRecordsWrapper) {
-			UE_LOG(LogTemp, Warning, TEXT("No rule records were found when looking for relevant RRs of %s for this SG"),
+			GLS_LOG(LogTemp, Warning, TEXT("No rule records were found when looking for relevant RRs of %s for this SG"),
 				*(role->mObjectName.ToString()));
 			return {};
 		}
@@ -772,7 +779,7 @@ TArray<UCiFRuleRecord*> UCiFManager::getPredicateRelevance(const UCiFSocialExcha
 					// that holds the 
 					const auto rrIntentIndex = rr->mInfluenceRule->findIntentIndex();
 					if (rrIntentIndex < 0) {
-						UE_LOG(LogTemp, Error, TEXT("Microtheory %s has a rule record without an intent"), *(rr->mName.ToString()));
+						GLS_LOG(LogTemp, Error, TEXT("Microtheory %s has a rule record without an intent"), *(rr->mName.ToString()));
 					}
 					else {
 						const auto rrIntentType = rr->mInfluenceRule->mPredicates[rrIntentIndex]->getExtendedIntentType();
@@ -925,7 +932,7 @@ int8 UCiFManager::getNetworkWeightByType(const ESocialNetworkType netType, const
 		return (*net)->getWeight(id1, id2);
 	}
 
-	UE_LOG(LogTemp, Error, TEXT("Couldn't find network of type %d"), netType);
+	GLS_LOG(LogTemp, Error, TEXT("Couldn't find network of type %d"), netType);
 	return 0;
 }
 
@@ -963,6 +970,10 @@ UCiFSocialExchangeContext* UCiFManager::createSgContext(const UCiFSocialExchange
 	sgContext->mEffectId = chosenEffect->mId;
 	sgContext->mInitiatorName = initiator->mObjectName;
 	sgContext->mResponderName = responder->mObjectName;
+
+    if (const auto instantiationOfEffectId = sg->getInstantiationById(chosenEffect->mInstantiationId)) {
+        sgContext->mPerformanceRealization = instantiationOfEffectId->getmDescription(initiator, responder, other);
+    }
 
 	if (chosenEffect->hasSFDBLabel()) {
 		for (const auto p : chosenEffect->mChange->mPredicates) {

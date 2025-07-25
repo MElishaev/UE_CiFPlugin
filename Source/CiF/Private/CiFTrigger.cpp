@@ -6,7 +6,7 @@
 #include "CiFRule.h"
 #include "CiFTriggerContext.h"
 
-IdType UCiFTrigger::mStatusTimeoutTriggerID = -1;
+ID_t UCiFTrigger::mStatusTimeoutTriggerID = -1;
 
 UCiFTriggerContext* UCiFTrigger::makeTriggerContext(const int32 time, UCiFGameObject* x, UCiFGameObject* y, UCiFGameObject* z) const
 {

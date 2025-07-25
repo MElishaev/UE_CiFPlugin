@@ -4,7 +4,7 @@
 // #include "UObject/UnrealType.h"
 #include "Utilities.generated.h"
 
-typedef int32_t IdType;
+typedef int32_t ID_t;
 static constexpr int32_t CIF_INVALID_ID = -1;
 
 /* This struct was created for using the score type under UPROPERTY,
@@ -40,12 +40,12 @@ struct FScore_t
 class UniqueIDGenerator
 {
 public:
-	IdType getId()
+	ID_t getId()
 	{
 		return id++;
 	}
 private:
-	IdType id = 0;
+	ID_t id = 0;
 };
 
 // Template helper to convert an enum value to string without the scope prefix.

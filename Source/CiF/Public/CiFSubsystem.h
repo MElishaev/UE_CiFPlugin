@@ -19,6 +19,7 @@ class CIF_API UCiFSubsystem : public UGameInstanceSubsystem
 
 public:
 
+    // todo - maybe i need to hide it and access only through implementation?
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFManager* getInstance();
 

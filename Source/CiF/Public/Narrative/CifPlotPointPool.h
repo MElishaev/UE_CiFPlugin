@@ -22,9 +22,6 @@ class CIF_API UCifPlotPointPool : public UObject
 public:
 	const UCifPlotPoint* getPlotPointByName(const FName plotPointName) const;
 
-    // return the number of met pre-conditions - through the whole DAG
-    int countMetPreCons(const FName ppName, const int numPreCons);
-
     /**
      * checks if all story preconditions are activated, if they are, it means this plot point is available.
      * if this plot point is already activated, returns false.
@@ -186,6 +183,9 @@ private:
     /** goes over all plot points and inserts only the currently available into mAvailablePlotPoints.
      * available plot point is a point that all its pre-requisites are met. */
     void updateAvailable();
+
+    // return the number of met pre-conditions - through the whole DAG
+    int countMetPreCons(const FName ppName, const int numPreCons);
 	
 public:
     UPROPERTY()

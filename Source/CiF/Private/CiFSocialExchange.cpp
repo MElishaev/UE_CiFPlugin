@@ -2,6 +2,9 @@
 
 
 #include "CiFSocialExchange.h"
+
+#include <GLSMacroses.h>
+
 #include "Narrative/CifInstantiation.h"
 #include "CiFEffect.h"
 #include "CiFInfluenceRule.h"
@@ -24,7 +27,7 @@ void UCiFSocialExchange::addInstantiation(UCifInstantiation* instantiation)
 	mInstantiations.AddUnique(instantiation);
 }
 
-UCiFEffect* UCiFSocialExchange::getEffectById(const uint32 id)
+UCiFEffect* UCiFSocialExchange::getEffectById(const ID_t id) const
 {
 	auto effect = mEffects.FindByPredicate([=](UCiFEffect* e) { return e->mId == id; });
 	if (effect) {
@@ -33,13 +36,12 @@ UCiFEffect* UCiFSocialExchange::getEffectById(const uint32 id)
 	return nullptr;
 }
 
-UCifInstantiation* UCiFSocialExchange::getInstantiationById(const uint32 id)
+UCifInstantiation* UCiFSocialExchange::getInstantiationById(const ID_t id) const
 {
-    // todo fix
-	// auto inst = mInstantiations.FindByPredicate([=](UCifInstantiation* i) { return i->mId == id; });
-	// if (inst) {
-	// 	return *inst;
-	// }
+	auto inst = mInstantiations.FindByPredicate([=](UCifInstantiation* i) { return i->getmId() == id; });
+	if (inst) {
+		return *inst;
+	}
 	return nullptr;
 }
 
@@ -74,13 +76,13 @@ float UCiFSocialExchange::scoreSocialExchange(UCiFCharacter* initiator,
 
 	if (mIsRequiresOther) {
 		if (mOtherType != ECiFGameObjectType::CHARACTER) {
-			UE_LOG(LogTemp, Verbose, TEXT("Social games with other type different than character isn't supported yet"));
+			GLS_LOG(LogTemp, Verbose, TEXT("Social games with other type different than character isn't supported yet"));
 			return totalScore;
 		}
 		for (auto other : activeOtherCast) {
 			if ((other->mObjectName != initiator->mObjectName) && (other->mObjectName != responder->mObjectName) && (other->mGameObjectType == mOtherType)) {
 				if (checkPreconditions(initiator, responder, other, this)) {
-					UE_LOG(LogTemp, VeryVerbose, TEXT("scoring for other: %s"), *(other->mObjectName.ToString())); // todo - delete?
+					GLS_LOG(LogTemp, VeryVerbose, TEXT("scoring for other: %s"), *(other->mObjectName.ToString())); // todo - delete?
 					const FScore_t localScore = influenceRuleSet->scoreRules(initiator,
 																		  responder,
 																		  other,
@@ -127,7 +129,7 @@ bool UCiFSocialExchange::checkPreconditionsVariableOther(UCiFCharacter* initiato
 	}
 
 	if (mOtherType != ECiFGameObjectType::CHARACTER) {
-		UE_LOG(LogTemp, Warning, TEXT("Social games with other type different than character isn't supported yet"));
+		GLS_LOG(LogTemp, Warning, TEXT("Social games with other type different than character isn't supported yet"));
 		return false;
 	}
 
@@ -187,44 +189,43 @@ bool UCiFSocialExchange::checkIntents(UCiFCharacter* initiator, UCiFGameObject* 
 	return true;
 }
 
-bool UCiFSocialExchange::isThirdNeededForIntentFormation()
-{
-	// checks in any of the members that can contain a third party if it is required
-	
-	for (const auto precond : mPreconditions) {
-		if (precond->isRoleRequired("other")) return true;
-	}
-
-	for (const auto ir : mInitiatorIR->mInfluenceRules) {
-		if (ir->isRoleRequired("other")) return true;
-	}
-
-	for (const auto ir : mResponderIR->mInfluenceRules) {
-		if (ir->isRoleRequired("other")) return true;
-	}
-
-	for (const auto e : mEffects) {
-		if (e->mCondition->isRoleRequired("other")) return true;
-		if (e->mChange->isRoleRequired("other")) return true;
-	}
-
-	return false;
-}
-
-bool UCiFSocialExchange::isThirdForSocialExchangePlay()
-{
-	for (const auto e : mEffects) {
-		if (e->mCondition->isRoleRequired("other") || e->mChange->isRoleRequired("other"))
-			return true;
-	}
-	return false;
-}
-
 void UCiFSocialExchange::updateRequiresOther()
 {
-	for (const auto precond : mPreconditions) {
-		mIsRequiresOther = mIsRequiresOther || precond->isRoleRequired("other");
-	}
+    // checks in any of the members that can contain a third party if it is required
+	
+    for (const auto precond : mPreconditions) {
+        if (precond->isRoleRequired("other")) {
+            mIsRequiresOther = true;
+            return;
+        }
+    }
+
+    for (const auto ir : mInitiatorIR->mInfluenceRules) {
+        if (ir->isRoleRequired("other")) {
+            mIsRequiresOther = true;
+            return;
+        }
+    }
+
+    for (const auto ir : mResponderIR->mInfluenceRules) {
+        if (ir->isRoleRequired("other")) {
+            mIsRequiresOther = true;
+            return;
+        }
+    }
+
+    for (const auto e : mEffects) {
+        if (e->mCondition->isRoleRequired("other")) {
+            mIsRequiresOther = true;
+            return;
+        }
+        if (e->mChange->isRoleRequired("other")) {
+            mIsRequiresOther = true;
+            return;
+        }
+    }
+
+    mIsRequiresOther = false;
 }
 
 void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, const FName initiatorName, const FName responderName) const
@@ -261,10 +262,10 @@ void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, c
 		}
 	}
 	if (outOthers.IsEmpty()) {
-		UE_LOG(LogTemp, Log, TEXT("Didn't find any others for %s"), *(mName.ToString()));
+		GLS_LOG(LogTemp, Log, TEXT("Didn't find any others for %s"), *(mName.ToString()));
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Found others for %s"), *(mName.ToString()));
+		GLS_LOG(LogTemp, Log, TEXT("Found others for %s"), *(mName.ToString()));
 	}
 }
 
@@ -319,7 +320,11 @@ UCiFSocialExchange* UCiFSocialExchange::loadFromJson(const TSharedPtr<FJsonObjec
 		sg->mEffects.Add(UCiFEffect::loadFromJson(effectJson->AsObject(), worldContextObject));		
 	}
 
-	// TODO - skip loading instantiations for now
+    const auto instantiationsJson = sgJson->GetArrayField(TEXT("Instantiations"));
+    for (const auto instJsonValue : instantiationsJson) {
+        sg->mInstantiations.Add(UCifInstantiation::loadFromJson(instJsonValue->AsObject(), const_cast<UObject*>(worldContextObject)));
+    }
+    
 
 	// TODO - before saving, sort all the predicates in all rules - for optimizations i assume
 

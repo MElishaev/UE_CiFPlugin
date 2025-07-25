@@ -151,7 +151,7 @@ UCiFSocialExchangeContext* UCiFSocialExchangeContext::loadFromJson(const TShared
 
 
 	if (sgc->mIsBackstory && false) { // TODO - i use backstory of promweek characters while my chars are of mismanor
-		sgc->mPerformanceRealization = json->TryGetStringField(TEXT("_PerformanceRealizationString"), name) ? FName(name) : "";
+		sgc->mPerformanceRealization = json->TryGetStringField(TEXT("_PerformanceRealizationString"), name) ? FText::FromString(name) : FText();
 		auto sfdbLblEnum = StaticEnum<ESFDBLabelType>();
 		sgc->mSFDBLabel = {
 			.from = sgc->mInitiatorName, .to = sgc->mResponderName,

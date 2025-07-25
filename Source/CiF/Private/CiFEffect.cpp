@@ -184,7 +184,8 @@ void UCiFEffect::toString(FString& outStr) const
 UCiFEffect* UCiFEffect::loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject)
 {
 	auto e = NewObject<UCiFEffect>(const_cast<UObject*>(worldContextObject));
-	
+
+    e->mId = json->GetIntegerField(TEXT("_id"));
 	e->mRejectId = json->GetNumberField(TEXT("_rejectID"));
 	e->mIsAccept = json->GetBoolField(TEXT("_accept"));
 	e->mInstantiationId = json->GetNumberField(TEXT("_instantiationID"));

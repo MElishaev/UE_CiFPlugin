@@ -9,7 +9,7 @@
 class UCiFGameObject;
 class UCiFPredicate;
 
-UENUM()
+UENUM(BlueprintType)
 enum class ESFDBContextType : uint8
 {
 	INVALID,
@@ -22,7 +22,7 @@ enum class ESFDBContextType : uint8
 /**
  * 
  */
-UCLASS(Abstract)
+UCLASS(Abstract, BlueprintType)
 class CIF_API UCiFSFDBContext : public UObject
 {
 	GENERATED_BODY()
