@@ -40,7 +40,8 @@ public class CiF : ModuleRules
 				"SlateCore",
 				"FileSystemUtilities", // for loading and writing files from file system like json
 				"Json",
-				"JsonUtilities"
+				"JsonUtilities", 
+				"MK_UI"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
