@@ -25159,18 +25159,18 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-add: responder is dating other",
+          "_name": "intent-add: initiator is dating other",
           "_id": 2,
-          "_description": "The intent of this move is to have the initiator and the other have the status is dating.",
+          "_description": "The intent of this move is to have the initiator and the other dating.",
           "Predicate": [
             {
               "_type": "RELATIONSHIP",
               "_relationship": "DATING",
-              "_first": "responder",
+              "_first": "initiator",
               "_second": "other",
               "_negated": false,
               "_duration": -1,
-              "_name": "intent-add: responder is dating other",
+              "_name": "intent-add: initiator is dating other",
               "_intent": true,
               "_intentType": "START_RELATIONSHIP",
               "_isSFDB": false,
@@ -25191,7 +25191,7 @@
             {
               "_type": "RELATIONSHIP",
               "_relationship": "DATING",
-              "_first": "responder",
+              "_first": "initiator",
               "_second": "other",
               "_negated": true,
               "_duration": -1,
@@ -25522,7 +25522,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "ROMANCE",
+              "_networkType": "BUDDY",
               "_first": "responder",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -25739,10 +25739,10 @@
         {
           "_id": 18,
           "_name": "Default ask out (3-person) (accept)",
-          "_description": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i, him, her).",
+          "_description": "%i% really wants to ask out %o%, and asks %r% to ask for %gender(i|him|her)%.",
           "Lines": [
             {
-              "_text": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i, him, her).",
+              "_text": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i|him|her)%.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -25765,7 +25765,7 @@
         {
           "_id": 20,
           "_name": "responder is interested in other (reject)",
-          "_description": "%i% asks %r% if %gender(r|he|she)% will ask out %o% on %gender(i|his|her)% behalf.",
+          "_description": "%i% asks %r% if %gender(r|he|she)% will ask out %o% on %gender(i|his|her)% behalf, But %r% refuses because %gender(r|he|she)% interested in %o%",
           "Lines": [
             {
               "_text": "%i% asks %r% if %gender(r|he|she)% will ask out %o% on %gender(i|his|her)% behalf.",
