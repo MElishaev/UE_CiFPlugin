@@ -3,10 +3,11 @@
 
 #include "CiFRule.h"
 
+#include <vector>
+
 #include "CiFManager.h"
 #include "CiFPredicate.h"
 #include "CiFSubsystem.h"
-#include "Kismet/GameplayStatics.h"
 
 UniqueIDGenerator UCiFRule::mIDGenerator = UniqueIDGenerator();
 

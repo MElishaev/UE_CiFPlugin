@@ -102,7 +102,7 @@ FString UCifInstantiation::replaceInlineDialogueOperators(const FString& inStr,
             FString strVars = extractSubstringBetweenDelimiter(strToReplace, TEXT("("), TEXT(")"), 0, false);
             TArray<FString> varsArray;
             strVars.ParseIntoArray(varsArray, TEXT("|"));
-            if (varsArray[0].Compare(TEXT("i"))) {
+            if (varsArray[0].Compare(TEXT("i")) == 0) {
                 if (initiator && initiator->hasTrait(ETrait::MALE)) {
                     result = result.Replace(*strToReplace, *varsArray[1]);
                 }
@@ -110,7 +110,7 @@ FString UCifInstantiation::replaceInlineDialogueOperators(const FString& inStr,
                     result = result.Replace(*strToReplace, *varsArray[2]);
                 }
             }
-            else if (varsArray[0].Compare(TEXT("r"))) {
+            else if (varsArray[0].Compare(TEXT("r")) == 0) {
                 if (responder && responder->hasTrait(ETrait::MALE)) {
                     result = result.Replace(*strToReplace, *varsArray[1]);
                 }
