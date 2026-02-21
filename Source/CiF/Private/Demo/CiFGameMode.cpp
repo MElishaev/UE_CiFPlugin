@@ -11,7 +11,7 @@
 void ACiFGameMode::BeginPlay()
 {
     Super::BeginPlay();
-    initCif();
+    initCif(); // must happen before spawning cast in level (cuz it initializes the CiF system and the cast to be spawned eventually)
     spawnCastInLevel();
 }
 
@@ -19,7 +19,6 @@ void ACiFGameMode::spawnCastInLevel_Implementation()
 {
     UE_LOG(LogTemp, Log, TEXT("%hs: In cpp"), __FUNCTION__);
 }
-
 
 void ACiFGameMode::initCif()
 {
@@ -35,6 +34,5 @@ ACifNPC* ACiFGameMode::getCifNPCByName(FName name)
     const auto npc = mCifNPCs.FindByPredicate([=](const ACifNPC* elem) {
         return elem->mCifCharacterComp->mObjectName == name;
     });
-
     return npc ? *npc : nullptr;
 }

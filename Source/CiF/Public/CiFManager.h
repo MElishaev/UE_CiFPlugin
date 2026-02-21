@@ -66,11 +66,12 @@ public:
 	 * Performs intent planning for a single character. This process scores
 	 * all possible social games for all other characters and stores the 
 	 * score in the character's prospective memory.
-	 * 
 	 * @param initiator The subject of the intent formation process.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	void formIntent(UCiFCharacter* initiator);
+    /** Same as above but forming intent with the specific given responders */
+    bool formIntent(UCiFCharacter* initiator, const TSet<FName>& responders);
 
 	/**
 	 * Forms intent for all social games between two characters. If any of
@@ -196,6 +197,7 @@ public:
 	/********************************** Getters ********************************/
 	UFUNCTION(BlueprintCallable, Category = "CiF")
 	UCiFGameObject* getGameObjectByName(const FName name) const;
+    UCiFGameObject* getGameObjectByNetworkId(const uint8 id) const;
 	
 	UCiFItem* getItemByName(const FName name) const;
 	UCiFKnowledge* getKnowledgeByName(const FName name) const;
@@ -213,7 +215,7 @@ public:
 	void getAllGameObjectsOfType(TArray<UCiFGameObject*>& outGameObjs, const ECiFGameObjectType type) const;
 
 	/**
-	 * Clears all of the prospective memory fields.
+	 * Clears all the prospective memory fields.
 	 * This is called once and before the intent formation
 	 */
 	void clearProspectiveMemory();

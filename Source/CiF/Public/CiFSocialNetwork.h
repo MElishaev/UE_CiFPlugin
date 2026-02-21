@@ -18,7 +18,7 @@ enum class ESocialNetworkType : uint8
 	LAST_SN_TYPE, // borders the social network types - can be used for comparisons to check if enum represent a social network or relationship
 
 	// relationship network (RN) represent publicly recognized social relationships between characters (friends - true or false)
-	RELATIONSHIP		UMETA(DisplayName="Relationship"), 
+	RELATIONSHIP	UMETA(DisplayName="Relationship"), 
 	INVALID			UMETA(DisplayName="Invalid"),
 	SIZE
 };

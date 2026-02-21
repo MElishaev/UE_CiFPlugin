@@ -75,12 +75,6 @@ enum class ETrait : uint8
 	PERSONAL		UMETA(DisplayName="Personal"),
 	SECRET			UMETA(DisplayName="Secret"),
 	EMOTIONAL		UMETA(DisplayName="Emotional"),
-
-	// role traits - traits that indicates the role of the NPC
-	SCIENTIST		UMETA(DisplayName="Scientist"),
-	FARMER			UMETA(DisplayName="Farmer"),
-	DOCTOR			UMETA(DisplayName="Doctor"),
-	ENGINEER		UMETA(DisplayName="Engineer"),
 	
 	// plot point
 	PLOT_POINT		UMETA(DisplayName="PLOT_POINT"), // indicates that this GameObject represents a plot point
@@ -88,7 +82,12 @@ enum class ETrait : uint8
 	MAIN_LINE		UMETA(DisplayName="MAIN_LINE"),
 	COLONEL_LINE	UMETA(DisplayName="COLONEL_LINE"),
     LAST_LINE_TRAIT,
-	END_GAME		UMETA(DisplayName="END_GAME")
+	END_GAME		UMETA(DisplayName="END_GAME"),
+
+    // specific traits for character needs - this is not relevant to cif but the specific game implementation of cif
+    LAZY,
+    CHILL,
+    SPOILED,
 };
 
 UENUM(BlueprintType)
