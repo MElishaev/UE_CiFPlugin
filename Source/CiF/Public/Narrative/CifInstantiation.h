@@ -51,6 +51,9 @@ private:
      * with actual names based on the social game context
      */
     FText realizeDialogueLine(const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFGameObject* other) const;
+
+    FString extractSubstringBetweenDelimiter(const FString& srcStr, const FString& openingDelimiter, const FString& closingDelimiter, int32 startIndex = 0, const bool includingDelimiter = true) const;
+    FString replaceInlineDialogueOperators(const FString& inStr, const UCiFGameObject* initiator, const UCiFGameObject* responder, const UCiFGameObject* other) const;
     
     int16 mCurrentLine = 0; // current line of the dialogue
     FText mSrcDescription;  // description from the json

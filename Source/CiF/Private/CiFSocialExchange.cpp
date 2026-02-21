@@ -262,10 +262,10 @@ void UCiFSocialExchange::getPossibleOthers(TArray<UCiFGameObject*>& outOthers, c
 		}
 	}
 	if (outOthers.IsEmpty()) {
-		GLS_LOG(LogTemp, Log, TEXT("Didn't find any others for %s"), *(mName.ToString()));
+		GLS_LOG(LogTemp, VeryVerbose, TEXT("Didn't find any others for %s"), *(mName.ToString()));
 	}
 	else {
-		GLS_LOG(LogTemp, Log, TEXT("Found others for %s"), *(mName.ToString()));
+		GLS_LOG(LogTemp, VeryVerbose, TEXT("Found others for %s"), *(mName.ToString()));
 	}
 }
 
