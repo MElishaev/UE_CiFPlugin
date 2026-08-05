@@ -3,6 +3,70 @@
 
 #include "Narrative/CifInstantiation.h"
 #include "CiFGameObject.h"
+#include "GLSMacroses.h"
+
+namespace
+{
+    // Normalize a dialogue node's text so authored files may use either one string or an array of strings.
+    void parseTextField(const TSharedPtr<FJsonObject>& json, const TCHAR* fieldName, TArray<FText>& outText)
+    {
+        TArray<FString> lines;
+        if (json->TryGetStringArrayField(fieldName, lines)) {
+            for (const FString& line : lines) {
+                outText.Add(FText::FromString(line));
+            }
+            return;
+        }
+
+        FString line;
+        if (json->TryGetStringField(fieldName, line)) {
+            outText.Add(FText::FromString(line));
+        }
+    }
+
+    FDialogueNode parseDialogueNode(const TSharedPtr<FJsonObject>& json, const int32 nodeIndex, const bool bLegacyFormat)
+    {
+        FDialogueNode node;
+
+        FString nodeId;
+        if (!json->TryGetStringField(TEXT("_id"), nodeId)) {
+            nodeId = FString::Printf(TEXT("node_%d"), nodeIndex);
+        }
+        node.id = FName(nodeId);
+
+        FString speaker;
+        json->TryGetStringField(bLegacyFormat ? TEXT("_primarySpeaker") : TEXT("_speaker"), speaker);
+        node.speaker = FName(speaker);
+
+        parseTextField(json, TEXT("_text"), node.text);
+        return node;
+    }
+
+    bool isDialogueNodeValid(const FDialogueNode& node, const FName instantiationName, const UObject* worldContextObj)
+    {
+        bool bIsValid = true;
+        if (node.speaker.IsNone()) {
+            GLS_LOG_CONTEXT(worldContextObj,
+                            LogTemp,
+                            Warning,
+                            TEXT("Dialogue node %s in instantiation %s is missing its speaker"),
+                            *node.id.ToString(),
+                            *instantiationName.ToString());
+            bIsValid = false;
+        }
+
+        if (node.text.IsEmpty()) {
+            GLS_LOG_CONTEXT(worldContextObj,
+                            LogTemp,
+                            Warning,
+                            TEXT("Dialogue node %s in instantiation %s does not contain any text"),
+                            *node.id.ToString(),
+                            *instantiationName.ToString());
+            bIsValid = false;
+        }
+        return bIsValid;
+    }
+} // namespace
 
 void UCifInstantiation::init(const int id, const FName name, const FText& description)
 {
@@ -13,29 +77,31 @@ void UCifInstantiation::init(const int id, const FName name, const FText& descri
 
 void UCifInstantiation::getChoicesIfAvailable(TArray<FDialogueChoice>& outChoices) const
 {
-    // todo - implement
-    return;
+    if (mDialogueNodes.IsValidIndex(mCurrentNode)) {
+        outChoices = mDialogueNodes[mCurrentNode].choices;
+    }
 }
 
 FText UCifInstantiation::getNextDialogueLine()
 {
-    auto line = getCurrentLine();
-    mCurrentLine++;
+    const FText line = getCurrentLine();
+    if (!mDialogueNodes.IsValidIndex(mCurrentNode)) {
+        return line;
+    }
 
-    // if (mCurrentLine >= mLoadedDialogues[mCurrentDialogueID].text.Num()) {
-    //     mCurrentLine = 0;
-    //     // todo: maybe now clear this dialogue from memory? if the LoadedDialogue is full or something?
-    // }S
-
+    ++mCurrentLine;
+    if (mCurrentLine >= mDialogueNodes[mCurrentNode].text.Num()) {
+        ++mCurrentNode;
+        mCurrentLine = 0;
+    }
     return line;
 }
 
 FText UCifInstantiation::getCurrentLine() const
 {
-    // if (mLoadedDialogues.Contains(mCurrentDialogueID)) {
-    //     auto lines = mLoadedDialogues[mCurrentDialogueID].text;
-    //     return lines[mCurrentLine];
-    // }
+    if (mDialogueNodes.IsValidIndex(mCurrentNode) && mDialogueNodes[mCurrentNode].text.IsValidIndex(mCurrentLine)) {
+        return mDialogueNodes[mCurrentNode].text[mCurrentLine];
+    }
     return FText::GetEmpty();
 }
 
@@ -47,10 +113,8 @@ FText UCifInstantiation::realizeDialogueLine(const UCiFGameObject* initiator,
 
     // replace names
     result = result.Replace(TEXT("%i%"), *initiator->mObjectName.ToString());
-    if (responder)
-        result = result.Replace(TEXT("%r%"), *responder->mObjectName.ToString());
-    if (other)
-        result = result.Replace(TEXT("%o%"), *other->mObjectName.ToString());
+    if (responder) result = result.Replace(TEXT("%r%"), *responder->mObjectName.ToString());
+    if (other) result = result.Replace(TEXT("%o%"), *other->mObjectName.ToString());
 
     result = replaceInlineDialogueOperators(result, initiator, responder, other);
 
@@ -74,7 +138,7 @@ FString UCifInstantiation::extractSubstringBetweenDelimiter(const FString& srcSt
             int32 length = endIndex - localStartIndex;
             if (includingDelimiter) {
                 length += openingDelimiter.Len() + closingDelimiter.Len(); // from both sides
-                localStartIndex -= openingDelimiter.Len();                // include the delimiter
+                localStartIndex -= openingDelimiter.Len();                 // include the delimiter
             }
             result = srcStr.Mid(localStartIndex, length);
         }
@@ -139,7 +203,8 @@ FString UCifInstantiation::replaceInlineDialogueOperators(const FString& inStr,
         else {
             // todo: for other stuff that aren't implemented yet like %sweetie% etc.
         }
-    } while (bFound); 
+    }
+    while (bFound);
 
     return result;
 }
@@ -165,9 +230,53 @@ UCifInstantiation* UCifInstantiation::loadFromJson(const TSharedPtr<FJsonObject>
     const FName instName = FName(json->GetStringField(TEXT("_name")));
     const FText instDesc = FText::FromString(json->GetStringField(TEXT("_description")));
 
-    // todo: now the instantiation has also lines that can be parsed. some instantiations are actually dialogue,
-    //  but the other are just short description of the interaction. need to distinguish between them
-
     inst->init(instId, instName, instDesc);
+
+    const TArray<TSharedPtr<FJsonValue>>* linesJson = nullptr;
+    if (json->TryGetArrayField(TEXT("Lines"), linesJson)) {
+        for (int32 index = 0; index < linesJson->Num(); ++index) {
+            const TSharedPtr<FJsonObject> lineJson = (*linesJson)[index]->AsObject();
+            if (lineJson.IsValid()) {
+                FDialogueNode node = parseDialogueNode(lineJson, index, true);
+                if (isDialogueNodeValid(node, instName, worldContextObj)) {
+                    inst->mDialogueNodes.Add(MoveTemp(node));
+                }
+            }
+        }
+    }
+
     return inst;
+}
+
+UCifInstantiation* UCifInstantiation::loadDialogueFromJson(const TSharedPtr<FJsonObject> json, UObject* worldContextObj)
+{
+    FString instantiationId;
+    if (!json->TryGetStringField(TEXT("_id"), instantiationId) || instantiationId.IsEmpty()) {
+        GLS_LOG_CONTEXT(worldContextObj, LogTemp, Error, TEXT("Dialogue instantiation is missing a non-empty _id"));
+        return nullptr;
+    }
+
+    const TArray<TSharedPtr<FJsonValue>>* dialogueJson = nullptr;
+    if (!json->TryGetArrayField(TEXT("dialogue"), dialogueJson)) {
+        GLS_LOG_CONTEXT(worldContextObj, LogTemp, Error, TEXT("Dialogue instantiation %s is missing its dialogue array"), *instantiationId);
+        return nullptr;
+    }
+
+    UCifInstantiation* instantiation = NewObject<UCifInstantiation>(worldContextObj);
+    instantiation->init(CIF_INVALID_ID, FName(instantiationId), FText::GetEmpty());
+    for (int32 index = 0; index < dialogueJson->Num(); ++index) {
+        const TSharedPtr<FJsonObject> nodeJson = (*dialogueJson)[index]->AsObject();
+        if (!nodeJson.IsValid()) {
+            GLS_LOG_CONTEXT(
+                worldContextObj, LogTemp, Warning, TEXT("Ignoring invalid dialogue node %d in instantiation %s"), index, *instantiationId);
+            continue;
+        }
+
+        FDialogueNode node = parseDialogueNode(nodeJson, index, false);
+        if (isDialogueNodeValid(node, FName(instantiationId), worldContextObj)) {
+            instantiation->mDialogueNodes.Add(MoveTemp(node));
+        }
+    }
+
+    return instantiation;
 }

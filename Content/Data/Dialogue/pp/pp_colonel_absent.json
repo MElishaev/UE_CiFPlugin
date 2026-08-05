@@ -1,7 +1,8 @@
 ﻿{
+    "_id": "pp_colonel_absent",
     "dialogue": [
         {
-            "_id": "what put here??? should be just numbers?",
+            "_id": "start",
             "_speaker": "responder",
             "_text": [
                 "Oh, by the way, did you notice that the colonel is always absent at around noon?",

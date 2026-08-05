@@ -42,7 +42,7 @@ public:
 public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "CiF")
-	UCiFGameObject* mLearnedFrom; // the game object that this knowledge was learned from
+	UCiFGameObject* mLearnedFrom; // the game object that this knowledge was learned from (this is after the fact)
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CiF")
 	EKnowledgeType mKnowledgeType;

@@ -1,14 +1,15 @@
 ﻿
 #pragma once
 
+#include "CoreMinimal.h"
 #include "MK_NarrativeDataTypes.generated.h"
 
 
 // Registry entry for dialogue files (this object doesn't need to be serialized so UE macros removed)
 struct FDialogueFileEntry
-{
-    FString dialogueIDPrefix; // e.g., "pp_colonel_"
-    FString filePath;         // e.g., "Content/Data/Dialogue/pp/NPC1.json"
+{ 
+    FName mInstantiationId; // Globally unique ID used by narrative systems.
+    FString mFilePath;      // Path relative to the registry file.
 };
 
 // Represents a condition for showing a choice
@@ -16,7 +17,7 @@ USTRUCT()
 struct FDialogueCondition
 {
     GENERATED_BODY()
-    
+
     UPROPERTY()
     FString type; // e.g., "flag_set" // todo can be changed to enum instead of comparing strings
     UPROPERTY()

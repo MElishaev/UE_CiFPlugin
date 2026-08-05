@@ -21,6 +21,8 @@ class CIF_API UCifPlotPointPool : public UObject
 
 public:
 	const UCifPlotPoint* getPlotPointByName(const FName plotPointName) const;
+    
+    void revealPlotPoint(const FName plotPointName);
 
     /**
      * checks if all story preconditions are activated, if they are, it means this plot point is available.
@@ -42,20 +44,6 @@ public:
     TArray<const UCifPlotPoint*> getNHighestAvailablePoints(const uint8 n);
 
     // todo - method to update the state of a plot point to be discovered
-
-    /* assume the position of the player. the first thing ill probably do is to go interact with the characters.
-     * this will change the SS or, if this is the first interaction of the player, maybe this will give him some direction
-     * towards what next should he do..?
-     * so for example, say the player arrives to his target location, which would be an hotel, the first thing he should do
-     * is interact with the reception, to get his room and setup his "safe" space.
-     * but i don't think this is what i should start with... i think i should start with some kind of vertical slice,
-     * a portion in game "from the middle" of it to feel how most of the game loop would feel.
-     * at the middle of the game, the game will be in the following state:
-     *      - some PPs will be discovered and others may be available for activation
-     *      V the game will be in some social state
-     *
-     * 
-     */
 
 /*
 

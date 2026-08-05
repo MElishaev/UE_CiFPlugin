@@ -3,29 +3,47 @@
 
 #include "Narrative/MK_DialogueManager.h"
 
-#include "ReadWriteFiles.h"
+#include "GLSMacroses.h"
 #include "Narrative/CifInstantiation.h"
+#include "ReadWriteFiles.h"
 
 bool UMK_DialogueManager::initializeRegistry(const FString& registryPath)
 {
     TSharedPtr<FJsonObject> jsonObject;
     if (!UReadWriteFiles::readJson(registryPath, jsonObject)) {
-        UE_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *registryPath);
+        GLS_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *registryPath);
         return false;
     }
 
     mDialogueRegistry.Empty();
+    mRegistryDirectory = FPaths::GetPath(registryPath);
     const TArray<TSharedPtr<FJsonValue>>* filesArray;
-    if (jsonObject->TryGetArrayField(TEXT("dialogue_files"), filesArray)) {
+    if (jsonObject->TryGetArrayField(TEXT("instantiations"), filesArray)) {
         for (const TSharedPtr<FJsonValue>& fileElem : *filesArray) {
             const TSharedPtr<FJsonObject>& fileObj = fileElem->AsObject();
+            if (!fileObj.IsValid()) {
+                GLS_LOG(LogTemp, Warning, TEXT("Ignoring invalid entry in dialogue registry %s"), *registryPath);
+                continue;
+            }
+
+            FString instantiationId;
+            FString filePath;
+            if (!fileObj->TryGetStringField(TEXT("id"), instantiationId) || instantiationId.IsEmpty() ||
+                !fileObj->TryGetStringField(TEXT("file_path"), filePath) || filePath.IsEmpty()) {
+                GLS_LOG(LogTemp, Warning, TEXT("Ignoring dialogue registry entry without a valid id and file_path"));
+                continue;
+            }
+
             FDialogueFileEntry entry;
-            entry.dialogueIDPrefix = fileObj->GetStringField(TEXT("dialogue_id_prefix"));
-            entry.filePath = fileObj->GetStringField(TEXT("file_path"));
-            mDialogueRegistry.Add(entry.dialogueIDPrefix, entry);
+            entry.mInstantiationId = FName(instantiationId);
+            entry.mFilePath = MoveTemp(filePath);
+            mDialogueRegistry.Add(entry.mInstantiationId, entry);
         }
+        return true;
     }
-    return true;
+
+    GLS_LOG(LogTemp, Error, TEXT("Dialogue registry %s is missing its instantiations array"), *registryPath);
+    return false;
 }
 
 void UMK_DialogueManager::prepareDialogue(const FName dialogueID)
@@ -87,67 +105,29 @@ bool UMK_DialogueManager::loadDialogueFile(const FString& filePath)
 {
     TSharedPtr<FJsonObject> jsonObject;
     if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
-        UE_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *filePath);
+        GLS_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *filePath);
         return false;
     }
 
-    const TArray<TSharedPtr<FJsonValue>>* dialoguesArray;
-    if (jsonObject->TryGetArrayField(TEXT("dialogues"), dialoguesArray)) {
-        for (const TSharedPtr<FJsonValue>& dialogueValue : *dialoguesArray) {
-            const TSharedPtr<FJsonObject>& dialogueObj = dialogueValue->AsObject();
-            FDialogueNode node;
-            node.id = FName(dialogueObj->GetStringField(TEXT("id")));
-            node.speaker = FName(dialogueObj->GetStringField(TEXT("speaker")));
-            TArray<FString> dlgLines;
-            dialogueObj->TryGetStringArrayField(TEXT("text"), dlgLines);
-            for (const auto& line : dlgLines) {
-                node.text.Add(FText::FromString(line));
-            }
-
-            // parse choices
-            const TArray<TSharedPtr<FJsonValue>>* choicesArray;
-            if (dialogueObj->TryGetArrayField(TEXT("choices"), choicesArray)) {
-                for (const TSharedPtr<FJsonValue>& choiceValue : *choicesArray) {
-                    const TSharedPtr<FJsonObject>& choiceObj = choiceValue->AsObject();
-                    FDialogueChoice choice;
-                    choice.textKey = FName(choiceObj->GetStringField(TEXT("text_key")));
-                    choice.nextID = FName(choiceObj->GetStringField(TEXT("next_id")));
-
-                    // parse choice conditions
-                    const TArray<TSharedPtr<FJsonValue>>* conditionsArray;
-                    if (choiceObj->TryGetArrayField(TEXT("conditions"), conditionsArray)) {
-                        for (const TSharedPtr<FJsonValue>& conditionValue : *conditionsArray) {
-                            const TSharedPtr<FJsonObject>& conditionObj = conditionValue->AsObject();
-                            FDialogueCondition condition;
-                            condition.type = conditionObj->GetStringField(TEXT("type"));
-                            condition.flag = conditionObj->GetStringField(TEXT("flag"));
-                            condition.value = conditionObj->GetStringField(TEXT("value"));
-                            choice.conditions.Add(condition);
-                        }
-                    }
-                    node.choices.Add(choice);
-                }
-            }
-            // mLoadedDialogues.Add(node.id, node);
-        }
-    }
-    else {
-        UE_LOG(LogTemp, Error, TEXT("Failed to extract dialogues from json %s"), *filePath);
+    UCifInstantiation* instantiation = UCifInstantiation::loadDialogueFromJson(jsonObject, this);
+    if (!instantiation) {
+        GLS_LOG(LogTemp, Error, TEXT("Failed to load dialogue instantiation from json %s"), *filePath);
         return false;
     }
 
+    mLoadedDialogues.Add(instantiation->getName(), instantiation);
     return true;
 }
 
 FString UMK_DialogueManager::findDialogueFile(const FName dialogueID) const
 {
-    for (const auto& keyValPair : mDialogueRegistry) {
-        if (dialogueID.ToString().StartsWith(keyValPair.Key)) {
-            return keyValPair.Value.filePath;
-        }
+    const FDialogueFileEntry* entry = mDialogueRegistry.Find(dialogueID);
+    if (!entry) {
+        GLS_LOG(LogTemp, Warning, TEXT("No file found for dialogue ID: %s"), *dialogueID.ToString());
+        return FString();
     }
-    UE_LOG(LogTemp, Warning, TEXT("No file found for dialogue ID: %s"), *dialogueID.ToString());
-    return FString();
+
+    return FPaths::IsRelative(entry->mFilePath) ? FPaths::Combine(mRegistryDirectory, entry->mFilePath) : entry->mFilePath;
 }
 
 bool UMK_DialogueManager::areChoicesConditionsMet(const TArray<FDialogueCondition>& conditions) const

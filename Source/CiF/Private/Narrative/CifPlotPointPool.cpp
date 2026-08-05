@@ -4,7 +4,7 @@
 #include "Narrative/CifPlotPointPool.h"
 #include "Narrative/CifPlotPoint.h"
 
-const UCifPlotPoint *UCifPlotPointPool::getPlotPointByName(const FName plotPointName) const
+const UCifPlotPoint* UCifPlotPointPool::getPlotPointByName(const FName plotPointName) const
 {
     if (const auto pp = mPlotPoints.Find(plotPointName)) {
         return *pp;
@@ -12,19 +12,29 @@ const UCifPlotPoint *UCifPlotPointPool::getPlotPointByName(const FName plotPoint
     return nullptr;
 }
 
+void UCifPlotPointPool::revealPlotPoint(const FName plotPointName)
+{
+    if (const auto pp = mPlotPoints.Find(plotPointName)) {
+        (*pp)->activate();
+    }
+
+    // todo broadcast pp revealed - should be relevant to UI and maybe other systems
+
+    updateAvailable();
+}
+
 int UCifPlotPointPool::countMetPreCons(const FName ppName, const int numPreCons)
 {
     int result = numPreCons;
     if (auto pp = getPlotPointByName(ppName)) {
-        for (const auto &preconName : pp->mStoryPreConditions) {
+        for (const auto& preconName : pp->mStoryPreConditions) {
             if (const auto precon = getPlotPointByName(preconName)) {
-                if (precon->mActivated) {
+                if (precon->isActivated()) {
                     result++;
-                    result = countMetPreCons(ppName, result);    
+                    result = countMetPreCons(ppName, result);
                 }
             }
-            
-        }   
+        }
     }
     return result;
 }
@@ -41,15 +51,15 @@ bool UCifPlotPointPool::isAvailableByName(const FName ppName) const
 bool UCifPlotPointPool::isAvailableByObj(const UCifPlotPoint* pp) const
 {
     // if it's already been activated, then not available
-    if (pp->mActivated) {
+    if (pp->isActivated()) {
         return false;
     }
 
     for (const auto preConName : pp->mStoryPreConditions) {
         if (const auto preCon = getPlotPointByName(preConName)) {
-            if (!preCon->mActivated) {
+            if (!preCon->isActivated()) {
                 return false;
-            }    
+            }
         }
     }
     return true;
@@ -57,40 +67,40 @@ bool UCifPlotPointPool::isAvailableByObj(const UCifPlotPoint* pp) const
 
 FName UCifPlotPointPool::getAvailablePPByResponder(const FName responder) const
 {
-    for (const auto pp: mAvailablePlotPoints) {
-        if (pp->mRevealedBy.Contains(responder)) {
-            return pp->mKnowledge->mObjectName;
+    // todo what if the responder of the current interaction can reveal multiple plot points? which one will be chosen?
+    for (const auto pp : mAvailablePlotPoints) {
+        for (const FCifPlotPointRevelation& revelation : pp->mRevelations) {
+            if (revelation.mRevealedBy.Contains(responder)) {
+                return pp->mKnowledge->mObjectName;
+            }
         }
     }
     return NAME_None;
 }
 
-TArray<const UCifPlotPoint *> UCifPlotPointPool::getNHighestAvailablePoints(const uint8 n)
-{
-    return {};
-}
+TArray<const UCifPlotPoint*> UCifPlotPointPool::getNHighestAvailablePoints(const uint8 n) { return {}; }
 /*
 void UCifPlotPointPool::updateActive()
 {
-	// TODO: Maybe shouldn't clear it out every time? If not, then when making possible plot points, check if they're in active so you don't get duplicates
-	this.activePlotPoints = new Vector.<PlotPoint>();
+    // TODO: Maybe shouldn't clear it out every time? If not, then when making possible plot points, check if they're in active so you don't
+get duplicates this.activePlotPoints = new Vector.<PlotPoint>();
 
-    // go through available plot points and activate (???) the N highly scored ones todo is this how we should do it? 
-	for (const auto pp : mAvailablePlotPoints) {
-	    // Story Cohesion - Higher weights on story elements with the most pre-reqs met
-	    // count the pre-conditions of the plot points, adding one point for every pre-condition met.
-	    float cohesion = pp->countMetPreCons();
-	    cohesion *= mStoryCohesion;
-		
-	    float mixing = 0;
-	    float concentration = 0;
-		
-	    // Storyline Mixing - Higher weights on plot points from different LINE traits (stronger weights at the beginning of the game)
-	    // Keep track of which *_LINE plot points have been coming from. 
-	    // Storyline Concentration - Higher weights on plot points from same LINE traits (stronger weights at the end of the game)
-	    // Keep track of which *_LINE plot points have been coming from. 1 point if covered last turn, .5 in 2 turns, .25 in 3 turns.
-		
-	    TArray<ETrait> traitLines;
+    // go through available plot points and activate (???) the N highly scored ones todo is this how we should do it?
+    for (const auto pp : mAvailablePlotPoints) {
+        // Story Cohesion - Higher weights on story elements with the most pre-reqs met
+        // count the pre-conditions of the plot points, adding one point for every pre-condition met.
+        float cohesion = pp->countMetPreCons();
+        cohesion *= mStoryCohesion;
+
+        float mixing = 0;
+        float concentration = 0;
+
+        // Storyline Mixing - Higher weights on plot points from different LINE traits (stronger weights at the beginning of the game)
+        // Keep track of which *_LINE plot points have been coming from.
+        // Storyline Concentration - Higher weights on plot points from same LINE traits (stronger weights at the end of the game)
+        // Keep track of which *_LINE plot points have been coming from. 1 point if covered last turn, .5 in 2 turns, .25 in 3 turns.
+
+        TArray<ETrait> traitLines;
         for (const auto trait : pp->mTraits) {
             if (trait > ETrait::FIRST_LINE_TRAIT && trait < ETrait::LAST_LINE_TRAIT) {
                 traitLines.Add(trait);
@@ -105,22 +115,22 @@ void UCifPlotPointPool::updateActive()
                 }
             }
         }
-	    concentration = mixing; // mixing and concentration are similar but opposite (that's why below multiplying by -1)
-	    
-	    // normalize for number of *_LINE traits
-	    mixing = mixing / traitLines.Num();
-	    // negative weight - because mixing in this method accumulates positive values when we encounter similar plot
-	    // lines but we want to positively value when encountering different plot lines at the beginning of the game
-	    mixing *= -1; 
-	    mixing *= mPlotMixing;
-		
-	    concentration = concentration / traitLines.Num();
-	    concentration *= mPlotConcentration;
-		
-	    pp->mWeight = cohesion + mixing + concentration;
-	}
+        concentration = mixing; // mixing and concentration are similar but opposite (that's why below multiplying by -1)
 
-	// returning -1, 0, 1
+        // normalize for number of *_LINE traits
+        mixing = mixing / traitLines.Num();
+        // negative weight - because mixing in this method accumulates positive values when we encounter similar plot
+        // lines but we want to positively value when encountering different plot lines at the beginning of the game
+        mixing *= -1;
+        mixing *= mPlotMixing;
+
+        concentration = concentration / traitLines.Num();
+        concentration *= mPlotConcentration;
+
+        pp->mWeight = cohesion + mixing + concentration;
+    }
+
+    // returning -1, 0, 1
     auto plotPointSort = [](const UCifPlotPoint *a, const UCifPlotPoint *b) -> int {
         if (a->mWeight > b->mWeight)
             return -1;
@@ -128,11 +138,11 @@ void UCifPlotPointPool::updateActive()
             return 1;
         return 0;
     };
-	
-	mAvailablePlotPoints.Sort(plotPointSort);
-	
-	// take the top 3 highest rated plot points
-	while (mActivePlotPoints.Num() < 3 && mAvailablePlotPoints.Num() > 0) {
+
+    mAvailablePlotPoints.Sort(plotPointSort);
+
+    // take the top 3 highest rated plot points
+    while (mActivePlotPoints.Num() < 3 && mAvailablePlotPoints.Num() > 0) {
         mActivePlotPoints.Add(mAvailablePlotPoints[0]);
         mAvailablePlotPoints.RemoveAt(0);
     }
@@ -154,13 +164,12 @@ UCifPlotPointPool* UCifPlotPointPool::loadFromJson(const TArray<TSharedPtr<FJson
 void UCifPlotPointPool::updateAvailable()
 {
     mAvailablePlotPoints.Empty();
-
     for (const auto [name, pp] : mPlotPoints) {
-        if (!pp->mActivated) {
+        if (!pp->isActivated()) {
             // check pre-reqs
             if (isAvailableByObj(pp)) {
                 mAvailablePlotPoints.Add(pp);
             }
         }
     }
-}		
+}

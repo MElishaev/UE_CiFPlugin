@@ -3,15 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
 #include "Narrative/MK_NarrativeDataTypes.h"
+#include "UObject/Object.h"
 #include "MK_DialogueManager.generated.h"
 
 
 class UCifInstantiation;
 
 /**
- * 
+ *
  */
 UCLASS()
 class CIF_API UMK_DialogueManager : public UObject
@@ -19,7 +19,6 @@ class CIF_API UMK_DialogueManager : public UObject
     GENERATED_BODY()
 
 public:
-    
     /**
      * Loads the registry of the game's dialogue that helps with faster and easier parsing and
      * lookup when a dialogue needs to be loaded from disk.
@@ -45,18 +44,19 @@ public:
 
     TArray<FDialogueChoice> getChoices() const;
     void selectChoice(int32 choiceIndex);
-    
+
 private:
-    
-    // Load dialogues from a specific file
+    // Load one complete dialogue-backed instantiation from a specific file.
     bool loadDialogueFile(const FString& filePath);
 
     FString findDialogueFile(const FName dialogueID) const;
 
     bool areChoicesConditionsMet(const TArray<FDialogueCondition>& conditions) const;
-    
-    TMap<FString, FDialogueFileEntry> mDialogueRegistry; // Maps prefix to file
-    TMap<FName, UCifInstantiation*> mLoadedDialogues;         // Cached dialogues
+
+    TMap<FName, FDialogueFileEntry> mDialogueRegistry; // Maps an exact instantiation ID to its file.
+    TMap<FName, UCifInstantiation*> mLoadedDialogues;  // Cached instantiations.
+
+    FString mRegistryDirectory;
 
     /****** Members of current ongoing dialogue ******/
     FName mCurrentDialogueID;

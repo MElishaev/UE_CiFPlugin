@@ -1,12 +1,12 @@
 ﻿{
-    "dialogue_files": [
+    "instantiations": [
         {
-            "dialogue_id_prefix": "npc1_",
-            "file_path": "Content/Data/Dialogue/NPC/NPC1.json"
+            "id": "pp_colonel_absent",
+            "file_path": "pp/pp_colonel_absent.json"
         },
         {
-            "dialogue_id_prefix": "quest1_",
-            "file_path": "Content/Data/Dialogue/Quests/Quest1.json"
+            "id": "pp_colonel_radio",
+            "file_path": "pp/pp_colonel_radio.json"
         }
     ]
 }

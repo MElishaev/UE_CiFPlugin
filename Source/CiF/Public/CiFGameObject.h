@@ -32,7 +32,7 @@ enum class ETrait : uint8
 	PERSUASIVE		UMETA(DisplayName="Persuasive"),
 	TACTFUL			UMETA(DisplayName="Tactful"),
 	
-	LAST_POS_TRAIT,
+	LAST_POS_TRAIT UMETA(Hidden),
 
 	// negative traits
 	SHY				UMETA(DisplayName="Shy"),
@@ -53,13 +53,13 @@ enum class ETrait : uint8
 	STUBBORN		UMETA(DisplayName="Stubborn"),
 	NAGGING			UMETA(DisplayName="Nagging"),
 	
-	LAST_NEG_TRAIT,
+	LAST_NEG_TRAIT UMETA(Hidden),
 
 	// neutral traits
 	MALE			UMETA(DisplayName="Male"),
 	FEMALE			UMETA(DisplayName="Female"),
 	STRAIGHT		UMETA(DisplayName="Straight"),
-	LAST_NEUTRAL_TRAIT,
+	LAST_NEUTRAL_TRAIT UMETA(Hidden),
 
 	// item traits
 	ITEM			UMETA(DisplayName="Item"), // indicates that it is an item
@@ -81,7 +81,7 @@ enum class ETrait : uint8
     FIRST_LINE_TRAIT,
 	MAIN_LINE		UMETA(DisplayName="MAIN_LINE"),
 	COLONEL_LINE	UMETA(DisplayName="COLONEL_LINE"),
-    LAST_LINE_TRAIT,
+    LAST_LINE_TRAIT UMETA(Hidden),
 	END_GAME		UMETA(DisplayName="END_GAME"),
 
     // specific traits for character needs - this is not relevant to cif but the specific game implementation of cif
