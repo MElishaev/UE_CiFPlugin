@@ -7,6 +7,7 @@
 #include "CifPlotPoint.generated.h"
 
 class UCiFRule;
+class UCifPlotPoint;
 
 USTRUCT()
 struct CIF_API FCifPlotPointRevelation
@@ -22,8 +23,18 @@ struct CIF_API FCifPlotPointRevelation
     FName mInstantiationId = NAME_None;
 };
 
+/** Identifies both the plot point and the specific route selected to reveal it. */
+struct CIF_API FCifPlotPointSelection
+{
+    bool isValid() const { return mPlotPoint && mRevelation; }
+
+    // Plot points and their revelation arrays are immutable after loading, so these pointers remain stable during play.
+    const UCifPlotPoint* mPlotPoint = nullptr;
+    const FCifPlotPointRevelation* mRevelation = nullptr;
+};
+
 /**
- * This class is a UCifGameObject and it represents a plot point in the narrative if any.
+ * This class is a UCifGameObject, and it represents a plot point in the narrative if any.
  * The plot points are initialized at the beginning of game and never shouldn't be deleted.
  * PlotPointPool aggregates all the possible plot points in the game.
  */

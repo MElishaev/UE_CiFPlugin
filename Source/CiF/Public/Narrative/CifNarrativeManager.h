@@ -8,6 +8,7 @@
 
 class UMK_DialogueManager;
 class UCifPlotPointPool;
+struct FCifPlotPointSelection;
 
 /**
  * This class should manage the narrative of the game.
@@ -20,25 +21,24 @@ class CIF_API UCifNarrativeManager : public UObject
     GENERATED_BODY()
 
 public:
-
     void init();
 
     /**
-     * While in a social game that is playing out, check if the responder in the social game has a plot point
-     * to reveal to the player. Return the plot point ID to be played
-     * @param responder the responder in the current playing SG
-     * @return plot point name or NONE if no plot point to play
-     * todo but why would we want the pp name to be returned? y not directly start playing the pp?
-     * just do get dialogue if pp available to be played and thats it.
+     * Checks whether a character, item, or other named game object can reveal an available plot point.
+     * @param revealer named
+     * game object attempting to reveal a plot point
+     * @param outSelection receives both the matching plot point and its specific
+     * revelation route
+     * @return true when a matching revelation was found
      */
-    FName getPPNameToBePlayed(const FName responder) const;
+    bool findPlotPointToPlay(const FName revealer, FCifPlotPointSelection& outSelection) const;
 
-    void getInstantiationForSocialGame(const FName sgName, const FName initiator, const FName responder, const FName other=NAME_None);
+    void getInstantiationForSocialGame(const FName sgName, const FName initiator, const FName responder, const FName other = NAME_None);
 
     // where participant is the character which is not player (could be responder or initiator if npc started interaction)
     void getInstantiationForPlotPoint(const FName ppName, const FName participant);
-private:
 
+private:
     void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
 
     UPROPERTY()

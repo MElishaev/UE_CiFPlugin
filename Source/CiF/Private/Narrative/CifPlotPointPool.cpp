@@ -2,6 +2,7 @@
 
 
 #include "Narrative/CifPlotPointPool.h"
+#include "GLSMacroses.h"
 #include "Narrative/CifPlotPoint.h"
 
 const UCifPlotPoint* UCifPlotPointPool::getPlotPointByName(const FName plotPointName) const
@@ -65,17 +66,21 @@ bool UCifPlotPointPool::isAvailableByObj(const UCifPlotPoint* pp) const
     return true;
 }
 
-FName UCifPlotPointPool::getAvailablePPByResponder(const FName responder) const
+bool UCifPlotPointPool::findAvailableRevelation(const FName revealer, FCifPlotPointSelection& outSelection) const
 {
-    // todo what if the responder of the current interaction can reveal multiple plot points? which one will be chosen?
+    outSelection = {};
+
+    // TODO: Score the candidates when one revealer can reveal multiple currently available plot points.
     for (const auto pp : mAvailablePlotPoints) {
         for (const FCifPlotPointRevelation& revelation : pp->mRevelations) {
-            if (revelation.mRevealedBy.Contains(responder)) {
-                return pp->mKnowledge->mObjectName;
+            if (revelation.mRevealedBy.Contains(revealer)) {
+                outSelection.mPlotPoint = pp;
+                outSelection.mRevelation = &revelation;
+                return true;
             }
         }
     }
-    return NAME_None;
+    return false;
 }
 
 TArray<const UCifPlotPoint*> UCifPlotPointPool::getNHighestAvailablePoints(const uint8 n) { return {}; }
@@ -155,9 +160,15 @@ UCifPlotPointPool* UCifPlotPointPool::loadFromJson(const TArray<TSharedPtr<FJson
 
     for (const auto ppJson : json) {
         auto pp = UCifPlotPoint::loadFromJson(ppJson->AsObject(), worldContextObject);
+        if (!pp) {
+            GLS_LOG_CONTEXT(worldContextObject, LogTemp, Error, TEXT("Failed to load a plot point while creating the plot-point pool"));
+            continue;
+        }
         ppPool->mPlotPoints.Add(pp->mKnowledge->mObjectName, pp);
     }
 
+    // Plot points without story prerequisites must be queryable immediately after the pool loads.
+    ppPool->updateAvailable();
     return ppPool;
 }
 

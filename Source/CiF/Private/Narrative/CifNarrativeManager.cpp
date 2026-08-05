@@ -2,39 +2,49 @@
 
 
 #include "Narrative/CifNarrativeManager.h"
+#include "GLSMacroses.h"
+#include "Narrative/CifPlotPoint.h"
 #include "Narrative/CifPlotPointPool.h"
-#include "ReadWriteFiles.h"
 #include "Narrative/MK_DialogueManager.h"
+#include "ReadWriteFiles.h"
 
 void UCifNarrativeManager::init()
 {
     const FString plotpointsPath = FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/plotpoints.json"));
-    UE_LOG(LogTemp, Log, TEXT("Reading plot points from %s"), *plotpointsPath);
+    GLS_LOG(LogTemp, Log, TEXT("Reading plot points from %s"), *plotpointsPath);
     loadPlotPoints(plotpointsPath, this);
 
     mDialogueMgr = NewObject<UMK_DialogueManager>();
-    mDialogueMgr->initializeRegistry(FPaths::Combine(*FPaths::ProjectPluginsDir(),
-                                                     *FString("CiF/Content/Data/Dialogue/dialogue_registry.json")));
+    const FString registryPath =
+        FPaths::Combine(*FPaths::ProjectPluginsDir(), *FString("CiF/Content/Data/Dialogue/dialogue_registry.json"));
+    if (!mDialogueMgr->initializeRegistry(registryPath)) {
+        GLS_LOG(LogTemp, Error, TEXT("Failed to initialize dialogue registry from %s"), *registryPath);
+    }
 }
 
 void UCifNarrativeManager::loadPlotPoints(const FString& filePath, const UObject* worldContextObject)
 {
     TSharedPtr<FJsonObject> jsonObject;
     if (!UReadWriteFiles::readJson(filePath, jsonObject)) {
-        UE_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *filePath);
+        GLS_LOG(LogTemp, Error, TEXT("Failed to read json %s"), *filePath);
         return;
     }
 
     const auto ppJson = jsonObject->GetArrayField(TEXT("Plotpoints"));
     mPlotPointPool = UCifPlotPointPool::loadFromJson(ppJson, worldContextObject);
     if (!mPlotPointPool) {
-        UE_LOG(LogTemp, Error, TEXT("Failed to create plot point pool"));
+        GLS_LOG(LogTemp, Error, TEXT("Failed to create plot point pool"));
     }
 }
 
-FName UCifNarrativeManager::getPPNameToBePlayed(const FName responder) const
+bool UCifNarrativeManager::findPlotPointToPlay(const FName revealer, FCifPlotPointSelection& outSelection) const
 {
-    return mPlotPointPool->getAvailablePPByResponder(responder);
+    outSelection = {};
+    if (!mPlotPointPool) {
+        GLS_LOG(LogTemp, Error, TEXT("Cannot find a plot point to play because the plot-point pool is not initialized"));
+        return false;
+    }
+    return mPlotPointPool->findAvailableRevelation(revealer, outSelection);
 }
 
 void UCifNarrativeManager::getInstantiationForSocialGame(const FName sgName,
@@ -44,6 +54,4 @@ void UCifNarrativeManager::getInstantiationForSocialGame(const FName sgName,
 {
 }
 
-void UCifNarrativeManager::getInstantiationForPlotPoint(const FName ppName, const FName participant)
-{
-}
+void UCifNarrativeManager::getInstantiationForPlotPoint(const FName ppName, const FName participant) {}
