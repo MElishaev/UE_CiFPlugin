@@ -268,6 +268,29 @@ void UCiFManager::formIntent(UCiFCharacter* initiator)
 	}
 }
 
+bool UCiFManager::formIntent(UCiFCharacter* initiator, const TSet<FName>& responders)
+{
+    clearProspectiveMemory();
+    
+    // this is called after the clear memory because we might try to use the formed intent but if we fail because of this
+    // we don't want to use the old memory
+    if (responders.IsEmpty()) {
+        GLS_LOG(LogTemp, Warning, TEXT("Shouldn't call this method with no responders - something went wrong"));
+        return false;
+    }
+    
+    for (const auto responderName : responders) {
+        if (const auto responder = mCast->getCharByName(responderName)) {
+            formIntentForSocialGames(initiator, responder, static_cast<TArray<UCiFGameObject*>>(mCast->mCharacters));
+        }
+        else {
+            GLS_LOG(LogTemp, Error, TEXT("Could not find character '%s' in game's cast"), *responderName.ToString());
+            return false;
+        }
+    }
+    return true;
+}
+
 void UCiFManager::formIntentForSocialGames(UCiFCharacter* initiator,
                                            UCiFGameObject* responder,
                                            const TArray<UCiFGameObject*>& possibleOthers)
@@ -1024,6 +1047,11 @@ UCiFGameObject* UCiFManager::getGameObjectByName(const FName name) const
 	return gameObject;
 }
 
+UCiFGameObject* UCiFManager::getGameObjectByNetworkId(const uint8 id) const
+{
+    return mCast->getCharByNetworkId(id);
+}
+
 UCiFItem* UCiFManager::getItemByName(const FName name) const
 {
 	auto item = mItemArray.FindByPredicate([=](const UCiFItem* i) { return i->mObjectName == name; });
@@ -1042,6 +1070,10 @@ UCiFKnowledge* UCiFManager::getKnowledgeByName(const FName name) const
 
 UCiFSocialNetwork* UCiFManager::getSocialNetworkByType(const ESocialNetworkType type) const
 {
+    if (type == ESocialNetworkType::RELATIONSHIP) {
+        return mRelationshipNetworks;
+    }
+    
 	auto sn = mSocialNetworks.Find(type);
 	if (sn) {
 		return *sn;

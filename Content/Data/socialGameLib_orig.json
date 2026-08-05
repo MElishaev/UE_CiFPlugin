@@ -414,10 +414,10 @@
         {
           "_id": 25,
           "_name": "script1",
-          "_description": "Basic Accept for move: %i% says something that embarrasses %r%.",
+          "_description": "Basic Accept for move: I says something that embarrasses R.",
           "Lines": [
             {
-              "_text": "Basic Accept for move: %i% says something that embarrasses %r%.",
+              "_text": "Basic Accept for move: I says something that embarrasses R.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -425,10 +425,10 @@
         {
           "_id": 26,
           "_name": "script2",
-          "_description": "Basic Reject for Move: %i% attempts to embarrass %r% but fails miserably, making %r% laugh more than anything.",
+          "_description": "Basic Reject for Move: I attempts to embarrass R but fails miserably, making R laugh more than anything.",
           "Lines": [
             {
-              "_text": "Basic Reject for Move: %i% attempts to embarrass %r% but fails miserably, making %r% laugh more than anything.",
+              "_text": "Basic Reject for Move: I attempts to embarrass R but fails miserably, making R laugh more than anything.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -436,10 +436,10 @@
         {
           "_id": 27,
           "_name": "script3",
-          "_description": "%r% is confident and is decent friends with %i% so he isn't all that upset at being embarrassed.",
+          "_description": "R is confident and is decent friends with I so he isn't all that upset at being embarrassed.",
           "Lines": [
             {
-              "_text": "%r% is confident and is decent friends with %i% so he isn't all that upset at being embarrassed.",
+              "_text": "R is confident and is decent friends with I so he isn't all that upset at being embarrassed.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -447,10 +447,10 @@
         {
           "_id": 28,
           "_name": "script4",
-          "_description": "%r% is vengeful and becomes very angry with %i% after they embarrass %r%.",
+          "_description": "R is vengeful and becomes very angry with I after they embarrass R.",
           "Lines": [
             {
-              "_text": "%r% is vengeful and becomes very angry with %i% after they embarrass %r%.",
+              "_text": "R is vengeful and becomes very angry with I after they embarrass R.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -458,10 +458,10 @@
         {
           "_id": 29,
           "_name": "script5",
-          "_description": "%r% is forgiving and forgives %i% even though %i% embarrasses %r%.",
+          "_description": "R is forgiving and forgives I even though I embarrasses R.",
           "Lines": [
             {
-              "_text": "%r% is forgiving and forgives %i% even though %i% embarrasses %r%.",
+              "_text": "R is forgiving and forgives I even though I embarrasses R.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -469,10 +469,10 @@
         {
           "_id": 30,
           "_name": "Script6",
-          "_description": "%i% is snide and says something very mean which embarrasses %r%.",
+          "_description": "I is snide and says something very mean which embrrasses R.",
           "Lines": [
             {
-              "_text": "%i% is snide and says something very mean which embarrasses %r%.",
+              "_text": "I is snide and says something very mean which embrrasses R.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -1157,10 +1157,14 @@
         {
           "_id": 2,
           "_name": "default declare rivalry (accept)",
-          "_description": "%i% dislikes %r% to the point that %i% declares %r% is %gender(i|his|her)% rival. %r% feels mutually, so rivals it is!",
+          "_description": "%i% dislikes %r% to the point that %i% declares %r% is %gender(i, his, her)% rival. %r% feels mutually, so rivals it is!",
           "Lines": [
             {
-              "_text": "%i% dislikes %r% to the point that %i% declares %r% is %gender(i|his|her)% rival. %r% feels mutually, so rivals it is!",
+              "_text": "%i% dislikes %r% to the point that %i% declares %r% is %gender(i, his, her)% rival. %r% feels mutually, so rivals it is!",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -1168,10 +1172,14 @@
         {
           "_id": 3,
           "_name": "default declare rivalry (reject)",
-          "_description": "%i% declares their dislike for %r%. %r% is taken aback and says that %gender(r|he|she)% doesn't feel that strongly against %i%. %i% decides to rethink %gender(i|his|her)% feelings.",
+          "_description": "%i% declares their dislike for %r%. %r% is taken aback and says that %gender(r, he, she)% doesn't feel that strongly against %i%. %i% decides to rethink %gender(i, his, her)% feelings.",
           "Lines": [
             {
-              "_text": "%i% declares their dislike for %r%. %r% is taken aback and says that %gender(r|he|she)% doesn't feel that strongly against %i%. %i% decides to rethink %gender(i|his|her)% feelings.",
+              "_text": "%i% declares their dislike for %r%. %r% is taken aback and says that %gender(r, he, she)% doesn't feel that strongly against %i%. %i% decides to rethink %gender(i, his, her)% feelings.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -2483,6 +2491,10 @@
             {
               "_text": "%i% makes a comment which %r% finds distasteful. %i% feels embarrassed.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -2494,16 +2506,24 @@
             {
               "_text": "%i% tries to tease %r%, but it ends up backfiring. %r% feels bad, and %i% feels embarrassed.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 8,
           "_name": "suave backfire (accept)",
-          "_description": "%i% tries to make a suave comment but %gender(i|his|her)% virginity gets brought up by %r% leaving %i% flustered and embarrassed.",
+          "_description": "%i% tries to make a suave comment but %gender(i, his, her)% virginity gets brought up by %r% leaving %i% flustered and embarassed.",
           "Lines": [
             {
-              "_text": "%i% tries to make a suave comment but %gender(i|his|her)% virginity gets brought up by %r% leaving %i% flustered and embarrassed.",
+              "_text": "%i% tries to make a suave comment but %gender(i, his, her)% virginity gets brought up by %r% leaving %i% flustered and embarassed.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -2516,6 +2536,10 @@
             {
               "_text": "%i% begins talking with %r% but does not give %r% a chance to say anything. After babbling for some time, %r% gets angry and tells %i% to stop talking.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -2527,6 +2551,10 @@
             {
               "_text": "%i% says that %r% talks a lot, and %r% overhears, leaving %r% upset and %i% embarrassed.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -2537,6 +2565,10 @@
           "Lines": [
             {
               "_text": "%i% says something mildly embarrassing and tries to cover for it. %r% notices, but helps move the conversation along.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -3387,6 +3419,10 @@
             {
               "_text": "%i% notices that %r% is feeling down. %i% offers some words of encouragement and makes %r% feel better.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -3397,6 +3433,10 @@
           "Lines": [
             {
               "_text": "%i% notices that %r% is feeling down. %i% offers some words of encouragement, but %r% brushes %i% off.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -3763,10 +3803,14 @@
         {
           "_id": 5,
           "_name": "default accept",
-          "_description": "%i% gives %o% to %r% as a sign of %gender(i|his|her)% romantic intentions. %r% happily accepts the gift.",
+          "_description": "%i% gives %o% to %r% as a sign of %gender(i, his, her)% romantic intentions. %r% happily accepts the gift.",
           "Lines": [
             {
-              "_text": "%i% gives %o% to %r% as a sign of %gender(i|his|her)% romantic intentions. %r% happily accepts the gift.",
+              "_text": "%i% gives %o% to %r% as a sign of %gender(i, his, her)% romantic intentions. %r% happily accepts the gift.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -3774,10 +3818,10 @@
         {
           "_id": 6,
           "_name": "default reject",
-          "_description": "%i% tries to give %o% to %r% as a sign of %gender(i|his|her)% romantic intentions. However, %r% will not take the gift leaving %i% embarrassed.",
+          "_description": "%i% tries to give %o% to %r% as a sign of %gender(i, his, her)% romantic intentions. However, %r% will not take the gift leaving %i% embarrassed.",
           "Lines": [
             {
-              "_text": "%i% tries to give %o% to %r% as a sign of %gender(i|his|her)% romantic intentions. However, %r% will not take the gift leaving %i% embarrassed.",
+              "_text": "%i% tries to give %o% to %r% as a sign of %gender(i, his, her)% romantic intentions. However, %r% will not take the gift leaving %i% embarrassed.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -4463,6 +4507,10 @@
             {
               "_text": "%i% flirts with %r% in a physical way. %r% flirts back.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
@@ -4473,6 +4521,10 @@
           "Lines": [
             {
               "_text": "%i% tries to flirt with %r% in a physical way, but %r% turns %i% down.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -6210,10 +6262,10 @@
         {
           "_id": 6,
           "_name": "Default mediate (accept)",
-          "_description": "%r% was frustrated about %o% but %i% calmed them about it.",
+          "_description": "Ughh, I can't stand %o% right now....",
           "Lines": [
             {
-              "_text": "Ughh, %i% can't stand %o% right now....",
+              "_text": "Ughh, I can't stand %o% right now....",
               "_primarySpeaker": "responder"
             },
             {
@@ -6221,7 +6273,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "It's just... %gender(o|he|she)% is really grating on my nerves lately, sometimes %i% wish %gender(o|he|she)% wasn't in my life...",
+              "_text": "It's just... %gender(o,he,she)% is really grating on my nerves lately, sometimes I wish %gender(o,he,she)% wasn't in my life...",
               "_primarySpeaker": "responder"
             },
             {
@@ -6233,7 +6285,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Because I know that, regardless of what problems you and %o% have, you love %gender(o|him|her)%.",
+              "_text": "Because I know that, regardless of what problems you and %o% have, you love %gender(o,him,her)%.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -6247,20 +6299,24 @@
             {
               "_text": "... Maybe you're right. I should give it a little more thought.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 7,
           "_name": "Default mediate (reject)",
-          "_description": "%i% approached %r% regarding how they feel about %o% but %r% wasn't cooperative and didn't want to share.",
+          "_description": "Hey, %r%. How do you feel about %o%?",
           "Lines": [
             {
               "_text": "Hey, %r%. How do you feel about %o%?",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Why are you asking me about %gender(o|him|her)%?",
+              "_text": "Why are you asking me about %gender(o,him,her)%?",
               "_primarySpeaker": "responder"
             },
             {
@@ -6268,11 +6324,15 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "The way I feel about %gender(o|him|her)% is my business. And frankly, I don't feel like sharing that business with you.",
+              "_text": "The way I feel about %gender(o,him,her)% is my business. And frankly, I don't feel like sharing that business with you.",
               "_primarySpeaker": "responder"
             },
             {
               "_text": "Oh... umm... okay.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -6280,7 +6340,7 @@
         {
           "_id": 20,
           "_name": "Blunt mediate (accept)",
-          "_description": "%i% approached %r% bluntly about %gender(r|his|her)% relationship with %o% saying it gone too far, %r% agreed.",
+          "_description": "%r%, this feud with %o% has gone far enough.",
           "Lines": [
             {
               "_text": "%r%, this feud with %o% has gone far enough.",
@@ -6305,13 +6365,17 @@
             {
               "_text": "You're probably right.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 21,
           "_name": "Blunt mediate (reject)",
-          "_description": "%i% approached %r% bluntly about %gender(r|his|her)% relationship with %o% saying it gone too far, %r% didn't have any of it and rejected %i%.",
+          "_description": "%r%, this feud with %o% has gone far enough.",
           "Lines": [
             {
               "_text": "%r%, this feud with %o% has gone far enough.",
@@ -6336,24 +6400,28 @@
             {
               "_text": "I don't think I want to right now. And I don't want to talk about this anymore.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 20,
           "_name": "Mediate on behalf of %o% (accept)",
-          "_description": "%i% approached %r% on behalf of %o% trying to make peace between them and %r% agreed to think about it.",
+          "_description": "Hey, %r%, I've been talking to %o% a lot lately.",
           "Lines": [
             {
               "_text": "Hey, %r%, I've been talking to %o% a lot lately.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "And? %gender(o|he|she)%'s a huge %gender(o|prick|bitch)%, right?",
+              "_text": "And? %gender(o,he,she)%'s a huge %gender(o,prick,bitch)%, right?",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Actually, no. I honestly don't see why you dislike %gender(o|him|her)% so much. %gender(o|He's|She's)% actually not that bad.",
+              "_text": "Actually, no. I honestly don't see why you dislike %gender(o,him,her)% so much. %gender(o,He's,She's)% actually not that bad.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -6361,42 +6429,46 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Well, maybe %gender(o|he|she)%'s changed. Maybe you should give %gender(o|him|her)% another chance.",
+              "_text": "Well, maybe %gender(o,he,she)%'s changed. Maybe you should give %gender(o,him,her)% another chance.",
               "_primarySpeaker": "initiator"
             },
             {
               "_text": "...I'll think about it.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 21,
           "_name": "Mediate on behalf of %o% (reject)",
-          "_description": "%i% approached %r% on behalf of %o% trying to make peace between them but %r% told him to stay out of it.",
+          "_description": "Hey, %r%, I've been hanging out with %o% a lot lately, and-",
           "Lines": [
             {
               "_text": "Hey, %r%, I've been hanging out with %o% a lot lately, and-",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Let me guess. %gender(o|He's|She's)% a complete %gender(o|prick|bitch)%, right?",
+              "_text": "Let me guess. %gender(o,He's,She's)% a complete %gender(o,prick,bitch)%, right?",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Actually, no. I honestly don't see why you dislike %gender(o|him|her)% so much. %gender(o|He's|She's)% actually not that bad.",
+              "_text": "Actually, no. I honestly don't see why you dislike %gender(o,him,her)% so much. %gender(o,He's,She's)% actually not that bad.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Not that bad? I never thought I'd see the day when someone described %gender(o|him|her)% that way...",
+              "_text": "Not that bad? I never thought I'd see the day when someone described %gender(o,him,her)% that way...",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Seriously, %r%, you might think about giving %o% another chance. Maybe %gender(o|he's|she's)% changed since you last really spent time with %gender(o|him|her)%.",
+              "_text": "Seriously, %r%, you might think about giving %o% another chance. Maybe %gender(o,he's,she's)% changed since you last really spent time with %gender(o,him,her)%.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "No. I know what %gender(o|he's|she's)% like: I've known %gender(o|him|her)% my whole life! And if I know one thing, it's that %gender(o|he|she)% can't change.",
+              "_text": "No. I know what %gender(o,he's,she's)% like: I've known %gender(o,him,her)% my whole life! And if I know one thing, it's that %gender(o,he,she)% can't change.",
               "_primarySpeaker": "responder"
             },
             {
@@ -6406,6 +6478,10 @@
             {
               "_text": "No. I don't want to hear it. Let's change the subject.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         }
@@ -7362,7 +7438,7 @@
         {
           "_id": 0,
           "_name": "Default accept",
-          "_description": "%i% suggested %r% a %o%, and %r% was happy for it.",
+          "_description": "Hey, %r%. I picked this up for you.",
           "Lines": [
             {
               "_text": "Hey, %r%. I picked this up for you.",
@@ -7371,13 +7447,17 @@
             {
               "_text": "Oh, %i%, thank you! I was just craving something to slake my thirst; this %o% should hit the spot!",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 1,
           "_name": "Default reject",
-          "_description": "%i% suggested %r% a %o%, but %r% wasn't in the mood for it.",
+          "_description": "Hey, %r%. I saw this and I thought of you. Would you like a drink?",
           "Lines": [
             {
               "_text": "Hey, %r%. I saw this and I thought of you. Would you like a drink?",
@@ -7390,13 +7470,17 @@
             {
               "_text": "Alright then, suit yourself.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 2,
           "_name": "Slipped-something-extra-in-there give drink (accept)",
-          "_description": "%i% suggested %r% a %o% which %gender(i|he|she)% tempered with, %r% trusts %i% and accepted to take it.",
+          "_description": "Hey, %r%. I picked up this %o% for you.",
           "Lines": [
             {
               "_text": "Hey, %r%. I picked up this %o% for you.",
@@ -7417,13 +7501,17 @@
             {
               "_text": "That's just fine, trust me. Bottoms up!",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 3,
           "_name": "Slipped-something-extra-in-there give drink (reject)",
-          "_description": "%i% suggested %r% a %o% which %gender(i|he|she)% tempered with, %r% found out and strongly rejected.",
+          "_description": "Hey, %r%. I picked up this %o% for you.",
           "Lines": [
             {
               "_text": "Hey, %r%. I picked up this %o% for you.",
@@ -7446,7 +7534,11 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Of all the low down.... You can keep your muddied water, you dishonorable %gender(i|pig|woman)%",
+              "_text": "Of all the low down.... You can keep your muddied water, you dishonorable %gender(i,pig,woman)%",
+              "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "responder"
             }
           ]
@@ -7975,7 +8067,7 @@
         {
           "_id": 0,
           "_name": "Default share feelings (accept)",
-          "_description": "%i% shared %gender(i|his|her)% interest in %r% who was glad to hear and reciprocated.",
+          "_description": "Hey, %r%, I have something to tell you.",
           "Lines": [
             {
               "_text": "Hey, %r%, I have something to tell you.",
@@ -8012,13 +8104,17 @@
             {
               "_text": "That's great to hear.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "%love%",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 1,
           "_name": "Default share feelings (reject)",
-          "_description": "%i% shared %gender(i|his|her)% interest in %r% who was surprised to hear and didn't know how to respond.. leaving %i% disappointed.",
+          "_description": "Hey, %r%. I have something to tell you.",
           "Lines": [
             {
               "_text": "Hey, %r%. I have something to tell you.",
@@ -8055,6 +8151,10 @@
             {
               "_text": "I think your silence says it all...",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "%neutral%",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -8318,22 +8418,22 @@
         {
           "_id": 0,
           "_name": "script1",
-          "_description": "%i% talks with %r% about witches and surprised to find out that %r% is also familiar and interested in the subject.",
+          "_description": "%r%, have you ever heard of the north Witch Trials? It was a huge event in our country's history.",
           "Lines": [
             {
               "_text": "%r%, have you ever heard of the north Witch Trials? It was a huge event in our country's history.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Of course I've heard of them! I'm actually a large proprietor of all things witchcraft I find the lore fascinating. How about the  werewolf scare in the 15th century? Lycans are rather fascinating don't you think?",
+              "_text": "Of course I\u00e2\u20ac\u2122ve heard of them! I\u00e2\u20ac\u2122m actually a large proprietor of all things witchcraft\u00e2\u20ac\u201dI find the lore fascinating. How about the  werewolf scare in the 15th century? Lycans are rather fascinating don\u00e2\u20ac\u2122t you think?",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I- I do, yes! I didn't really think anyone else could have such a strange fascination. Do you think things like that actually exist?",
+              "_text": "I\u00e2\u20ac\u201dI do, yes! I didn\u00e2\u20ac\u2122t really think anyone else could have such a strange fascination. Do you think things like that actually exist?",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Hm.. well I can certainly see the possibility. This has been a fun talk %sweetie%.",
+              "_text": "Hm\u00e2\u20ac\u00a6well I can certainly see the possibility. This has been a fun talk %sweetie%.",
               "_primarySpeaker": "responder"
             }
           ]
@@ -8341,14 +8441,14 @@
         {
           "_id": 1,
           "_name": "script2",
-          "_description": "%i% shares what he wants to do right now with %r% and %r% agrees and rappor with %i%.",
+          "_description": "Hm, do you know what I would very much fancy doing right now? %random(Reading\u00e2\u20ac\u201dI do enjoy a good bout of poetry now and again, Horseback riding\u00e2\u20ac\u201dthe horses here at the manor really remind me of my youth\u00e2\u20ac\u201dwhen I\u00e2\u20ac\u2122d ride almost all the time, Going for a nice swim! The weather seems a bit chilly but the sensation of being in water is just\u00e2\u20ac\u00a6fascinatingly freeing)%.",
           "Lines": [
             {
-              "_text": "Hm, do you know what I would very much fancy doing right now? %random(Reading|I do enjoy a good bout of poetry now and again|Horseback riding, the horses here at the manor really remind me of my youth, when I'd ride almost all the time|Going for a nice swim! The weather seems a bit chilly but the sensation of being in water is just fascinatingly freeing)%.",
+              "_text": "Hm, do you know what I would very much fancy doing right now? %random(Reading\u00e2\u20ac\u201dI do enjoy a good bout of poetry now and again, Horseback riding\u00e2\u20ac\u201dthe horses here at the manor really remind me of my youth\u00e2\u20ac\u201dwhen I\u00e2\u20ac\u2122d ride almost all the time, Going for a nice swim! The weather seems a bit chilly but the sensation of being in water is just\u00e2\u20ac\u00a6fascinatingly freeing)%.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Huh. Well that is a funny sort of thing. I was just thinking about that not too long ago myself. It's a grand hobby really, isn't it?",
+              "_text": "Huh. Well that is a funny sort of thing. I was just thinking about that not too long ago myself. It\u00e2\u20ac\u2122s a grand hobby really, isn\u00e2\u20ac\u2122t it?",
               "_primarySpeaker": "responder"
             },
             {
@@ -8356,7 +8456,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Mm, it's not so odd, unfortunately. Taking things a little fast aren't we %i%?",
+              "_text": "Mm, it\u00e2\u20ac\u2122s not so odd\u00e2\u20ac\u00a6unfortunately. Taking things a little fast aren\u00e2\u20ac\u2122t we %i%?",
               "_primarySpeaker": "responder"
             }
           ]
@@ -9066,10 +9166,10 @@
         {
           "_id": 18,
           "_name": "script1",
-          "_description": "%i% apologizes to %r% and want to amend things and %r% agrees.",
+          "_description": "Hail %r%. Listen, about our trifles as of late...let\u00e2\u20ac\u2122s not let them get in the way of starting this relationship over.",
           "Lines": [
             {
-              "_text": "Hail %r%. Listen, about our trifles as of late...let's not let them get in the way of starting this relationship over.",
+              "_text": "Hail %r%. Listen, about our trifles as of late...let\u00e2\u20ac\u2122s not let them get in the way of starting this relationship over.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -9093,14 +9193,14 @@
         {
           "_id": 19,
           "_name": "script2",
-          "_description": "%i% apologizes to %r% but %r% rejects telling %i% that %gender(i|he|she)% needs to reflect on what %gender(i|he|she)% said.",
+          "_description": "So %r%...I\u00e2\u20ac\u2122ve been pondering our tumbling relationship lately\u00e2\u20ac\u00a6and was wondering if perhaps you were willing to make a truce? We\u00e2\u20ac\u2122ve both done bad things\u00e2\u20ac\u00a6well, said bad things, and I\u00e2\u20ac\u00a6ahem\u00e2\u20ac\u00a6is that a\u00e2\u20ac\u00a6a no face you\u00e2\u20ac\u2122re giving me?",
           "Lines": [
             {
-              "_text": "So %r%... I've been pondering our tumbling relationship lately, and was wondering if perhaps you were willing to make a truce? We've both done bad things.. well, said bad things, and I - ahem - is that a - a no face you're giving me?",
+              "_text": "So %r%...I\u00e2\u20ac\u2122ve been pondering our tumbling relationship lately\u00e2\u20ac\u00a6and was wondering if perhaps you were willing to make a truce? We\u00e2\u20ac\u2122ve both done bad things\u00e2\u20ac\u00a6well, said bad things, and I\u00e2\u20ac\u00a6ahem\u00e2\u20ac\u00a6is that a\u00e2\u20ac\u00a6a no face you\u00e2\u20ac\u2122re giving me?",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Listen %i%, our relationship is on stilts for a reason, it's an awful thing to say the things you've said and then expect a truce to come out of it without even having the dignity to apologize.",
+              "_text": "Listen %i%, our relationship is on stilts for a reason, it\u00e2\u20ac\u2122s an awful thing to say the things you\u00e2\u20ac\u2122ve said and then expect a truce to come out of it without even having the dignity to apologize.",
               "_primarySpeaker": "responder"
             },
             {
@@ -9116,14 +9216,14 @@
         {
           "_id": 20,
           "_name": "script3",
-          "_description": "%i% apologizes to %r% while %r% was surprised but accepted the apology to better things between them.",
+          "_description": "%r%, if I might have a moment? \u00e2\u20ac\u00a6Uh, listen I wanted to apologize for all the unfortunate words that have been spoken between us. It truly is a menace\u00e2\u20ac\u00a6",
           "Lines": [
             {
-              "_text": "%r%, if I might have a moment? Uh, listen I wanted to apologize for all the unfortunate words that have been spoken between us. It truly is a menace.",
+              "_text": "%r%, if I might have a moment? \u00e2\u20ac\u00a6Uh, listen I wanted to apologize for all the unfortunate words that have been spoken between us. It truly is a menace\u00e2\u20ac\u00a6",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%random(You're apologizing|You're serious)%? Well, %i%, I apologize too. Our conversations have been.. unpleasant.",
+              "_text": "%random(You\u00e2\u20ac\u2122re apologizing, You\u00e2\u20ac\u2122re serious)%? Well, %i%, I apologize too. Our conversations have been\u00e2\u20ac\u00a6unpleasant.",
               "_primarySpeaker": "responder"
             },
             {
@@ -9131,7 +9231,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Well.. let's not jump the wagon just yet %gender(i|sir|lass)%. But yes, let's be a bit more amicable toward each other.",
+              "_text": "Well\u00e2\u20ac\u00a6let\u00e2\u20ac\u2122s not jump the wagon just yet %gender(i, sir, lass)%. But yes, let\u00e2\u20ac\u2122s be a bit more amicable toward each other.",
               "_primarySpeaker": "responder"
             }
           ]
@@ -9139,10 +9239,10 @@
         {
           "_id": 21,
           "_name": "script4",
-          "_description": "%i% approaches arrogantly to %r% for %r% to apologize but %r% dumbfounded and rejects %i%.",
+          "_description": "Ah, %r%, listen my friend you can hide your guilt and just apologize now. I know you feel terrible for all the ridiculous things you\u00e2\u20ac\u2122ve claimed in my presence, and I agree, they were terrible, but let\u00e2\u20ac\u2122s put that all aside and just focus on being charmed friends, eh?",
           "Lines": [
             {
-              "_text": "Ah, %r%, listen my friend you can hide your guilt and just apologize now. I know you feel terrible for all the ridiculous things you've claimed in my presence, and I agree, they were terrible, but let's put that all aside and just focus on being charmed friends, eh?",
+              "_text": "Ah, %r%, listen my friend you can hide your guilt and just apologize now. I know you feel terrible for all the ridiculous things you\u00e2\u20ac\u2122ve claimed in my presence, and I agree, they were terrible, but let\u00e2\u20ac\u2122s put that all aside and just focus on being charmed friends, eh?",
               "_primarySpeaker": "initiator"
             },
             {
@@ -9162,14 +9262,14 @@
         {
           "_id": 22,
           "_name": "script5",
-          "_description": "%i% nonchalantly approaches %r% for truce but %r% isn't reciprocate",
+          "_description": "Mm, having a pleasant time %r%? You look so enchanted standing there.",
           "Lines": [
             {
               "_text": "Mm, having a pleasant time %r%? You look so enchanted standing there.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Umm.. yes? What are you playing at %i%? Am I standing on a trap door over a poison pit?",
+              "_text": "Umm\u00e2\u20ac\u00a6yes? What are you playing at %i%? Am I standing on a trap door over a poison pit?",
               "_primarySpeaker": "responder"
             },
             {
@@ -9177,7 +9277,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "I don't think regaining your fickle friendship is on the agenda for the next hour.",
+              "_text": "I\u00e2\u20ac\u00a6don\u00e2\u20ac\u2122t think regaining your fickle friendship is on the agenda for the next hour\u00e2\u20ac\u00a6",
               "_primarySpeaker": "responder"
             }
           ]
@@ -9185,22 +9285,22 @@
         {
           "_id": 23,
           "_name": "script6",
-          "_description": "%i% approaches apologetically to %r% regarding how their interactions but %r% rejected and didn't forgive.",
+          "_description": "So\u00e2\u20ac\u00a6%r%, listen. I\u00e2\u20ac\u2122ve felt awful about the things we\u00e2\u20ac\u2122ve...I\u00e2\u20ac\u2122ve said in our conversations. I was hoping that you would be willing to settle a truce with me. I don\u00e2\u20ac\u2122t want our short time together to be muddled by these poisonous words\u00e2\u20ac\u00a6",
           "Lines": [
             {
-              "_text": "So.. %r%, listen. I've felt awful about the things we've... I've said in our conversations. I was hoping that you would be willing to settle a truce with me. I don't want our short time together to be muddled by these poisonous words..",
+              "_text": "So\u00e2\u20ac\u00a6%r%, listen. I\u00e2\u20ac\u2122ve felt awful about the things we\u00e2\u20ac\u2122ve...I\u00e2\u20ac\u2122ve said in our conversations. I was hoping that you would be willing to settle a truce with me. I don\u00e2\u20ac\u2122t want our short time together to be muddled by these poisonous words\u00e2\u20ac\u00a6",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Really %i%? You expect a truce after everything you've said to me?!",
+              "_text": "Really %i%? You expect a truce after everything you\u00e2\u20ac\u2122ve said to me?!",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Well you've said some nasty bits yourself there, %sweetie% -",
+              "_text": "Well you\u00e2\u20ac\u2122ve said some nasty bits yourself there, %sweetie% -",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%random(Your words have been more than poison|You have been a just...profoundly awful human being)%, %random(and I think you should take your words and stuff them somewhere far into the darkness of your bitter black heart|and I think that you should just forget about a chance of a truce between us if you're going to remain such an insensitive beast)%. Good day.",
+              "_text": "%random(Your words have been more than poison, You have been a just...profoundly awful human being)%, %random(and I think you should take your words and stuff them somewhere far into the darkness of your bitter black heart, and I think that you should just forget about a chance of a truce between us if you\u00e2\u20ac\u2122re going to remain such an insensitive beast)%. Good day.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -9214,18 +9314,18 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-remove status: initiator is enemies with other",
+          "_name": "intent-remove status: responder is enemies with other",
           "_id": 1,
           "_description": "The intent of this move is to have the initiator and the other cease being enemies.",
           "Predicate": [
             {
               "_type": "RELATIONSHIP",
               "_relationship": "ENEMIES",
-              "_first": "initiator",
+              "_first": "responder",
               "_second": "other",
               "_negated": true,
               "_duration": -1,
-              "_name": "intent-remove: initiator is enemies with other",
+              "_name": "intent-remove: responder is enemies with other",
               "_intent": true,
               "_intentType": "END_RELATIONSHIP",
               "_isSFDB": false,
@@ -9246,7 +9346,7 @@
             {
               "_type": "RELATIONSHIP",
               "_relationship": "ENEMIES",
-              "_first": "initiator",
+              "_first": "responder",
               "_second": "other",
               "_negated": false,
               "_duration": -1,
@@ -9905,7 +10005,7 @@
         {
           "_id": 0,
           "_name": "Default truce (3-person) (accept)",
-          "_description": "%i% approaches %r% because he wants %r% to help %gender(i|him|her)% make amends with %o% and %r% accepts.",
+          "_description": "Y'know, I've been thinking a lot about how things are between me and %o%, and...",
           "Lines": [
             {
               "_text": "Y'know, I've been thinking a lot about how things are between me and %o%, and...",
@@ -9928,19 +10028,23 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Good for you, %i%. I'm proud of you.",
+              "_text": "Good for you, %r%. I'm proud of you.",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "In fact, there %gender(o|he|she)% is right now. Help me patch things up.",
+              "_text": "In fact, there %gender(o,he,she)% is right now. I'm gonna go see if we can't patch things up.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 1,
           "_name": "Default truce (3-person) (reject)",
-          "_description": "%i% approaches %r% regarding making a truce between %gender(i|himself|herself)% and %o% but %r% convinces %i% otherwise.",
+          "_description": "Y'know, I've been thinking a lot about how things are between me and %o%, and...",
           "Lines": [
             {
               "_text": "Y'know, I've been thinking a lot about how things are between me and %o%, and...",
@@ -9955,7 +10059,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%i%, I saw what it was like when you two were trying to make things work. It was a constant struggle.",
+              "_text": "%r%, I saw what it was like when you two were trying to make things work. It was a constant struggle.",
               "_primarySpeaker": "responder"
             },
             {
@@ -9965,6 +10069,10 @@
             {
               "_text": "... You're probably right. What was I thinking? There's a reason why we're enemies.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -11267,7 +11375,7 @@
         {
           "_id": 4,
           "_name": "Default ultimatium (accept)",
-          "_description": "%i% don't want to hide behind %o% back's when fooling with %r% and wants %r% to leave %o% - %r% agrees.",
+          "_description": "%r%...",
           "Lines": [
             {
               "_text": "%r%...",
@@ -11310,7 +11418,11 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I'll deal with %gender(o|him|her)%. Right now is about you and me.",
+              "_text": "I'll deal with %gender(o,him,her)%. Right now is about you and me.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -11318,7 +11430,7 @@
         {
           "_id": 5,
           "_name": "Default ultimatum (reject)",
-          "_description": "%i% don't want to hide behind %o% back's when fooling with %r% and wants %r% to leave %o% - %r% disagrees.",
+          "_description": "%r%...",
           "Lines": [
             {
               "_text": "%r%...",
@@ -11349,7 +11461,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "I... I can't. I'm sorry, %i%, but I'm with %o%. If you're asking me to choose between you two, my loyalty lies with %gender(o|him|her)%.",
+              "_text": "I... I can't. I'm sorry, %i%, but I'm with %o%. If you're asking me to choose between you two, my loyalty lies with %gender(o,him,her)%.",
               "_primarySpeaker": "responder"
             },
             {
@@ -11363,13 +11475,17 @@
             {
               "_text": "Save it. The knowledge that you've been stringing me on is enough to humiliate me; I don't need to hear the voice I once loved rub salt into the wound.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 6,
           "_name": "Exasperated ultimatum (accept)",
-          "_description": "%i% puts an ultimatum in front of %r% choosing %gender(i|him|her)% or %o%. %r% accepts %i%.",
+          "_description": "%r%, I need to speak with you.",
           "Lines": [
             {
               "_text": "%r%, I need to speak with you.",
@@ -11380,7 +11496,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I'm through dealing with being your other %gender(i|man|woman)%. It's exhausting, on my mind and my heart.",
+              "_text": "I'm through dealing with being your other %gender(i,man,woman)%. It's exhausting, on my mind and my heart.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -11408,7 +11524,7 @@
         {
           "_id": 7,
           "_name": "Exasperated ultimatum (reject)",
-          "_description": "%i% puts an ultimatum in front of %r% choosing %gender(i|him|her)% or %o%. %r% rejects %i% for %o%.",
+          "_description": "%r%, a word?",
           "Lines": [
             {
               "_text": "%r%, a word?",
@@ -11441,13 +11557,17 @@
             {
               "_text": "%i%...",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 8,
           "_name": "Using sex to get what you want ultimatum (accept)",
-          "_description": "%i% approaches %r% for some fun time, but eventually they both share their deeper interest in each other.",
+          "_description": "%greeting%, %sweetie%. Ready for another roll in the hay?",
           "Lines": [
             {
               "_text": "%greeting%, %sweetie%. Ready for another roll in the hay?",
@@ -11492,13 +11612,17 @@
             {
               "_text": "I would like that.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 9,
           "_name": "Using sex to get what you want (reject)",
-          "_description": "%r% rejects %i%'s because %gender(r|he|she)% feels used like a piece of meat.",
+          "_description": "%greeting%, %sweetie%. Ready for another roll in the hay?",
           "Lines": [
             {
               "_text": "%greeting%, %sweetie%. Ready for another roll in the hay?",
@@ -11538,6 +11662,10 @@
             },
             {
               "_text": "Well you'll not be sampling any of this commodity ever again!",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -13076,6 +13204,10 @@
             {
               "_text": "%i% tells %r% a nasty secret about %o%, which makes %r% distrust %o%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -13087,16 +13219,24 @@
             {
               "_text": "%i% tries to backstab %o% but %r% doesn't want anything to do with the information.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 14,
           "_name": "hostile accept",
-          "_description": "%r% reacts in a hostile manner about %i% tells %gender(r|him|her)% regarding %o%, and gets very angry at %o%.",
+          "_description": "%r% reacts in a hostile manner about %i% tells %gender(r, him, her)% regarding %o%, and gets very angry at %o%.",
           "Lines": [
             {
-              "_text": "%r% reacts in a hostile manner about %i% tells %gender(r|him|her)% regarding %o%, and gets very angry at %o%.",
+              "_text": "%r% reacts in a hostile manner about %i% tells %gender(r, him, her)% regarding %o%, and gets very angry at %o%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -13109,6 +13249,10 @@
             {
               "_text": "%i% tells %r% a false secret about %o%, which %r% believes.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -13119,6 +13263,10 @@
           "Lines": [
             {
               "_text": "%r% is loyal and is upset at %i% for saying mean things about %o%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -13937,16 +14085,24 @@
             {
               "_text": "%i% compliments %r%. %r% gracefully accepts the compliment as it was meant.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 24,
           "_name": "Default compliment (reject)",
-          "_description": "%i% tries to compliment %r%, however %r% does not agree and ends up putting %gender(r|himself|herself)% down.",
+          "_description": "%i% tries to compliment %r%, however %r% does not agree and ends up putting %gender(r,himself, herself)% down.",
           "Lines": [
             {
-              "_text": "%i% tries to compliment %r%, however %r% does not agree and ends up putting %gender(r|himself|herself)% down.",
+              "_text": "%i% tries to compliment %r%, however %r% does not agree and ends up putting %gender(r,himself, herself)% down.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -13958,6 +14114,10 @@
           "Lines": [
             {
               "_text": "%i% attempts to compliment %r%, but %r% is still angry at %i%. %r% turns it around and tells %i% off for trying to manipulate the situation.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -14444,22 +14604,26 @@
         {
           "_id": 0,
           "_name": "Script1",
-          "_description": "%i% insults %r% when %r% just gets back at %gender(i|him|her)%.",
+          "_description": "You know what %r%, your pompous and spoiled ways have been especially grating as of late. You should really consider not being such a-",
           "Lines": [
             {
               "_text": "You know what %r%, your pompous and spoiled ways have been especially grating as of late. You should really consider not being such a-",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%random(I say!|Excuse me?!)% How have I in any way been as you say, pompous and spoiled-you-you inconsiderate, miserable-",
+              "_text": "%random(I say!, Excuse me?!)% How have I in any way been as you say, pompous and spoiled-you-you inconsiderate, miserable-",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "%random(Good grief!|Lordy Lou!)% %gender(r|Sir|Woman)%, how can you not see it! Look at yourself right now! Pretension knows no greater proprietor!",
+              "_text": "%random(Good grief!, Lordy Lou!)% %gender(r, Sir, Woman)%, how can you not see it! Look at yourself right now! Pretension knows no greater proprietor!",
               "_primarySpeaker": "initiator"
             },
             {
               "_text": "You are filth itself %i%!",
+              "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$HATE$",
               "_primarySpeaker": "responder"
             }
           ]
@@ -14467,18 +14631,18 @@
         {
           "_id": 1,
           "_name": "Script2",
-          "_description": "%i% insults %r%, while %r% sends %gender(i|him|her)% off.",
+          "_description": "Goodness me %r%, I cannot even stand to look at you. How miserable must you be to act the way you do.",
           "Lines": [
             {
               "_text": "Goodness me %r%, I cannot even stand to look at you. How miserable must you be to act the way you do.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Mmm, having a %gender(rough day?|bout of misery?|child's moment?)% That's all well and good %sweetie%, but why don't you %gender(go over there somewhere?|go find a nice miserable corner to sit in?|go eat a rotted pig?)%",
+              "_text": "Mmm, having a %random(rough day?, bout of misery?, child\u00e2\u20ac\u2122s moment?)% That\u00e2\u20ac\u2122s all well and good %sweetie%, but why don\u00e2\u20ac\u2122t you %random(go over there somewhere?, go find a nice miserable corner to sit in?, go eat a rotted pig?)%",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I - I might just do that.",
+              "_text": "I - I might just do that\u00e2\u20ac\u00a6",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -14486,18 +14650,18 @@
         {
           "_id": 2,
           "_name": "Script3",
-          "_description": "%i% says %r% that he can't stand around %gender(r|him|her)%, when %r% acts forgiving and tries to stay away, %i% feels sorry.",
+          "_description": "%shocked% %r% I just don\u00e2\u20ac\u2122t think I can be around you right now. I can\u00e2\u20ac\u2122t stand the way you %random(speak such nonsense, walk around in that girthy strut)%.",
           "Lines": [
             {
-              "_text": "%shocked% %r% I just don't think I can be around you right now. I can't stand the way you %random(speak such nonsense|walk around in that girthy strut)%.",
+              "_text": "%shocked% %r% I just don\u00e2\u20ac\u2122t think I can be around you right now. I can\u00e2\u20ac\u2122t stand the way you %random(speak such nonsense, walk around in that girthy strut)%.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "That's alright %i%, I'll try to stay out of your way.",
+              "_text": "\u00e2\u20ac\u00a6That\u00e2\u20ac\u2122s alright %i%, I\u00e2\u20ac\u2122ll try to stay out of your way.",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I - wait - don't leave, oh, I didn't mean to - I'm such a %pejorative%.",
+              "_text": "I - wait - don\u00e2\u20ac\u2122t leave\u00e2\u20ac\u00a6oh\u00e2\u20ac\u00a6I didn\u00e2\u20ac\u2122t mean to\u00e2\u20ac\u00a6I\u00e2\u20ac\u2122m such a %pejorative%.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -14505,10 +14669,10 @@
         {
           "_id": 3,
           "_name": "Script4",
-          "_description": "%i% intellectually insults %r% when %r% unforgivingly counters %i%.",
+          "_description": "%shocked% You must understand, %r%, that your supposed political views are just absolutely posh! I can\u00e2\u20ac\u2122t believe you would support such an innocuous party!",
           "Lines": [
             {
-              "_text": "%shocked% You must understand, %r%, that your supposed political views are just absolutely posh! I can't believe you would support such an innocuous party!",
+              "_text": "%shocked% You must understand, %r%, that your supposed political views are just absolutely posh! I can\u00e2\u20ac\u2122t believe you would support such an innocuous party!",
               "_primarySpeaker": "initiator"
             },
             {
@@ -14530,24 +14694,28 @@
             {
               "_text": "It seems we are at an impass, if only due to your refusal to understand my point...",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$HATE$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 4,
           "_name": "Script5",
-          "_description": "%i% insults %r%, when %r% arrogantly gets back at %i%.",
+          "_description": "Ha! %r$ it\u00e2\u20ac\u2122s so positively amusing how completely inferior to me you really are. It\u00e2\u20ac\u2122s no wonder %random(you haven\u00e2\u20ac\u2122t any friends, you are so disrespected)%!",
           "Lines": [
             {
-              "_text": "Ha! %r$ it's so positively amusing how completely inferior to me you really are. It's no wonder %random(you haven't any friends|you are so disrespected)%!",
+              "_text": "Ha! %r$ it\u00e2\u20ac\u2122s so positively amusing how completely inferior to me you really are. It\u00e2\u20ac\u2122s no wonder %random(you haven\u00e2\u20ac\u2122t any friends, you are so disrespected)%!",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "What's this? You know nothing about me you %pejorative% You're sickeningly trite for a %gender(i|gentleman|lady)% with such a stature.",
+              "_text": "What\u00e2\u20ac\u2122s this? You know nothing about me you %pejorative% You\u00e2\u20ac\u2122re sickeningly trite for a %gender(i, gentleman, lady)% with such a stature.",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Don't mock me! Your admittance of my position only reminds me further of your insignificance!",
+              "_text": "Don\u00e2\u20ac\u2122t mock me! Your admittance of my position only reminds me further of your insignificance!",
               "_primarySpeaker": "initiator"
             },
             {
@@ -14555,7 +14723,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "And you're as terrible as the devil himself. Jog on with this riff raff.",
+              "_text": "And you\u00e2\u20ac\u2122re as terrible as the devil himself. Jog on with this riff raff.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -14563,22 +14731,22 @@
         {
           "_id": 5,
           "_name": "Script6",
-          "_description": "%i% harshly insults %r% when %r% doesn't let it slide, vengefully gets back at %i%.",
+          "_description": "%random(Gracious me, Well now)% %r%, you are ever so dull looking today. Ever think of %gender(r, shaving that grotesque stubble, applying just a touch of lipstick that isn\u00e2\u20ac\u2122t the color of a cow\u00e2\u20ac\u2122s ass)%?",
           "Lines": [
             {
-              "_text": "%random(Gracious me|Well now)% %r%, you are ever so dull looking today. Ever think of %gender(r, shaving that grotesque stubble, applying just a touch of lipstick that isn't the color of a cow's ass)%?",
+              "_text": "%random(Gracious me, Well now)% %r%, you are ever so dull looking today. Ever think of %gender(r, shaving that grotesque stubble, applying just a touch of lipstick that isn\u00e2\u20ac\u2122t the color of a cow\u00e2\u20ac\u2122s ass)%?",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "No %i%, I really haven't considered such an option. Have you ever thought of %random(not being such a fulsome pig devouring piss dweller|not being an obtuse girthy eyesore to rival an aging mare)%?",
+              "_text": "\u00e2\u20ac\u00a6No %i%, I really haven\u00e2\u20ac\u2122t considered such an option. Have you ever thought of %random(not being such a fulsome pig devouring piss dweller, not being an obtuse girthy eyesore to rival an aging mare)%?",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "You really are bitter when it comes to your lack of any admirable features aren't you %r%? It's a pity, a little bit of confidence goes a long way %sweetie%. Go slide in a mud river, it will really bring out those gruesome features.",
+              "_text": "You really are bitter when it comes to your lack of any admirable features aren\u00e2\u20ac\u2122t you %r%? It\u00e2\u20ac\u2122s a pity\u00e2\u20ac\u201da little bit of confidence goes a long way %sweetie%. Go slide in a mud river\u00e2\u20ac\u201dit will really bring out those gruesome features.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "I feel like I won't be the only one to slide down a river soon.",
+              "_text": "I feel like I won\u00e2\u20ac\u2122t be the only one to slide down a river soon\u00e2\u20ac\u00a6",
               "_primarySpeaker": "responder"
             },
             {
@@ -15037,10 +15205,10 @@
         {
           "_id": 19,
           "_name": "script2",
-          "_description": "%r% doesn't approve of %i% trying to turn %gender(r|him|her)% against their family.",
+          "_description": "%r% doesn't approve of %i% trying to turn %gender(r, him, her)% against their family.",
           "Lines": [
             {
-              "_text": "%r% doesn't approve of %i% trying to turn %gender(r|him|her)% against their family.",
+              "_text": "%r% doesn't approve of %i% trying to turn %gender(r, him, her)% against their family.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -15745,14 +15913,14 @@
         {
           "_id": 7,
           "_name": "Default talk up other (accept)",
-          "_description": "%i% talk ups %o% in front of %r% and %r% agrees.",
+          "_description": "I don't know if you've ever noticed before, %r%, but %o% is actually a pretty awesome human being.",
           "Lines": [
             {
               "_text": "I don't know if you've ever noticed before, %r%, but %o% is actually a pretty awesome human being.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Oh, really? I didn't know you felt that way about %gender(o|him|her)%.",
+              "_text": "Oh, really? I didn't know you felt that way about %gender(o,him,her)%.",
               "_primarySpeaker": "responder"
             },
             {
@@ -15762,16 +15930,20 @@
             {
               "_text": "Wow, even better. If you, my awesome friend, think %o% is awesome, I'm inclined to believe it.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 8,
           "_name": "Default talk up other (reject)",
-          "_description": "%i% talk ups %o% in front of %r% but %r% gently disagrees.",
+          "_description": "%r%, have you ever noticed that %o% is a pretty nice %gender(o,guy,girl)%?",
           "Lines": [
             {
-              "_text": "%r%, have you ever noticed that %o% is a pretty nice %gender(o|guy|girl)%?",
+              "_text": "%r%, have you ever noticed that %o% is a pretty nice %gender(o,guy,girl)%?",
               "_primarySpeaker": "initiator"
             },
             {
@@ -15785,39 +15957,47 @@
             {
               "_text": "Thank you! I've been practicing my diplomacy.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 9,
           "_name": "Infatuated talk up other (accept)",
-          "_description": "%i% talk ups %o% in front of %r% and %r% agrees.",
+          "_description": "Hey, %r%, have you ever noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall,voice captures the attention of everyone in the room,gait is like that of a god out of a legend,smile is like that of a denizen in a famous Fibbonacci painting)%? Truly mesmerizing.",
           "Lines": [
             {
-              "_text": "Hey, %r%, have you ever noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall|voice captures the attention of everyone in the room|gait is like that of a god out of a legend|smile is like that of a denizen in a famous Fibbonacci painting)%? Truly mesmerizing.",
+              "_text": "Hey, %r%, have you ever noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall,voice captures the attention of everyone in the room,gait is like that of a god out of a legend,smile is like that of a denizen in a famous Fibbonacci painting)%? Truly mesmerizing.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Actually, yes, I have noticed that. And the way %gender(o|his|her)% %random(hair catches the sunlight when it shines through the windows in the main hall|voice captures the attention of everyone in the room|gait is like that of a god out of a legend|smile is like that of a denizen in a famous Fibbonacci painting)% is exquisite.",
+              "_text": "Actually, yes, I have noticed that. And the way %gender(o,his,her)% %random(hair catches the sunlight when it shines through the windows in the main hall,voice captures the attention of everyone in the room,gait is like that of a god out of a legend,smile is like that of a denizen in a famous Fibbonacci painting)% is exquisite.",
               "_primarySpeaker": "responder"
             },
             {
               "_text": "My sentiments exactly.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 10,
           "_name": "Infatuated talk up other (reject)",
-          "_description": "%i% talk ups %o% in front of %r% but %r% doesn't want to hear any of it.",
+          "_description": "%r%, have you noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall,voice captures the attention of everyone in the room,gait is like that of a god out of a legend,smile is like that of a denizen in a famous Fibbonacci painting)%? Truly exquisite.",
           "Lines": [
             {
-              "_text": "%r%, have you noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall|voice captures the attention of everyone in the room|gait is like that of a god out of a legend|smile is like that of a denizen in a famous Fibbonacci painting)%? Truly exquisite.",
+              "_text": "%r%, have you noticed how %o%'s %random(hair catches the sunlight when it shines through the windows in the main hall,voice captures the attention of everyone in the room,gait is like that of a god out of a legend,smile is like that of a denizen in a famous Fibbonacci painting)%? Truly exquisite.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "The way you talk about %gender(o|him|her)%, I'd think you were in love.",
+              "_text": "The way you talk about %gender(o,him,her)%, I'd think you were in love.",
               "_primarySpeaker": "responder"
             },
             {
@@ -15825,7 +16005,11 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Save your epiphany for someone else. I've no interest in hearing about %o%; you and I are on two different pages about %gender(o|him|her)%.",
+              "_text": "Save your epiphany for someone else. I've no interest in hearing about %o%; you and I are on two different pages about %gender(o,him,her)%.",
+              "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "responder"
             }
           ]
@@ -15833,7 +16017,7 @@
         {
           "_id": 10,
           "_name": "Obligatory talk up other (accept)",
-          "_description": "%i% tries to approach %r% bout %o% and %r% accepts because %i% is a good friend.",
+          "_description": "Hey, %r%. You know that %o% is my friend, right?",
           "Lines": [
             {
               "_text": "Hey, %r%. You know that %o% is my friend, right?",
@@ -15844,15 +16028,15 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Well, I know that you and %gender(o|he|she)% have had some bad encounters recently, so I figured I'd try to right it.",
+              "_text": "Well, I know that you and %gender(o,he,she)% have had some bad encounters recently, so I figured I'd try to right it.",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%o% can't fight %gender(o|his|her)% own battles?",
+              "_text": "%o% can't fight %gender(o,his,her)% own battles?",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "It's not that; I just don't think you'd listen to %gender(o|him|her)%.",
+              "_text": "It's not that; I just don't think you'd listen to %gender(o,him,her)%.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -15860,11 +16044,15 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Just give %gender(o|him|her)% another chance. %gender(o|He's|She's)% not that bad.",
+              "_text": "Just give %gender(o,him,her)% another chance. %gender(o,He's,She's)% not that bad.",
               "_primarySpeaker": "initiator"
             },
             {
               "_text": "... Alright, %i%. But only because I trust you.",
+              "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "responder"
             }
           ]
@@ -15872,7 +16060,7 @@
         {
           "_id": 11,
           "_name": "Obligatory talk up other (reject)",
-          "_description": "%i% tries to approach %r% bout %o% but %r% doesn't want to hear anything about %o% right now.",
+          "_description": "Hey, %r%. You know that %o% is my friend, right?",
           "Lines": [
             {
               "_text": "Hey, %r%. You know that %o% is my friend, right?",
@@ -15883,7 +16071,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Well, I know you two have had it out as of late, and I owe %gender(o|him|her)% a debt, so I figured I'd try to right things between you.",
+              "_text": "Well, I know you two have had it out as of late, and I owe %gender(o,him,her)% a debt, so I figured I'd try to right things between you.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -15893,6 +16081,10 @@
             {
               "_text": "I understand.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -16147,6 +16339,10 @@
             {
               "_text": "%i% approaches %r% and tells %r% about how much %o% is suffering due to %r%'s treatment of %o%. %r% is surprised to find out %o% cares, and decides to be nicer.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -16158,17 +16354,25 @@
             {
               "_text": "%i% attempts to tell %r% how much %o% is suffering due to %r%'s treatment of %o%. However, %r% does not feel bad and tells %i% to stay out of it.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 6,
           "_name": "Responder stops being estranged from other (accept)",
-          "_description": "%i% talks to %r% about %o%'s estrangement and how much %o% is hurting because of it. Finally, %r% decides that %gender(r|he|she)% should give %o% another chance.",
+          "_description": "%i% talks to %r% about %o%'s estrangement and how much %o% is hurting because of it. Finally, %r% decides that %gender(r, he, she)% should give %o% another chance.",
           "Lines": [
             {
-              "_text": "%i% talks to %r% about %o%'s estrangement and how much %o% is hurting because of it. Finally, %r% decides that %gender(r|he|she)% should give %o% another chance.",
+              "_text": "%i% talks to %r% about %o%'s estrangement and how much %o% is hurting because of it. Finally, %r% decides that %gender(r, he, she)% should give %o% another chance.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -16646,10 +16850,10 @@
         {
           "_id": 2,
           "_name": "drunken reject",
-          "_description": "%i% drunkenly tries to start an argument with %r%. However, %r% laughs it off as %gender(r|he|she)% knows %i% doesn't mean it.",
+          "_description": "%i% drunkenly tries to start an argument with %r%. However, %r% laughs it off as %gender(r, he, she)% knows %i% doesn't mean it.",
           "Lines": [
             {
-              "_text": "%i% drunkenly tries to start an argument with %r%. However, %r% laughs it off as %gender(r|he|she)% knows %i% doesn't mean it.",
+              "_text": "%i% drunkenly tries to start an argument with %r%. However, %r% laughs it off as %gender(r, he, she)% knows %i% doesn't mean it.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -17384,6 +17588,10 @@
             {
               "_text": "%i% talks about %o%'s faults. %r% at first feels this is harsh, but ends up agreeing in the end.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -17395,20 +17603,24 @@
             {
               "_text": "%i% talks about the faults of %o%. %r% feels that it's rude to talk behind someone's back, and says so.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 9,
           "_name": "Other is gabby",
-          "_description": "%i% discusses with %r% how talkative %o% is.",
+          "_description": "Have you noticed that %o% always seems to ramble on a bit much when %gender(o,he's,she's)% excited about something?",
           "Lines": [
             {
-              "_text": "Have you noticed that %o% always seems to ramble on a bit much when %gender(o|he's|she's)% excited about something?",
+              "_text": "Have you noticed that %o% always seems to ramble on a bit much when %gender(o,he's,she's)% excited about something?",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Totally. %gender(o|He|She)% talked my ear off the other day about %random(ceramic pottery|bird watching|narwhals|the present value of pirate treasure)% or some other rubbish.",
+              "_text": "Totally. %gender(o,He,She)% talked my ear off the other day about %random(ceramic pottery,bird watching,narwhals,the present value of pirate treasure)% or some other rubbish.",
               "_primarySpeaker": "responder"
             },
             {
@@ -17418,6 +17630,10 @@
             {
               "_text": "It's always annoying, is what it is.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         }
@@ -18085,6 +18301,10 @@
             {
               "_text": "%i% points out some of the things about %r% that %i% doesn't like, making %r% feel bad.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -18095,6 +18315,10 @@
           "Lines": [
             {
               "_text": "%i% tries to pick a fight by pointing out %r%'s faults. However, it turns into a constructive discussion, stregthening the relationship between %i% and %r%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -18933,6 +19157,10 @@
             {
               "_text": "%i% confides in %r% and %r% is accepting of what %i% says, increasing their trust.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -18944,16 +19172,24 @@
             {
               "_text": "%i% tries to confide in %r%, but %r% does not want to hear such details from %i%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 33,
           "_name": "upset friend accept",
-          "_description": "%i% is upset, and %r% is %gender(i|his|her)% friend, so %i% confides in %r%. %r% helps %i% feel better.",
+          "_description": "%i% is upset, and %r% is %gender(i, his, her)% friend, so %i% confides in %r%. %r% helps %i% feel better.",
           "Lines": [
             {
-              "_text": "%i% is upset, and %r% is %gender(i|his|her)% friend, so %i% confides in %r%. %r% helps %i% feel better.",
+              "_text": "%i% is upset, and %r% is %gender(i, his, her)% friend, so %i% confides in %r%. %r% helps %i% feel better.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -18972,10 +19208,14 @@
         {
           "_id": 35,
           "_name": "compatriot accept",
-          "_description": "%i% confides in %r% who reveals that %gender(r|he|she)% has done something similar. %i% and %r% bond over this.",
+          "_description": "%i% confides in %r% who reveals that %gender(r, he, she)% has done something similar. %i% and %r% bond over this.",
           "Lines": [
             {
-              "_text": "%i% confides in %r% who reveals that %gender(r|he|she)% has done something similar. %i% and %r% bond over this.",
+              "_text": "%i% confides in %r% who reveals that %gender(r, he, she)% has done something similar. %i% and %r% bond over this.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -18987,6 +19227,10 @@
           "Lines": [
             {
               "_text": "%i% tries to confide in %r%, but %r% is obviously thinking about something else and doesn't notice. %i% gets annoyed.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21096,6 +21340,10 @@
             {
               "_text": "%i% not-so-subtly flirts with %r%. %r% takes it in stride and even flirts back a little.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -21106,6 +21354,10 @@
           "Lines": [
             {
               "_text": "%i% stumbles through and tries to flirth with %r%. %r% thanks %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21118,6 +21370,10 @@
             {
               "_text": "%i% flirts with %r% and ends up giving %r% a back-handed compliment. %r% is a little confused by the message but generally takes it as a positive thing.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -21128,6 +21384,10 @@
           "Lines": [
             {
               "_text": "%i% tries to flirt with %r% and ends up delivering a back-handed compliment instead. %r% takes offense and tells off %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21140,6 +21400,10 @@
             {
               "_text": "%i% works in a flirty comment into the conversation with %r%. %r% catches on and flirts back a little.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -21150,6 +21414,10 @@
           "Lines": [
             {
               "_text": "%i% attempts to flirt with %r%, but it falls flat when %r% takes it wrong.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21162,6 +21430,10 @@
             {
               "_text": "%i% attempts to flirt with %r% but stumbles so much that %r% just ends up being confused.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -21172,6 +21444,10 @@
           "Lines": [
             {
               "_text": "%i% very unsubtly and drunkenly flirts with %r%. %r% is a little surprised at first, but ends up flirting back with %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21184,16 +21460,24 @@
             {
               "_text": "%i% compliments %r% in a very sophisticated way. %r% catches the implications and is flattered.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 10,
           "_name": "not known reject",
-          "_description": "%i% attempts to flirt with %r%. However, %r% doesn't feel like %gender(r|he|she)% knows %i% well enough to be flirting.",
+          "_description": "%i% attempts to flirt with %r%. However, %r% doesn't feel like %gender(r, he, she)% knows %i% well enough to be flirting.",
           "Lines": [
             {
-              "_text": "%i% attempts to flirt with %r%. However, %r% doesn't feel like %gender(r|he|she)% knows %i% well enough to be flirting.",
+              "_text": "%i% attempts to flirt with %r%. However, %r% doesn't feel like %gender(r, he, she)% knows %i% well enough to be flirting.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -21205,6 +21489,10 @@
           "Lines": [
             {
               "_text": "%i% attempts to flirt with %r%, but is quickly met with resistance because %r% feels that they are just friends.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -22323,6 +22611,10 @@
             {
               "_text": "%i% decides to take the plunge and ask out %r%. Fortunately, %r% decides to accept!",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -22334,16 +22626,24 @@
             {
               "_text": "%i% asks %r% out. However, %r% does not feel the same way, and declines in the nicest way possible.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 2,
           "_name": "angry reject",
-          "_description": "%i% asks out %r%, but %r% is still angry at %i%, so %gender(r|he|she)% refuses.",
+          "_description": "%i% asks out %r%, but %r% is still angry at %i%, so %gender(r, he, she)% refuses.",
           "Lines": [
             {
-              "_text": "%i% asks out %r%, but %r% is still angry at %i%, so %gender(r|he|she)% refuses.",
+              "_text": "%i% asks out %r%, but %r% is still angry at %i%, so %gender(r, he, she)% refuses.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -22366,6 +22666,10 @@
           "Lines": [
             {
               "_text": "%i% gets up the nerve to ask out %r%. However, %r% turns down %i% in a very cruel way.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -24792,7 +25096,7 @@
         {
           "_id": 0,
           "_name": "Default seduce (accept)",
-          "_description": "%i% seduces %r% which accepts due to both being in love for a long time.",
+          "_description": "Hey, %r%.",
           "Lines": [
             {
               "_text": "Hey, %r%.",
@@ -24845,13 +25149,17 @@
             {
               "_text": "I've felt the same, love. But that is all in the past now.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 1,
           "_name": "Default seduce (reject)",
-          "_description": "%i% tries to seduce %r% but rejected because %r% interested in %o%, which makes %i% feel lead on.",
+          "_description": "%greeting%, %sweetie%.",
           "Lines": [
             {
               "_text": "%greeting%, %sweetie%.",
@@ -24886,7 +25194,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Respect the fact that you've been leading me on, as the other %gender(i|man|woman)%, to have the best of both worlds? I think not. I thought you felt the same as I did; I guess I was mistaken.",
+              "_text": "Respect the fact that you've been leading me on, as the other %gender(i,man,woman)%, to have the best of both worlds? I think not. I thought you felt the same as I did; I guess I was mistaken.",
               "_primarySpeaker": "initiator"
             },
             {
@@ -24896,13 +25204,17 @@
             {
               "_text": "I'm sorry, %r%. I really don't.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 2,
           "_name": "Cassanova Seduce (accept)",
-          "_description": "%i% tries to seduce %r% like a player, which advances %r% accepts.",
+          "_description": "Hey, %sweetie%.",
           "Lines": [
             {
               "_text": "Hey, %sweetie%.",
@@ -24941,11 +25253,11 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "You're right; with that charm, no %gender(r|man|woman)% could resist you, least of all I.",
+              "_text": "You're right; with that charm, no %gender(r,man,woman)% could resist you, least of all I.",
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "Does that mean you'll make me the happiest %gender(i|man|woman)% alive by becoming my %gender(i|man|woman)%?",
+              "_text": "Does that mean you'll make me the happiest %gender(i,man,woman)% alive by becoming my %gender(i,man,woman)?",
               "_primarySpeaker": "initiator"
             },
             {
@@ -24953,7 +25265,11 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I think %gender(o|he'll|she'll)% find out through the grapevine. And I'll deal with %gender(o|him|her)% when he does.",
+              "_text": "I think %gender(o,he'll,she'll)% find out through the grapevine. And I'll deal with %gender(him,her)% when he does.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -24961,7 +25277,7 @@
         {
           "_id": 3,
           "_name": "Cassanova seduce (reject)",
-          "_description": "%i% tries to seduce %r% like a player, but %r% interested in %o% and rejects %i%",
+          "_description": "Hello, %r%.",
           "Lines": [
             {
               "_text": "Hello, %r%.",
@@ -25004,7 +25320,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "I want you to be my %gender(r|man|woman)%, %sweetie%. Forget about %o% - submit to true ovegive in to what your heart is yearning for!",
+              "_text": "I want you to be my %gender(r,man,woman)%, %sweetie%. Forget about %o% - submit to true ovegive in to what your heart is yearning for!",
               "_primarySpeaker": "initiator"
             },
             {
@@ -25016,22 +25332,26 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Listen, %i%... We've been having a fun time and all, and you're very charming, but... I'm with %o%, and I'm with %gender(o|him|her)% for a reason. I think I just need to figure out what that reason is.",
+              "_text": "Listen, %i%... We've been having a fun time and all, and you're very charming, but... I'm with %o%, and I'm with %gender(o,him,her)% for a reason. I think I just need to figure out what that reason is.",
               "_primarySpeaker": "responder"
             },
             {
               "_text": "Well... Then don't expect any loving from me in the near future.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 4,
-          "_name": "Irresistible seduce (accept)",
-          "_description": "%i% tries to seduce %r% who acceptes the advances.",
+          "_name": "Irresistable seduce (accept)",
+          "_description": "Oh, %i%! You've never grabbed me by the %gender(r,waist,waist)% like that before! What's the occasion?",
           "Lines": [
             {
-              "_text": "Oh, %i%! You've never grabbed me by the %gender(r|waist|waist)% like that before! What's the occasion?",
+              "_text": "Oh, %i%! You've never grabbed me by the %gender(r,waist,waist)% like that before! What's the occasion?",
               "_primarySpeaker": "responder"
             },
             {
@@ -25057,13 +25377,17 @@
             {
               "_text": "I say... yes.",
               "_primarySpeaker": "responder"
+            },
+            {
+              "_text": "$love$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 5,
-          "_name": "Irresistible seduce (reject)",
-          "_description": "%i% tries to seduce %r% but this doesn't go as planned and %r% slightly rejects %i%",
+          "_name": "Irresistable seduce (reject)",
+          "_description": "%shocked% %i%! It's been a while since you've %gender(r,kissed my neck,grabbed my waist)% like that. May I ask the occasion?",
           "Lines": [
             {
               "_text": "%shocked% %i%! It's been a while since you've %gender(r,kissed my neck,grabbed my waist)% like that. May I ask the occasion?",
@@ -25082,7 +25406,7 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Oh, %i%! %random(Bold|Brash|Arrogant) as ever, I see.",
+              "_text": "Oh, %i%! %random(Bold,Brash,Arrogant) as ever, I see.",
               "_primarySpeaker": "responder"
             },
             {
@@ -25098,22 +25422,26 @@
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "Come now, %i%, it's one of the most unattractive things for a %gender(i|man|woman)% to be caught begging.",
+              "_text": "Come now, %i%, it's one of the most unattractive things for a %gender(i,man,woman)% to be caught begging.",
               "_primarySpeaker": "responder"
             },
             {
               "_text": "Well, you'll have no more romance from me in the future, that much is certain.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
         {
           "_id": 6,
           "_name": "Physical seduce (accept)",
-          "_description": "%i% tries to seduce %r% which is successful, and %r% reciprocates",
+          "_description": "Oh, %i%! The way you %random(touch me behind the ear like that,kiss my ear lobe,kiss my neck so tenderly,breathe on my neck just so)% always %random(feels so good,gives me chills)%.",
           "Lines": [
             {
-              "_text": "Oh, %i%! The way you %random(touch me behind the ear like that|kiss my ear lobe|kiss my neck so tenderly|breathe on my neck just so)% always %random(feels so good|gives me chills)%.",
+              "_text": "Oh, %i%! The way you %random(touch me behind the ear like that,kiss my ear lobe,kiss my neck so tenderly,breathe on my neck just so)% always %random(feels so good,gives me chills)%.",
               "_primarySpeaker": "responder"
             },
             {
@@ -25125,7 +25453,7 @@
               "_primarySpeaker": "responder"
             },
             {
-              "_text": "You know, %o% never makes me feel like this. %gender(o|He|She)% doesn't know half of my sweet spots that you know!",
+              "_text": "You know, %o% never makes me feel like this. %gender(o,He,She)% doesn't know half of my sweet spots that you know!",
               "_primarySpeaker": "responder"
             },
             {
@@ -25147,6 +25475,10 @@
             {
               "_text": "I am.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$love$",
+              "_primarySpeaker": "initiator"
             }
           ]
         }
@@ -25159,18 +25491,18 @@
       "_othertype": 0,
       "Intents": [
         {
-          "_name": "intent-add: initiator is dating other",
+          "_name": "intent-add: responder is dating other",
           "_id": 2,
-          "_description": "The intent of this move is to have the initiator and the other dating.",
+          "_description": "The intent of this move is to have the initiator and the other have the status is dating.",
           "Predicate": [
             {
               "_type": "RELATIONSHIP",
               "_relationship": "DATING",
-              "_first": "initiator",
+              "_first": "responder",
               "_second": "other",
               "_negated": false,
               "_duration": -1,
-              "_name": "intent-add: initiator is dating other",
+              "_name": "intent-add: responder is dating other",
               "_intent": true,
               "_intentType": "START_RELATIONSHIP",
               "_isSFDB": false,
@@ -25191,7 +25523,7 @@
             {
               "_type": "RELATIONSHIP",
               "_relationship": "DATING",
-              "_first": "initiator",
+              "_first": "responder",
               "_second": "other",
               "_negated": true,
               "_duration": -1,
@@ -25522,7 +25854,7 @@
           "Predicate": [
             {
               "_type": "NETWORK",
-              "_networkType": "BUDDY",
+              "_networkType": "ROMANCE",
               "_first": "responder",
               "_second": "other",
               "_comparator": "LESS_THAN",
@@ -25739,14 +26071,18 @@
         {
           "_id": 18,
           "_name": "Default ask out (3-person) (accept)",
-          "_description": "%i% really wants to ask out %o%, and asks %r% to ask for %gender(i|him|her)%.",
+          "_description": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i, him, her).",
           "Lines": [
             {
-              "_text": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i|him|her)%.",
+              "_text": "%i% really wants to ask out %o%, and asks %r% to  ask for %gender(i, him, her).",
               "_primarySpeaker": "initiator"
             },
             {
-              "_text": "%r% accepts, and asks %o% if %gender(o|he|she)% is interested in %i%. %o% accepts.",
+              "_text": "%r% accepts, and asks %o% if %gender(o, he, she)% is interested in %i%. %o% accepts.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -25754,10 +26090,14 @@
         {
           "_id": 19,
           "_name": "Default ask out (3-person) (reject)",
-          "_description": "%i% wants to ask out %o%, and asks %r% to ask on %gender(i|his|her)% behalf. %r% thinks it's a bad idea and refuses.",
+          "_description": "%i% wants to ask out %o%, and asks %r% to ask on %gender(i, his, her)% behalf. %r% thinks it's a bad idea and refuses.",
           "Lines": [
             {
-              "_text": "%i% wants to ask out %o%, and asks %r% to ask on %gender(i|his|her)% behalf. %r% thinks it's a bad idea and refuses.",
+              "_text": "%i% wants to ask out %o%, and asks %r% to ask on %gender(i, his, her)% behalf. %r% thinks it's a bad idea and refuses.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -25765,14 +26105,18 @@
         {
           "_id": 20,
           "_name": "responder is interested in other (reject)",
-          "_description": "%i% asks %r% if %gender(r|he|she)% will ask out %o% on %gender(i|his|her)% behalf, But %r% refuses because %gender(r|he|she)% interested in %o%",
+          "_description": "%i% asks %r% if %gender(r, he, she)% will ask out %o% on %gender(i, his, her)% behalf.",
           "Lines": [
             {
-              "_text": "%i% asks %r% if %gender(r|he|she)% will ask out %o% on %gender(i|his|her)% behalf.",
+              "_text": "%i% asks %r% if %gender(r, he, she)% will ask out %o% on %gender(i, his, her)% behalf.",
               "_primarySpeaker": "initiator"
             },
             {
               "_text": "%r% however, is interested in %o% so tells %i% that it's a bad idea to date %o%, and convinces %i% to back off.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -26560,7 +26904,17 @@
         {
           "_id": 22,
           "_name": "Default apologize (accept)",
-          "_description": "%i% apologizes to %r% for the thing that made %r% angry. %r% decides to forgive %i%."
+          "_description": "%i% apologizes to %r% for the thing that made %r% angry. %r% decides to forgive %i%.",
+          "Lines": [
+            {
+              "_text": "%i% apologizes to %r% for the thing that made %r% angry. %r% decides to forgive %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
+            }
+          ]
         },
         {
           "_id": 23,
@@ -26569,6 +26923,10 @@
           "Lines": [
             {
               "_text": "%i% tries to apologize to %r%. However, %r% doesn't feel like accepting the apology.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -27470,16 +27828,24 @@
             {
               "_text": "%i% blames %r% for something that happened in the past. %r% has a lot of respect for %i% so takes it to heart.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 18,
           "_name": "angry reject",
-          "_description": "%i% tries to blame %r% for something that happened in the past. However, %r% is still angry at %i% so %gender(r|he|she)% gets mad and takes it out on %i%.",
+          "_description": "%i% tries to blame %r% for something that happened in the past. However, %r% is still angry at %i% so %gender(r, he, she)% gets mad and takes it out on %i%.",
           "Lines": [
             {
-              "_text": "%i% tries to blame %r% for something that happened in the past. However, %r% is still angry at %i% so %gender(r|he|she)% gets mad and takes it out on %i%.",
+              "_text": "%i% tries to blame %r% for something that happened in the past. However, %r% is still angry at %i% so %gender(r, he, she)% gets mad and takes it out on %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -27492,6 +27858,10 @@
             {
               "_text": "%i% blames %r% for something bad that happened in the past. %r% feels bad about it.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -27502,6 +27872,10 @@
           "Lines": [
             {
               "_text": "%i% tries to blame %r% for something that happened in the past. %r% refuses to take the blame, however.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -28720,7 +29094,7 @@
         {
           "_id": 19,
           "_name": "default reject",
-          "_description": "%i% doesn't think it's working anymore, but %r% convinces %gender(i|him|her)% to give it another chance."
+          "_description": "%i% doesn't think it's working anymore, but %r% convinces %gender(him, her)% to give it another chance."
         },
         {
           "_id": 20,
@@ -29359,10 +29733,14 @@
         {
           "_id": 2,
           "_name": "Default declare rivalry 3-person (accept)",
-          "_description": "%i% tells %r% that %gender(i|he|she)% is fed up with %o%. %r% has noticed their conflict and suggests perhaps they shouldn't be friends anymore. %i% agrees.",
+          "_description": "%i% tells %r% that %gender(i, he, she)% is fed up with %o%. %r% has noticed their conflict and suggests perhaps they shouldn't be friends anymore. %i% agrees.",
           "Lines": [
             {
-              "_text": "%i% tells %r% that %gender(i|he|she)% is fed up with %o%. %r% has noticed their conflict and suggests perhaps they shouldn't be friends anymore. %i% agrees.",
+              "_text": "%i% tells %r% that %gender(i, he, she)% is fed up with %o%. %r% has noticed their conflict and suggests perhaps they shouldn't be friends anymore. %i% agrees.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -29370,10 +29748,14 @@
         {
           "_id": 3,
           "_name": "Default declare rivalry (reject)",
-          "_description": "%i% tells %r% about %gender(i|his|her)% bad feelings towards %o%. %r% tells %i% that perhaps %gender(i|he|she)% should cool off and rethink things before doing something rash. %i% agrees.",
+          "_description": "%i% tells %r% about %gender(i, his, her)% bad feelings towards %o%. %r% tells %i% that perhaps %gender(i, he, she)% should cool off and rethink things before doing something rash. %i% agrees.",
           "Lines": [
             {
-              "_text": "%i% tells %r% about %gender(i|his|her)% bad feelings towards %o%. %r% tells %i% that perhaps %gender(i|he|she)% should cool off and rethink things before doing something rash. %i% agrees.",
+              "_text": "%i% tells %r% about %gender(i, his, her)% bad feelings towards %o%. %r% tells %i% that perhaps %gender(i, he, she)% should cool off and rethink things before doing something rash. %i% agrees.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -29748,6 +30130,10 @@
             {
               "_text": "%i% tells %r% all about %o%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "%neutral%",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -29758,6 +30144,10 @@
           "Lines": [
             {
               "_text": "%i% tries to tell %r% about %o%, but %r% is not interested.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "%neutral%",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -30161,13 +30551,17 @@
             {
               "_text": "%i% tells %r% all about %o%. %r% is really interested.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 1,
           "_name": "Default discuss knowledge (reject)",
-          "_description": "%i% tried to discuss %o% with %r% but %r% isn't good enough buddy of %i%",
+          "_description": "Hey, %r%, did you know %o%?",
           "Lines": [
             {
               "_text": "Hey, %r%, did you know %o%?",
@@ -30180,6 +30574,10 @@
             {
               "_text": "Oh... alright then.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -31186,6 +31584,10 @@
             {
               "_text": "%i% talks to %r% about %r%'s relationship with %o%. %i% thinks they should break it off. After some talking, %r% agrees.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -31196,6 +31598,10 @@
           "Lines": [
             {
               "_text": "%i% talks to %r% about %r%'s relationship with %o%. %i% tries to talk %r% into breaking it off, but %r% decides against it.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -31208,6 +31614,10 @@
             {
               "_text": "%i% thinks %r% should break up with %o%. %r% is hesitant but really trusts %i%, so decides it's a good idea after all.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -31218,6 +31628,10 @@
           "Lines": [
             {
               "_text": "%i% thinks %r% should break it off with %o%. However, %r% is very much in love with %o% and gets angry at %i% for suggesting it.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -31230,16 +31644,24 @@
             {
               "_text": "%i% thinks %r% should break up with %o%. %r% is really angry with %o% and agrees with %i%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
         {
           "_id": 5,
           "_name": "Hateful reject",
-          "_description": "%i% tells %r% that %gender(r|he|she)% should break up with %o%. %r% gets angry at %i% and tells %gender(i|he|she)% to mind %gender(i|his|her)% own business.",
+          "_description": "%i% tells %r% that %gender(r, he, she)% should break up with %o%. %r% gets angry at %i% and tells %gender(i, he, she)% to mind %gender(i, his, her)% own business.",
           "Lines": [
             {
-              "_text": "%i% tells %r% that %gender(r|he|she)% should break up with %o%. %r% gets angry at %i% and tells %gender(i|he|she)% to mind %gender(i|his|her)% own business.",
+              "_text": "%i% tells %r% that %gender(r, he, she)% should break up with %o%. %r% gets angry at %i% and tells %gender(i, he, she)% to mind %gender(i, his, her)% own business.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -32427,6 +32849,10 @@
             {
               "_text": "%i% says something to %r% to make %r% realize how important their family bond with %i% is.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -32437,6 +32863,10 @@
           "Lines": [
             {
               "_text": "%r% is unforgiving, so when %i% tries to help the family strain between %r% and %i%, %r% is not willing to hear it.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -33020,6 +33450,10 @@
             {
               "_text": "%i% persuades %r% to be nicer to %i%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -33030,6 +33464,10 @@
           "Lines": [
             {
               "_text": "%i% attempts to persuade %r% to be nicer to %i% but %r% wants nothing to do with the attempt.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -33637,6 +34075,10 @@
             {
               "_text": "%r% takes %i%'s really terrible family advice, which impacts %r% and %i%'s family bond negatively.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -33647,6 +34089,10 @@
           "Lines": [
             {
               "_text": "%% tries to give %r% bad advice, but %r% doesn't take it and actually feels closer to %i% for it.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -34369,6 +34815,10 @@
             {
               "_text": "%i% notices that %r% is upset at %i%. %i% stirs the pot a bit, making %r% even more upset at %i%.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -34379,6 +34829,10 @@
           "Lines": [
             {
               "_text": "%i% notices that %r% is upset at %i%. %i% tries to stir the pot a bit, but instead of %r% getting more angry, %r% thinks through what happened and begins to feel better about %i%.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -35020,6 +35474,10 @@
             {
               "_text": "%i% points out a particularly pleasing feature of %r%'s personality. %r% is happy to accept the compliment.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -35030,6 +35488,10 @@
           "Lines": [
             {
               "_text": "%i% tries to point out a pleasing feature of %r%. However, %r% does not agree, and suggests %i% is being less than honest.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -35471,10 +35933,10 @@
         {
           "_id": 37,
           "_name": "default accept",
-          "_description": "%i% tells %r% that %i% is disappointed with %r% and %r% acknowledges the feelings and is sad.",
+          "_description": "%i% tells %r% that %i% is disapointed with %r% and %r% acknowledges the feelings and is sad.",
           "Lines": [
             {
-              "_text": "%i% tells %r% that %i% is disappointed with %r% and %r% acknowledges the feelings and is sad.",
+              "_text": "%i% tells %r% that %i% is disapointed with %r% and %r% acknowledges the feelings and is sad.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -35482,10 +35944,10 @@
         {
           "_id": 38,
           "_name": "default reject",
-          "_description": "%i% tries to express %gender(i|his|her)% disappointment but %r% just thinks it's funny.",
+          "_description": "%i% tries to express %gender(i, his, her)% disapointment but %r% just thinks it's funny.",
           "Lines": [
             {
-              "_text": "%i% tries to express %gender(i|his|her)% disappointment but %r% just thinks it's funny.",
+              "_text": "%i% tries to express %gender(i, his, her)% disapointment but %r% just thinks it's funny.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -35504,10 +35966,10 @@
         {
           "_id": 40,
           "_name": "angry/forgiving accept",
-          "_description": "%i% tells %r% that %gender(i|he|she)% isn't happy with %r% and expresses so angrily. %r% if forgiving and understands, making %i% feel a little bad.",
+          "_description": "%i% tells %r% that %gender(i, he, she)% isn't happy with %r% and expresses so angrily. %r% if forgiving and understands, making %i% feel a little bad.",
           "Lines": [
             {
-              "_text": "%i% tells %r% that %gender(i|he|she)% isn't happy with %r% and expresses so angrily. %r% if forgiving and understands, making %i% feel a little bad.",
+              "_text": "%i% tells %r% that %gender(i, he, she)% isn't happy with %r% and expresses so angrily. %r% if forgiving and understands, making %i% feel a little bad.",
               "_primarySpeaker": "initiator"
             }
           ]
@@ -36108,6 +36570,10 @@
             {
               "_text": "%i% gives %o% to %r% as a gift. %r% is happy about receiving the gift.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "responder"
             }
           ]
         },
@@ -36119,6 +36585,10 @@
             {
               "_text": "%i% attempts to give %o% to %r% as a gift. However, %r% does not accept the gift.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$neutral$",
+              "_primarySpeaker": "responder"
             }
           ]
         }
@@ -36295,6 +36765,10 @@
             {
               "_text": "%i% asks for %o% from %r% and %r% gives it up willingly.",
               "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$like$",
+              "_primarySpeaker": "initiator"
             }
           ]
         },
@@ -36305,6 +36779,10 @@
           "Lines": [
             {
               "_text": "%i% asks for %o% from %r%, but %r% doesn't want to give it up, so declines.",
+              "_primarySpeaker": "initiator"
+            },
+            {
+              "_text": "$hate$",
               "_primarySpeaker": "initiator"
             }
           ]

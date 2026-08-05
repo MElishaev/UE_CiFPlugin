@@ -2,7 +2,7 @@
     "Cast": [
         {
             "_name": "Liz",
-            "_networkID": 3,
+            "_networkID": 0,
             "Trait": [
                 "FEMALE",
                 "PROMISCUOUS",
@@ -52,7 +52,7 @@
         },
         {
             "_name": "Colonel",
-            "_networkID": 2,
+            "_networkID": 1,
             "Trait": [
                 "MALE",
                 "STRAIGHT",
@@ -111,7 +111,11 @@
         },
         {
             "_name": "Player",
-            "_networkID": 6,
+            "_networkID": 2,
+            "Trait": [
+                "MALE",
+                "STRAIGHT"
+            ],
             "Locution": [
                 {
                     "_type": "SWEETIE",

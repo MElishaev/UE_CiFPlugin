@@ -66,7 +66,7 @@ public:
 	 * @return the selected social game name
 	 */
 	UFUNCTION(BlueprintCallable, Category = "CiF")
-	FGameScore selectSocialGameFromList(UPARAM(ref) const TArray<FGameScore> sgs) const;
+	FGameScore selectSocialGameFromList(UPARAM(ref) const TArray<FGameScore>& sgs) const;
 
 	// TODO - maybe change this name later - this is seem to be more related to when the player engages a SG
 	/**

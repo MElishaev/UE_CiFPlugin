@@ -32,7 +32,10 @@ public:
 	UCiFCharacter* getCharByNetworkId(const uint8 id) const;
 	
 	UFUNCTION(BlueprintCallable, Category = "CiF")
-	void addCharacter(UCiFCharacter* c);	
+	void addCharacter(UCiFCharacter* c);
+    
+    /* Returns the size of the cast with the option to include player or not - default it true */
+    auto getSize(bool bIncludePlayer = true) const { return bIncludePlayer ? mCharacters.Num() : mCharacters.Num() - 1; }
 
 	static UCiFCast* loadFromJson(const TSharedPtr<FJsonObject> json, const UObject* worldContextObject);
 public:

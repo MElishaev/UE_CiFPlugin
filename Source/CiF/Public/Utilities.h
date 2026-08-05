@@ -73,7 +73,3 @@ FString enumToStringNoPrefix(TEnum EnumValue)
 
 	return fullName;
 }
-
-
-#define MYLOG(CategoryName, Verbosity, Format, ...) \
-	UE_LOG(LogTemp, Verbosity, TEXT("[%s:%d]: " Format), TEXT(__FUNCTION__), __LINE__, ##__VA_ARGS__)

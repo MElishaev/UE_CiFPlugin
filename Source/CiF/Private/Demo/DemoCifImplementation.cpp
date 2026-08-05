@@ -37,7 +37,7 @@ UCiFCharacter* UDemoCifImplementation::chooseNPCInitiatorForSocialGame()
 	return initiator;
 }
 
-FGameScore UDemoCifImplementation::selectSocialGameFromList(const TArray<FGameScore> sgs) const
+FGameScore UDemoCifImplementation::selectSocialGameFromList(const TArray<FGameScore>& sgs) const
 {
 	/* use scores as distribution function to select a social game */
 

@@ -80,13 +80,12 @@ public:
 
 	FScore_t getIntentScore(const UCiFCharacter* responder, FCacheKey extendedIntentType);
 
-	/**
-	 * Returns the N highest scored games in prospective memory.
-	 * 
-	 * @param	count The number of the highest scored games to return.
-	 */
-	UFUNCTION(BlueprintCallable, Category = "CiF")
-	TArray<FGameScore> getNHighestGameScores(uint8 count = 5);
+    /**
+     * Returns the N highest scored games in prospective memory.
+     * @param count The number of the highest scored games to return.
+     */
+    UFUNCTION(BlueprintCallable, Category = "CiF")
+    TArray<FGameScore> getNHighestGameScores(uint8 count = 5);
 
 	/**
 	 * Searches the prospective memory for the highest game scores WRT another character.

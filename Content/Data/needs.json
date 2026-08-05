@@ -1,0 +1,38 @@
+﻿{
+  "Liz": [
+    {
+      "_type": "SOCIAL",
+      "_changeAmount": 10
+    },
+    {
+      "_type": "LEISURE",
+      "_changeAmount": 15
+    },
+    {
+      "_type": "CHORES",
+      "_changeAmount": 5
+    },
+    {
+      "_type": "LST",
+      "_changeAmount": 5
+    }
+  ],
+  "Colonel": [
+    {
+      "_type": "SOCIAL",
+      "_changeAmount": 5
+    },
+    {
+      "_type": "LEISURE",
+      "_changeAmount": 5
+    },
+    {
+      "_type": "CHORES",
+      "_changeAmount": 5
+    },
+    {
+      "_type": "LST",
+      "_changeAmount": 5
+    }
+  ]
+}
