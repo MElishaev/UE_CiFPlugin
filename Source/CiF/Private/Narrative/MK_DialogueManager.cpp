@@ -49,6 +49,7 @@ bool UMK_DialogueManager::initializeRegistry(const FString& registryPath)
 UCifInstantiation* UMK_DialogueManager::prepareDialogue(const FName instantiationId)
 {
     if (UCifInstantiation* instantiation = mLoadedDialogues.FindRef(instantiationId)) {
+        instantiation->resetDialogue();
         mCurrentDialogueID = instantiationId;
         return instantiation;
     }
@@ -72,6 +73,7 @@ UCifInstantiation* UMK_DialogueManager::prepareDialogue(const FName instantiatio
         return nullptr;
     }
 
+    instantiation->resetDialogue();
     mCurrentDialogueID = instantiationId;
     return instantiation;
 }

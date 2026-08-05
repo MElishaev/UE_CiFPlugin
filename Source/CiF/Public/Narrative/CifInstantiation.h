@@ -26,11 +26,14 @@ public:
      */
     void getChoicesIfAvailable(TArray<FDialogueChoice>& outChoices) const;
 
-    /**
-     * @return FText representing the next dialogue line in the current dialogue
-     * todo - what if not valid dialogue running?
-     */
-    FText getNextDialogueLine();
+    /** Advances playback and writes the next line, including its speaker. Returns false when playback is complete. */
+    bool getNextDialogueLine(FDialogueLine& outLine);
+
+    /** Rewinds dialogue playback to its first line. */
+    void resetDialogue();
+
+    /** Returns true when no dialogue text remains after the current playback position. */
+    bool isDialogueFinished() const;
 
     FORCEINLINE ID_t getmId() const { return mId; }
     FORCEINLINE FName getName() const { return mName; }
@@ -44,11 +47,6 @@ public:
     static UCifInstantiation* loadDialogueFromJson(const TSharedPtr<FJsonObject> json, UObject* worldContextObj);
 
 private:
-    /**
-     * @return formatted text for the current dialogue line
-     */
-    FText getCurrentLine() const;
-
     /**
      * this method takes the line as written in the json file and swaps the in-line variables (like %r% etc.)
      * with actual names based on the social game context

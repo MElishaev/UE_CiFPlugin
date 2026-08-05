@@ -82,27 +82,49 @@ void UCifInstantiation::getChoicesIfAvailable(TArray<FDialogueChoice>& outChoice
     }
 }
 
-FText UCifInstantiation::getNextDialogueLine()
+bool UCifInstantiation::getNextDialogueLine(FDialogueLine& outLine)
 {
-    const FText line = getCurrentLine();
-    if (!mDialogueNodes.IsValidIndex(mCurrentNode)) {
-        return line;
+    outLine = FDialogueLine();
+
+    // Malformed or programmatically created instantiations may contain empty nodes. Skip them so
+    // playback always either returns a real line or reaches its finished state.
+    while (mDialogueNodes.IsValidIndex(mCurrentNode)) {
+        const FDialogueNode& node = mDialogueNodes[mCurrentNode];
+        if (!node.text.IsValidIndex(mCurrentLine)) {
+            ++mCurrentNode;
+            mCurrentLine = 0;
+            continue;
+        }
+
+        outLine.mSpeaker = node.speaker;
+        outLine.mText = node.text[mCurrentLine];
+
+        ++mCurrentLine;
+        if (mCurrentLine >= node.text.Num()) {
+            ++mCurrentNode;
+            mCurrentLine = 0;
+        }
+        return true;
     }
 
-    ++mCurrentLine;
-    if (mCurrentLine >= mDialogueNodes[mCurrentNode].text.Num()) {
-        ++mCurrentNode;
-        mCurrentLine = 0;
-    }
-    return line;
+    return false;
 }
 
-FText UCifInstantiation::getCurrentLine() const
+void UCifInstantiation::resetDialogue()
 {
-    if (mDialogueNodes.IsValidIndex(mCurrentNode) && mDialogueNodes[mCurrentNode].text.IsValidIndex(mCurrentLine)) {
-        return mDialogueNodes[mCurrentNode].text[mCurrentLine];
+    mCurrentNode = 0;
+    mCurrentLine = 0;
+}
+
+bool UCifInstantiation::isDialogueFinished() const
+{
+    for (int32 nodeIndex = mCurrentNode; nodeIndex < mDialogueNodes.Num(); ++nodeIndex) {
+        const int32 firstLineIndex = nodeIndex == mCurrentNode ? mCurrentLine : 0;
+        if (mDialogueNodes[nodeIndex].text.IsValidIndex(firstLineIndex)) {
+            return false;
+        }
     }
-    return FText::GetEmpty();
+    return true;
 }
 
 FText UCifInstantiation::realizeDialogueLine(const UCiFGameObject* initiator,

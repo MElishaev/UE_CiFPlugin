@@ -56,6 +56,8 @@ private:
     bool areChoicesConditionsMet(const TArray<FDialogueCondition>& conditions) const;
 
     TMap<FName, FDialogueFileEntry> mDialogueRegistry; // Maps an exact instantiation ID to its file.
+    // todo currently the cached dialogues only cleared manually when calling clear..(). may need to handle it automatically
+    UPROPERTY()
     TMap<FName, UCifInstantiation*> mLoadedDialogues;  // Cached instantiations.
 
     FString mRegistryDirectory;

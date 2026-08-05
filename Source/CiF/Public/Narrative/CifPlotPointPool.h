@@ -197,6 +197,8 @@ public:
     TArray<UCifPlotPoint*> mActivePlotPoints; // empty list means none active
     // public var selectedPlotPoint:PlotPoint;
 
+    // todo i think these should be in the narrative manager... the purpose of that block is to manage the narrative
+    //  what the below members seem to intend to do.
     // weights
     UPROPERTY()
     float mStoryCohesion = 0.1; // how much the plot point is related to the other ones unlocked

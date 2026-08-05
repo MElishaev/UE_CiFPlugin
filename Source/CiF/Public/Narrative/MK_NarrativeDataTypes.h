@@ -7,7 +7,7 @@
 
 // Registry entry for dialogue files (this object doesn't need to be serialized so UE macros removed)
 struct FDialogueFileEntry
-{ 
+{
     FName mInstantiationId; // Globally unique ID used by narrative systems.
     FString mFilePath;      // Path relative to the registry file.
 };
@@ -40,10 +40,23 @@ struct FDialogueChoice
     TArray<FDialogueCondition> conditions; // Conditions to show todo maybe should be predicate
 };
 
+/** One line emitted by dialogue playback, including the character who speaks it. */
+USTRUCT(BlueprintType)
+struct FDialogueLine
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly, Category = "CiF|Narrative")
+    FName mSpeaker = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly, Category = "CiF|Narrative")
+    FText mText;
+};
+
 /** Represents a dialogue node, which could consist many dialogue lines of the same character
- * that relate to each other contextually - this means that if few dialogue boxes are said by
- * the same character with the same emotion/animation, then they may be grouped together because
- * they have common data (for now i don't have animation and emotion represented in the dialogue node)
+ * that relate to each other contextually -
+ * this means that if few dialogue boxes are said by the same character with the same emotion/animation, then they may be grouped together
+ * because they have common data (for now i don't have animation and emotion represented in the dialogue node)
  */
 USTRUCT()
 struct FDialogueNode
