@@ -46,24 +46,34 @@ bool UMK_DialogueManager::initializeRegistry(const FString& registryPath)
     return false;
 }
 
-void UMK_DialogueManager::prepareDialogue(const FName dialogueID)
+UCifInstantiation* UMK_DialogueManager::prepareDialogue(const FName instantiationId)
 {
-    // Check if dialogue is already loaded
-    if (mLoadedDialogues.Contains(dialogueID)) {
-        mCurrentDialogueID = dialogueID;
-        return;
+    if (UCifInstantiation* instantiation = mLoadedDialogues.FindRef(instantiationId)) {
+        mCurrentDialogueID = instantiationId;
+        return instantiation;
     }
 
-    const FString filePath = findDialogueFile(dialogueID);
+    const FString filePath = findDialogueFile(instantiationId);
     if (filePath.IsEmpty()) {
-        return;
+        return nullptr;
     }
 
-    if (loadDialogueFile(filePath)) {
-        if (mLoadedDialogues.Contains(dialogueID)) {
-            mCurrentDialogueID = dialogueID;
-        }
+    if (!loadDialogueFile(filePath)) {
+        return nullptr;
     }
+
+    UCifInstantiation* instantiation = mLoadedDialogues.FindRef(instantiationId);
+    if (!instantiation) {
+        GLS_LOG(LogTemp,
+                Error,
+                TEXT("Dialogue file %s did not contain its registered instantiation %s"),
+                *filePath,
+                *instantiationId.ToString());
+        return nullptr;
+    }
+
+    mCurrentDialogueID = instantiationId;
+    return instantiation;
 }
 
 void UMK_DialogueManager::clearDialoguesWithPrefix(const FString& prefix)
@@ -119,11 +129,11 @@ bool UMK_DialogueManager::loadDialogueFile(const FString& filePath)
     return true;
 }
 
-FString UMK_DialogueManager::findDialogueFile(const FName dialogueID) const
+FString UMK_DialogueManager::findDialogueFile(const FName instantiationId) const
 {
-    const FDialogueFileEntry* entry = mDialogueRegistry.Find(dialogueID);
+    const FDialogueFileEntry* entry = mDialogueRegistry.Find(instantiationId);
     if (!entry) {
-        GLS_LOG(LogTemp, Warning, TEXT("No file found for dialogue ID: %s"), *dialogueID.ToString());
+        GLS_LOG(LogTemp, Warning, TEXT("No file found for instantiation ID: %s"), *instantiationId.ToString());
         return FString();
     }
 

@@ -54,4 +54,26 @@ void UCifNarrativeManager::getInstantiationForSocialGame(const FName sgName,
 {
 }
 
-void UCifNarrativeManager::getInstantiationForPlotPoint(const FName ppName, const FName participant) {}
+UCifInstantiation* UCifNarrativeManager::getInstantiationForPlotPoint(const FCifPlotPointSelection& selection)
+{
+    if (!selection.isValid()) {
+        GLS_LOG(LogTemp, Error, TEXT("Cannot resolve an instantiation from an invalid plot-point selection"));
+        return nullptr;
+    }
+    if (!mDialogueMgr) {
+        GLS_LOG(LogTemp, Error, TEXT("Cannot resolve a plot-point instantiation because the dialogue manager is not initialized"));
+        return nullptr;
+    }
+
+    const FName instantiationId = selection.mRevelation->mInstantiationId;
+    if (instantiationId.IsNone()) {
+        GLS_LOG(LogTemp, Error, TEXT("Selected plot-point revelation does not specify an instantiation ID"));
+        return nullptr;
+    }
+
+    UCifInstantiation* instantiation = mDialogueMgr->prepareDialogue(instantiationId);
+    if (!instantiation) {
+        GLS_LOG(LogTemp, Error, TEXT("Failed to prepare plot-point instantiation %s"), *instantiationId.ToString());
+    }
+    return instantiation;
+}

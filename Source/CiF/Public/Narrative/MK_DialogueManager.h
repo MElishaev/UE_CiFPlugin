@@ -29,11 +29,13 @@ public:
     bool initializeRegistry(const FString& registryPath);
 
     /**
-     * Loads the dialogue if not already loaded and update the @mCurrentDialogueID with the requested dialogue.
-     * This must be called before requesting text from the dialogue
-     * @param dialogueID id for the requested dialogue
+     * Loads an instantiation if it is not already cached and makes it the current dialogue.
+     * @param instantiationId exact ID
+     * registered for the requested instantiation
+     * @return the cached or newly loaded instantiation, or nullptr when it cannot be
+     * resolved
      */
-    void prepareDialogue(const FName dialogueID);
+    UCifInstantiation* prepareDialogue(const FName instantiationId);
 
     /**
      * Clears all loaded dialogues (if any) with IDs that starts with prefix.
@@ -49,7 +51,7 @@ private:
     // Load one complete dialogue-backed instantiation from a specific file.
     bool loadDialogueFile(const FString& filePath);
 
-    FString findDialogueFile(const FName dialogueID) const;
+    FString findDialogueFile(const FName instantiationId) const;
 
     bool areChoicesConditionsMet(const TArray<FDialogueCondition>& conditions) const;
 

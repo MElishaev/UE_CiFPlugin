@@ -7,6 +7,7 @@
 #include "CifNarrativeManager.generated.h"
 
 class UMK_DialogueManager;
+class UCifInstantiation;
 class UCifPlotPointPool;
 struct FCifPlotPointSelection;
 
@@ -35,8 +36,8 @@ public:
 
     void getInstantiationForSocialGame(const FName sgName, const FName initiator, const FName responder, const FName other = NAME_None);
 
-    // where participant is the character which is not player (could be responder or initiator if npc started interaction)
-    void getInstantiationForPlotPoint(const FName ppName, const FName participant);
+    /** Resolves the selected revelation route into its registered dialogue instantiation. */
+    UCifInstantiation* getInstantiationForPlotPoint(const FCifPlotPointSelection& selection);
 
 private:
     void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
