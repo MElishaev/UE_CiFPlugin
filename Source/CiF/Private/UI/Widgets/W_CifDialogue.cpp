@@ -5,6 +5,7 @@
 #include "CommonButtonBase.h"
 #include "CommonInputModeTypes.h"
 #include "GLSMacroses.h"
+#include "InputCoreTypes.h"
 #include "Input/UIActionBindingHandle.h"
 #include "MVVMSubsystem.h"
 #include "Narrative/CifInstantiation.h"
@@ -21,13 +22,26 @@ void UW_CifDialogue::NativeOnInitialized()
 
 UWidget* UW_CifDialogue::NativeGetDesiredFocusTarget() const
 {
-    // A focused Common Button translates Slate's default Space/Enter UI Accept keys into OnClicked.
     return mAdvanceButton ? mAdvanceButton.Get() : Super::NativeGetDesiredFocusTarget();
 }
 
 TOptional<FUIInputConfig> UW_CifDialogue::GetDesiredInputConfig() const
 {
     return FUIInputConfig(ECommonInputMode::Menu, EMouseCaptureMode::NoCapture, false);
+}
+
+FReply UW_CifDialogue::NativeOnPreviewKeyDown(const FGeometry& inGeometry, const FKeyEvent& inKeyEvent)
+{
+    const FKey pressedKey = inKeyEvent.GetKey();
+    if (pressedKey == EKeys::SpaceBar || pressedKey == EKeys::Enter) {
+        // Consume repeats as well, but advance only once per physical key press.
+        if (!inKeyEvent.IsRepeat()) {
+            advanceDialogue();
+        }
+        return FReply::Handled();
+    }
+
+    return Super::NativeOnPreviewKeyDown(inGeometry, inKeyEvent);
 }
 
 bool UW_CifDialogue::initDialogue(UCifInstantiation* instantiation)

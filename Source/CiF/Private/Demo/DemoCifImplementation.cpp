@@ -17,6 +17,8 @@
 #include "CiFSocialExchange.h"
 #include <GLSMacroses.h>
 
+#include "Narrative/CifPlotPoint.h"
+
 void UDemoCifImplementation::init()
 {
     mCifNarrativeManager = NewObject<UCifNarrativeManager>(this);
@@ -428,6 +430,15 @@ void UDemoCifImplementation::handleItemMoveEffects(const UCiFSocialExchangeConte
 			}
 		}
 	}
+}
+
+UCifInstantiation* UDemoCifImplementation::debug_preparePlotPointDialogue(FName revealerName) const
+{
+    FCifPlotPointSelection ppSelection;
+    if (!mCifNarrativeManager->findPlotPointToPlay(revealerName, ppSelection)) {
+        return nullptr;
+    }
+    return mCifNarrativeManager->getInstantiationForPlotPoint(ppSelection);
 }
 
 void UDemoCifImplementation::generateResultString(const UCiFSocialExchangeContext* sgContext, const bool isNPC, FString& outStr) const

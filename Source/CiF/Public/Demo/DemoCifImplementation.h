@@ -8,6 +8,7 @@
 #include "CifImplementationBase.h"
 #include "DemoCifImplementation.generated.h"
 
+class UCifInstantiation;
 class UCifNarrativeManager;
 struct FGameScore;
 class UCiFCharacter;
@@ -172,7 +173,13 @@ public:
 	 * Please note the order of predicates in the effect rules matters for the game state to change correctly
 	 */
 	void handleItemMoveEffects(const UCiFSocialExchangeContext* context);
-	
+    
+    
+    /*********************************************************************/
+    /**************************** DEBUG METHODS **************************/
+    /*********************************************************************/
+    UFUNCTION(BlueprintCallable, Category = "CiF")
+	UCifInstantiation* debug_preparePlotPointDialogue(FName revealerName) const;
 private:
 	/**
 	 * @param sgContext social game context to generate a result string from

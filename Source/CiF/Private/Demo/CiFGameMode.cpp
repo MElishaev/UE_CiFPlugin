@@ -25,7 +25,7 @@ void ACiFGameMode::initCif()
     const auto cifSubsystem = GetWorld()->GetGameInstance()->GetSubsystem<UCiFSubsystem>();
     mCifManager = cifSubsystem->getInstance();
     mCifManager->init(this);
-    cifSubsystem->setImplementation(NewObject<UDemoCifImplementation>(this));
+    cifSubsystem->setImplementation(NewObject<UDemoCifImplementation>(cifSubsystem));
     cifSubsystem->getImplementation()->init();
 }
 

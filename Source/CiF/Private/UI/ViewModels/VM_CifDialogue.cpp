@@ -39,7 +39,8 @@ void UVM_CifDialogue::advanceDialogue()
 void UVM_CifDialogue::finishDialogue()
 {
     mInstantiation = nullptr;
-    UE_MVVM_SET_PROPERTY_VALUE(mSpeaker, NAME_None);
-    UE_MVVM_SET_PROPERTY_VALUE(mText, FText::GetEmpty());
+
+    // don't clear the speaker name and text because when clearing them before the widget
+    // fades out, we see the clearing on the widget (text becomes "None")
     UE_MVVM_SET_PROPERTY_VALUE(mIsDialogueActive, false);
 }

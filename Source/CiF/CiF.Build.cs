@@ -42,6 +42,7 @@ public class CiF : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
+				"InputCore",
 				"Slate",
 				"SlateCore",
 				"FileSystemUtilities", // for loading and writing files from file system like json

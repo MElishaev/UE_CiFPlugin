@@ -18,8 +18,8 @@ class UVM_CifDialogue;
  * - Provide a UCommonButtonBase named mAdvanceButton that covers the screen and remains hit-testable.
  * - Place visual content above the button, but make that content hit-test-invisible so clicks reach the button.
  *
- * The focused button receives mouse clicks directly. Slate's default navigation maps Space and Enter to the
- * UI Accept action, which also clicks the focused button; no separate Enhanced Input mapping is required.
+ * The focused button receives mouse clicks directly. This widget explicitly handles Space and Enter so the
+ * dialogue controls do not depend on which keys the host project's Common UI Accept action maps.
  */
 UCLASS(Abstract, BlueprintType, meta = (DisableNativeTick))
 class CIF_API UW_CifDialogue : public UMKUI_W_ActivatableBase
@@ -44,11 +44,14 @@ public:
 protected:
     virtual void NativeOnInitialized() override;
 
-    /** Focuses the full-screen button so the standard UI Accept action advances the dialogue. */
+    /** Focuses the full-screen button so mouse and configured Common UI Accept input still work naturally. */
     virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
     /** Blocks lower-priority gameplay input while the dialogue is the active Common UI screen. */
     virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
+
+    /** Advances on Space or Enter and consumes those keys before the focused child or gameplay receives them. */
+    virtual FReply NativeOnPreviewKeyDown(const FGeometry& inGeometry, const FKeyEvent& inKeyEvent) override;
 
 private:
     /** Required WBP button. Keep it Visible with zero render opacity; do not make it hit-test-invisible. */
