@@ -441,6 +441,15 @@ UCifInstantiation* UDemoCifImplementation::debug_preparePlotPointDialogue(FName 
     return mCifNarrativeManager->getInstantiationForPlotPoint(ppSelection);
 }
 
+bool UDemoCifImplementation::completePlotPointDialogue(const FName instantiationName)
+{
+    if (!mCifNarrativeManager) {
+        GLS_LOG(LogTemp, Error, TEXT("Cannot complete plot-point dialogue because the narrative manager is unavailable"));
+        return false;
+    }
+    return mCifNarrativeManager->completePlotPointDialogue(instantiationName);
+}
+
 void UDemoCifImplementation::generateResultString(const UCiFSocialExchangeContext* sgContext, const bool isNPC, FString& outStr) const
 {
 	const auto initiator = mCifManager->getGameObjectByName(sgContext->mInitiatorName);

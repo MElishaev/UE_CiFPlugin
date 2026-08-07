@@ -22,6 +22,7 @@ UCifPlotPoint* UCifPlotPoint::loadFromJson(const TSharedPtr<FJsonObject> json, c
 
     // load knowledge that this PP based on
     auto ppName = FName(json->GetStringField(TEXT("_name")));
+    pp->mObjectName = ppName;
     pp->mKnowledge = cifManager->getKnowledgeByName(ppName);
     if (!pp->mKnowledge) {
         GLS_LOG_CONTEXT(worldContextObject, LogTemp, Error, TEXT("Didn't find knowledge %s in knowledge list in cif"), *ppName.ToString());

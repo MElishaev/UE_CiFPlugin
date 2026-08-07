@@ -173,6 +173,10 @@ public:
 	 * Please note the order of predicates in the effect rules matters for the game state to change correctly
 	 */
 	void handleItemMoveEffects(const UCiFSocialExchangeContext* context);
+
+    /** Commits the pending plot-point revelation represented by a naturally completed dialogue. */
+    UFUNCTION(BlueprintCallable, Category = "CiF|Narrative")
+    bool completePlotPointDialogue(FName instantiationName);
     
     
     /*********************************************************************/

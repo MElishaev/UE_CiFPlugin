@@ -88,6 +88,7 @@ void UW_CifDialogue::advanceDialogue()
 
     mDialogueViewModel->advanceDialogue();
     if (!mDialogueViewModel->isDialogueActive()) {
+        OnDialogueFinished.Broadcast(mDialogueViewModel->getInstantiationName());
         DeactivateWidget();
     }
 }

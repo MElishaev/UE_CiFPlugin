@@ -26,6 +26,10 @@ public:
     UFUNCTION(BlueprintPure, Category = "CiF|UI|Dialogue")
     bool isDialogueActive() const { return mIsDialogueActive; }
 
+    /** Returns the completed dialogue's globally unique instantiation name/registry ID. */
+    UFUNCTION(BlueprintPure, Category = "CiF|UI|Dialogue")
+    FName getInstantiationName() const { return mInstantiationName; };
+
 private:
     void finishDialogue();
 
@@ -40,4 +44,7 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UCifInstantiation> mInstantiation;
+
+    /** Preserved after playback finishes so completion observers receive the instantiation that just ended. */
+    FName mInstantiationName = NAME_None;
 };

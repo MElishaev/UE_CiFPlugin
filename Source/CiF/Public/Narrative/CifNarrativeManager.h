@@ -39,6 +39,9 @@ public:
     /** Resolves the selected revelation route into its registered dialogue instantiation. */
     UCifInstantiation* getInstantiationForPlotPoint(const FCifPlotPointSelection& selection);
 
+    /** Activates the plot point whose prepared revelation dialogue completed. */
+    bool completePlotPointDialogue(FName instantiationName);
+
 private:
     void loadPlotPoints(const FString& filePath, const UObject* worldContextObject);
 
@@ -47,4 +50,7 @@ private:
 
     UPROPERTY()
     UMK_DialogueManager* mDialogueMgr;
+
+    /** Correlates prepared dialogue IDs with the plot points that should be committed on natural completion. */
+    TMap<FName, FName> mPendingPlotPointsByInstantiation;
 };

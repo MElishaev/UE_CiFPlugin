@@ -7,6 +7,7 @@
 
 void UVM_CifDialogue::startDialogue(UCifInstantiation* instantiation)
 {
+    mInstantiationName = IsValid(instantiation) ? instantiation->getName() : NAME_None;
     if (!IsValid(instantiation)) {
         GLS_LOG(LogTemp, Warning, TEXT("Cannot start dialogue with an invalid instantiation"));
         finishDialogue();

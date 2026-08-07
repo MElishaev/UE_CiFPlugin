@@ -10,6 +10,8 @@ class UCifInstantiation;
 class UCommonButtonBase;
 class UVM_CifDialogue;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDialogueFinished, FName, instantiationName);
+
 /**
  * Common UI screen that presents one CiF dialogue through its native ViewModel.
  *
@@ -40,6 +42,9 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "CiF|UI|Dialogue")
     UVM_CifDialogue* getDialogueViewModel() const { return mDialogueViewModel; }
+
+    UPROPERTY(BlueprintAssignable, Category = "CiF|UI|Dialogue")
+    FOnDialogueFinished OnDialogueFinished;
 
 protected:
     virtual void NativeOnInitialized() override;

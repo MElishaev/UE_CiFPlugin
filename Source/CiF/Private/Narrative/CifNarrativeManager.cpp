@@ -74,6 +74,31 @@ UCifInstantiation* UCifNarrativeManager::getInstantiationForPlotPoint(const FCif
     UCifInstantiation* instantiation = mDialogueMgr->prepareDialogue(instantiationId);
     if (!instantiation) {
         GLS_LOG(LogTemp, Error, TEXT("Failed to prepare plot-point instantiation %s"), *instantiationId.ToString());
+        return nullptr;
     }
+
+    mPendingPlotPointsByInstantiation.Add(instantiationId, selection.mPlotPoint->mKnowledge->mObjectName);
     return instantiation;
+}
+
+bool UCifNarrativeManager::completePlotPointDialogue(const FName instantiationName)
+{
+    if (!mPlotPointPool) {
+        GLS_LOG(LogTemp, Error, TEXT("Cannot complete plot-point dialogue because the plot-point pool is not initialized"));
+        return false;
+    }
+
+    const FName* plotPointName = mPendingPlotPointsByInstantiation.Find(instantiationName);
+    if (!plotPointName) {
+        GLS_LOG(LogTemp, Warning, TEXT("Dialogue %s is not pending a plot-point revelation"), *instantiationName.ToString());
+        return false;
+    }
+    if (!mPlotPointPool->isAvailableByName(*plotPointName)) {
+        GLS_LOG(LogTemp, Warning, TEXT("Plot point %s is no longer available for completion"), *plotPointName->ToString());
+        return false;
+    }
+
+    mPlotPointPool->revealPlotPoint(*plotPointName);
+    mPendingPlotPointsByInstantiation.Remove(instantiationName);
+    return true;
 }
