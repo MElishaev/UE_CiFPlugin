@@ -26,9 +26,13 @@ public class CiF : ModuleRules
 			new string[]
 			{
 				"Core",
+				// this dependency isn't the best but if i intend to use this UI in all my projects,
+				// then it is ok, as long as i don't upload this to market
 				"GLS",
-				"ModelViewViewModel"
-				// ... add other public dependencies that you statically link with here ...
+				"ModelViewViewModel",
+				"MK_UI",
+				"UMG",
+				"CommonUI"
 			}
 			);
 			
@@ -42,9 +46,7 @@ public class CiF : ModuleRules
 				"SlateCore",
 				"FileSystemUtilities", // for loading and writing files from file system like json
 				"Json",
-				"JsonUtilities", 
-				"MK_UI"
-				// ... add private dependencies that you statically link with here ...	
+				"JsonUtilities"
 			}
 			);
 		

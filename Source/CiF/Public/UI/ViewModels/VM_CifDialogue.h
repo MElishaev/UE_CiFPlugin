@@ -23,6 +23,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "CiF|UI|Dialogue")
     void advanceDialogue();
 
+    UFUNCTION(BlueprintPure, Category = "CiF|UI|Dialogue")
+    bool isDialogueActive() const { return mIsDialogueActive; }
+
 private:
     void finishDialogue();
 
